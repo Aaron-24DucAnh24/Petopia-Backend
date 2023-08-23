@@ -26,13 +26,14 @@ namespace PetAdoption.Business.Extensions
       services.AddSingleton<ICacheService, CacheService>();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
+      services.AddScoped<IBlobService, BlobService>();
 
       services.AddModelValidators();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddApplicationDbContext(configuration, ConnectionStringName.DATABASE);
+      services.AddApplicationDbContext(configuration, "database");
       services.AddScoped<IUserContext, UserContext>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddHttpContextAccessor();

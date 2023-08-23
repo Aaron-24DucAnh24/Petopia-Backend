@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
 using PetAdoption.Business.Services.Interfaces;
-using PetAdoption.Business.Utils;
 
 namespace PetAdoption.API.Controllers
 {
-  [ApiController]
+    [ApiController]
   [Route("api/Authentication")]
   public class AuthController : ControllerBase
   {
