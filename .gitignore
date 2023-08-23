@@ -5,6 +5,7 @@
 /PetAdoption.API/obj
 /PetAdoption.API/.vs
 /PetAdoption.API/.vscode
+/PetAdoption.API/appsettings.json
 
 /PetAdoption.Business/bin
 /PetAdoption.Business/obj
