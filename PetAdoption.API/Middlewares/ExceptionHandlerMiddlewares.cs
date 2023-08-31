@@ -1,6 +1,4 @@
-using System.Text.Json;
 using PetAdoption.Business.Constants;
-using PetAdoption.Business.Models;
 using PetAdoption.Business.Utils;
 
 namespace PetAdoption.API.Middlewares
@@ -8,10 +6,12 @@ namespace PetAdoption.API.Middlewares
   public class ExceptionHandlerMiddleware
   {
     private readonly RequestDelegate _requestDelegate;
+    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-    public ExceptionHandlerMiddleware(RequestDelegate requestDelegate)
+    public ExceptionHandlerMiddleware(RequestDelegate requestDelegate, ILogger<ExceptionHandlerMiddleware> logger)
     {
       _requestDelegate = requestDelegate;
+      _logger = logger;
     }
 
     public async Task Invoke(HttpContext context)
@@ -40,6 +40,7 @@ namespace PetAdoption.API.Middlewares
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = code;
+        _logger.Log(LogLevel.Information, message);
         await context.Response.WriteAsync(ResponseUtil.GetErrorResponse(message, code));
       }
     }

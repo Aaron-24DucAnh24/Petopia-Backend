@@ -8,7 +8,7 @@ using PetAdoption.Business.Services.Interfaces;
 
 namespace PetAdoption.API.Controllers
 {
-    [ApiController]
+  [ApiController]
   [Route("api/Authentication")]
   public class AuthController : ControllerBase
   {
