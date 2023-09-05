@@ -109,14 +109,12 @@ namespace PetAdoption.Business.Services.Implementations
 
       JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken;
       UserContextInfo? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken);
-
       if (userContextInfo == null)
       {
         return false;
       }
 
       UserConnection? userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id);
-
       if (userConnection == null)
       {
         return false;

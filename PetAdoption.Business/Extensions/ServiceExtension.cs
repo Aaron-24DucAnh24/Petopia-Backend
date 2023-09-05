@@ -1,21 +1,21 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Models;
+using System.Security.Claims;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using FluentValidation;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Services.Interfaces;
 using PetAdoption.Business.Services.Implementations;
 using PetAdoption.DataLayer.Extensions;
 using PetAdoption.Business.Data;
-using PetAdoption.Business.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using PetAdoption.Business.Models;
-using PetAdoption.Business.Contexts;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using FluentValidation;
 using PetAdoption.Business.Validators;
+using PetAdoption.Business.Utils;
+using PetAdoption.Business.Contexts;
+using PetAdoption.Business.Models;
 
 namespace PetAdoption.Business.Extensions
 {
@@ -68,8 +68,9 @@ namespace PetAdoption.Business.Extensions
             {
               Endpoint? endpoint = context.HttpContext.GetEndpoint();
               bool authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
+              bool isSwaggerIndex =  context.HttpContext.Request.Path.ToString().Contains("swagger");
 
-              if (authorized)
+              if (authorized && !isSwaggerIndex)
               {
                 string? accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request) ?? throw new Exception(ExceptionMessage.UNAUTHORIZED);
                 IAuthService authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
@@ -90,8 +91,10 @@ namespace PetAdoption.Business.Extensions
 
             OnTokenValidated = context =>
             {
-              ClaimsPrincipal? claimsPrincipal = context.Principal ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
-              UserContextInfo userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal) ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
+              ClaimsPrincipal? claimsPrincipal = context.Principal
+                ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
+              UserContextInfo userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal)
+                ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
 
               IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
               userContext.Email = userContextInfo.Email;
