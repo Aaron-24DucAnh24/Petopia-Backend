@@ -27,6 +27,12 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=TicketB
 docker start azuresql
 ```
 
+5. Create a development HTTPs certificate
+```bash
+  dotnet dev-certs https --clean
+  dotnet dev-certs https -ep ./certificate.pfx -p $HTTPS_CREDENTIAL$ --trust
+```
+
 5. Go to folder "PetAdoption.Data", run
 
 ```bash
@@ -34,10 +40,20 @@ dotnet ef migrations add init
 dotnet ef database update
 ```
 
-6. To start program within development environment, run by debugger of VSCode or VS. To start program within production environment, go to folder "PetAdoption.API", run
+6. To start program within development environment, run by debugger of VSCode or VS. For another way
+
+- Linux:
 
 ```bash
-dotnet run
+  export ASPNETCORE_ENVIRONMENT=Development
+  dotnet run
+```
+
+- Windows:
+
+```bash
+  set ASPNETCORE_ENVIRONMENT=Development
+  dotnet run
 ```
 
 > Now program is running at <<<https://127.0.0.1:4000>>> on your local machine.
