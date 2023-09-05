@@ -18,7 +18,7 @@
 
 ```bash
 docker pull mcr.microsoft.com/azure-sql-edge
-docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=AzureSQL.Database.v1' -p 1433:1433 --name azuresql -d mcr.microsoft.com/azure-sql-edge
+docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=TicketBooking.database.v1' -p 1433:1433 --name azuresql -d mcr.microsoft.com/azure-sql-edge
 ```
 
 4. Database is running now. If you want to start database service later , run

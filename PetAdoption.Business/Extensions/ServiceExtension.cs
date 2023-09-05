@@ -68,9 +68,8 @@ namespace PetAdoption.Business.Extensions
             {
               Endpoint? endpoint = context.HttpContext.GetEndpoint();
               bool authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
-              bool isSwaggerIndex =  context.HttpContext.Request.Path.ToString().Contains("swagger");
 
-              if (authorized && !isSwaggerIndex)
+              if (authorized)
               {
                 string? accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request) ?? throw new Exception(ExceptionMessage.UNAUTHORIZED);
                 IAuthService authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
