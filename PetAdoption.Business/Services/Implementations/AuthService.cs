@@ -11,7 +11,7 @@ using PetAdoption.Data.Entities;
 
 namespace PetAdoption.Business.Services.Implementations
 {
-  public class AuthService : BaseService, IAuthService
+    public class AuthService : BaseService, IAuthService
   {
     public AuthService(IServiceProvider provider) : base(provider)
     {

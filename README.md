@@ -27,20 +27,16 @@ docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=TicketB
 docker start azuresql
 ```
 
-5. Create a development HTTPs certificate
-```bash
-  dotnet dev-certs https --clean
-  dotnet dev-certs https -ep ./certificate.pfx -p $HTTPS_CREDENTIAL$ --trust
-```
+5. Create a development HTTPs certificate on your local machine, update "Kestrel" of "app.setting.json"
 
-5. Go to folder "PetAdoption.Data", run
+6. Go to folder "PetAdoption.Data", run
 
 ```bash
 dotnet ef migrations add init
 dotnet ef database update
 ```
 
-6. To start program within development environment, run by debugger of VSCode or VS. For another way
+7. To start program within development environment, run by debugger of VSCode or VS. For another way
 
 - Linux:
 
