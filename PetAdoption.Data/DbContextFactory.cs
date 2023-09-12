@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using PetAdoption.Data;
 
 namespace TicketBooking.API.DBContext
@@ -11,7 +12,12 @@ namespace TicketBooking.API.DBContext
 
       DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
       
-      optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=PetAdoption;UID=SA;PWD=TicketBooking.database.v1;TrustServerCertificate=true;");
+      IConfigurationRoot configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .Build();
+
+      optionsBuilder.UseSqlServer(configuration.GetConnectionString("database"));
 
       return new ApplicationDbContext(optionsBuilder.Options);
     }

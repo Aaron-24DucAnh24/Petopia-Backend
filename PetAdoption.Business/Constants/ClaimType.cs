@@ -2,10 +2,10 @@ namespace PetAdoption.Business.Constants
 {
   public class ClaimType
   {
-    public static readonly string FIRST_NAME = "First name";
-    public static readonly string LAST_NAME = "Last name";
-    public static readonly string ROLE = "Role";
-    public static readonly string ID = "Id";
-    public static readonly string EMAIL = "Email";
+    public const string FIRST_NAME = "First name";
+    public const string LAST_NAME = "Last name";
+    public const string ROLE = "Role";
+    public const string ID = "Id";
+    public const string EMAIL = "Email";
   }
 }

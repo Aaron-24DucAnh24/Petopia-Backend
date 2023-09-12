@@ -1,5 +1,7 @@
 using PetAdoption.API.Middlewares;
 using PetAdoption.Business.Extensions;
+using PetAdoption.BackgroundJobs.Extensions;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services
 
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddBusinessServices();
+builder.Services.AddBackgroundServices(builder.Configuration);
 
 var app = builder.Build();
 

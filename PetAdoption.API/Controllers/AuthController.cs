@@ -4,7 +4,8 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
-using PetAdoption.Business.Services.Interfaces;
+using PetAdoption.Business.Interfaces;
+using PetAdoption.BackgroundJobs.Interfaces;
 
 namespace PetAdoption.API.Controllers
 {
@@ -16,17 +17,20 @@ namespace PetAdoption.API.Controllers
     private readonly ICookieService _cookieService;
     private readonly IValidator<LoginRequest> _loginRequestValidator;
     private readonly IValidator<RegisterRequest> _registerRequestValidator;
+    private readonly ISampleJobService _sampleJobService;
 
     public AuthController(
       IAuthService authService,
       ICookieService cookieService,
       IValidator<LoginRequest> loginRequestValidator,
-      IValidator<RegisterRequest> registerRequestValidator)
+      IValidator<RegisterRequest> registerRequestValidator,
+      ISampleJobService sampleJobService)
     {
       _authService = authService;
       _cookieService = cookieService;
       _loginRequestValidator = loginRequestValidator;
       _registerRequestValidator = registerRequestValidator;
+      _sampleJobService = sampleJobService;
     }
 
     [HttpPost("register")]

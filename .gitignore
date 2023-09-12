@@ -23,3 +23,7 @@
 /PetAdoption.DataLayer/.vs
 /PetAdoption.DataLayer/.vscode
 
+/PetAdoption.BackgroundJobs/bin
+/PetAdoption.BackgroundJobs/obj
+/PetAdoption.BackgroundJobs/.vs
+/PetAdoption.BackgroundJobs/.vscode
