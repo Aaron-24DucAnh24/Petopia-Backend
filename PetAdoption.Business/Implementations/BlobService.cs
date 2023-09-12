@@ -3,9 +3,9 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PetAdoption.Business.Services.Interfaces;
+using PetAdoption.Business.Interfaces;
 
-namespace PetAdoption.Business.Services.Implementations
+namespace PetAdoption.Business.Implementations
 {
   public class BlobService : IBlobService
   {

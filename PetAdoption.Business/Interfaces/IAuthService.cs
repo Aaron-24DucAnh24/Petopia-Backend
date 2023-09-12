@@ -1,6 +1,6 @@
 using PetAdoption.Business.Models;
 
-namespace PetAdoption.Business.Services.Interfaces
+namespace PetAdoption.Business.Interfaces
 {
   public interface IAuthService
   {

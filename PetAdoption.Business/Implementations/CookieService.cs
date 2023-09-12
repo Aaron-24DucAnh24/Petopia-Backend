@@ -1,14 +1,19 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using PetAdoption.Business.Constants;
-using PetAdoption.Business.Services.Interfaces;
+using PetAdoption.Business.Interfaces;
 
-namespace PetAdoption.Business.Services.Implementations
+namespace PetAdoption.Business.Implementations
 {
   public class CookieService : BaseService, ICookieService
   {
-    public CookieService(IServiceProvider provider) : base(provider)
+    public CookieService(
+      IServiceProvider provider, 
+      ILogger<CookieService> logger
+    ) : base(provider, logger)
     {
     }
+
 
     public void ClearAccessToken()
     {

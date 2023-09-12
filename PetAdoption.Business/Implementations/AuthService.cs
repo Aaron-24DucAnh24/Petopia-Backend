@@ -5,15 +5,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Models;
-using PetAdoption.Business.Services.Interfaces;
+using PetAdoption.Business.Interfaces;
 using PetAdoption.Business.Utils;
 using PetAdoption.Data.Entities;
+using Microsoft.Extensions.Logging;
 
-namespace PetAdoption.Business.Services.Implementations
+namespace PetAdoption.Business.Implementations
 {
-    public class AuthService : BaseService, IAuthService
+  public class AuthService : BaseService, IAuthService
   {
-    public AuthService(IServiceProvider provider) : base(provider)
+    public AuthService(
+      IServiceProvider provider, 
+      ILogger<AuthService> logger
+    ) : base(provider, logger)
     {
     }
 
@@ -32,20 +36,18 @@ namespace PetAdoption.Business.Services.Implementations
         Password = request.Password,
       });
 
-      string accessToken = TokenUtil.GenerateAccessToken(user, Configuration);
-      UserConnection userConnection = new()
+      UserConnection userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
       {
         Id = user.Id,
-        AccessToken = accessToken,
+        AccessToken = TokenUtil.GenerateAccessToken(user, Configuration),
         AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSetting.ACCESS_TOKEN_EXPIRATION_DAYS),
-      };
+      });
 
-      await UnitOfWork.UserConnections.CreateAsync(userConnection);
       await UnitOfWork.SaveChangesAsync();
 
       return new AuthenticationResponse()
       {
-        AccessToken = accessToken,
+        AccessToken = userConnection.AccessToken,
         AccessTokenExpirationDate = userConnection.AccessTokenExpirationDate
       };
     }
@@ -84,7 +86,7 @@ namespace PetAdoption.Business.Services.Implementations
 
       userConnection.IsDeleted = true;
       await UnitOfWork.SaveChangesAsync();
-
+      
       return true;
     }
 
@@ -130,11 +132,11 @@ namespace PetAdoption.Business.Services.Implementations
 
     public async Task<string> ValidateRecaptchaTokenAsync(string token)
     {
-      string endpoint = Configuration.GetValue<string>("GoogleRecaptcha:endpoint") 
+      string endpoint = Configuration.GetValue<string>("GoogleRecaptcha:endpoint")
         ?? throw new Exception("Recaptcha configuration not found");
-      string securityToken = Configuration.GetValue<string>("GoogleRecaptcha:securityToken") 
+      string securityToken = Configuration.GetValue<string>("GoogleRecaptcha:securityToken")
         ?? throw new Exception("Recaptcha configuration not found");
-        
+
       Dictionary<string, string?> query = new()
       {
         ["secret"] = securityToken,

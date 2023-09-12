@@ -1,4 +1,4 @@
-namespace PetAdoption.Business.Services.Interfaces
+namespace PetAdoption.Business.Interfaces
 {
   public interface ICacheService
   {

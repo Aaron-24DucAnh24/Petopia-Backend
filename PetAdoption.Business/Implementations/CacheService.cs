@@ -1,7 +1,7 @@
 using System.Runtime.Caching;
-using PetAdoption.Business.Services.Interfaces;
+using PetAdoption.Business.Interfaces;
 
-namespace PetAdoption.Business.Services.Implementations
+namespace PetAdoption.Business.Implementations
 {
   public class CacheService : ICacheService
   {
