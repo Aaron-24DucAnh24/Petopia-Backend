@@ -17,7 +17,7 @@ namespace TicketBooking.API.DBContext
         .AddJsonFile("appsettings.json")
         .Build();
 
-      optionsBuilder.UseSqlServer(configuration.GetConnectionString("database"));
+      optionsBuilder.UseSqlServer(configuration.GetConnectionString("Database"));
 
       return new ApplicationDbContext(optionsBuilder.Options);
     }

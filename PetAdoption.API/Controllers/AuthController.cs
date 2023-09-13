@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
 using PetAdoption.Business.Interfaces;
-using PetAdoption.BackgroundJobs.Interfaces;
 
 namespace PetAdoption.API.Controllers
 {
-  [ApiController]
+    [ApiController]
   [Route("api/Authentication")]
   public class AuthController : ControllerBase
   {
@@ -17,20 +16,18 @@ namespace PetAdoption.API.Controllers
     private readonly ICookieService _cookieService;
     private readonly IValidator<LoginRequest> _loginRequestValidator;
     private readonly IValidator<RegisterRequest> _registerRequestValidator;
-    private readonly ISampleJobService _sampleJobService;
 
     public AuthController(
       IAuthService authService,
       ICookieService cookieService,
       IValidator<LoginRequest> loginRequestValidator,
-      IValidator<RegisterRequest> registerRequestValidator,
-      ISampleJobService sampleJobService)
+      IValidator<RegisterRequest> registerRequestValidator
+    )
     {
       _authService = authService;
       _cookieService = cookieService;
       _loginRequestValidator = loginRequestValidator;
       _registerRequestValidator = registerRequestValidator;
-      _sampleJobService = sampleJobService;
     }
 
     [HttpPost("register")]
@@ -83,7 +80,7 @@ namespace PetAdoption.API.Controllers
       return Ok(await _authService.ValidateRecaptchaTokenAsync(token));
     }
 
-    [HttpGet("test-authentication")]
+    [HttpGet("test-feature")]
     [Authorize]
     public ActionResult<string> TestAuthentication()
     {

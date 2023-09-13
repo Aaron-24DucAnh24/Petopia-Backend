@@ -2,7 +2,7 @@ using PetAdoption.Data.Enums;
 
 namespace PetAdoption.Business.Models
 {
-  public class UserContextInfo
+  public class UserContextModel
   {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;

@@ -1,7 +1,6 @@
 using PetAdoption.API.Middlewares;
 using PetAdoption.Business.Extensions;
 using PetAdoption.BackgroundJobs.Extensions;
-using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +22,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
@@ -35,7 +34,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors("public");
+app.UseCors();
 
 app.MapControllers();
 

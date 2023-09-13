@@ -110,7 +110,7 @@ namespace PetAdoption.Business.Implementations
       }
 
       JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken;
-      UserContextInfo? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken);
+      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken);
       if (userContextInfo == null)
       {
         return false;
@@ -132,9 +132,9 @@ namespace PetAdoption.Business.Implementations
 
     public async Task<string> ValidateRecaptchaTokenAsync(string token)
     {
-      string endpoint = Configuration.GetValue<string>("GoogleRecaptcha:endpoint")
+      string endpoint = Configuration.GetValue<string>("GoogleRecaptcha:Endpoint")
         ?? throw new Exception("Recaptcha configuration not found");
-      string securityToken = Configuration.GetValue<string>("GoogleRecaptcha:securityToken")
+      string securityToken = Configuration.GetValue<string>("GoogleRecaptcha:SecurityToken")
         ?? throw new Exception("Recaptcha configuration not found");
 
       Dictionary<string, string?> query = new()

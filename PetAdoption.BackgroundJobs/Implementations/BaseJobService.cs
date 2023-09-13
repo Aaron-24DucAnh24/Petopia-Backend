@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace PetAdoption.BackgroundJobs.Implementations
 {
@@ -15,6 +14,6 @@ namespace PetAdoption.BackgroundJobs.Implementations
     protected T GetRequiredService<T>() where T : notnull
     {
       return ServiceProvider.GetRequiredService<T>();
-    }   
+    }
   }
 }

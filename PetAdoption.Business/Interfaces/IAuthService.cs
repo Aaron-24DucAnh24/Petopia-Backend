@@ -1,4 +1,5 @@
 using PetAdoption.Business.Models;
+using PetAdoption.Data.Entities;
 
 namespace PetAdoption.Business.Interfaces
 {

@@ -50,7 +50,7 @@ namespace PetAdoption.Business.Utils
       return jwtToken;
     }
 
-    public static UserContextInfo? GetUserContextInfo(ClaimsPrincipal claimsPrincipal)
+    public static UserContextModel? GetUserContextInfo(ClaimsPrincipal claimsPrincipal)
     {
       IEnumerable<Claim> claims = claimsPrincipal.Claims;
       Claim? emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
@@ -69,7 +69,7 @@ namespace PetAdoption.Business.Utils
         return null;
       }
 
-      return new UserContextInfo()
+      return new UserContextModel()
       {
         FirstName = firstNameClaim.Value,
         LastName = lastNameClaim.Value,
@@ -79,7 +79,7 @@ namespace PetAdoption.Business.Utils
       };
     }
 
-    public static UserContextInfo? GetUserContextInfo(JwtSecurityToken token)
+    public static UserContextModel? GetUserContextInfo(JwtSecurityToken token)
     {
       IEnumerable<Claim> claims = token.Claims;
       Claim? emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
@@ -98,7 +98,7 @@ namespace PetAdoption.Business.Utils
         return null;
       }
 
-      return new UserContextInfo()
+      return new UserContextModel()
       {
         FirstName = firstNameClaim.Value,
         LastName = lastNameClaim.Value,

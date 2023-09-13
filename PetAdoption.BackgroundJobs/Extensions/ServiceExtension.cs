@@ -14,9 +14,10 @@ namespace PetAdoption.BackgroundJobs.Extensions
         .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
         .UseSimpleAssemblyNameTypeSerializer()
         .UseRecommendedSerializerSettings()
-        .UseSqlServerStorage(configuration.GetConnectionString("database")));
+        .UseSqlServerStorage(configuration.GetConnectionString("Database")));
       services.AddHangfireServer();
-      services.AddScoped<ISampleJobService, SampleJobService>();
+      services.AddScoped<ICacheJobService, CacheJobService>();
+      services.AddHostedService<InitJobsService>();
     }
   }
 }

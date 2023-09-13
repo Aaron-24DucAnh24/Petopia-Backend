@@ -40,7 +40,7 @@ namespace PetAdoption.API.Middlewares
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = code;
-        _logger.Log(LogLevel.Information, message);
+        _logger.LogInformation("{Message}", message);
         await context.Response.WriteAsync(ResponseUtil.GetErrorResponse(message, code));
       }
     }

@@ -14,8 +14,8 @@ namespace PetAdoption.Business.Implementations
     protected readonly IUserContext UserContext;
     protected readonly IHttpContextAccessor HttpContextAccessor;
     protected readonly IUnitOfWork UnitOfWork;
-    protected readonly ICacheService CacheService;
     protected readonly ILogger Logger;
+    protected readonly ICacheManager CacheManager;
 
     public BaseService(
       IServiceProvider provider, 
@@ -25,9 +25,9 @@ namespace PetAdoption.Business.Implementations
       UserContext = provider.GetService<IUserContext>() ?? throw new Exception("Service not found");
       Configuration = provider.GetService<IConfiguration>() ?? throw new Exception("Service not found");
       HttpContextAccessor = provider.GetService<IHttpContextAccessor>() ?? throw new Exception("Service not found");
-      CacheService = provider.GetService<ICacheService>() ?? throw new Exception("Service not found");
       UnitOfWork = provider.GetService<IUnitOfWork>() ?? throw new Exception("Service not found");
+      CacheManager = provider.GetService<ICacheManager>() ?? throw new Exception("Service not found");
       Logger = logger;
     }
   }
-}
+} 

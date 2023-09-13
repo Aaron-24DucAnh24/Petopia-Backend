@@ -23,11 +23,10 @@ namespace PetAdoption.Business.Extensions
   {
     public static void AddBusinessServices(this IServiceCollection services)
     {
-      services.AddSingleton<ICacheService, CacheService>();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IBlobService, BlobService>();
-
+      services.AddSingleton<ICacheManager, CacheManager>();
       services.AddModelValidators();
     }
 
@@ -40,7 +39,8 @@ namespace PetAdoption.Business.Extensions
       services.AddDataLayerServices();
       services.AddSwaggerService();
       services.AddJwtAuthentication(configuration);
-      services.AddCorsPolicies();
+      services.AddCorsPolicies(configuration);
+      services.AddMemoryCache();
     }
 
     public static void AddModelValidators(this IServiceCollection services)
@@ -51,7 +51,6 @@ namespace PetAdoption.Business.Extensions
 
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-
       services
         .AddAuthentication(opt =>
         {
@@ -92,7 +91,7 @@ namespace PetAdoption.Business.Extensions
             {
               ClaimsPrincipal? claimsPrincipal = context.Principal
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
-              UserContextInfo userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal)
+              UserContextModel userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal)
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
 
               IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
@@ -108,15 +107,34 @@ namespace PetAdoption.Business.Extensions
         });
     }
 
-    public static void AddCorsPolicies(this IServiceCollection services)
+    public static void AddCorsPolicies(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddCors(options =>
+      services.AddCors(options => options.AddDefaultPolicy(policy =>
       {
-        options.AddPolicy("public", policy =>
+        string? originConfig = configuration.GetSection("CorsOrigins").Get<string>();
+
+        if (string.IsNullOrEmpty(originConfig) || originConfig.Equals("*"))
         {
-          policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        });
-      });
+          policy
+            .SetIsOriginAllowed((_) => true)
+            .SetIsOriginAllowedToAllowWildcardSubdomains()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+        }
+        else
+        {
+          string[] origins = originConfig
+            .Split(";", StringSplitOptions.RemoveEmptyEntries)
+            .ToArray();
+
+          policy
+            .WithOrigins(origins)
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+        }
+      }));
     }
 
     public static void AddSwaggerService(this IServiceCollection services)
