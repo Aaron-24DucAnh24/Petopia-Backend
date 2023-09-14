@@ -65,8 +65,6 @@ namespace PetAdoption.Business.Implementations
       if (result.IsNullOrEmpty())
       {
         result = await query.ToListAsync();
-        // test
-        _logger.LogWarning("No good");
         Set(key, result, options);
       }
 

@@ -21,18 +21,20 @@ namespace PetAdoption.Business.Extensions
 {
   public static class ServiceExtension
   {
-    public static void AddBusinessServices(this IServiceCollection services)
+    public static void AddBusinessServices(this IServiceCollection services, IConfiguration configuration)
     {
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IBlobService, BlobService>();
-      services.AddSingleton<ICacheManager, CacheManager>();
+      services.AddScoped<IEmailService, EmailService>();
+
+      services.AddCacheService(configuration);
       services.AddModelValidators();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddApplicationDbContext(configuration, "database");
+      services.AddApplicationDbContext(configuration, AppSettingKey.DB_CONNECTION_STRING);
       services.AddScoped<IUserContext, UserContext>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddHttpContextAccessor();
@@ -40,7 +42,25 @@ namespace PetAdoption.Business.Extensions
       services.AddSwaggerService();
       services.AddJwtAuthentication(configuration);
       services.AddCorsPolicies(configuration);
+    }
+
+    public static void AddCacheService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var redisCacheSetting = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
+      if (redisCacheSetting != null && !string.IsNullOrEmpty(redisCacheSetting.ConnectionString))
+      {
+        services.AddStackExchangeRedisCache(options =>
+        {
+          options.InstanceName = redisCacheSetting.InstanceName;
+          options.Configuration = redisCacheSetting.ConnectionString;
+        });
+      }
+      else
+      {
+        services.AddDistributedMemoryCache();
+      }
       services.AddMemoryCache();
+      services.AddSingleton<ICacheManager, CacheManager>();
     }
 
     public static void AddModelValidators(this IServiceCollection services)
@@ -91,7 +111,7 @@ namespace PetAdoption.Business.Extensions
             {
               ClaimsPrincipal? claimsPrincipal = context.Principal
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
-              UserContextModel userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal)
+              UserContextModel userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal.Claims)
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
 
               IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
@@ -111,7 +131,7 @@ namespace PetAdoption.Business.Extensions
     {
       services.AddCors(options => options.AddDefaultPolicy(policy =>
       {
-        string? originConfig = configuration.GetSection("CorsOrigins").Get<string>();
+        string? originConfig = configuration.GetSection(AppSettingKey.CORS_ORIGIN).Get<string>();
 
         if (string.IsNullOrEmpty(originConfig) || originConfig.Equals("*"))
         {
@@ -154,6 +174,7 @@ namespace PetAdoption.Business.Extensions
       });
     }
 
+    //--------------- Swagger configuration -----------------//
     internal class SecureEndpointAuthRequirementFilter : IOperationFilter
     {
       public void Apply(OpenApiOperation operation, OperationFilterContext context)

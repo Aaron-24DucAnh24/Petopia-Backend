@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using PetAdoption.Data;
 
-namespace TicketBooking.API.DBContext
+namespace PetAdoption.Data
 {
     class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
   {

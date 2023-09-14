@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
 using PetAdoption.Business.Interfaces;
+using PetAdoption.Data.Entities;
 
 namespace PetAdoption.API.Controllers
 {
-    [ApiController]
+  [ApiController]
   [Route("api/Authentication")]
   public class AuthController : ControllerBase
   {
@@ -82,7 +83,7 @@ namespace PetAdoption.API.Controllers
 
     [HttpGet("test-feature")]
     [Authorize]
-    public ActionResult<string> TestAuthentication()
+    public ActionResult<string> TestAuthenticationAsync()
     {
       return Ok("Success");
     }

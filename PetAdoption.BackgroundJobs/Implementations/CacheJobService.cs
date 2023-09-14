@@ -14,9 +14,10 @@ namespace PetAdoption.BackgroundJobs.Implementations
     {
     }
 
-    private async Task InitializeCacheDataTask()
+    // This method must be public to be invoked
+    public async Task InitializeCacheDataTask()
     {
-      // TODO: Execute services to init data here 
+      // Call all necessary methods to init cache data here
     }
 
     public void InitializeCacheData()

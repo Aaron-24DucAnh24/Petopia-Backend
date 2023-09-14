@@ -3,6 +3,7 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
 
 namespace PetAdoption.Business.Implementations
@@ -15,12 +16,13 @@ namespace PetAdoption.Business.Implementations
     public BlobService(IServiceProvider provider)
     {
       _configuration = provider.GetService<IConfiguration>() ?? throw new Exception("Service not found");
-      _blobServiceClient = new BlobServiceClient(_configuration.GetConnectionString("blobService"));
+      _blobServiceClient = new BlobServiceClient(
+				_configuration.GetConnectionString(AppSettingKey.BLOG_STORAGE_CONNECTION_STRING));
     }
 
     public async Task<bool> RemoveImageAsync(string blogName)
     {
-			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("img");
+			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(BlobContainerName.IMAGE);
 
 			try
 			{
@@ -35,7 +37,7 @@ namespace PetAdoption.Business.Implementations
 
     public async Task<string> UpLoadImageAsync(IFormFile file, string name)
     {
-			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient("img");
+			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(BlobContainerName.IMAGE);
 			BlobClient blobClient = containerClient.GetBlobClient(name);
 			Stream stream = file.OpenReadStream();
 

@@ -1,8 +1,9 @@
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
+using PetAdoption.Business.Models;
 
 namespace PetAdoption.Business.Implementations
 {
@@ -11,17 +12,19 @@ namespace PetAdoption.Business.Implementations
     private readonly SmtpClient _smtpClient;
     private readonly IConfiguration _configuration;
 
-    public EmailService(IServiceProvider serviceProvider)
+    public EmailService(IConfiguration configuration)
     {
-      _configuration = serviceProvider.GetService<IConfiguration>() ?? throw new Exception("Service not found");
-      
-      _smtpClient = new SmtpClient(_configuration.GetValue<string>("Email:SmtpClient"), 587)
+      _configuration = configuration;
+      var emailSetting = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>()
+        ?? throw new Exception("Email setting not found");
+
+      _smtpClient = new SmtpClient(emailSetting.SmtpClient, 587)
       {
         EnableSsl = true,
         UseDefaultCredentials = false,
         Credentials = new NetworkCredential(
-          _configuration.GetValue<string>("Email:EmailClient"),
-          _configuration.GetValue<string>("Email:Password")
+          emailSetting.EmailClient,
+          emailSetting.Password
         )
       };
     }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PetAdoption.BackgroundJobs.Implementations;
 using PetAdoption.BackgroundJobs.Interfaces;
+using PetAdoption.Business.Constants;
 
 namespace PetAdoption.BackgroundJobs.Extensions
 {
@@ -14,7 +15,7 @@ namespace PetAdoption.BackgroundJobs.Extensions
         .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
         .UseSimpleAssemblyNameTypeSerializer()
         .UseRecommendedSerializerSettings()
-        .UseSqlServerStorage(configuration.GetConnectionString("Database")));
+        .UseSqlServerStorage(configuration.GetConnectionString(AppSettingKey.DB_CONNECTION_STRING)));
       services.AddHangfireServer();
       services.AddScoped<ICacheJobService, CacheJobService>();
       services.AddHostedService<InitJobsService>();

@@ -8,7 +8,7 @@ namespace PetAdoption.Business.Implementations
   public class CookieService : BaseService, ICookieService
   {
     public CookieService(
-      IServiceProvider provider, 
+      IServiceProvider provider,
       ILogger<CookieService> logger
     ) : base(provider, logger)
     {
@@ -22,12 +22,12 @@ namespace PetAdoption.Business.Implementations
 
     public void SetAccessToken(string token)
     {
-      SetCookie(CookieName.ACCESS_TOKEN, token, TokenSetting.ACCESS_TOKEN_EXPIRATION_DAYS);
+      SetCookie(CookieName.ACCESS_TOKEN, token, TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS);
     }
 
     private void SetCookie(string key, string value, int expirationDays)
     {
-      if(HttpContextAccessor.HttpContext == null)
+      if (HttpContextAccessor.HttpContext == null)
         throw new Exception("HttpContext Not Found");
 
       HttpContextAccessor.HttpContext.Response.Cookies.Append(key, value, new CookieOptions()

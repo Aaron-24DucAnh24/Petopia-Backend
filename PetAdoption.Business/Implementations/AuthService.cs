@@ -40,7 +40,7 @@ namespace PetAdoption.Business.Implementations
       {
         Id = user.Id,
         AccessToken = TokenUtil.GenerateAccessToken(user, Configuration),
-        AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSetting.ACCESS_TOKEN_EXPIRATION_DAYS),
+        AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS),
       });
 
       await UnitOfWork.SaveChangesAsync();
@@ -66,7 +66,7 @@ namespace PetAdoption.Business.Implementations
 
       string accessToken = TokenUtil.GenerateAccessToken(user, Configuration);
       userConnection.AccessToken = accessToken;
-      userConnection.AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSetting.ACCESS_TOKEN_EXPIRATION_DAYS);
+      userConnection.AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS);
       userConnection.IsDeleted = false;
       await UnitOfWork.SaveChangesAsync();
 
@@ -110,7 +110,7 @@ namespace PetAdoption.Business.Implementations
       }
 
       JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken;
-      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken);
+      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken.Claims);
       if (userContextInfo == null)
       {
         return false;

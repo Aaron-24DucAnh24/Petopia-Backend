@@ -15,7 +15,7 @@ builder.Services
 		= Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddCoreServices(builder.Configuration);
-builder.Services.AddBusinessServices();
+builder.Services.AddBusinessServices(builder.Configuration);
 builder.Services.AddBackgroundServices(builder.Configuration);
 
 var app = builder.Build();

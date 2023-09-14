@@ -1,6 +1,6 @@
 namespace PetAdoption.Business.Constants
 {
-  public class TokenSetting
+  public class TokenConfig
   {
     public const int ACCESS_TOKEN_EXPIRATION_DAYS = 7;
   }
