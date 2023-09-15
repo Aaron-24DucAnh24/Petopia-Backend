@@ -8,5 +8,6 @@ namespace PetAdoption.Business.Constants
     public const string REDIS_CACHE = "RedisCache";
     public const string CORS_ORIGIN = "CorsOrigins";
     public const string EMAIL = "Email";
+    public const string GG_RECAPTCHA = "GoogleRecaptcha";
   }
 }

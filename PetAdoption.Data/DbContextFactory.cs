@@ -4,15 +4,15 @@ using Microsoft.Extensions.Configuration;
 
 namespace PetAdoption.Data
 {
-    class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+  class DbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
   {
     ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
     {
 
       DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
-      
+
       IConfigurationRoot configuration = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
+        .SetBasePath($"{Directory.GetCurrentDirectory()}/../PetAdoption.API")
         .AddJsonFile("appsettings.json")
         .Build();
 

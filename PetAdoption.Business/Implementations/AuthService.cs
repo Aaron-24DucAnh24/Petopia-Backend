@@ -132,17 +132,17 @@ namespace PetAdoption.Business.Implementations
 
     public async Task<string> ValidateRecaptchaTokenAsync(string token)
     {
-      string endpoint = Configuration.GetValue<string>("GoogleRecaptcha:Endpoint")
-        ?? throw new Exception("Recaptcha configuration not found");
-      string securityToken = Configuration.GetValue<string>("GoogleRecaptcha:SecurityToken")
-        ?? throw new Exception("Recaptcha configuration not found");
+      var ggRecaptchaSetting = Configuration
+        .GetSection(AppSettingKey.GG_RECAPTCHA)
+        .Get<GGRecaptchaSettingModel>()
+        ?? throw new Exception("GoogleRecaptchaSetting not found");
 
       Dictionary<string, string?> query = new()
       {
-        ["secret"] = securityToken,
+        ["secret"] = ggRecaptchaSetting.SecretKey,
         ["response"] = token
       };
-      string? uri = QueryHelpers.AddQueryString(endpoint, query);
+      string? uri = QueryHelpers.AddQueryString(ggRecaptchaSetting.Endpoint, query);
       HttpClient httpClient = new();
       HttpResponseMessage res = await httpClient.PostAsync(uri, null);
 

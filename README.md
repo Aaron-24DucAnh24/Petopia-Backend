@@ -53,3 +53,13 @@ dotnet ef database update
 ```
 
 > Now program is running at <<<https://127.0.0.1:4000>>> on your local machine.
+
+### Tech stack
+
+- ASP.NET Core 7.0
+
+- Entity Framework core 7.0
+
+- Docker
+
+- Azure services
