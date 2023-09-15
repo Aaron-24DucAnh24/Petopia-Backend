@@ -15,7 +15,7 @@ namespace PetAdoption.Business.Implementations
 
     public BlobService(IServiceProvider provider)
     {
-      _configuration = provider.GetService<IConfiguration>() ?? throw new Exception("Service not found");
+      _configuration = provider.GetRequiredService<IConfiguration>();
       _blobServiceClient = new BlobServiceClient(
 				_configuration.GetConnectionString(AppSettingKey.BLOG_STORAGE_CONNECTION_STRING));
     }

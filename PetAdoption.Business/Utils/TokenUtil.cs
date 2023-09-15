@@ -17,7 +17,7 @@ namespace PetAdoption.Business.Utils
     public static TokenValidationParameters CreateTokenValidationParameters(IConfiguration configuration)
     {
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>() 
-        ?? throw new Exception("Token configuration not found");
+        ?? throw new Exception("Token settings not found");
 
       byte[] signingKeyBytes = Encoding.UTF8.GetBytes(tokenSetting.Key);
 
@@ -45,7 +45,7 @@ namespace PetAdoption.Business.Utils
       return jwtToken;
     }
 
-    public static UserContextModel? GetUserContextInfo(IEnumerable<Claim> claims)
+    public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {
       Claim? emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
       Claim? firstNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.FIRST_NAME);
@@ -85,7 +85,7 @@ namespace PetAdoption.Business.Utils
       };
 
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>() 
-        ?? throw new Exception("Token configuration not found");
+        ?? throw new Exception("Token settings not found");
 
       SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(tokenSetting.Key));
       SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha256);

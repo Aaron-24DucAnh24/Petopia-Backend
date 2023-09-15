@@ -22,11 +22,11 @@ namespace PetAdoption.Business.Implementations
       ILogger logger
     )
     {
-      UserContext = provider.GetService<IUserContext>() ?? throw new Exception("Service not found");
-      Configuration = provider.GetService<IConfiguration>() ?? throw new Exception("Service not found");
-      HttpContextAccessor = provider.GetService<IHttpContextAccessor>() ?? throw new Exception("Service not found");
-      UnitOfWork = provider.GetService<IUnitOfWork>() ?? throw new Exception("Service not found");
-      CacheManager = provider.GetService<ICacheManager>() ?? throw new Exception("Service not found");
+      UserContext = provider.GetRequiredService<IUserContext>();
+      Configuration = provider.GetRequiredService<IConfiguration>();
+      HttpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+      UnitOfWork = provider.GetRequiredService<IUnitOfWork>();
+      CacheManager = provider.GetRequiredService<ICacheManager>();
       Logger = logger;
     }
   }

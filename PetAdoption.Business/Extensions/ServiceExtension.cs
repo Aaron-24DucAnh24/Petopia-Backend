@@ -111,7 +111,7 @@ namespace PetAdoption.Business.Extensions
             {
               ClaimsPrincipal? claimsPrincipal = context.Principal
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
-              UserContextModel userContextInfo = TokenUtil.GetUserContextInfo(claimsPrincipal.Claims)
+              UserContextModel userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
                 ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
 
               IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();

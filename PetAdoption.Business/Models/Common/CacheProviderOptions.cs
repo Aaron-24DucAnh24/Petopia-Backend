@@ -19,7 +19,7 @@ namespace PetAdoption.Business.Models
       {
         if (value <= TimeSpan.Zero)
         {
-          throw new Exception("_absoluteExpirationRelativeToNow must be positive");
+          throw new Exception("AbsoluteExpirationRelativeToNow must be positive");
         }
         else
         {
@@ -35,7 +35,7 @@ namespace PetAdoption.Business.Models
       {
         if (value <= TimeSpan.Zero)
         {
-          throw new Exception("_absoluteExpirationRelativeToNow must be positive");
+          throw new Exception("AbsoluteExpirationRelativeToNow must be positive");
         }
         else
         {

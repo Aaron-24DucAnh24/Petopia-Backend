@@ -110,7 +110,7 @@ namespace PetAdoption.Business.Implementations
       }
 
       JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken;
-      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfo(validatedToken.Claims);
+      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfoFromClaims(validatedToken.Claims);
       if (userContextInfo == null)
       {
         return false;
@@ -135,7 +135,7 @@ namespace PetAdoption.Business.Implementations
       var ggRecaptchaSetting = Configuration
         .GetSection(AppSettingKey.GG_RECAPTCHA)
         .Get<GGRecaptchaSettingModel>()
-        ?? throw new Exception("GoogleRecaptchaSetting not found");
+        ?? throw new Exception("Google Recaptcha settings not found");
 
       Dictionary<string, string?> query = new()
       {

@@ -10,13 +10,11 @@ namespace PetAdoption.Business.Implementations
   public class EmailService : IEmailService
   {
     private readonly SmtpClient _smtpClient;
-    private readonly IConfiguration _configuration;
 
     public EmailService(IConfiguration configuration)
     {
-      _configuration = configuration;
       var emailSetting = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>()
-        ?? throw new Exception("Email setting not found");
+        ?? throw new Exception("Email settings not found");
 
       _smtpClient = new SmtpClient(emailSetting.SmtpClient, 587)
       {

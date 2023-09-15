@@ -27,10 +27,7 @@ namespace PetAdoption.Business.Implementations
 
     private void SetCookie(string key, string value, int expirationDays)
     {
-      if (HttpContextAccessor.HttpContext == null)
-        throw new Exception("HttpContext Not Found");
-
-      HttpContextAccessor.HttpContext.Response.Cookies.Append(key, value, new CookieOptions()
+      HttpContextAccessor?.HttpContext?.Response.Cookies.Append(key, value, new CookieOptions()
       {
         Expires = DateTimeOffset.Now.AddDays(expirationDays)
       });

@@ -32,6 +32,7 @@ docker start azuresql
 6. Go to folder "PetAdoption.Data", run
 
 ```bash
+dotnet tool install --global dotnet-ef
 dotnet ef migrations add init
 dotnet ef database update
 ```
