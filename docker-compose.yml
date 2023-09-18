@@ -1,0 +1,25 @@
+services:
+
+  database:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: azuresql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "1"
+      MSSQL_SA_PASSWORD: "TicketBooking.database.v1"
+
+  storage:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+
+  cache:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: --requirepass "wlPydEzOygwQYh9HVGys9CO9VGoC4Oo7TAzCaBMBRtM="
