@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PetAdoption.Business.Interfaces;
@@ -72,6 +73,14 @@ namespace PetAdoption.Business.Implementations
       {
         result = await query.ToListAsync();
         Set(key, result, options);
+        if(_cache is RedisCache)
+        {
+          Console.WriteLine("Set to Redis cache");
+        }
+        else 
+        {
+          Console.WriteLine("Set to normal distributed cache");
+        }
       }
 
       return result;

@@ -8,16 +8,16 @@ using PetAdoption.Business.Interfaces;
 
 namespace PetAdoption.Business.Implementations
 {
-  public class BlobService : IBlobService
+  public class StorageService : IStorageService
   {
     private readonly BlobServiceClient _blobServiceClient;
     private readonly IConfiguration _configuration;
 
-    public BlobService(IServiceProvider provider)
+    public StorageService(IServiceProvider provider)
     {
       _configuration = provider.GetRequiredService<IConfiguration>();
       _blobServiceClient = new BlobServiceClient(
-				_configuration.GetConnectionString(AppSettingKey.BLOG_STORAGE_CONNECTION_STRING));
+				_configuration.GetConnectionString(AppSettingKey.STORAGE_CONNECTION_STRING));
     }
 
     public async Task<bool> RemoveImageAsync(string blogName)

@@ -7,9 +7,6 @@ namespace PetAdoption.BackgroundJobs.Implementations
 {
   public class CacheJobService : BaseJobService, ICacheJobService
   {
-    private IBackgroundJobClient JobClient
-    { get { return GetRequiredService<IBackgroundJobClient>(); } }
-
     public CacheJobService(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }

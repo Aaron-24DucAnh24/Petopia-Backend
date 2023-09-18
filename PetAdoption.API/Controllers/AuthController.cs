@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
 using PetAdoption.Business.Interfaces;
-using PetAdoption.Data.Entities;
 
 namespace PetAdoption.API.Controllers
 {

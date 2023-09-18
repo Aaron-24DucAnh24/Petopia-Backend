@@ -25,7 +25,7 @@ namespace PetAdoption.Business.Extensions
     {
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
-      services.AddScoped<IBlobService, BlobService>();
+      services.AddScoped<IStorageService, StorageService>();
       services.AddScoped<IEmailService, EmailService>();
 
       services.AddCacheService(configuration);

@@ -1,19 +1,22 @@
+using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace PetAdoption.BackgroundJobs.Implementations
 {
   public class BaseJobService
   {
-    protected readonly IServiceProvider ServiceProvider;
+    private readonly IServiceProvider _serviceProvider;
+    protected readonly IBackgroundJobClient JobClient;
 
     public BaseJobService(IServiceProvider serviceProvider)
     {
-      ServiceProvider = serviceProvider;
+      _serviceProvider = serviceProvider;
+      JobClient = serviceProvider.GetRequiredService<IBackgroundJobClient>();
     }
 
     protected T GetRequiredService<T>() where T : notnull
     {
-      return ServiceProvider.GetRequiredService<T>();
+      return _serviceProvider.GetRequiredService<T>();
     }
   }
 }
