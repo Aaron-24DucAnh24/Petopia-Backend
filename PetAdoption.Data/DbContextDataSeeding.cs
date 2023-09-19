@@ -8,14 +8,14 @@ namespace PetAdoption.Data
   {
     public static void AddDataSeeding(this ModelBuilder modelBuilder)
     {
-      StreamReader UserReader = new("../PetAdoption.Data/SeedingData/User.json");
-      StreamReader UserConnectionReader = new("../PetAdoption.Data/SeedingData/UserConnection.json");
+      var UserReader = new StreamReader("../PetAdoption.Data/SeedingData/User.json");
+      var UserConnectionReader = new StreamReader("../PetAdoption.Data/SeedingData/UserConnection.json");
 
       string UserJson = UserReader.ReadToEnd();
       string UserConnectionJson = UserConnectionReader.ReadToEnd();
 
-      List<User>? users = JsonSerializer.Deserialize<List<User>>(UserJson);
-      List<UserConnection>? userConnections = JsonSerializer.Deserialize<List<UserConnection>>(UserConnectionJson);
+      var users = JsonSerializer.Deserialize<List<User>>(UserJson);
+      var userConnections = JsonSerializer.Deserialize<List<UserConnection>>(UserConnectionJson);
 
       if(users != null)
         foreach(var user in users)

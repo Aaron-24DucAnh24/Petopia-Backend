@@ -11,7 +11,7 @@ namespace PetAdoption.Data
 
       DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
 
-      IConfigurationRoot configuration = new ConfigurationBuilder()
+      var configuration = new ConfigurationBuilder()
         .SetBasePath($"{Directory.GetCurrentDirectory()}/../PetAdoption.API")
         .AddJsonFile("appsettings.json")
         .Build();

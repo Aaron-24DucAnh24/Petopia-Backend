@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,7 @@ namespace PetAdoption.Business.Implementations
     public EmailService(IConfiguration configuration)
     {
       var emailSetting = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>()
-        ?? throw new Exception("Email settings not found");
+        ?? throw new ConfigurationErrorsException();
 
       _smtpClient = new SmtpClient(emailSetting.SmtpClient, 587)
       {

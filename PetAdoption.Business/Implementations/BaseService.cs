@@ -18,7 +18,7 @@ namespace PetAdoption.Business.Implementations
     protected readonly ICacheManager CacheManager;
 
     public BaseService(
-      IServiceProvider provider, 
+      IServiceProvider provider,
       ILogger logger
     )
     {
@@ -30,4 +30,4 @@ namespace PetAdoption.Business.Implementations
       Logger = logger;
     }
   }
-} 
+}

@@ -89,7 +89,7 @@ namespace PetAdoption.Business.Implementations
       _logger = logger;
       _serviceProvider = serviceProvider;
       CheckDistributedCacheEnable(
-        serviceProvider.GetService<IDistributedCache>(), 
+        serviceProvider.GetService<IDistributedCache>(),
         configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>()
       );
     }

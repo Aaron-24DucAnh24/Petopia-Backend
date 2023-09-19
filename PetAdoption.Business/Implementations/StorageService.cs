@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
+using PetAdoption.Business.Models;
+using PetAdoption.Business.Utils;
 
 namespace PetAdoption.Business.Implementations
 {
@@ -16,37 +18,34 @@ namespace PetAdoption.Business.Implementations
     public StorageService(IServiceProvider provider)
     {
       _configuration = provider.GetRequiredService<IConfiguration>();
-      _blobServiceClient = new BlobServiceClient(
-				_configuration.GetConnectionString(AppSettingKey.STORAGE_CONNECTION_STRING));
+      _blobServiceClient = new BlobServiceClient
+      (
+        _configuration.GetSection(AppSettingKey.STORAGE).Get<StorageSettingModel>()?.ConnectionString
+      );
     }
 
-    public async Task<bool> RemoveImageAsync(string blogName)
+    public async Task RemoveFileAsync(string url)
     {
-			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(BlobContainerName.IMAGE);
-
-			try
-			{
-				await containerClient.DeleteBlobAsync(blogName);
-				return true;
-			}
-			catch (Exception)
-			{
-				return false;
-			}
+      var blobName = StorageUtil.GetBlobFromUrl(url);
+      var containerClient = _blobServiceClient.GetBlobContainerClient(StorageUtil.GetContainerFromUrl(url));
+      if (containerClient.GetBlobClient(blobName).Exists())
+      {
+        await containerClient.DeleteBlobAsync(blobName);
+      }
     }
 
-    public async Task<string> UpLoadImageAsync(IFormFile file, string name)
+    public async Task UploadFileAsync(IFormFile file, string url)
     {
-			BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(BlobContainerName.IMAGE);
-			BlobClient blobClient = containerClient.GetBlobClient(name);
-			Stream stream = file.OpenReadStream();
+      var containerClient = _blobServiceClient.GetBlobContainerClient(StorageUtil.GetContainerFromUrl(url));
+      var blobClient = containerClient.GetBlobClient(StorageUtil.GetBlobFromUrl(url));
+      var stream = file.OpenReadStream();
 
-			await blobClient.UploadAsync(
-				stream,
-				httpHeaders: new BlobHttpHeaders { ContentType = file.ContentType },
-				conditions: null);
-
-			return blobClient.Uri.ToString();
+      await blobClient.UploadAsync
+      (
+        stream,
+        httpHeaders: new BlobHttpHeaders { ContentType = file.ContentType },
+        conditions: null
+      );
     }
   }
 }

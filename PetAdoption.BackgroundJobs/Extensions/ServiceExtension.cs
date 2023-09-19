@@ -17,8 +17,9 @@ namespace PetAdoption.BackgroundJobs.Extensions
         .UseRecommendedSerializerSettings()
         .UseSqlServerStorage(configuration.GetConnectionString(AppSettingKey.DB_CONNECTION_STRING)));
       services.AddHangfireServer();
+      services.AddHostedService<InitJobsService>(); // important
       services.AddScoped<ICacheJobService, CacheJobService>();
-      services.AddHostedService<InitJobsService>();
+      services.AddScoped<IStorageJobService, StorageJobService>();
     }
   }
 }

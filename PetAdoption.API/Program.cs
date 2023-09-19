@@ -1,6 +1,6 @@
-using PetAdoption.API.Middlewares;
 using PetAdoption.Business.Extensions;
 using PetAdoption.BackgroundJobs.Extensions;
+using PetAdoption.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +9,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-	.AddControllersWithViews()
-	.AddNewtonsoftJson(options =>
-		options.SerializerSettings.ReferenceLoopHandling
-		= Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+  .AddControllersWithViews()
+  .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling
+    = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddBusinessServices(builder.Configuration);
@@ -22,8 +22,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();

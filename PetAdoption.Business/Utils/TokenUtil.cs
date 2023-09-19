@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,8 +17,8 @@ namespace PetAdoption.Business.Utils
   {
     public static TokenValidationParameters CreateTokenValidationParameters(IConfiguration configuration)
     {
-      var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>() 
-        ?? throw new Exception("Token settings not found");
+      var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
+        ?? throw new ConfigurationErrorsException();
 
       byte[] signingKeyBytes = Encoding.UTF8.GetBytes(tokenSetting.Key);
 
@@ -47,11 +48,11 @@ namespace PetAdoption.Business.Utils
 
     public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {
-      Claim? emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
-      Claim? firstNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.FIRST_NAME);
-      Claim? lastNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.LAST_NAME);
-      Claim? roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
-      Claim? idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
+      var emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
+      var firstNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.FIRST_NAME);
+      var lastNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.LAST_NAME);
+      var roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
+      var idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
 
       if (emailClaim == null
       || firstNameClaim == null
@@ -75,7 +76,7 @@ namespace PetAdoption.Business.Utils
 
     public static string GenerateAccessToken(User user, IConfiguration configuration)
     {
-      List<Claim> claims = new()
+      var claims = new List<Claim>()
       {
         new Claim(ClaimType.ID, user.Id),
         new Claim(ClaimType.EMAIL, user.Email),
@@ -84,12 +85,12 @@ namespace PetAdoption.Business.Utils
         new Claim(ClaimType.LAST_NAME, user.LastName)
       };
 
-      var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>() 
-        ?? throw new Exception("Token settings not found");
+      var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
+        ?? throw new ConfigurationErrorsException();
 
-      SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(tokenSetting.Key));
-      SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha256);
-      JwtSecurityToken token = new(
+      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSetting.Key));
+      var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+      var token = new JwtSecurityToken(
         tokenSetting.Issuer,
         tokenSetting.Issuer,
         claims,
@@ -98,7 +99,7 @@ namespace PetAdoption.Business.Utils
         notBefore: DateTime.Now
       );
 
-      JwtSecurityTokenHandler tokenHandler = new();
+      var tokenHandler = new JwtSecurityTokenHandler();
       return tokenHandler.WriteToken(token);
     }
   }

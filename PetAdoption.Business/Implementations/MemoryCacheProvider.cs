@@ -55,7 +55,7 @@ namespace PetAdoption.Business.Implementations
 
     public async ValueTask<IEnumerable<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, TimeSpan? cacheDuration = null)
     {
-      CacheProviderOptions options = new();
+      var options = new CacheProviderOptions();
       if (cacheDuration.HasValue)
       {
         options.AbsoluteExpiration = DateTimeOffset.Now.Add(cacheDuration.Value);

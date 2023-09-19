@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
-using System.Security.Claims;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FluentValidation;
 using PetAdoption.Business.Constants;
@@ -16,6 +15,7 @@ using PetAdoption.Business.Validators;
 using PetAdoption.Business.Utils;
 using PetAdoption.Business.Contexts;
 using PetAdoption.Business.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace PetAdoption.Business.Extensions
 {
@@ -65,7 +65,6 @@ namespace PetAdoption.Business.Extensions
 
     public static void AddModelValidators(this IServiceCollection services)
     {
-      services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
       services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
     }
 
@@ -85,14 +84,15 @@ namespace PetAdoption.Business.Extensions
           {
             OnMessageReceived = context =>
             {
-              Endpoint? endpoint = context.HttpContext.GetEndpoint();
-              bool authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
+              var endpoint = context.HttpContext.GetEndpoint();
+              var authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
 
               if (authorized)
               {
-                string? accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request) ?? throw new Exception(ExceptionMessage.UNAUTHORIZED);
-                IAuthService authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
-                bool isValid = authService.ValidateAccessToken(accessToken);
+                var accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request)
+                  ?? throw new UnauthorizedAccessException();
+                var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
+                var isValid = authService.ValidateAccessToken(accessToken);
 
                 if (isValid)
                 {
@@ -100,7 +100,7 @@ namespace PetAdoption.Business.Extensions
                 }
                 else
                 {
-                  throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
+                  throw new SecurityTokenValidationException();
                 }
               }
 
@@ -109,12 +109,12 @@ namespace PetAdoption.Business.Extensions
 
             OnTokenValidated = context =>
             {
-              ClaimsPrincipal? claimsPrincipal = context.Principal
-                ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
-              UserContextModel userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
-                ?? throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
+              var claimsPrincipal = context.Principal
+                ?? throw new SecurityTokenValidationException();
+              var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
+                ?? throw new SecurityTokenValidationException();
 
-              IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
+              var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
               userContext.Email = userContextInfo.Email;
               userContext.FirstName = userContextInfo.FirstName;
               userContext.Role = userContextInfo.Role;

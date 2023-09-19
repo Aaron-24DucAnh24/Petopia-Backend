@@ -28,7 +28,7 @@ namespace PetAdoption.Business.Implementations
       try
       {
         string? cacheValue = _cache.GetString(key);
-        if(string.IsNullOrEmpty(cacheValue))
+        if (string.IsNullOrEmpty(cacheValue))
         {
           return default;
         }
@@ -73,11 +73,11 @@ namespace PetAdoption.Business.Implementations
       {
         result = await query.ToListAsync();
         Set(key, result, options);
-        if(_cache is RedisCache)
+        if (_cache is RedisCache)
         {
           Console.WriteLine("Set to Redis cache");
         }
-        else 
+        else
         {
           Console.WriteLine("Set to normal distributed cache");
         }

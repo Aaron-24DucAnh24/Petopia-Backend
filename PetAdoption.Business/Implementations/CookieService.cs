@@ -14,7 +14,6 @@ namespace PetAdoption.Business.Implementations
     {
     }
 
-
     public void ClearAccessToken()
     {
       SetCookie(CookieName.ACCESS_TOKEN, string.Empty, -1);

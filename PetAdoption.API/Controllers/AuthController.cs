@@ -14,19 +14,16 @@ namespace PetAdoption.API.Controllers
   {
     private readonly IAuthService _authService;
     private readonly ICookieService _cookieService;
-    private readonly IValidator<LoginRequest> _loginRequestValidator;
     private readonly IValidator<RegisterRequest> _registerRequestValidator;
 
     public AuthController(
       IAuthService authService,
       ICookieService cookieService,
-      IValidator<LoginRequest> loginRequestValidator,
       IValidator<RegisterRequest> registerRequestValidator
     )
     {
       _authService = authService;
       _cookieService = cookieService;
-      _loginRequestValidator = loginRequestValidator;
       _registerRequestValidator = registerRequestValidator;
     }
 
@@ -51,17 +48,19 @@ namespace PetAdoption.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticationResponse>> LoginAsync([FromBody] LoginRequest request)
     {
-      ValidationResult validationResult = await _loginRequestValidator.ValidateAsync(request);
-      if (!validationResult.IsValid)
-      {
-        validationResult.AddToModelState(ModelState);
-        return BadRequest(ModelState);
-      }
-
       AuthenticationResponse result = await _authService.LoginAsync(request);
       _cookieService.SetAccessToken(result.AccessToken);
 
       return Ok(result);
+    }
+
+    [HttpPost("GGLogin")]
+    [AllowAnonymous]
+    public async Task<ActionResult<AuthenticationResponse>> GGLoginAsync([FromBody] GGLoginRequest request)
+    {
+      AuthenticationResponse result = await _authService.GGLoginAsync(request);
+      _cookieService.SetAccessToken(result.AccessToken);
+      return result;
     }
 
     [HttpGet("logout")]

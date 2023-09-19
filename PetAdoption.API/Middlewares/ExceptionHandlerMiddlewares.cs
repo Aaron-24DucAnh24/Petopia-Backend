@@ -1,4 +1,7 @@
-using PetAdoption.Business.Constants;
+using System.Data;
+using System.Security.Authentication;
+using Google.Apis.Auth;
+using Microsoft.IdentityModel.Tokens;
 using PetAdoption.Business.Utils;
 
 namespace PetAdoption.API.Middlewares
@@ -25,17 +28,40 @@ namespace PetAdoption.API.Middlewares
         string message = exception.Message;
         int code = 500;
 
-        if ( message == ExceptionMessage.ACCESS_TOKEN_EXPIRED
-          || message == ExceptionMessage.INVALID_ACCESS_TOKEN
-          || message == ExceptionMessage.UNAUTHORIZED)
+        switch (exception)
         {
-          code = 401; 
-        }
+          case SecurityTokenExpiredException _:
+            code = 401;
+            message = "Expired security token";
+            break;
 
-        if ( message == ExceptionMessage.INCORRECT_LOGIN_INFO
-          || message == ExceptionMessage.DUPLICATE)
-        {
-          code = 400;
+          case UnauthorizedAccessException _:
+            code = 401;
+            message = "Unauthorized";
+            break;
+
+          case InvalidJwtException _:
+          case SecurityTokenValidationException _:
+            code = 401;
+            message = "Invalid security token";
+            break;
+
+          case InvalidCredentialException _:
+            code = 400;
+            message = "Invalid credential";
+            break;
+
+          case DuplicateNameException _:
+            code = 400;
+            message = "Duplication";
+            break;
+
+          default:
+            if (string.IsNullOrEmpty(message))
+            {
+              message = "Some unknown error occurred";
+            }
+            break;
         }
 
         context.Response.ContentType = "application/json";

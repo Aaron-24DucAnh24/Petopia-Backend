@@ -9,13 +9,17 @@ using PetAdoption.Business.Interfaces;
 using PetAdoption.Business.Utils;
 using PetAdoption.Data.Entities;
 using Microsoft.Extensions.Logging;
+using Google.Apis.Auth;
+using System.Configuration;
+using System.Data;
+using System.Security.Authentication;
 
 namespace PetAdoption.Business.Implementations
 {
   public class AuthService : BaseService, IAuthService
   {
     public AuthService(
-      IServiceProvider provider, 
+      IServiceProvider provider,
       ILogger<AuthService> logger
     ) : base(provider, logger)
     {
@@ -25,10 +29,10 @@ namespace PetAdoption.Business.Implementations
     {
       if (await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == request.Email) != null)
       {
-        throw new Exception(ExceptionMessage.DUPLICATE);
+        throw new DuplicateNameException();
       }
 
-      User user = await UnitOfWork.Users.CreateAsync(new User()
+      var user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Email = request.Email,
         FirstName = request.FirstName,
@@ -36,7 +40,7 @@ namespace PetAdoption.Business.Implementations
         Password = request.Password,
       });
 
-      UserConnection userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
+      var userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
       {
         Id = user.Id,
         AccessToken = TokenUtil.GenerateAccessToken(user, Configuration),
@@ -54,17 +58,17 @@ namespace PetAdoption.Business.Implementations
 
     public async Task<AuthenticationResponse> LoginAsync(LoginRequest request)
     {
-      User user = await UnitOfWork.Users
+      var user = await UnitOfWork.Users
         .FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Password)
-        ?? throw new Exception(ExceptionMessage.INCORRECT_LOGIN_INFO);
+        ?? throw new InvalidCredentialException();
 
-      UserConnection userConnection = await UnitOfWork.UserConnections
+      var userConnection = await UnitOfWork.UserConnections
         .AsTracking()
         .Where(u => u.Id == user.Id)
         .FirstOrDefaultAsync()
-        ?? throw new Exception(ExceptionMessage.INCORRECT_LOGIN_INFO);
+        ?? throw new InvalidCredentialException();
 
-      string accessToken = TokenUtil.GenerateAccessToken(user, Configuration);
+      var accessToken = TokenUtil.GenerateAccessToken(user, Configuration);
       userConnection.AccessToken = accessToken;
       userConnection.AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS);
       userConnection.IsDeleted = false;
@@ -77,22 +81,45 @@ namespace PetAdoption.Business.Implementations
       };
     }
 
+    public async Task<AuthenticationResponse> GGLoginAsync(GGLoginRequest request)
+    {
+      var payload = await GoogleJsonWebSignature.ValidateAsync(request.TokenId, new GoogleJsonWebSignature.ValidationSettings());
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == payload.Email);
+
+      if (user != null)
+      {
+        return await LoginAsync(new LoginRequest()
+        {
+          Email = user.Email,
+          Password = user.Password
+        });
+      }
+
+      return await RegisterAsync(new RegisterRequest()
+      {
+        FirstName = payload.GivenName,
+        LastName = payload.FamilyName,
+        Password = string.Empty,
+        ConfirmPassword = string.Empty
+      });
+    }
+
     public async Task<bool> LogoutAsync()
     {
-      UserConnection userConnection = await UnitOfWork.UserConnections
+      var userConnection = await UnitOfWork.UserConnections
         .AsTracking()
         .FirstOrDefaultAsync(u => u.Id == UserContext.Id)
-        ?? throw new Exception("UserConnection not found");
+        ?? throw new ConfigurationErrorsException();
 
       userConnection.IsDeleted = true;
       await UnitOfWork.SaveChangesAsync();
-      
+
       return true;
     }
 
     public bool ValidateAccessToken(string token)
     {
-      JwtSecurityTokenHandler tokenHandler = new();
+      var tokenHandler = new JwtSecurityTokenHandler();
 
       SecurityToken? securityToken;
       try
@@ -101,7 +128,7 @@ namespace PetAdoption.Business.Implementations
       }
       catch (Exception)
       {
-        throw new Exception(ExceptionMessage.INVALID_ACCESS_TOKEN);
+        throw new SecurityTokenValidationException();
       }
 
       if (securityToken == null)
@@ -109,14 +136,14 @@ namespace PetAdoption.Business.Implementations
         return false;
       }
 
-      JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken;
-      UserContextModel? userContextInfo = TokenUtil.GetUserContextInfoFromClaims(validatedToken.Claims);
+      var validatedToken = (JwtSecurityToken)securityToken;
+      var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(validatedToken.Claims);
       if (userContextInfo == null)
       {
         return false;
       }
 
-      UserConnection? userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id);
+      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id);
       if (userConnection == null)
       {
         return false;
@@ -135,16 +162,16 @@ namespace PetAdoption.Business.Implementations
       var ggRecaptchaSetting = Configuration
         .GetSection(AppSettingKey.GG_RECAPTCHA)
         .Get<GGRecaptchaSettingModel>()
-        ?? throw new Exception("Google Recaptcha settings not found");
+        ?? throw new ConfigurationErrorsException();
 
       Dictionary<string, string?> query = new()
       {
         ["secret"] = ggRecaptchaSetting.SecretKey,
         ["response"] = token
       };
-      string? uri = QueryHelpers.AddQueryString(ggRecaptchaSetting.Endpoint, query);
-      HttpClient httpClient = new();
-      HttpResponseMessage res = await httpClient.PostAsync(uri, null);
+      var uri = QueryHelpers.AddQueryString(ggRecaptchaSetting.Endpoint, query);
+      var httpClient = new HttpClient();
+      var res = await httpClient.PostAsync(uri, null);
 
       return await res.Content.ReadAsStringAsync();
     }
