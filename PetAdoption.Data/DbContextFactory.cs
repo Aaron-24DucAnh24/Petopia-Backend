@@ -10,14 +10,14 @@ namespace PetAdoption.Data
     {
 
       DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
-
+      string settingFileDir = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? 
+        "appsettings.json" : "appsettings.Development.json";
       var configuration = new ConfigurationBuilder()
         .SetBasePath($"{Directory.GetCurrentDirectory()}/../PetAdoption.API")
-        .AddJsonFile("appsettings.json")
+        .AddJsonFile(settingFileDir)
         .Build();
-
       optionsBuilder.UseSqlServer(configuration.GetConnectionString("Database"));
-
+      
       return new ApplicationDbContext(optionsBuilder.Options);
     }
   }

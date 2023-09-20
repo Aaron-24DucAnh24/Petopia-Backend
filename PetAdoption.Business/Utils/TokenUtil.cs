@@ -19,9 +19,7 @@ namespace PetAdoption.Business.Utils
     {
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
-
       byte[] signingKeyBytes = Encoding.UTF8.GetBytes(tokenSetting.Key);
-
       return new TokenValidationParameters()
       {
         ValidateIssuer = true,
@@ -53,7 +51,6 @@ namespace PetAdoption.Business.Utils
       var lastNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.LAST_NAME);
       var roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
       var idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
-
       if (emailClaim == null
       || firstNameClaim == null
       || roleClaim == null
@@ -63,7 +60,6 @@ namespace PetAdoption.Business.Utils
       {
         return null;
       }
-
       return new UserContextModel()
       {
         FirstName = firstNameClaim.Value,
@@ -84,10 +80,8 @@ namespace PetAdoption.Business.Utils
         new Claim(ClaimType.FIRST_NAME, user.FirstName),
         new Claim(ClaimType.LAST_NAME, user.LastName)
       };
-
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
-
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSetting.Key));
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
       var token = new JwtSecurityToken(
@@ -98,7 +92,6 @@ namespace PetAdoption.Business.Utils
         expires: DateTime.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS),
         notBefore: DateTime.Now
       );
-
       var tokenHandler = new JwtSecurityTokenHandler();
       return tokenHandler.WriteToken(token);
     }

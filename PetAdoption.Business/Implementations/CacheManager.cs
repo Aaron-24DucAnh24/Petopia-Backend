@@ -49,23 +49,6 @@ namespace PetAdoption.Business.Implementations
             {
               _redis = ConnectionMultiplexer.Connect(redisCacheSetting.ConnectionString);
               _distributedCacheEnabled = true;
-              _redis.ConnectionFailed += (sender, args) =>
-              {
-                _distributedCacheEnabled = false;
-                _logger.LogError("Connection failed, disabling redis...");
-              };
-
-              _redis.InternalError += (sender, args) =>
-              {
-                _distributedCacheEnabled = false;
-                _logger.LogError("Connection failed, disabling redis...");
-              };
-
-              _redis.ConnectionRestored += (sender, args) =>
-              {
-                _distributedCacheEnabled = true;
-                _logger.LogInformation("Connection restored, redis is back...");
-              };
             }
           }
           else
@@ -98,7 +81,17 @@ namespace PetAdoption.Business.Implementations
     {
       get
       {
-        return _distributedCacheEnabled ? DistributedCacheProvider : MemoryCacheProvider;
+        if (_distributedCacheEnabled)
+        {
+          if (_serviceProvider.GetRequiredService<IDistributedCache>() is RedisCache)
+          {
+            _logger.LogInformation("Access RedisCache");
+          }
+          _logger.LogInformation("Access DistributedCache");
+          return DistributedCacheProvider;
+        }
+        _logger.LogInformation("Access MemoryCache");
+        return MemoryCacheProvider;
       }
     }
   }

@@ -13,6 +13,10 @@ namespace PetAdoption.Data.Configurations
       builder.Property(x => x.Id).HasDefaultValue(Guid.NewGuid().ToString());
       builder.ToTable("User");
       builder.Property(x => x.Role).HasDefaultValue(UserRole.StandardUser);
+      builder
+        .HasOne<UserConnection>(x => x.UserConnection)
+        .WithOne(x => x.User)
+        .HasForeignKey<UserConnection>(x => x.Id);
     }
   }
 }

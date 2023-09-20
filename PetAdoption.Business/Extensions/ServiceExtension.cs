@@ -23,13 +23,13 @@ namespace PetAdoption.Business.Extensions
   {
     public static void AddBusinessServices(this IServiceCollection services, IConfiguration configuration)
     {
+      services.AddCacheService(configuration);
+      services.AddModelValidators();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IStorageService, StorageService>();
       services.AddScoped<IEmailService, EmailService>();
-
-      services.AddCacheService(configuration);
-      services.AddModelValidators();
+      services.AddScoped<IUserService, UserService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
@@ -86,7 +86,6 @@ namespace PetAdoption.Business.Extensions
             {
               var endpoint = context.HttpContext.GetEndpoint();
               var authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
-
               if (authorized)
               {
                 var accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request)
@@ -103,7 +102,6 @@ namespace PetAdoption.Business.Extensions
                   throw new SecurityTokenValidationException();
                 }
               }
-
               return Task.CompletedTask;
             },
 
@@ -113,14 +111,12 @@ namespace PetAdoption.Business.Extensions
                 ?? throw new SecurityTokenValidationException();
               var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
                 ?? throw new SecurityTokenValidationException();
-
               var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
               userContext.Email = userContextInfo.Email;
               userContext.FirstName = userContextInfo.FirstName;
               userContext.Role = userContextInfo.Role;
               userContext.Id = userContextInfo.Id;
               userContext.LastName = userContextInfo.LastName;
-
               return Task.CompletedTask;
             }
           };
@@ -132,7 +128,6 @@ namespace PetAdoption.Business.Extensions
       services.AddCors(options => options.AddDefaultPolicy(policy =>
       {
         string? originConfig = configuration.GetSection(AppSettingKey.CORS_ORIGIN).Get<string>();
-
         if (string.IsNullOrEmpty(originConfig) || originConfig.Equals("*"))
         {
           policy
@@ -147,7 +142,6 @@ namespace PetAdoption.Business.Extensions
           string[] origins = originConfig
             .Split(";", StringSplitOptions.RemoveEmptyEntries)
             .ToArray();
-
           policy
             .WithOrigins(origins)
             .AllowAnyMethod()
@@ -169,7 +163,6 @@ namespace PetAdoption.Business.Extensions
           Type = SecuritySchemeType.ApiKey,
           Scheme = "Bearer"
         });
-
         options.OperationFilter<SecureEndpointAuthRequirementFilter>();
       });
     }
@@ -187,7 +180,6 @@ namespace PetAdoption.Business.Extensions
         {
           return;
         }
-
         operation.Security = new List<OpenApiSecurityRequirement>
         {
           new OpenApiSecurityRequirement

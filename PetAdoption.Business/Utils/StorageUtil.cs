@@ -22,33 +22,27 @@ namespace PetAdoption.Business.Utils
       var uploadContentSettings = configuration
         .GetSection(AppSettingKey.UPLOAD_CONTENT)
         .Get<UploadContentSettingModel>();
-
       var storageSettings = configuration
         .GetSection(AppSettingKey.STORAGE)
         .Get<StorageSettingModel>();
-
       if (uploadContentSettings == null || storageSettings == null)
       {
         throw new ConfigurationErrorsException();
       }
-
       var fileExtension = Path.GetExtension(fileName).Substring(1);
       fileName = Guid.NewGuid().ToString();
-
       if (uploadContentSettings.Image.Contains(fileExtension))
       {
         return storageSettings.MountedPath
           + "/" + BlobContainerName.IMAGE
           + "/" + fileName;
       }
-
       if (uploadContentSettings.Video.Contains(fileExtension))
       {
         return storageSettings.MountedPath
           + "/" + BlobContainerName.VIDEO
           + "/" + fileName;
       }
-
       return string.Empty;
     }
   }

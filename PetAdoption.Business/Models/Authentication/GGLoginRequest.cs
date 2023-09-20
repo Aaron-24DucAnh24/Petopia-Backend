@@ -2,7 +2,7 @@
 
 namespace PetAdoption.Business.Models
 {
-  public class GGLoginRequest
+  public class GoogleLoginRequest
   {
     public string TokenId { set; get; }
   }

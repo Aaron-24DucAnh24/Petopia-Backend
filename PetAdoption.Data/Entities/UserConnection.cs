@@ -8,5 +8,6 @@ namespace PetAdoption.Data.Entities
     public string AccessToken { get; set; }
     public DateTimeOffset AccessTokenExpirationDate { get; set; }
     public bool IsDeleted { get; set; }
+    public User User { get; set; }
   }
 }
