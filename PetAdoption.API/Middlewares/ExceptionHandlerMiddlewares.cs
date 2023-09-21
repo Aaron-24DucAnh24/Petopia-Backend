@@ -40,12 +40,12 @@ namespace PetAdoption.API.Middlewares
             message = "Unauthorized";
             break;
 
-          case InvalidJwtException _:
           case SecurityTokenValidationException _:
             code = 401;
             message = "Invalid security token";
             break;
 
+          case InvalidJwtException _:
           case InvalidCredentialException _:
             code = 400;
             message = "Invalid credential";

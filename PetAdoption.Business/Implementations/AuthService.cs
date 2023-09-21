@@ -10,6 +10,8 @@ using PetAdoption.Business.Utils;
 using Microsoft.Extensions.Logging;
 using System.Configuration;
 using System.Security.Authentication;
+using System.Text.Json;
+using Google.Apis.Auth;
 
 namespace PetAdoption.Business.Implementations
 {
@@ -85,13 +87,35 @@ namespace PetAdoption.Business.Implementations
       return true;
     }
 
-    public async Task<string> ValidateRecaptchaTokenAsync(string token)
+    public async Task<GoogleUserInfo> ValidateGoogleLoginTokenAsync(string token)
+    {
+      var endpoint = Configuration
+        .GetSection(AppSettingKey.GG_AUTHENTICATION_ENDPOINT)
+        .Get<string>()
+        ?? throw new ConfigurationErrorsException();
+      var query = new Dictionary<string, string?>()
+      {
+        ["access_token"] = token,
+      };
+      var uri = QueryHelpers.AddQueryString(endpoint, query);
+      var httpClient = new HttpClient();
+      var res = await httpClient.GetAsync(uri);
+      var resContent = await res.Content.ReadAsStringAsync();
+      var result = JsonSerializer.Deserialize<GoogleUserInfo>(resContent);
+      if(result != null && result.GetType().GetProperties().All(p => p.GetValue(result) != null))
+      {
+        return result;
+      }
+      throw new InvalidJwtException(string.Empty);
+    }
+
+    public async Task ValidateGoogleRecaptchaTokenAsync(string token)
     {
       var ggRecaptchaSetting = Configuration
         .GetSection(AppSettingKey.GG_RECAPTCHA)
         .Get<GGRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      Dictionary<string, string?> query = new()
+      var query = new Dictionary<string, string?>()
       {
         ["secret"] = ggRecaptchaSetting.SecretKey,
         ["response"] = token
@@ -99,7 +123,12 @@ namespace PetAdoption.Business.Implementations
       var uri = QueryHelpers.AddQueryString(ggRecaptchaSetting.Endpoint, query);
       var httpClient = new HttpClient();
       var res = await httpClient.PostAsync(uri, null);
-      return await res.Content.ReadAsStringAsync();
+      var resContent = await res.Content.ReadAsStringAsync();
+      var result = JsonSerializer.Deserialize<GoogleRecaptchaValidationModel>(resContent);
+      if (result == null || !result.Success)
+      {
+        throw new Exception("Invalid recaptcha token");
+      }
     }
   }
 }

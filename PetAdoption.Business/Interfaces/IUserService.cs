@@ -5,7 +5,7 @@ namespace PetAdoption.Business.Interfaces
 {
   public interface IUserService
   {
-    public Task<User> CreateUserGoogleRegistrationAsync(GoogleLoginRequest request);
     public Task<User> CreateUserStandardRegistrationAsync(RegisterRequest request);
+    public Task<User> CreateUserGoogleRegistrationAsync(GoogleUserInfo request);
   }  
 }

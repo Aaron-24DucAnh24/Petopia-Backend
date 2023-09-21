@@ -7,5 +7,6 @@ namespace PetAdoption.Business.Models
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
     public string ConfirmPassword { get; set; } = null!;
+    public string GoogleRecaptchaToken {get; set;} = null!;
   }
 }

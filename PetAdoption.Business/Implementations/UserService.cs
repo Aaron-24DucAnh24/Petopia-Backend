@@ -1,5 +1,3 @@
-using System.Data;
-using Google.Apis.Auth;
 using Microsoft.Extensions.Logging;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
@@ -12,26 +10,26 @@ namespace PetAdoption.Business.Implementations
   public class UserService : BaseService, IUserService
   {
     public UserService(
-      IServiceProvider provider, 
+      IServiceProvider provider,
       ILogger<UserService> logger
     ) : base(provider, logger)
     {
     }
 
-    public async Task<User> CreateUserGoogleRegistrationAsync(GoogleLoginRequest request)
+    public async Task<User> CreateUserGoogleRegistrationAsync(GoogleUserInfo userInfo)
     {
-      var payload = await GoogleJsonWebSignature.ValidateAsync(request.TokenId, new GoogleJsonWebSignature.ValidationSettings());
-      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == payload.Email);
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == userInfo.Email);
       if (user != null)
       {
         return user;
       }
       user = await UnitOfWork.Users.CreateAsync(new User()
       {
-        Email = payload.Email,
-        FirstName = payload.GivenName,
-        LastName = payload.FamilyName,
+        Email = userInfo.Email,
+        FirstName = userInfo.GivenName,
+        LastName = userInfo.FamilyName,
         Password = string.Empty,
+        Image = userInfo.Picture
       });
       await CreateUserConnectionAsync(user);
       await UnitOfWork.SaveChangesAsync();
@@ -40,25 +38,26 @@ namespace PetAdoption.Business.Implementations
 
     public async Task<User> CreateUserStandardRegistrationAsync(RegisterRequest request)
     {
-      if (await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == request.Email) != null)
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+      if (user != null)
       {
-        throw new DuplicateNameException();
+        return user;
       }
-      var user = await UnitOfWork.Users.CreateAsync(new User()
+      user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Email = request.Email,
         FirstName = request.FirstName,
         LastName = request.LastName,
-        Password = request.Password,
+        Password = string.Empty,
       });
       await CreateUserConnectionAsync(user);
       await UnitOfWork.SaveChangesAsync();
       return user;
     }
 
-    private async Task CreateUserConnectionAsync(User user)
+    private async Task<UserConnection> CreateUserConnectionAsync(User user)
     {
-      await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
+      return await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
       {
         Id = user.Id,
         AccessToken = TokenUtil.GenerateAccessToken(user, Configuration),

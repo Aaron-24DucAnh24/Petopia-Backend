@@ -1,5 +1,3 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetAdoption.Business.Models;
@@ -14,31 +12,30 @@ namespace PetAdoption.API.Controllers
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
     private readonly ICookieService _cookieService;
-    private readonly IValidator<RegisterRequest> _registerRequestValidator;
+    private readonly IModelValidationService _modelValidationService;
 
     public AuthController(
       IAuthService authService,
       ICookieService cookieService,
       IUserService userService,
-      IValidator<RegisterRequest> registerRequestValidator
+      IModelValidationService modelValidationService
     )
     {
       _authService = authService;
       _cookieService = cookieService;
       _userService = userService;
-      _registerRequestValidator = registerRequestValidator;
+      _modelValidationService = modelValidationService;
     }
 
     [HttpPost("Register")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticationResponse>> RegisterAsync([FromBody] RegisterRequest request)
     {
-      var validationResult = await _registerRequestValidator.ValidateAsync(request);
-      if (!validationResult.IsValid)
+      if(!await _modelValidationService.ValidateAsync<RegisterRequest>(request, ModelState))
       {
-        validationResult.AddToModelState(ModelState);
         return BadRequest(ModelState);
-      } 
+      }
+      await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
       var user = await _userService.CreateUserStandardRegistrationAsync(request);
       var result = await _authService.LoginAsync(new LoginRequest
       {
@@ -62,7 +59,8 @@ namespace PetAdoption.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticationResponse>> GoogleLoginAsync([FromBody] GoogleLoginRequest request)
     {
-      var user = await _userService.CreateUserGoogleRegistrationAsync(request);
+      var googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
+      var user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
       var result = await _authService.LoginAsync(new LoginRequest
       {
         Email = user.Email,
@@ -78,20 +76,6 @@ namespace PetAdoption.API.Controllers
     {
       await _authService.LogoutAsync();
       _cookieService.ClearAccessToken();
-      return Ok("Success");
-    }
-
-    [HttpGet("ValidateRecaptchaToken")]
-    [AllowAnonymous]
-    public async Task<ActionResult<string>> ValidateRecaptchaTokenAsync([FromQuery] string token)
-    {
-      return Ok(await _authService.ValidateRecaptchaTokenAsync(token));
-    }
-
-    [HttpGet("TestFeature")]
-    [Authorize]
-    public ActionResult<string> TestAuthenticationAsync()
-    {
       return Ok("Success");
     }
   }

@@ -11,6 +11,7 @@ namespace PetAdoption.Data.Entities
     public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Image { get; set; }
     public UserRole Role { get; set; }
     public DateTime IsCreatedAt { get; set; }
     public UserConnection UserConnection { get; set; }

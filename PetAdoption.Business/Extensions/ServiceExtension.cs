@@ -65,6 +65,7 @@ namespace PetAdoption.Business.Extensions
 
     public static void AddModelValidators(this IServiceCollection services)
     {
+      services.AddScoped<IModelValidationService, ModelValidationService>();
       services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
     }
 
