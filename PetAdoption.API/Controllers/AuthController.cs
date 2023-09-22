@@ -31,7 +31,7 @@ namespace PetAdoption.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticationResponse>> RegisterAsync([FromBody] RegisterRequest request)
     {
-      if(!await _modelValidationService.ValidateAsync<RegisterRequest>(request, ModelState))
+      if(!await _modelValidationService.ValidateAsync(request, ModelState))
       {
         return BadRequest(ModelState);
       }

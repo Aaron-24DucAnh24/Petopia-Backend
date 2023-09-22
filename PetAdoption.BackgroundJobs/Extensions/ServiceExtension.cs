@@ -19,7 +19,6 @@ namespace PetAdoption.BackgroundJobs.Extensions
       services.AddHangfireServer();
       services.AddHostedService<InitJobsService>(); // important
       services.AddScoped<ICacheJobService, CacheJobService>();
-      services.AddScoped<IStorageJobService, StorageJobService>();
     }
   }
 }

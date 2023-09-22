@@ -21,7 +21,8 @@ namespace PetAdoption.Business.Implementations
       {
         EnableSsl = true,
         UseDefaultCredentials = false,
-        Credentials = new NetworkCredential(
+        Credentials = new NetworkCredential
+        (
           emailSetting.EmailClient,
           emailSetting.Password
         )
