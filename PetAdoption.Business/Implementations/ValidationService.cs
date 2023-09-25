@@ -6,11 +6,11 @@ using PetAdoption.Business.Interfaces;
 
 namespace PetAdoption.Business.Implementations
 {
-  public class ModelValidationService : IModelValidationService
+  public class ValidationService : IValidationService
   {
     private readonly IServiceProvider _provider;
 
-    public ModelValidationService(IServiceProvider provider)
+    public ValidationService(IServiceProvider provider)
     {
       _provider = provider;
     }

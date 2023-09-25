@@ -1,4 +1,4 @@
-namespace PetAdoption.Business.Models
+namespace PetAdoption.Business.Models.Setting
 {
   public class TokenSettingModel
   {

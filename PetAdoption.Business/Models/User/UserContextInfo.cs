@@ -1,6 +1,6 @@
 using PetAdoption.Data.Enums;
 
-namespace PetAdoption.Business.Models
+namespace PetAdoption.Business.Models.User
 {
   public class UserContextModel
   {

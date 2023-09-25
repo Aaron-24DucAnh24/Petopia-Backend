@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace PetAdoption.Business.Models
+namespace PetAdoption.Business.Models.Authentication
 {
   public class GoogleRecaptchaValidationModel
   {
@@ -8,7 +8,7 @@ namespace PetAdoption.Business.Models
     public bool Success { get; set; }
 
     [JsonPropertyName("challenge_ts")]
-    public DateTime ChallengeTs { get; set; }
+    public DateTime ChallengeTimestamp { get; set; }
 
     [JsonPropertyName("hostname")]
     public string Hostname { get; set; } = null!;

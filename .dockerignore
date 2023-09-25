@@ -1,5 +1,6 @@
 /.vscode
 /.vs
+/.github
 
 /PetAdoption.API/bin
 /PetAdoption.API/obj
@@ -28,5 +29,8 @@
 /PetAdoption.BackgroundJobs/.vs
 /PetAdoption.BackgroundJobs/.vscode
 
-/.gitignore
-/README.md
+/__azurite_db_blob__.json
+/__azurite_db_blob_extent__.json
+/__azurite_db_queue__.json
+/__azurite_db_queue_extent__.json
+/__azurite_db_table__.json

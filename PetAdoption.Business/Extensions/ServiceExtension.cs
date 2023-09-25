@@ -14,8 +14,9 @@ using PetAdoption.Business.Data;
 using PetAdoption.Business.Validators;
 using PetAdoption.Business.Utils;
 using PetAdoption.Business.Contexts;
-using PetAdoption.Business.Models;
 using Microsoft.IdentityModel.Tokens;
+using PetAdoption.Business.Models.Setting;
+using PetAdoption.Business.Models.Authentication;
 
 namespace PetAdoption.Business.Extensions
 {
@@ -29,6 +30,7 @@ namespace PetAdoption.Business.Extensions
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IEmailService, EmailService>();
       services.AddScoped<IUserService, UserService>();
+      services.AddTransient<IHttpService, HttpService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
@@ -39,6 +41,7 @@ namespace PetAdoption.Business.Extensions
       services.AddHttpContextAccessor();
       services.AddDataLayerServices();
       services.AddSwaggerService();
+      services.AddHttpClient();
       services.AddJwtAuthentication(configuration);
       services.AddCorsPolicies(configuration);
     }
@@ -64,7 +67,7 @@ namespace PetAdoption.Business.Extensions
 
     public static void AddModelValidators(this IServiceCollection services)
     {
-      services.AddScoped<IModelValidationService, ModelValidationService>();
+      services.AddScoped<IValidationService, ValidationService>();
       services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
     }
 
@@ -92,7 +95,6 @@ namespace PetAdoption.Business.Extensions
                   ?? throw new UnauthorizedAccessException();
                 var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
                 var isValid = authService.ValidateAccessToken(accessToken);
-
                 if (isValid)
                 {
                   context.Token = accessToken;
@@ -112,11 +114,7 @@ namespace PetAdoption.Business.Extensions
               var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
                 ?? throw new SecurityTokenValidationException();
               var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
-              userContext.Email = userContextInfo.Email;
-              userContext.FirstName = userContextInfo.FirstName;
-              userContext.Role = userContextInfo.Role;
-              userContext.Id = userContextInfo.Id;
-              userContext.LastName = userContextInfo.LastName;
+              userContext.SetUserContext(userContextInfo);
               return Task.CompletedTask;
             }
           };

@@ -4,7 +4,7 @@ using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
-using PetAdoption.Business.Models;
+using PetAdoption.Business.Models.Setting;
 
 namespace PetAdoption.Business.Implementations
 {

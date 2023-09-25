@@ -1,27 +1,31 @@
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetAdoption.Business.Constants;
-using PetAdoption.Business.Models;
 using PetAdoption.Business.Interfaces;
 using PetAdoption.Business.Utils;
 using Microsoft.Extensions.Logging;
 using System.Configuration;
 using System.Security.Authentication;
-using System.Text.Json;
 using Google.Apis.Auth;
+using PetAdoption.Business.Models.Authentication;
+using PetAdoption.Business.Models.User;
+using PetAdoption.Business.Models.Setting;
 
 namespace PetAdoption.Business.Implementations
 {
   public class AuthService : BaseService, IAuthService
   {
+    private readonly IHttpService _httpService;
+
     public AuthService(
       IServiceProvider provider,
-      ILogger<AuthService> logger
+      ILogger<AuthService> logger,
+      IHttpService httpService
     ) : base(provider, logger)
     {
+      _httpService = httpService;
     }
 
     public async Task<AuthenticationResponse> LoginAsync(LoginRequest request)
@@ -93,41 +97,31 @@ namespace PetAdoption.Business.Implementations
         .GetSection(AppSettingKey.GG_AUTHENTICATION_ENDPOINT)
         .Get<string>()
         ?? throw new ConfigurationErrorsException();
-      var query = new Dictionary<string, string?>()
+      var result = await _httpService.GetAsync<GoogleUserInfo>(endpoint, new Dictionary<string, string?>()
       {
         ["access_token"] = token,
-      };
-      var uri = QueryHelpers.AddQueryString(endpoint, query);
-      var httpClient = new HttpClient();
-      var res = await httpClient.GetAsync(uri);
-      var resContent = await res.Content.ReadAsStringAsync();
-      var result = JsonSerializer.Deserialize<GoogleUserInfo>(resContent);
-      if(result != null && result.GetType().GetProperties().All(p => p.GetValue(result) != null))
+      });
+      if (result == null || !result.Error.IsNullOrEmpty())
       {
-        return result;
+        throw new InvalidJwtException(string.Empty);
       }
-      throw new InvalidJwtException(string.Empty);
+      return result;
     }
 
     public async Task ValidateGoogleRecaptchaTokenAsync(string token)
     {
-      var ggRecaptchaSetting = Configuration
+      var googleRecaptchaSetting = Configuration
         .GetSection(AppSettingKey.GG_RECAPTCHA)
-        .Get<GGRecaptchaSettingModel>()
+        .Get<GoogleRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      var query = new Dictionary<string, string?>()
+      var result = await _httpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
       {
-        ["secret"] = ggRecaptchaSetting.SecretKey,
+        ["secret"] = googleRecaptchaSetting.SecretKey,
         ["response"] = token
-      };
-      var uri = QueryHelpers.AddQueryString(ggRecaptchaSetting.Endpoint, query);
-      var httpClient = new HttpClient();
-      var res = await httpClient.PostAsync(uri, null);
-      var resContent = await res.Content.ReadAsStringAsync();
-      var result = JsonSerializer.Deserialize<GoogleRecaptchaValidationModel>(resContent);
+      });
       if (result == null || !result.Success)
       {
-        throw new Exception("Invalid recaptcha token");
+        throw new SecurityTokenValidationException();
       }
     }
   }

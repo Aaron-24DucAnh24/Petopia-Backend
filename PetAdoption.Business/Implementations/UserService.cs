@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Logging;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
-using PetAdoption.Business.Models;
+using PetAdoption.Business.Models.Authentication;
+using PetAdoption.Business.Models.User;
 using PetAdoption.Business.Utils;
 using PetAdoption.Data.Entities;
 

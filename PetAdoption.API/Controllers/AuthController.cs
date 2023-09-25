@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetAdoption.Business.Models;
 using PetAdoption.Business.Interfaces;
+using PetAdoption.Business.Models.Authentication;
 
 namespace PetAdoption.API.Controllers
 {
@@ -12,26 +12,26 @@ namespace PetAdoption.API.Controllers
     private readonly IAuthService _authService;
     private readonly IUserService _userService;
     private readonly ICookieService _cookieService;
-    private readonly IModelValidationService _modelValidationService;
+    private readonly IValidationService _validationService;
 
     public AuthController(
       IAuthService authService,
       ICookieService cookieService,
       IUserService userService,
-      IModelValidationService modelValidationService
+      IValidationService validationService
     )
     {
       _authService = authService;
       _cookieService = cookieService;
       _userService = userService;
-      _modelValidationService = modelValidationService;
+      _validationService = validationService;
     }
 
     [HttpPost("Register")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthenticationResponse>> RegisterAsync([FromBody] RegisterRequest request)
     {
-      if(!await _modelValidationService.ValidateAsync(request, ModelState))
+      if(!await _validationService.ValidateAsync(request, ModelState))
       {
         return BadRequest(ModelState);
       }

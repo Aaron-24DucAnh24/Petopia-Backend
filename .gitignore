@@ -1,5 +1,6 @@
 /.vscode
 /.vs
+/.github
 
 /PetAdoption.API/bin
 /PetAdoption.API/obj

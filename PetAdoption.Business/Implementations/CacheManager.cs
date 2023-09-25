@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PetAdoption.Business.Constants;
 using PetAdoption.Business.Interfaces;
-using PetAdoption.Business.Models;
+using PetAdoption.Business.Models.Setting;
 using StackExchange.Redis;
 
 namespace PetAdoption.Business.Implementations

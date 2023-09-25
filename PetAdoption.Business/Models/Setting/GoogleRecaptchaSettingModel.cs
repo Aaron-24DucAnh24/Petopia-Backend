@@ -1,6 +1,6 @@
-namespace PetAdoption.Business.Models
+namespace PetAdoption.Business.Models.Setting
 {
-  public class GGRecaptchaSettingModel
+  public class GoogleRecaptchaSettingModel
   {
     public string Endpoint { get; set; } = null!;
     public string SecretKey { get; set; } = null!;

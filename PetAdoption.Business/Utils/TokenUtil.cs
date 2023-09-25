@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetAdoption.Business.Constants;
-using PetAdoption.Business.Models;
+using PetAdoption.Business.Models.Setting;
+using PetAdoption.Business.Models.User;
 using PetAdoption.Data.Entities;
 using PetAdoption.Data.Enums;
 
@@ -19,15 +20,15 @@ namespace PetAdoption.Business.Utils
     {
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      byte[] signingKeyBytes = Encoding.UTF8.GetBytes(tokenSetting.Key);
+      var signingKeyBytes = Encoding.UTF8.GetBytes(tokenSetting.Key);
       return new TokenValidationParameters()
       {
         ValidateIssuer = true,
-        ValidIssuer = tokenSetting.Issuer,
         ValidateAudience = true,
-        ValidAudience = tokenSetting.Issuer,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ValidIssuer = tokenSetting.Issuer,
+        ValidAudience = tokenSetting.Issuer,
         ClockSkew = TimeSpan.Zero,
         IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
       };
@@ -35,12 +36,12 @@ namespace PetAdoption.Business.Utils
 
     public static string? GetAccessTokenFromRequest(HttpRequest request)
     {
-      string? bearerToken = request.Headers["Authorization"].FirstOrDefault();
+      var bearerToken = request.Headers["Authorization"].FirstOrDefault();
       if (bearerToken == null)
       {
         return null;
       }
-      string jwtToken = bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
+      var jwtToken = bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
       return jwtToken;
     }
 
@@ -84,7 +85,8 @@ namespace PetAdoption.Business.Utils
         ?? throw new ConfigurationErrorsException();
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSetting.Key));
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-      var token = new JwtSecurityToken(
+      var token = new JwtSecurityToken
+      (
         tokenSetting.Issuer,
         tokenSetting.Issuer,
         claims,
