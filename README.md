@@ -1,4 +1,4 @@
-# Pet Adoption Platform Backend
+# PETOPIA - Pet Adoption Platform Backend
 
 ### Requirements
 
@@ -28,7 +28,7 @@ docker start redis
 
 3. Create a development HTTPs certificate on your local machine, update "Kestrel" of "appsettings.Development.json"
 
-4. Go to folder "PetAdoption.Data", run
+4. Go to folder "Petopia.Data", run
 
 ```bash
 dotnet tool install --global dotnet-ef

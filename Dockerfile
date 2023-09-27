@@ -6,7 +6,7 @@ WORKDIR /source
 
 COPY . .
 
-WORKDIR /source/PetAdoption.Data
+WORKDIR /source/Petopia.Data
 
 RUN dotnet new tool-manifest
 
@@ -18,9 +18,9 @@ RUN dotnet ef database update
 
 WORKDIR /source
 
-RUN dotnet restore "./PetAdoption.API/PetAdoption.API.csproj" --disable-parallel
+RUN dotnet restore "./Petopia.API/Petopia.API.csproj" --disable-parallel
 
-RUN dotnet publish "./PetAdoption.API/PetAdoption.API.csproj" -c release -o /app --no-restore
+RUN dotnet publish "./Petopia.API/Petopia.API.csproj" -c release -o /app --no-restore
 
 
 # Execute stage
@@ -33,4 +33,4 @@ COPY --from=build /app ./
 
 EXPOSE 4000
 
-CMD ["dotnet", "PetAdoption.API.dll"]
+CMD ["dotnet", "Petopia.API.dll"]

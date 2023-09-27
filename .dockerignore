@@ -2,32 +2,32 @@
 /.vs
 /.github
 
-/PetAdoption.API/bin
-/PetAdoption.API/obj
-/PetAdoption.API/.vs
-/PetAdoption.API/.vscode
-/PetAdoption.API/Properties
+/Petopia.API/bin
+/Petopia.API/obj
+/Petopia.API/.vs
+/Petopia.API/.vscode
+/Petopia.API/Properties
 
-/PetAdoption.Business/bin
-/PetAdoption.Business/obj
-/PetAdoption.Business/.vs
-/PetAdoption.Business/.vscode
+/Petopia.Business/bin
+/Petopia.Business/obj
+/Petopia.Business/.vs
+/Petopia.Business/.vscode
 
-/PetAdoption.Data/bin
-/PetAdoption.Data/obj
-/PetAdoption.Data/Migrations
-/PetAdoption.Data/.vs
-/PetAdoption.Data/.vscode
+/Petopia.Data/bin
+/Petopia.Data/obj
+/Petopia.Data/Migrations
+/Petopia.Data/.vs
+/Petopia.Data/.vscode
 
-/PetAdoption.DataLayer/bin
-/PetAdoption.DataLayer/obj
-/PetAdoption.DataLayer/.vs
-/PetAdoption.DataLayer/.vscode
+/Petopia.DataLayer/bin
+/Petopia.DataLayer/obj
+/Petopia.DataLayer/.vs
+/Petopia.DataLayer/.vscode
 
-/PetAdoption.BackgroundJobs/bin
-/PetAdoption.BackgroundJobs/obj
-/PetAdoption.BackgroundJobs/.vs
-/PetAdoption.BackgroundJobs/.vscode
+/Petopia.BackgroundJobs/bin
+/Petopia.BackgroundJobs/obj
+/Petopia.BackgroundJobs/.vs
+/Petopia.BackgroundJobs/.vscode
 
 /__azurite_db_blob__.json
 /__azurite_db_blob_extent__.json
