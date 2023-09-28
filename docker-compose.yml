@@ -2,16 +2,16 @@ services:
 
   database:
     image: mcr.microsoft.com/azure-sql-edge
-    container_name: azuresql
+    container_name: PetopiaDatabase
     ports:
       - "1433:1433"
     environment:
       ACCEPT_EULA: "1"
-      MSSQL_SA_PASSWORD: "TicketBooking.database.v1"
+      MSSQL_SA_PASSWORD: "6LcjKUnAAAAAALUCYB2ZWI4DcCYnNFBzeN6G5L"
 
   storage:
     image: mcr.microsoft.com/azure-storage/azurite
-    container_name: azurite
+    container_name: PetotpiaStorage
     ports:
       - "10000:10000"
       - "10001:10001"
@@ -19,7 +19,7 @@ services:
 
   cache:
     image: redis
-    container_name: redis
+    container_name: PetopiaCache
     ports:
       - "6379:6379"
-    command: --requirepass "wlPydEzOygwQYh9HVGys9CO9VGoC4Oo7TAzCaBMBRtM="
+    command: --requirepass "6LcjKUnAAAasdfFSDFYB2ZWI4DcCYnNFBzeN6G5L"

@@ -59,7 +59,7 @@ namespace Petopia.API.Middlewares
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = statusCode;
-        _logger.LogInformation("{Message}", message);
+        _logger.LogError("{Message}", message);
         await context.Response.WriteAsync(JsonSerializer.Serialize(message));
       }
     }

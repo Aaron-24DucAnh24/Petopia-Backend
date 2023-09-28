@@ -11,13 +11,17 @@ namespace Petopia.API.Controllers
   {
     private readonly IUserService _userService;
     private readonly IEmailService _emailService;
+    private readonly IValidationService _validationService;
+
     public UserController(
       IUserService userService,
-      IEmailService emailService
+      IEmailService emailService,
+      IValidationService validationService
     )
     {
       _userService = userService;
       _emailService = emailService;
+      _validationService = validationService;
     }
 
     [HttpGet("ForgotPassword")]
@@ -32,7 +36,23 @@ namespace Petopia.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {
+      if (!await _validationService.ValidateAsync(request, ModelState))
+      {
+        return BadRequest(ModelState);
+      }
       await _userService.ResetPasswordAsync(request);
+      return Ok(true);
+    }
+
+    [HttpPost("ChangePassword")]
+    [Authorize]
+    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+      if (!await _validationService.ValidateAsync(request, ModelState))
+      {
+        return BadRequest(ModelState);
+      }
+      await _userService.ChangePasswordAsync(request);
       return Ok(true);
     }
   }

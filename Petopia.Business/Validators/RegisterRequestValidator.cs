@@ -18,10 +18,6 @@ namespace Petopia.Business.Validators
         .WithMessage("Password is required")
         .MinimumLength(8)
         .WithMessage("Minimum length of password is 8");
-
-      RuleFor(x => x.ConfirmPassword)
-        .Equal(x => x.Password)
-        .WithMessage("Confirm password is not correct");
     }
   }
 }

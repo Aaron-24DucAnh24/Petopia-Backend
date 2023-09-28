@@ -9,5 +9,6 @@ namespace Petopia.Business.Interfaces
     public Task<User> CreateUserStandardRegistrationAsync(RegisterRequest request);
     public Task<User> CreateUserGoogleRegistrationAsync(GoogleUserInfo userInfo);
     public Task ResetPasswordAsync(ResetPasswordRequest request);
+    public Task ChangePasswordAsync(ChangePasswordRequest request);
   }  
 }

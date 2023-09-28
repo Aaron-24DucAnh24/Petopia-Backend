@@ -63,12 +63,23 @@ namespace Petopia.Business.Implementations
       var user = await UnitOfWork.Users
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Id == request.UserId && x.ResetPasswordToken == request.ResetPasswordToken);
-      if(user == null || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now)
+      if (user == null || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now)
       {
         throw new InvalidPasswordToken();
       }
       user.Password = request.Password;
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now;
+      UnitOfWork.Users.Update(user);
+      await UnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task ChangePasswordAsync(ChangePasswordRequest request)
+    {
+      var user = await UnitOfWork.Users
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == UserContext.Id && x.Password == request.OldPassword)
+        ?? throw new InvalidCredentialException();
+      user.Password = request.NewPassword;
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
     }

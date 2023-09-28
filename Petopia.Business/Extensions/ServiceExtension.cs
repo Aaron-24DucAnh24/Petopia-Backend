@@ -17,6 +17,7 @@ using Petopia.Business.Contexts;
 using Microsoft.IdentityModel.Tokens;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Authentication;
+using Petopia.Business.Models.User;
 
 namespace Petopia.Business.Extensions
 {
@@ -69,6 +70,8 @@ namespace Petopia.Business.Extensions
     {
       services.AddScoped<IValidationService, ValidationService>();
       services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
+      services.AddScoped<IValidator<ResetPasswordRequest>, ResetPasswordRequestValidator>();
+      services.AddScoped<IValidator<ChangePasswordRequest>, ChangePasswordRequestValidator>();
     }
 
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
