@@ -11,15 +11,14 @@ namespace Petopia.BackgroundJobs.Implementations
     {
     }
 
-    // This method must be public to be invoked
-    public async Task InitializeCacheDataTask()
-    {
-      // Call all necessary methods to init cache data here
-    }
-
     public void InitializeCacheData()
     {
       JobClient.Enqueue(() => InitializeCacheDataTask());
+    }
+
+    public async Task InitializeCacheDataTask()
+    {
+      // Call all necessary methods to init cache data here
     }
   }
 }

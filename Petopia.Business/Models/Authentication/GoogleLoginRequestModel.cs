@@ -1,6 +1,6 @@
 namespace Petopia.Business.Models.Authentication
 {
-  public class GoogleLoginRequest
+  public class GoogleLoginRequestModel
   {
     public string TokenId { set; get; } = null!;
   }

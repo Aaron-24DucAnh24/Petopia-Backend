@@ -19,6 +19,8 @@ namespace Petopia.BackgroundJobs.Extensions
       services.AddHangfireServer();
       services.AddHostedService<InitJobsService>(); // important
       services.AddScoped<ICacheJobService, CacheJobService>();
+      services.AddScoped<IEmailJobService, EmailJobService>();
+      services.AddScoped<IElasticsearchJobService, ElasticsearchJobService>();
     }
   }
 }

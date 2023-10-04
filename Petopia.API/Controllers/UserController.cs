@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.User;
 
@@ -11,47 +12,43 @@ namespace Petopia.API.Controllers
   {
     private readonly IUserService _userService;
     private readonly IEmailService _emailService;
-    private readonly IValidationService _validationService;
+    private readonly IAuthService _authService;
+    private readonly IEmailJobService _emailJobService;
 
     public UserController(
       IUserService userService,
       IEmailService emailService,
-      IValidationService validationService
+      IAuthService authService,
+      IEmailJobService emailJobService
     )
     {
       _userService = userService;
       _emailService = emailService;
-      _validationService = validationService;
+      _authService = authService;
+      _emailJobService = emailJobService;
     }
 
-    [HttpGet("ForgotPassword")]
+    [HttpPost("ForgotPassword")]
     [AllowAnonymous]
-    public async Task<ActionResult> SendForgotPasswordEmail([FromQuery] string email)
+    public async Task<ActionResult<bool>> SendForgotPasswordEmail([FromBody] string email)
     {
-      await _emailService.SendForgotPasswordEmailAsync(email);
+      var mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
+      _emailJobService.SendMail(mailMessage);
       return Ok(true);
     }
 
     [HttpPost("ResetPassword")]
     [AllowAnonymous]
-    public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
     {
-      if (!await _validationService.ValidateAsync(request, ModelState))
-      {
-        return BadRequest(ModelState);
-      }
       await _userService.ResetPasswordAsync(request);
       return Ok(true);
     }
 
     [HttpPost("ChangePassword")]
     [Authorize]
-    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
     {
-      if (!await _validationService.ValidateAsync(request, ModelState))
-      {
-        return BadRequest(ModelState);
-      }
       await _userService.ChangePasswordAsync(request);
       return Ok(true);
     }

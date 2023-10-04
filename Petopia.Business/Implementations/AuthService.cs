@@ -11,6 +11,7 @@ using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.User;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Data.Entities;
 
 namespace Petopia.Business.Implementations
 {
@@ -27,21 +28,48 @@ namespace Petopia.Business.Implementations
       _httpService = httpService;
     }
 
-    public async Task<AuthenticationResponse> LoginAsync(LoginRequest request)
+    public async Task<AuthenticationResponseModel> LoginAsync(LoginRequestModel request)
     {
-      var user = await UnitOfWork.Users
-        .AsTracking()
-        .Include(x => x.UserConnection)
-        .FirstOrDefaultAsync(u => u.Email == request.Email && u.Password == request.Password)
-        ?? throw new InvalidCredentialException();
-      user.UserConnection.AccessToken = TokenUtil.CreateAccessToken(user, Configuration);
-      user.UserConnection.AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS);
-      user.UserConnection.IsDeleted = false;
-      await UnitOfWork.SaveChangesAsync();
-      return new AuthenticationResponse()
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email));
+      if (user != null && HashUtils.VerifyHashedPassword(user.Password, request.Password))
       {
-        AccessToken = user.UserConnection.AccessToken,
-        AccessTokenExpirationDate = user.UserConnection.AccessTokenExpirationDate
+        return await LoginAsync(new UserContextModel()
+        {
+          Id = user.Id,
+          Email = request.Email,
+          Role = user.Role
+        });
+      }
+      throw new InvalidCredentialException();
+    }
+
+    public async Task<AuthenticationResponseModel> LoginAsync(UserContextModel model)
+    {
+      var userConnection = await UnitOfWork.UserConnections
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == model.Id);
+      var accessToken = TokenUtils.CreateAccessToken(model, Configuration);
+      var expirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
+      if (userConnection == null)
+      {
+        userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
+        {
+          Id = model.Id,
+          AccessToken = accessToken,
+          AccessTokenExpirationDate = expirationDate
+        });
+      }
+      else
+      {
+        userConnection.AccessToken = accessToken;
+        userConnection.AccessTokenExpirationDate = expirationDate;
+        userConnection.IsDeleted = false;
+      }
+      await UnitOfWork.SaveChangesAsync();
+      return new AuthenticationResponseModel()
+      {
+        AccessToken = accessToken,
+        AccessTokenExpirationDate = expirationDate
       };
     }
 
@@ -49,10 +77,14 @@ namespace Petopia.Business.Implementations
     {
       var userConnection = await UnitOfWork.UserConnections
         .AsTracking()
-        .FirstOrDefaultAsync(u => u.Id == UserContext.Id)
-        ?? throw new ConfigurationErrorsException();
+        .FirstOrDefaultAsync(u => u.Id == UserContext.Id);
+      if (userConnection == null)
+      {
+        return false;
+      }
       userConnection.IsDeleted = true;
       await UnitOfWork.SaveChangesAsync();
+
       return true;
     }
 
@@ -62,7 +94,7 @@ namespace Petopia.Business.Implementations
       SecurityToken? securityToken;
       try
       {
-        tokenHandler.ValidateToken(token, TokenUtil.CreateTokenValidationParameters(Configuration), out securityToken);
+        tokenHandler.ValidateToken(token, TokenUtils.CreateTokenValidationParameters(Configuration), out securityToken);
       }
       catch (Exception)
       {
@@ -73,7 +105,7 @@ namespace Petopia.Business.Implementations
         return false;
       }
       var validatedToken = (JwtSecurityToken)securityToken;
-      var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(validatedToken.Claims);
+      var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims);
       if (userContextInfo == null)
       {
         return false;
@@ -90,13 +122,13 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public async Task<GoogleUserInfo> ValidateGoogleLoginTokenAsync(string token)
+    public async Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token)
     {
       var endpoint = Configuration
         .GetSection(AppSettingKey.GG_AUTHENTICATION_ENDPOINT)
         .Get<string>()
         ?? throw new ConfigurationErrorsException();
-      var result = await _httpService.GetAsync<GoogleUserInfo>(endpoint, new Dictionary<string, string?>()
+      var result = await _httpService.GetAsync<GoogleUserModel>(endpoint, new Dictionary<string, string?>()
       {
         ["access_token"] = token,
       });

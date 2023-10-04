@@ -22,7 +22,6 @@ RUN dotnet restore "./Petopia.API/Petopia.API.csproj" --disable-parallel
 
 RUN dotnet publish "./Petopia.API/Petopia.API.csproj" -c release -o /app --no-restore
 
-
 # Execute stage
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0

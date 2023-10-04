@@ -1,12 +1,8 @@
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.Exceptions;
-using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.User;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
@@ -22,78 +18,78 @@ namespace Petopia.Business.Implementations
     {
     }
 
-    public async Task<User> CreateUserGoogleRegistrationAsync(GoogleUserInfo userInfo)
+    public async Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo)
     {
-      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == userInfo.Email);
-      if (user != null)
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(userInfo.Email));
+      if (user == null)
       {
-        return user;
+        user = await UnitOfWork.Users.CreateAsync(new User()
+        {
+          Email = HashUtils.HashString(userInfo.Email),
+          FirstName = userInfo.GivenName,
+          LastName = userInfo.FamilyName,
+          Password = string.Empty,
+          Image = userInfo.Picture
+        });
+        await UnitOfWork.SaveChangesAsync();
       }
-      user = await UnitOfWork.Users.CreateAsync(new User()
+      return new UserContextModel()
       {
-        Email = userInfo.Email,
-        FirstName = userInfo.GivenName,
-        LastName = userInfo.FamilyName,
-        Password = string.Empty,
-        Image = userInfo.Picture
-      });
-      await CreateUserConnectionAsync(user);
-      await UnitOfWork.SaveChangesAsync();
-      return user;
+        Id = user.Id,
+        Role = user.Role,
+        Email = userInfo.Email
+      };
     }
 
-    public async Task<User> CreateUserStandardRegistrationAsync(RegisterRequest request)
+    public async Task<UserContextModel> CreateUserStandardRegistrationAsync(RegisterRequestModel request)
     {
-      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == request.Email)
+      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(request.Email))
         ?? throw new UsedEmailException();
       user = await UnitOfWork.Users.CreateAsync(new User()
       {
-        Email = request.Email,
+        Email = HashUtils.HashString(request.Email),
         FirstName = request.FirstName,
         LastName = request.LastName,
-        Password = string.Empty,
+        Password = HashUtils.HashPassword(request.Password),
       });
-      await CreateUserConnectionAsync(user);
       await UnitOfWork.SaveChangesAsync();
-      return user;
+      return new UserContextModel()
+      {
+        Id = user.Id,
+        Role = user.Role,
+        Email = request.Email
+      };
     }
 
-    public async Task ResetPasswordAsync(ResetPasswordRequest request)
+    public async Task ResetPasswordAsync(ResetPasswordRequestModel request)
     {
       var user = await UnitOfWork.Users
         .AsTracking()
-        .FirstOrDefaultAsync(x => x.Id == request.UserId && x.ResetPasswordToken == request.ResetPasswordToken);
-      if (user == null || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now)
+        .FirstOrDefaultAsync(x => x.Id == request.UserId);
+      if (user == null
+      || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now
+      || user.ResetPasswordToken != request.ResetPasswordToken)
       {
-        throw new InvalidPasswordToken();
+        throw new InvalidPasswordTokenException();
       }
-      user.Password = request.Password;
+      user.Password = HashUtils.HashPassword(request.Password);
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now;
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
     }
 
-    public async Task ChangePasswordAsync(ChangePasswordRequest request)
+    public async Task ChangePasswordAsync(ChangePasswordRequestModel request)
     {
       var user = await UnitOfWork.Users
         .AsTracking()
-        .FirstOrDefaultAsync(x => x.Id == UserContext.Id && x.Password == request.OldPassword)
-        ?? throw new InvalidCredentialException();
-      user.Password = request.NewPassword;
+        .FirstOrDefaultAsync(x => x.Id == UserContext.Id);
+      if (user == null || !HashUtils.VerifyHashedPassword(user.Password, request.OldPassword))
+      {
+        throw new InvalidPasswordTokenException();
+      }
+      user.Password = HashUtils.HashPassword(request.NewPassword);
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
-    }
-
-    private async Task<UserConnection> CreateUserConnectionAsync(User user)
-    {
-      var tokenSetting = Configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
-        ?? throw new ConfigurationErrorsException();
-      return await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
-      {
-        Id = user.Id,
-        AccessToken = TokenUtil.CreateAccessToken(user, Configuration),
-        AccessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS),
-      });
     }
   }
 }

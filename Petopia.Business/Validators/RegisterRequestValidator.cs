@@ -3,7 +3,7 @@ using Petopia.Business.Models.Authentication;
 
 namespace Petopia.Business.Validators
 {
-  public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
+  public class RegisterRequestValidator : AbstractValidator<RegisterRequestModel>
   {
     public RegisterRequestValidator()
     {

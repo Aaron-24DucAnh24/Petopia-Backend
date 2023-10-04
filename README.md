@@ -18,15 +18,23 @@
 docker-compose up
 ```
 
-> Database, storage and cache are running now. If you want to start those servers later, run
+> Database, storage and cache are running now. To start those servers later, run
 
 ```bash
-docker start azuresql
-docker start azurite
-docker start redis
+docker-compose start
 ```
 
-3. Create a development HTTPs certificate on your local machine, update "Kestrel" of "appsettings.Development.json"
+> To stop
+
+```bash
+docker-compose stop
+```
+
+3. Create a development HTTPs certificate on your local machine
+
+```bash
+dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
+```
 
 4. Go to folder "Petopia.Data", run
 
@@ -38,18 +46,8 @@ dotnet ef database update
 
 5. To start the program within the development environment, run by the debugger of VSCode or VS. For another way
 
-- Linux:
-
 ```bash
-  export ASPNETCORE_ENVIRONMENT=Development
-  dotnet run
-```
-
-- Windows:
-
-```bash
-  set ASPNETCORE_ENVIRONMENT=Development
-  dotnet run
+  dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 ```
 
 > Now program is running at <<<https://127.0.0.1:4000>>> on your local machine.
@@ -58,7 +56,7 @@ dotnet ef database update
 
 - ASP.NET Core 7.0
 
-- Entity Framework core 7.0
+- Entity Framework Core 7.0
 
 - Docker
 

@@ -1,6 +1,7 @@
-using System.Text.Json;
+using System.Net;
 using Microsoft.IdentityModel.Tokens;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Utils;
 
 namespace Petopia.API.Middlewares
 {
@@ -29,22 +30,27 @@ namespace Petopia.API.Middlewares
         switch (exception)
         {
           case SecurityTokenExpiredException _:
-            statusCode = 401;
+            statusCode = (int) HttpStatusCode.Unauthorized;
             message = "Expired security token";
             break;
 
           case UnauthorizedAccessException _:
-            statusCode = 401;
+            statusCode = (int) HttpStatusCode.Unauthorized;
             message = "Unauthorized";
             break;
 
           case SecurityTokenValidationException _:
-            statusCode = 401;
+            statusCode = (int) HttpStatusCode.Unauthorized;
             message = "Invalid security token";
             break;
 
+          case ForbiddenAccessException _:
+            statusCode = (int) HttpStatusCode.Forbidden;
+            message = exception.Message;
+            break;
+
           case DomainException _:
-            statusCode = 400;
+            statusCode = (int) HttpStatusCode.BadRequest;
             message = exception.Message;
             break;
 
@@ -53,14 +59,11 @@ namespace Petopia.API.Middlewares
             {
               message = "Some unknown error occurred";
             }
-            statusCode = 500;
+            statusCode = (int) HttpStatusCode.InternalServerError;
             break;
         }
-
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = statusCode;
+        await context.CreateJsonResponseAsync(statusCode, message); 
         _logger.LogError("{Message}", message);
-        await context.Response.WriteAsync(JsonSerializer.Serialize(message));
       }
     }
   }

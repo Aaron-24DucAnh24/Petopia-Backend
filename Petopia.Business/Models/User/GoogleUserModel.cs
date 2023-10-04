@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Petopia.Business.Models.User
 {
-  public class GoogleUserInfo
+  public class GoogleUserModel
   {
     [JsonPropertyName("given_name")]
     public string GivenName { get; set; } = string.Empty;

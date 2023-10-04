@@ -3,7 +3,7 @@ using Petopia.Business.Models.User;
 
 namespace Petopia.Business.Validators
 {
-  public class ResetPasswordRequestValidator : AbstractValidator<ResetPasswordRequest>
+  public class ResetPasswordRequestValidator : AbstractValidator<ResetPasswordRequestModel>
   {
     public ResetPasswordRequestValidator()
     {

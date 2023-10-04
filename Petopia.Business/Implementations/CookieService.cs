@@ -21,7 +21,7 @@ namespace Petopia.Business.Implementations
 
     public void SetAccessToken(string token)
     {
-      SetCookie(CookieName.ACCESS_TOKEN, token, TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS);
+      SetCookie(CookieName.ACCESS_TOKEN, token, TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
     }
 
     private void SetCookie(string key, string value, int expirationDays)

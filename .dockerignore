@@ -1,6 +1,10 @@
 /.vscode
 /.vs
 /.github
+/.gitignore
+/certificate
+/README.md
+/Dockerfile
 
 /Petopia.API/bin
 /Petopia.API/obj
@@ -28,9 +32,3 @@
 /Petopia.BackgroundJobs/obj
 /Petopia.BackgroundJobs/.vs
 /Petopia.BackgroundJobs/.vscode
-
-/__azurite_db_blob__.json
-/__azurite_db_blob_extent__.json
-/__azurite_db_queue__.json
-/__azurite_db_queue_extent__.json
-/__azurite_db_table__.json

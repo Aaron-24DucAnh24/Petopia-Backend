@@ -5,21 +5,39 @@ services:
     container_name: PetopiaDatabase
     ports:
       - "1433:1433"
+    env_file:
+      - ".env"
     environment:
-      ACCEPT_EULA: "1"
-      MSSQL_SA_PASSWORD: "6LcjKUnAAAAAALUCYB2ZWI4DcCYnNFBzeN6G5L"
+      ACCEPT_EULA: ${MSSQL_ACCEPT_EULA}
+      MSSQL_SA_PASSWORD: ${MSSQL_PASSWORD}
 
   storage:
     image: mcr.microsoft.com/azure-storage/azurite
-    container_name: PetotpiaStorage
+    container_name: PetopiaStorage
     ports:
       - "10000:10000"
-      - "10001:10001"
-      - "10002:10002"
+    env_file:
+      - ".env"
+    environment:
+      AZURITE_ACCOUNTS: "${AZURITE_USERNAME}:${AZURITE_PASSWORD}"
 
   cache:
     image: redis
     container_name: PetopiaCache
     ports:
       - "6379:6379"
-    command: --requirepass "6LcjKUnAAAasdfFSDFYB2ZWI4DcCYnNFBzeN6G5L"
+    env_file:
+      - ".env"
+    command: --requirepass "${REDIS_PASSWORD}"
+
+  searchEngine:
+    image: elasticsearch:8.8.1
+    container_name: PetopiaSearchEngine
+    ports:
+      - "9200:9200"
+    env_file:
+      - ".env"
+    environment:
+      xpack.security.enabled: ${ELASTIC_SECURITY_ENABLED}
+      discovery.type: ${ELASTIC_DISCOVERY_TYPE}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}

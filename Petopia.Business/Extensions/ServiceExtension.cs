@@ -2,10 +2,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Implementations;
@@ -14,10 +15,12 @@ using Petopia.Business.Data;
 using Petopia.Business.Validators;
 using Petopia.Business.Utils;
 using Petopia.Business.Contexts;
-using Microsoft.IdentityModel.Tokens;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.User;
+using Petopia.Business.Filters;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 
 namespace Petopia.Business.Extensions
 {
@@ -29,9 +32,10 @@ namespace Petopia.Business.Extensions
       services.AddModelValidators();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
-      services.AddScoped<IEmailService, EmailService>();
       services.AddScoped<IUserService, UserService>();
       services.AddTransient<IHttpService, HttpService>();
+      services.AddEmailService(configuration);
+      services.AddElasticsearchService(configuration);
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
@@ -49,13 +53,13 @@ namespace Petopia.Business.Extensions
 
     public static void AddCacheService(this IServiceCollection services, IConfiguration configuration)
     {
-      var redisCacheSetting = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
-      if (redisCacheSetting != null && !string.IsNullOrEmpty(redisCacheSetting.ConnectionString))
+      var redisCacheSettings = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
+      if (redisCacheSettings != null && !string.IsNullOrEmpty(redisCacheSettings.ConnectionString))
       {
         services.AddStackExchangeRedisCache(options =>
         {
-          options.InstanceName = redisCacheSetting.InstanceName;
-          options.Configuration = redisCacheSetting.ConnectionString;
+          options.InstanceName = redisCacheSettings.InstanceName;
+          options.Configuration = redisCacheSettings.ConnectionString;
         });
       }
       else
@@ -68,10 +72,35 @@ namespace Petopia.Business.Extensions
 
     public static void AddModelValidators(this IServiceCollection services)
     {
-      services.AddScoped<IValidationService, ValidationService>();
-      services.AddScoped<IValidator<RegisterRequest>, RegisterRequestValidator>();
-      services.AddScoped<IValidator<ResetPasswordRequest>, ResetPasswordRequestValidator>();
-      services.AddScoped<IValidator<ChangePasswordRequest>, ChangePasswordRequestValidator>();
+      services.AddFluentValidationAutoValidation();
+      services.AddScoped<IValidator<RegisterRequestModel>, RegisterRequestValidator>();
+      services.AddScoped<IValidator<ResetPasswordRequestModel>, ResetPasswordRequestValidator>();
+      services.AddScoped<IValidator<ChangePasswordRequestModel>, ChangePasswordRequestValidator>();
+    }
+
+    public static void AddEmailService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var emailSettings = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>();
+      if (emailSettings != null)
+      {
+        services.AddSingleton(emailSettings);
+        services.AddScoped<IEmailService, EmailService>();
+      }
+    }
+
+    public static void AddElasticsearchService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
+      if (elasticSearchSettings != null)
+      {
+        var settings = new ElasticsearchClientSettings(new Uri(elasticSearchSettings.Url))
+          .Authentication(new BasicAuthentication(
+            elasticSearchSettings.Username,
+            elasticSearchSettings.Password
+          ));
+        services.AddSingleton(settings);
+        services.AddScoped<IElasticsearchService, ElasticsearchService>();
+      }
     }
 
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
@@ -85,7 +114,7 @@ namespace Petopia.Business.Extensions
         .AddJwtBearer(options =>
         {
           options.SaveToken = true;
-          options.TokenValidationParameters = TokenUtil.CreateTokenValidationParameters(configuration);
+          options.TokenValidationParameters = TokenUtils.CreateTokenValidationParameters(configuration);
           options.Events = new JwtBearerEvents()
           {
             OnMessageReceived = context =>
@@ -94,7 +123,7 @@ namespace Petopia.Business.Extensions
               var authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
               if (authorized)
               {
-                var accessToken = TokenUtil.GetAccessTokenFromRequest(context.Request)
+                var accessToken = TokenUtils.GetAccessTokenFromRequest(context.Request)
                   ?? throw new UnauthorizedAccessException();
                 var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
                 var isValid = authService.ValidateAccessToken(accessToken);
@@ -114,7 +143,7 @@ namespace Petopia.Business.Extensions
             {
               var claimsPrincipal = context.Principal
                 ?? throw new SecurityTokenValidationException();
-              var userContextInfo = TokenUtil.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
+              var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
                 ?? throw new SecurityTokenValidationException();
               var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
               userContext.SetUserContext(userContextInfo);
@@ -164,36 +193,9 @@ namespace Petopia.Business.Extensions
           Type = SecuritySchemeType.ApiKey,
           Scheme = "Bearer"
         });
-        options.OperationFilter<SecureEndpointAuthRequirementFilter>();
+        options.OperationFilter<RequiredAuthenticationFilter>();
+        options.OperationFilter<AccessRoleFilter>();
       });
-    }
-
-    //--------------- Swagger configuration -----------------//
-    internal class SecureEndpointAuthRequirementFilter : IOperationFilter
-    {
-      public void Apply(OpenApiOperation operation, OperationFilterContext context)
-      {
-        if (!context.ApiDescription
-          .ActionDescriptor
-          .EndpointMetadata
-          .OfType<AuthorizeAttribute>()
-          .Any())
-        {
-          return;
-        }
-        operation.Security = new List<OpenApiSecurityRequirement>
-        {
-          new OpenApiSecurityRequirement
-          {
-            [new OpenApiSecurityScheme
-            {
-              Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" },
-              Name = "Bearer",
-              In = ParameterLocation.Header,
-            }] = new List<string>()
-          }
-        };
-      }
     }
   }
 }

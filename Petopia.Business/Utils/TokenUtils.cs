@@ -9,12 +9,11 @@ using Microsoft.IdentityModel.Tokens;
 using Petopia.Business.Constants;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.User;
-using Petopia.Data.Entities;
 using Petopia.Data.Enums;
 
 namespace Petopia.Business.Utils
 {
-  public static class TokenUtil
+  public static class TokenUtils
   {
     public static TokenValidationParameters CreateTokenValidationParameters(IConfiguration configuration)
     {
@@ -34,15 +33,13 @@ namespace Petopia.Business.Utils
       };
     }
 
-    public static string CreateAccessToken(User user, IConfiguration configuration)
+    public static string CreateAccessToken(UserContextModel user, IConfiguration configuration)
     {
       var claims = new List<Claim>()
       {
         new Claim(ClaimType.ID, user.Id),
         new Claim(ClaimType.EMAIL, user.Email),
-        new Claim(ClaimType.ROLE, user.Role.ToString()),
-        new Claim(ClaimType.FIRST_NAME, user.FirstName),
-        new Claim(ClaimType.LAST_NAME, user.LastName)
+        new Claim(ClaimType.ROLE, user.Role.ToString())
       };
       var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
@@ -54,7 +51,7 @@ namespace Petopia.Business.Utils
         tokenSetting.Issuer,
         claims,
         signingCredentials: creds,
-        expires: DateTime.Now.AddDays(TokenConfig.ACCESS_TOKEN_EXPIRATION_DAYS),
+        expires: DateTime.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS),
         notBefore: DateTime.Now
       );
       var tokenHandler = new JwtSecurityTokenHandler();
@@ -82,14 +79,10 @@ namespace Petopia.Business.Utils
     public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {
       var emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
-      var firstNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.FIRST_NAME);
-      var lastNameClaim = claims.FirstOrDefault(c => c.Type == ClaimType.LAST_NAME);
       var roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
       var idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
       if (emailClaim == null
-      || firstNameClaim == null
       || roleClaim == null
-      || lastNameClaim == null
       || emailClaim == null
       || idClaim == null)
       {
@@ -97,8 +90,6 @@ namespace Petopia.Business.Utils
       }
       return new UserContextModel()
       {
-        FirstName = firstNameClaim.Value,
-        LastName = lastNameClaim.Value,
         Email = emailClaim.Value,
         Role = (UserRole)Enum.Parse(typeof(UserRole), roleClaim.Value),
         Id = idClaim.Value

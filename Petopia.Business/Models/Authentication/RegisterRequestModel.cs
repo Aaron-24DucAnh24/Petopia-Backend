@@ -1,6 +1,6 @@
 namespace Petopia.Business.Models.Authentication
 {
-  public class RegisterRequest
+  public class RegisterRequestModel
   {
     public string FirstName { get; set;} = null!;
     public string LastName { get; set; } = null!;
