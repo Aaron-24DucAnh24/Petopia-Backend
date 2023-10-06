@@ -12,6 +12,7 @@ using Petopia.Business.Models.User;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Exceptions;
 using Petopia.Data.Entities;
+using Petopia.Business.Models.Enums;
 
 namespace Petopia.Business.Implementations
 {
@@ -49,27 +50,35 @@ namespace Petopia.Business.Implementations
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Id == model.Id);
       var accessToken = TokenUtils.CreateAccessToken(model, Configuration);
-      var expirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
+      var refreshToken = TokenUtils.CreateRefreshToken(model, Configuration);
+      var accessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
+      var refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
       if (userConnection == null)
       {
         userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
         {
           Id = model.Id,
           AccessToken = accessToken,
-          AccessTokenExpirationDate = expirationDate
+          RefreshToken = refreshToken,
+          AccessTokenExpirationDate = accessTokenExpirationDate,
+          RefreshTokenExpirationDate = refreshTokenExpirationDate
         });
       }
       else
       {
         userConnection.AccessToken = accessToken;
-        userConnection.AccessTokenExpirationDate = expirationDate;
+        userConnection.RefreshToken = refreshToken;
+        userConnection.AccessTokenExpirationDate = accessTokenExpirationDate;
+        userConnection.RefreshTokenExpirationDate = refreshTokenExpirationDate;
         userConnection.IsDeleted = false;
       }
       await UnitOfWork.SaveChangesAsync();
       return new AuthenticationResponseModel()
       {
         AccessToken = accessToken,
-        AccessTokenExpirationDate = expirationDate
+        RefreshToken = refreshToken,
+        AccessTokenExpirationDate = accessTokenExpirationDate,
+        RefreshTokenExpirationDate = refreshTokenExpirationDate
       };
     }
 
@@ -84,42 +93,77 @@ namespace Petopia.Business.Implementations
       }
       userConnection.IsDeleted = true;
       await UnitOfWork.SaveChangesAsync();
-
       return true;
     }
 
-    public bool ValidateAccessToken(string token)
+    public UserContextModel ValidateAccessToken(string token)
     {
       var tokenHandler = new JwtSecurityTokenHandler();
       SecurityToken? securityToken;
       try
       {
-        tokenHandler.ValidateToken(token, TokenUtils.CreateTokenValidationParameters(Configuration), out securityToken);
+        var parameters = TokenUtils.CreateTokenValidationParameters(TokenType.AccessToken, Configuration);
+        tokenHandler.ValidateToken(token, parameters, out securityToken);
       }
       catch (Exception)
       {
         throw new SecurityTokenValidationException();
       }
-      if (securityToken == null)
-      {
-        return false;
-      }
       var validatedToken = (JwtSecurityToken)securityToken;
+      if (validatedToken == null)
+      {
+        throw new SecurityTokenValidationException();
+      }
       var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims);
       if (userContextInfo == null)
       {
-        return false;
+        throw new SecurityTokenValidationException();
       }
       var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id);
       if (userConnection == null)
       {
-        return false;
+        throw new SecurityTokenValidationException();
       }
       if (userConnection.AccessTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
         throw new SecurityTokenExpiredException();
       }
-      return true;
+      return userContextInfo;
+    }
+
+    public UserContextModel ValidateRefreshToken(string token)
+    {
+      var tokenHandler = new JwtSecurityTokenHandler();
+      SecurityToken? securityToken;
+      try
+      {
+        var parameters = TokenUtils.CreateTokenValidationParameters(TokenType.RefreshToken, Configuration);
+        tokenHandler.ValidateToken(token, parameters, out securityToken);
+      }
+      catch (Exception)
+      {
+        throw new SecurityTokenValidationException();
+      }
+      var validatedToken = (JwtSecurityToken)securityToken;
+      if (validatedToken == null)
+      {
+        throw new SecurityTokenValidationException();
+      }
+      var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims);
+      if (userContextInfo == null)
+      {
+        throw new SecurityTokenValidationException();
+      }
+      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id);
+      if (userConnection == null)
+      {
+        throw new SecurityTokenValidationException();
+      }
+      if (userConnection.RefreshTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
+      {
+        throw new SecurityTokenExpiredException();
+      }
+      return userContextInfo;
     }
 
     public async Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token)

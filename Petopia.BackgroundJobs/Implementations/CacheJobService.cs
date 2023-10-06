@@ -1,7 +1,5 @@
 using Hangfire;
-using Microsoft.Extensions.DependencyInjection;
 using Petopia.BackgroundJobs.Interfaces;
-using Petopia.Business.Interfaces;
 
 namespace Petopia.BackgroundJobs.Implementations
 {

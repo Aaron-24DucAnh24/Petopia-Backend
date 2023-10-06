@@ -21,6 +21,8 @@ using Petopia.Business.Models.User;
 using Petopia.Business.Filters;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
+using Braintree;
+using Petopia.Business.Models.Enums;
 
 namespace Petopia.Business.Extensions
 {
@@ -28,14 +30,14 @@ namespace Petopia.Business.Extensions
   {
     public static void AddBusinessServices(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddCacheService(configuration);
       services.AddModelValidators();
+      services.AddCacheService(configuration);
+      services.AddEmailService(configuration);
+      services.AddElasticsearchService(configuration);
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IUserService, UserService>();
-      services.AddTransient<IHttpService, HttpService>();
-      services.AddEmailService(configuration);
-      services.AddElasticsearchService(configuration);
+      services.AddTransient<IHttpService, Implementations.HttpService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
@@ -103,6 +105,23 @@ namespace Petopia.Business.Extensions
       }
     }
 
+    public static void AddPaymentService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var braintreeSettings = configuration.GetSection(AppSettingKey.BRAINTREE).Get<BraintreeSettingModel>();
+      if(braintreeSettings != null)
+      {
+        var gateway = new BraintreeGateway()
+        {
+          Environment = braintreeSettings.IsProduction ? Braintree.Environment.PRODUCTION : Braintree.Environment.SANDBOX,
+          MerchantId = braintreeSettings.MerchantId,
+          PublicKey = braintreeSettings.PublicKey,
+          PrivateKey = braintreeSettings.PrivateKey
+        };
+        services.AddSingleton<IBraintreeGateway>(gateway);
+        services.AddScoped<IPaymentService, PaymentService>();
+      }
+    }
+
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
       services
@@ -114,7 +133,7 @@ namespace Petopia.Business.Extensions
         .AddJwtBearer(options =>
         {
           options.SaveToken = true;
-          options.TokenValidationParameters = TokenUtils.CreateTokenValidationParameters(configuration);
+          options.TokenValidationParameters = TokenUtils.CreateTokenValidationParameters(TokenType.AccessToken, configuration);
           options.Events = new JwtBearerEvents()
           {
             OnMessageReceived = context =>
@@ -125,16 +144,10 @@ namespace Petopia.Business.Extensions
               {
                 var accessToken = TokenUtils.GetAccessTokenFromRequest(context.Request)
                   ?? throw new UnauthorizedAccessException();
-                var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
-                var isValid = authService.ValidateAccessToken(accessToken);
-                if (isValid)
-                {
-                  context.Token = accessToken;
-                }
-                else
-                {
-                  throw new SecurityTokenValidationException();
-                }
+                context.HttpContext.RequestServices
+                  .GetRequiredService<IAuthService>()
+                  .ValidateAccessToken(accessToken);
+                context.Token = accessToken;
               }
               return Task.CompletedTask;
             },

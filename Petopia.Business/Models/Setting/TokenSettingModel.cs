@@ -2,7 +2,8 @@ namespace Petopia.Business.Models.Setting
 {
   public class TokenSettingModel
   {
-    public string Key { get; set; } = null!;
+    public string AccessTokenKey { get; set; } = null!;
+    public string RefreshTokenKey { get; set; } = null!;
     public string Issuer { get; set; } = null!;
   }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Petopia.Business.Filters;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 
@@ -51,6 +50,16 @@ namespace Petopia.API.Controllers
     {
       var googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
       var user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
+      var result = await _authService.LoginAsync(user);
+      _cookieService.SetAccessToken(result.AccessToken);
+      return result;
+    }
+
+    [HttpPost("RefreshToken")]
+    [AllowAnonymous]
+    public async Task<ActionResult<AuthenticationResponseModel>> RefreshToken([FromBody] string token)
+    {
+      var user = _authService.ValidateRefreshToken(token);
       var result = await _authService.LoginAsync(user);
       _cookieService.SetAccessToken(result.AccessToken);
       return result;

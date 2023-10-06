@@ -12,5 +12,6 @@ namespace Petopia.Business.Constants
     public const string UPLOAD_CONTENT = "UploadContent";
     public const string GG_AUTHENTICATION_ENDPOINT = "GoogleAuthenticationEndpoint";
     public const string ELASTICSEARCH = "Elasticsearch";
+    public const string BRAINTREE = "Braintree";
   }
 }

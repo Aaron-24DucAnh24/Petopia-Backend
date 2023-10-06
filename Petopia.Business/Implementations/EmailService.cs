@@ -42,7 +42,7 @@ namespace Petopia.Business.Implementations
       var user = await CheckCorrectEmailAsync(email);
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
       user.ResetPasswordTokenExpirationDate
-        = DateTimeOffset.Now.AddHours(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_HOURS);
+        = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       var subject = user.FirstName;
       var body = string.Empty;
       var toAddresses = new List<string>();

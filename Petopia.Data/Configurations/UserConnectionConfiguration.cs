@@ -12,6 +12,8 @@ namespace Petopia.Data.Configurations
       builder.ToTable("UserConnection");
       builder.Property(x => x.AccessToken).HasMaxLength(2048).HasDefaultValue(string.Empty);
       builder.Property(x => x.AccessTokenExpirationDate).HasDefaultValue(DateTimeOffset.Now);
+      builder.Property(x => x.AccessToken).HasMaxLength(2048).HasDefaultValue(string.Empty);
+      builder.Property(x => x.AccessTokenExpirationDate).HasDefaultValue(DateTimeOffset.Now);
       builder.Property(x => x.IsDeleted).HasDefaultValue(false);
     }
   }

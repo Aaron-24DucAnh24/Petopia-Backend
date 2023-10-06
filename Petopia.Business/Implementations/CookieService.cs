@@ -24,7 +24,7 @@ namespace Petopia.Business.Implementations
       SetCookie(CookieName.ACCESS_TOKEN, token, TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
     }
 
-    private void SetCookie(string key, string value, int expirationDays)
+    private void SetCookie(string key, string value, double expirationDays)
     {
       HttpContextAccessor?.HttpContext?.Response.Cookies.Append(key, value, new CookieOptions()
       {
