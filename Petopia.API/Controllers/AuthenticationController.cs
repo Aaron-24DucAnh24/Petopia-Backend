@@ -70,11 +70,11 @@ namespace Petopia.API.Controllers
       return Ok(true);
     }
 
-    [HttpPost("RefreshToken")]
+    [HttpGet("RefreshToken")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> RefreshToken([FromBody] string token)
+    public async Task<ActionResult<bool>> RefreshToken()
     {
-      var user = _authService.ValidateRefreshToken(token);
+      var user = _authService.ValidateRefreshToken();
       var result = await _authService.LoginAsync(user);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return Ok(true);

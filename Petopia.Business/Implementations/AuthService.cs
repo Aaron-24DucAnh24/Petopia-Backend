@@ -58,15 +58,20 @@ namespace Petopia.Business.Implementations
         userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
         {
           Id = model.Id,
+          AccessToken = accessToken,
+          RefreshToken = refreshToken,
           AccessTokenExpirationDate = accessTokenExpirationDate,
           RefreshTokenExpirationDate = refreshTokenExpirationDate
         });
       }
       else
       {
+        userConnection.AccessToken = accessToken;
+        userConnection.RefreshToken = refreshToken;
         userConnection.AccessTokenExpirationDate = accessTokenExpirationDate;
         userConnection.RefreshTokenExpirationDate = refreshTokenExpirationDate;
         userConnection.IsDeleted = false;
+        UnitOfWork.UserConnections.Update(userConnection);
       }
       await UnitOfWork.SaveChangesAsync();
       return new JwtTokensModel()
@@ -113,7 +118,7 @@ namespace Petopia.Business.Implementations
         ?? throw new SecurityTokenValidationException();
       var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
         ?? throw new SecurityTokenValidationException();
-      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id)
+      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token) 
         ?? throw new SecurityTokenValidationException();
       if (userConnection.AccessTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
@@ -122,8 +127,10 @@ namespace Petopia.Business.Implementations
       return userContextInfo;
     }
 
-    public UserContextModel ValidateRefreshToken(string token)
+    public UserContextModel ValidateRefreshToken()
     {
+      var token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
+        ?? throw new SecurityTokenValidationException();
       var tokenHandler = new JwtSecurityTokenHandler();
       SecurityToken? securityToken;
       try
@@ -139,7 +146,7 @@ namespace Petopia.Business.Implementations
         ?? throw new SecurityTokenValidationException();
       var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
         ?? throw new SecurityTokenValidationException();
-      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id)
+      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.RefreshToken == token)
         ?? throw new SecurityTokenValidationException();
       if (userConnection.RefreshTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
