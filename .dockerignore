@@ -1,6 +1,10 @@
 /.vscode
 /.vs
 /.github
+/.gitignore
+/certificate
+/README.md
+/Dockerfile
 
 /Petopia.API/bin
 /Petopia.API/obj
@@ -15,6 +19,7 @@
 
 /Petopia.Data/bin
 /Petopia.Data/obj
+/Petopia.Data/Migrations
 /Petopia.Data/.vs
 /Petopia.Data/.vscode
 

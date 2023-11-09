@@ -1,0 +1,67 @@
+# PETOPIA - Pet Adoption Platform Backend
+
+### Requirements
+
+1. ASP.NET Core 7.0
+
+2. Entity Framework Core 7.0
+
+3. Docker
+
+### Run
+
+1. Install Docker, Docker-compose on Linux, MacOS or WSL on Windows
+
+2. Setup database, storage and cache servers for the first time
+
+```bash
+docker-compose up
+```
+
+> Database, storage and cache are running now. To start those servers later, run
+
+```bash
+docker-compose start
+```
+
+> To stop
+
+```bash
+docker-compose stop
+```
+
+3. Create a development HTTPs certificate on your local machine
+
+```bash
+dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
+```
+
+4. Go to folder "Petopia.Data", run
+
+```bash
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add Init
+dotnet ef database update
+```
+
+5. To start the program within the development environment, run by the debugger of VSCode or VS. For another way
+
+```bash
+  dotnet run -e ASPNETCORE_ENVIRONMENT=Development
+```
+
+> Now program is running at <<<https://127.0.0.1:8888>>> on your local machine.
+
+### Tech stack
+
+- ASP.NET Core 7.0
+
+- Entity Framework Core 7.0
+
+- Docker
+
+- SQL Server database
+
+- Azure storage
+
+- Redis cache
