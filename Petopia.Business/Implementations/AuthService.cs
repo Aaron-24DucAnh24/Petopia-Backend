@@ -91,8 +91,11 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public CacheRegisterRequestModel CacheRegisterRequest(RegisterRequestModel request)
+    public async Task<CacheRegisterRequestModel> CacheRegisterRequestAsync (RegisterRequestModel request)
     {
+      if(await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email))){
+        throw new UsedEmailException();
+      }
       var cacheData = new CacheRegisterRequestModel()
       {
         RegisterToken = TokenUtils.CreateSecurityToken(),

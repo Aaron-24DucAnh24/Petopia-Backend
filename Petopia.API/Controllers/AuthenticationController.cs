@@ -36,7 +36,7 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> Register([FromBody] RegisterRequestModel request)
     {
       // await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
-      var cacheData =  _authService.CacheRegisterRequest(request);
+      var cacheData =  await _authService.CacheRegisterRequestAsync(request);
       var mailMessage = _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
       _emailJobService.SendMail(mailMessage);
       return Ok(true);
