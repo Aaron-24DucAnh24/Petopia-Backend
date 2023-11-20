@@ -8,7 +8,7 @@ namespace Petopia.Business.Interfaces
     public Task<JwtTokensModel> LoginAsync(LoginRequestModel request);
     public Task<JwtTokensModel> LoginAsync(UserContextModel model);
     public Task<bool> LogoutAsync();
-    public CacheRegisterRequestModel CacheRegisterRequest(RegisterRequestModel request);
+    public Task<CacheRegisterRequestModel> CacheRegisterRequestAsync(RegisterRequestModel request);
     public Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token);
     public Task ValidateGoogleRecaptchaTokenAsync(string token);
     public UserContextModel ValidateAccessToken(string token);
