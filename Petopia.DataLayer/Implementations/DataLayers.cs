@@ -37,4 +37,11 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+
+  public class EmailDataLayer : BaseDataLayer<Email>, IEmailDataLayer
+  {
+    public EmailDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    {
+    }
+  }
 }

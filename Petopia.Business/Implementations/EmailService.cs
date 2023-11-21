@@ -9,6 +9,7 @@ using Petopia.Business.Models.Exceptions;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Implementations
 {
@@ -58,18 +59,22 @@ namespace Petopia.Business.Implementations
       };
     }
 
-    public MailDataModel CreateValidateRegisterMailDataAsync(string email, string registerToken)
+    public async Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken)
     {
-      // TODO: create validate register email template and import here
-      var subject = "Xác thực email của bạn";
-      var body = $"<a href=\"https://4bbb-2a09-bac1-7a80-10-00-17-1ff.ngrok-free.app/api/Authentication/ValidateRegister?Email={email}&ValidateRegisterToken={registerToken}\">Nhấn để hoàn thành đăng ký</a>";
+      var emailTemplate = await UnitOfWork.Emails.FirstAsync(x => x.Type == EmailType.ValidateRegister);
+      var body = emailTemplate.Body
+        .Replace(EmailKey.EMAIL, email)
+        .Replace(EmailKey.REGISTER_TOKEN, registerToken)
+        .Replace(EmailKey.API_ROUTE, ApiRoute);
+
       var toAddresses = new List<string>();
       toAddresses.Add(email);
+
       return new MailDataModel()
       {
         From = _settings.EmailClient,
         To = toAddresses,
-        Subject = subject,
+        Subject = emailTemplate.Subject,
         Body = body,
         IsBodyHtml = true
       };
