@@ -8,6 +8,7 @@ namespace Petopia.Data
   {
     public static void AddDataSeeding(this ModelBuilder modelBuilder)
     {
+      /*------------------------------- INIT ADMINS -------------------------------  */
       var admins = JsonSerializer.Deserialize<List<User>>(
         new StreamReader("../Petopia.Data/SeedingData/Admins.json").ReadToEnd()
       );
@@ -28,6 +29,20 @@ namespace Petopia.Data
           admin.UserIndividualAttributes = null;
           modelBuilder.Entity<User>().HasData(admin);
           modelBuilder.Entity<UserIndividualAttributes>().HasData(attributes);
+        }
+      }
+
+      /*------------------------------- INIT EMAILS -------------------------------  */
+      var emails = JsonSerializer.Deserialize<List<Email>>(
+        new StreamReader("../Petopia.Data/SeedingData/Emails.json").ReadToEnd()
+      );
+
+      if (emails != null)
+      {
+        foreach (var email in emails)
+        {
+          email.EmailId = Guid.NewGuid();
+          modelBuilder.Entity<Email>().HasData(email);
         }
       }
     }

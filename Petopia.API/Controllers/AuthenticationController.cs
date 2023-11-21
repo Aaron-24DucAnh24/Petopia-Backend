@@ -37,7 +37,7 @@ namespace Petopia.API.Controllers
     {
       // await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
       var cacheData =  await _authService.CacheRegisterRequestAsync(request);
-      var mailMessage = _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
+      var mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
       _emailJobService.SendMail(mailMessage);
       return Ok(true);
     }

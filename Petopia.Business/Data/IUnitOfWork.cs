@@ -11,5 +11,6 @@ namespace Petopia.Business.Data
     ISyncDataCollectionDataLayer SyncDataCollections { get; }
     IUserIndividualAttributesDataLayer UserIndividualAttributes { get; }
     IUserOrganizationAttributesDataLayer UserOrganizationAttributes { get; }
+    IEmailDataLayer Emails { get; }
   }
 }

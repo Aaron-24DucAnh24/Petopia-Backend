@@ -1,8 +1,10 @@
+using System.Configuration;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Petopia.Business.Constants;
 using Petopia.Business.Contexts;
 using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
@@ -18,6 +20,7 @@ namespace Petopia.Business.Implementations
     protected readonly ILogger Logger;
     protected readonly ICacheManager CacheManager;
     protected readonly IMapper Mapper;
+    protected readonly string ApiRoute;
 
     public BaseService(
       IServiceProvider provider,
@@ -31,6 +34,8 @@ namespace Petopia.Business.Implementations
       CacheManager = provider.GetRequiredService<ICacheManager>();
       Mapper = provider.GetRequiredService<IMapper>();
       Logger = logger;
+      ApiRoute = Configuration.GetSection(AppSettingKey.API_ROUTE).Get<string>()
+       ?? throw new ConfigurationErrorsException();
     }
   }
 }

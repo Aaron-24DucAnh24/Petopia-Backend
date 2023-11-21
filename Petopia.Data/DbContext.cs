@@ -25,5 +25,6 @@ namespace Petopia.Data
     public DbSet<UserIndividualAttributes> UserIndividualAttributes { get; set; }
     public DbSet<UserOrganizationAttributes> UserOrganizationAttributes { get; set; }
     public DbSet<SyncDataCollection> SyncDataCollection { get; set; }
+    public DbSet<Email> Email { get; set; }
   }
 }

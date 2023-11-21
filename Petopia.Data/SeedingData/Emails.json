@@ -1,0 +1,7 @@
+[
+  {
+    "Subject": "XÁC THỰC EMAIL CỦA BẠN",
+    "Body": "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{apiRoute}/api/Authentication/ValidateRegister?Email={email}&ValidateRegisterToken={registerToken}\"> Nhấn để hoàn thành đăng ký </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 30 phút.</div> </div> </body>",
+    "Type": 0
+  }
+]

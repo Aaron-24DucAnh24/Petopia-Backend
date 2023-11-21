@@ -28,6 +28,7 @@ namespace Petopia.DataLayer.Extensions
       services.AddScoped<ISyncDataCollectionDataLayer, SyncDataCollectionDataLayer>();
       services.AddScoped<IUserIndividualAttributesDataLayer, UserIndividualAttributesDataLayer>();
       services.AddScoped<IUserOrganizationAttributesDataLayer, UserOrganizationAttributesDataLayer>();
+      services.AddScoped<IEmailDataLayer, EmailDataLayer>();
     }
   }
 }
