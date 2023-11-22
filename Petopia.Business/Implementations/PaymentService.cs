@@ -21,7 +21,7 @@ namespace Petopia.Business.Implementations
     {
       try
       {
-        var clientTokenRequest = new ClientTokenRequest();
+        ClientTokenRequest clientTokenRequest = new();
         if (!string.IsNullOrEmpty(customerId))
         {
           clientTokenRequest.CustomerId = customerId;

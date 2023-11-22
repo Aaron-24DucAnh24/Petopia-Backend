@@ -21,9 +21,9 @@ namespace Petopia.Business.Utils
       {
         return string.Empty;
       }
-      var sha = SHA256.Create();
-      var textData = Encoding.UTF8.GetBytes(text);
-      var hash = sha.ComputeHash(textData);
+      SHA256 sha = SHA256.Create();
+      byte[] textData = Encoding.UTF8.GetBytes(text);
+      byte[] hash = sha.ComputeHash(textData);
       return BitConverter.ToString(hash).Replace("-", string.Empty);
     }
   }

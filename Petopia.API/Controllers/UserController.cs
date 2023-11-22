@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Email;
 using Petopia.Business.Models.User;
 
 namespace Petopia.API.Controllers
@@ -36,7 +37,7 @@ namespace Petopia.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)
     {
-      var mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
+      MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
       _emailJobService.SendMail(mailMessage);
       return Ok(true);
     }

@@ -35,10 +35,10 @@ namespace Petopia.Business.Utils
 
     public static TokenValidationParameters CreateTokenValidationParameters(TokenType type, IConfiguration configuration)
     {
-      var tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
+      TokenSettingModel tokenSetting = configuration.GetSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      var secretKey = type == TokenType.AccessToken ? tokenSetting.AccessTokenKey : tokenSetting.RefreshTokenKey;
-      var signingKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+      string secretKey = type == TokenType.AccessToken ? tokenSetting.AccessTokenKey : tokenSetting.RefreshTokenKey;
+      byte[] signingKeyBytes = Encoding.UTF8.GetBytes(secretKey);
       return new TokenValidationParameters()
       {
         ValidateIssuer = true,
@@ -54,20 +54,20 @@ namespace Petopia.Business.Utils
 
     public static string? GetAccessTokenFromRequest(HttpRequest request)
     {
-      var bearerToken = request.Headers["Authorization"].FirstOrDefault();
+      string? bearerToken = request.Headers["Authorization"].FirstOrDefault();
       if (bearerToken == null)
       {
         return null;
       }
-      var jwtToken = bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
+      string jwtToken = bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
       return jwtToken;
     }
 
     public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {
-      var emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
-      var roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
-      var idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
+      Claim? emailClaim = claims.FirstOrDefault(c => c.Type == ClaimType.EMAIL);
+      Claim? roleClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ROLE);
+      Claim? idClaim = claims.FirstOrDefault(c => c.Type == ClaimType.ID);
       if (emailClaim == null
       || roleClaim == null
       || emailClaim == null
@@ -85,23 +85,19 @@ namespace Petopia.Business.Utils
 
     private static string CreateJwtToken(TokenType type, UserContextModel user, IConfiguration configuration)
     {
-      var tokenSetting = configuration.GetRequiredSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
+      TokenSettingModel tokenSetting = configuration.GetRequiredSection(AppSettingKey.TOKEN).Get<TokenSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      var claims = new List<Claim>()
+      List<Claim> claims = new()
       {
         new Claim(ClaimType.ID, user.Id.ToString()),
         new Claim(ClaimType.EMAIL, user.Email),
         new Claim(ClaimType.ROLE, user.Role.ToString())
       };
-      var secretKey = type == TokenType.AccessToken ?
-        tokenSetting.AccessTokenKey
-        : tokenSetting.RefreshTokenKey;
-      var expirationDays = type == TokenType.AccessToken ?
-        TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS
-        : TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS;
-      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-      var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-      var token = new JwtSecurityToken
+      string secretKey = type == TokenType.AccessToken ? tokenSetting.AccessTokenKey : tokenSetting.RefreshTokenKey;
+      double expirationDays = type == TokenType.AccessToken ? TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS : TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS;
+      SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(secretKey));
+      SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha256);
+      JwtSecurityToken token = new
       (
         tokenSetting.Issuer,
         tokenSetting.Issuer,

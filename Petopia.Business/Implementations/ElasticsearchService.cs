@@ -22,7 +22,7 @@ namespace Petopia.Business.Implementations
 
     public async Task InitSyncDataCollectionsAsync()
     {
-      var users = await UnitOfWork.Users.ToListAsync();
+      List<User> users = await UnitOfWork.Users.ToListAsync();
       foreach (var user in users)
       {
         await UnitOfWork.SyncDataCollections.CreateAsync(new SyncDataCollection()
@@ -59,21 +59,21 @@ namespace Petopia.Business.Implementations
 
     private async Task SyncUsersAsync(List<SyncDataCollection> collections)
     {
-      var indexingCollections = collections.Where(x => x.Action == SyncDataAction.Index).ToList();
-      var deletingCollections = collections.Where(x => x.Action == SyncDataAction.Delete).ToList();
-      var indexingUsers = await UnitOfWork.Users
+      List<SyncDataCollection> indexingCollections = collections.Where(x => x.Action == SyncDataAction.Index).ToList();
+      List<SyncDataCollection> deletingCollections = collections.Where(x => x.Action == SyncDataAction.Delete).ToList();
+      List<User> indexingUsers = await UnitOfWork.Users
         .Where(x => indexingCollections.Select(y => y.ItemId).Contains(x.Id))
         .ToListAsync();
       foreach (var user in indexingUsers)
       {
-        var response = await _elasticsearchClient.IndexAsync(new IndexRequest<User>(user, ElasticsearchIndex.USERS, user.Id));
+        IndexResponse response = await _elasticsearchClient.IndexAsync(new IndexRequest<User>(user, ElasticsearchIndex.USERS, user.Id));
         indexingCollections.Where(x => x.ItemId == user.Id)
           .First().Status = response.IsSuccess() ? SyncDataStatus.Success : SyncDataStatus.Fail;
       }
       foreach (var collection in deletingCollections)
       {
-        var response = _elasticsearchClient.DeleteAsync(new DeleteRequest(ElasticsearchIndex.USERS, collection.ItemId));
-        collection.Status = response.IsCompletedSuccessfully ? SyncDataStatus.Success : SyncDataStatus.Fail;
+        DeleteResponse response = await _elasticsearchClient.DeleteAsync(new DeleteRequest(ElasticsearchIndex.USERS, collection.ItemId));
+        collection.Status = response.IsSuccess() ? SyncDataStatus.Success : SyncDataStatus.Fail;
       }
     }
   }

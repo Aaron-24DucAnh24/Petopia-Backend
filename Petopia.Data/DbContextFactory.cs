@@ -8,8 +8,8 @@ namespace Petopia.Data
   {
     ApplicationDbContext IDesignTimeDbContextFactory<ApplicationDbContext>.CreateDbContext(string[] args)
     {
-      var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-      var settingFileDir = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ?
+      DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
+      string settingFileDir = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ?
         "appsettings.Development.json" : "appsettings.json";
       var configuration = new ConfigurationBuilder()
         .SetBasePath($"{Directory.GetCurrentDirectory()}/../Petopia.API")

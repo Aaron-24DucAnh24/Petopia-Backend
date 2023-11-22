@@ -11,7 +11,7 @@ namespace Petopia.Business.Filters
   {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-      var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
+      IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
       if (userContext.Role != UserRole.SystemAdmin)
       {
         throw new ForbiddenAccessException();
