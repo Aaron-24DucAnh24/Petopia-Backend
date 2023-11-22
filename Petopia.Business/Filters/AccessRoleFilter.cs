@@ -13,7 +13,7 @@ namespace Petopia.Business.Filters
       var attribute = apiAttributes.FirstOrDefault(a => a is AuthorizeAttribute);
       if (attribute != null)
       {
-        var summary = string.Empty;
+        string summary = string.Empty;
         switch (attribute)
         {
           case AdminAuthorize _:

@@ -24,7 +24,7 @@ namespace Petopia.Business.Implementations
 
     public T Set<T>(string key, T value, Double expiration)
     {
-      var options = new CacheProviderOptions();
+      CacheProviderOptions options = new();
       options.AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiration);
       _cache.SetString(key, JsonSerializer.Serialize(value), new DistributedCacheEntryOptions()
       {
@@ -67,13 +67,13 @@ namespace Petopia.Business.Implementations
 
     public async ValueTask<IEnumerable<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, TimeSpan? cacheDuration = null)
     {
-      var options = new CacheProviderOptions();
+      CacheProviderOptions options = new();
       if (cacheDuration.HasValue)
       {
         options.AbsoluteExpiration = DateTimeOffset.Now.Add(cacheDuration.Value);
       }
 
-      var result = Get<IEnumerable<T>>(key);
+      IEnumerable<T>? result = Get<IEnumerable<T>>(key);
       if (result.IsNullOrEmpty())
       {
         result = await query.ToListAsync();

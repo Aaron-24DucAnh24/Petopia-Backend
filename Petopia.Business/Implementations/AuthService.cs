@@ -31,7 +31,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> LoginAsync(LoginRequestModel request)
     {
-      var user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email));
+      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email));
       if (user != null && HashUtils.VerifyHashedPassword(user.Password, request.Password))
       {
         return await LoginAsync(new UserContextModel()
@@ -46,13 +46,13 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> LoginAsync(UserContextModel model)
     {
-      var userConnection = await UnitOfWork.UserConnections
+      UserConnection? userConnection = await UnitOfWork.UserConnections
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Id == model.Id);
-      var accessToken = TokenUtils.CreateAccessToken(model, Configuration);
-      var refreshToken = TokenUtils.CreateRefreshToken(model, Configuration);
-      var accessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
-      var refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
+      string accessToken = TokenUtils.CreateAccessToken(model, Configuration);
+      string refreshToken = TokenUtils.CreateRefreshToken(model, Configuration);
+      DateTimeOffset accessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
+      DateTimeOffset refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
       if (userConnection == null)
       {
         userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
@@ -83,7 +83,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> LogoutAsync()
     {
-      var userConnection = await UnitOfWork.UserConnections
+      UserConnection userConnection = await UnitOfWork.UserConnections
         .AsTracking()
         .FirstAsync(u => u.Id == UserContext.Id);
       userConnection.IsDeleted = true;
@@ -96,7 +96,7 @@ namespace Petopia.Business.Implementations
       if(await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email))){
         throw new UsedEmailException();
       }
-      var cacheData = new CacheRegisterRequestModel()
+      CacheRegisterRequestModel cacheData = new()
       {
         RegisterToken = TokenUtils.CreateSecurityToken(),
         Request = request
@@ -106,22 +106,22 @@ namespace Petopia.Business.Implementations
 
     public UserContextModel ValidateAccessToken(string token)
     {
-      var tokenHandler = new JwtSecurityTokenHandler();
+      JwtSecurityTokenHandler tokenHandler = new();
       SecurityToken? securityToken;
       try
       {
-        var parameters = TokenUtils.CreateTokenValidationParameters(TokenType.AccessToken, Configuration);
+        TokenValidationParameters parameters = TokenUtils.CreateTokenValidationParameters(TokenType.AccessToken, Configuration);
         tokenHandler.ValidateToken(token, parameters, out securityToken);
       }
       catch (Exception)
       {
         throw new SecurityTokenValidationException();
       }
-      var validatedToken = (JwtSecurityToken)securityToken
+      JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken
         ?? throw new SecurityTokenValidationException();
-      var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
+      UserContextModel userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
         ?? throw new SecurityTokenValidationException();
-      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token) 
+      UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token) 
         ?? throw new SecurityTokenValidationException();
       if (userConnection.AccessTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
@@ -132,24 +132,24 @@ namespace Petopia.Business.Implementations
 
     public UserContextModel ValidateRefreshToken()
     {
-      var token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
+      string token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
         ?? throw new SecurityTokenValidationException();
-      var tokenHandler = new JwtSecurityTokenHandler();
+      JwtSecurityTokenHandler tokenHandler = new();
       SecurityToken? securityToken;
       try
       {
-        var parameters = TokenUtils.CreateTokenValidationParameters(TokenType.RefreshToken, Configuration);
+        TokenValidationParameters parameters = TokenUtils.CreateTokenValidationParameters(TokenType.RefreshToken, Configuration);
         tokenHandler.ValidateToken(token, parameters, out securityToken);
       }
       catch (Exception)
       {
         throw new SecurityTokenValidationException();
       }
-      var validatedToken = (JwtSecurityToken)securityToken
+      JwtSecurityToken validatedToken = (JwtSecurityToken)securityToken
         ?? throw new SecurityTokenValidationException();
-      var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
+      UserContextModel userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
         ?? throw new SecurityTokenValidationException();
-      var userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.RefreshToken == token)
+      UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.RefreshToken == token)
         ?? throw new SecurityTokenValidationException();
       if (userConnection.RefreshTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
@@ -160,11 +160,11 @@ namespace Petopia.Business.Implementations
 
     public async Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token)
     {
-      var endpoint = Configuration
+      string endpoint = Configuration
         .GetSection(AppSettingKey.GG_AUTHENTICATION_ENDPOINT)
         .Get<string>()
         ?? throw new ConfigurationErrorsException();
-      var result = await _httpService.GetAsync<GoogleUserModel>(endpoint, new Dictionary<string, string?>()
+      GoogleUserModel? result = await _httpService.GetAsync<GoogleUserModel>(endpoint, new Dictionary<string, string?>()
       {
         ["access_token"] = token,
       });
@@ -177,11 +177,11 @@ namespace Petopia.Business.Implementations
 
     public async Task ValidateGoogleRecaptchaTokenAsync(string token)
     {
-      var googleRecaptchaSetting = Configuration
+      GoogleRecaptchaSettingModel googleRecaptchaSetting = Configuration
         .GetSection(AppSettingKey.GG_RECAPTCHA)
         .Get<GoogleRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      var result = await _httpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
+      GoogleRecaptchaValidationModel? result = await _httpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
       {
         ["secret"] = googleRecaptchaSetting.SecretKey,
         ["response"] = token

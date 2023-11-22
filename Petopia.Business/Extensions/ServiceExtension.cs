@@ -22,6 +22,8 @@ using Petopia.Business.Models.Enums;
 using Petopia.Business.Validators;
 using AutoMapper;
 using Petopia.Business.Data;
+using System.Security.Claims;
+using Petopia.Business.Models.User;
 
 namespace Petopia.Business.Extensions
 {
@@ -56,7 +58,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddCacheService(this IServiceCollection services, IConfiguration configuration)
     {
-      var redisCacheSettings = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
+      RedisCacheSettingModel? redisCacheSettings = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
       if (redisCacheSettings != null && !string.IsNullOrEmpty(redisCacheSettings.ConnectionString))
       {
         services.AddStackExchangeRedisCache(options =>
@@ -77,7 +79,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddEmailService(this IServiceCollection services, IConfiguration configuration)
     {
-      var emailSettings = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>();
+      EmailSettingModel? emailSettings = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>();
       if (emailSettings != null)
       {
         services.AddSingleton(emailSettings);
@@ -87,7 +89,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddElasticsearchService(this IServiceCollection services, IConfiguration configuration)
     {
-      var elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
+      ElasticsearchSettingModel? elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
       if (elasticSearchSettings != null)
       {
         var settings = new ElasticsearchClientSettings(new Uri(elasticSearchSettings.Url))
@@ -102,10 +104,10 @@ namespace Petopia.Business.Extensions
 
     public static void AddPaymentService(this IServiceCollection services, IConfiguration configuration)
     {
-      var braintreeSettings = configuration.GetSection(AppSettingKey.BRAINTREE).Get<BraintreeSettingModel>();
+      BraintreeSettingModel? braintreeSettings = configuration.GetSection(AppSettingKey.BRAINTREE).Get<BraintreeSettingModel>();
       if (braintreeSettings != null)
       {
-        var gateway = new BraintreeGateway()
+        BraintreeGateway gateway = new()
         {
           Environment = braintreeSettings.IsProduction ? Braintree.Environment.PRODUCTION : Braintree.Environment.SANDBOX,
           MerchantId = braintreeSettings.MerchantId,
@@ -119,7 +121,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
     {
-      var mapperConfig = new MapperConfiguration(mc =>
+      MapperConfiguration mapperConfig = new(mc =>
       {
         mc.AddProfile(new MappingProfiles());
       });
@@ -143,11 +145,11 @@ namespace Petopia.Business.Extensions
           {
             OnMessageReceived = context =>
             {
-              var endpoint = context.HttpContext.GetEndpoint();
-              var authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
+              Endpoint? endpoint = context.HttpContext.GetEndpoint();
+              bool authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
               if (authorized)
               {
-                var accessToken = TokenUtils.GetAccessTokenFromRequest(context.Request)
+                string accessToken = TokenUtils.GetAccessTokenFromRequest(context.Request)
                   ?? throw new UnauthorizedAccessException();
                 context.HttpContext.RequestServices
                   .GetRequiredService<IAuthService>()
@@ -159,11 +161,11 @@ namespace Petopia.Business.Extensions
 
             OnTokenValidated = context =>
             {
-              var claimsPrincipal = context.Principal
+              ClaimsPrincipal claimsPrincipal = context.Principal
                 ?? throw new SecurityTokenValidationException();
-              var userContextInfo = TokenUtils.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
+              UserContextModel userContextInfo = TokenUtils.GetUserContextInfoFromClaims(claimsPrincipal.Claims)
                 ?? throw new SecurityTokenValidationException();
-              var userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
+              IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
               userContext.SetUserContext(userContextInfo);
               return Task.CompletedTask;
             }

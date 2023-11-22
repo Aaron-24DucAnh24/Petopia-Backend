@@ -40,14 +40,14 @@ namespace Petopia.Business.Implementations
 
     public async Task<MailDataModel> CreateForgotPasswordMailDataAsync(string email)
     {
-      var user = await CheckCorrectEmailAsync(email);
+      User user = await CheckCorrectEmailAsync(email);
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
       // TODO: create forgot password email template and import here
-      var subject = string.Empty;
-      var body = string.Empty;
-      var toAddresses = new List<string>();
+      string subject = string.Empty;
+      string body = string.Empty;
+      List<string> toAddresses = new();
       toAddresses.Add(email);
       return new MailDataModel()
       {
@@ -61,13 +61,13 @@ namespace Petopia.Business.Implementations
 
     public async Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken)
     {
-      var emailTemplate = await UnitOfWork.Emails.FirstAsync(x => x.Type == EmailType.ValidateRegister);
-      var body = emailTemplate.Body
+      Email emailTemplate = await UnitOfWork.Emails.FirstAsync(x => x.Type == EmailType.ValidateRegister);
+      string body = emailTemplate.Body
         .Replace(EmailKey.EMAIL, email)
         .Replace(EmailKey.REGISTER_TOKEN, registerToken)
         .Replace(EmailKey.API_ROUTE, ApiRoute);
 
-      var toAddresses = new List<string>();
+      List<string> toAddresses = new();
       toAddresses.Add(email);
 
       return new MailDataModel()
@@ -82,7 +82,7 @@ namespace Petopia.Business.Implementations
 
     private async Task<User> CheckCorrectEmailAsync(string email)
     {
-      var user = await UnitOfWork.Users
+      User user = await UnitOfWork.Users
         .AsTracking()
         .Include(x => x.UserIndividualAttributes)
         .Include(x => x.UserOrganizationAttributes)
@@ -93,7 +93,7 @@ namespace Petopia.Business.Implementations
 
     private MailMessage CreateMailMessage(MailDataModel data)
     {
-      var res = new MailMessage();
+      MailMessage res = new();
       res.From = new MailAddress(data.From);
       res.Subject = data.Subject;
       res.Body = data.Body;

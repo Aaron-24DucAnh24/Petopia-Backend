@@ -21,7 +21,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<CurrentUserResponseModel> GetCurrentUserAsync()
     {
-      var user = await UnitOfWork.Users.FirstAsync(x => x.Id == UserContext.Id);
+      User user = await UnitOfWork.Users.FirstAsync(x => x.Id == UserContext.Id);
       if (user.Role == UserRole.Organization)
       {
         user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstAsync(x => x.Id == user.Id);
@@ -33,19 +33,19 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request)
     {
-      var cacheKey = HashUtils.HashString(request.Email);
-      var cacheData = CacheManager.Instance.Get<CacheRegisterRequestModel>(cacheKey);
+      string cacheKey = HashUtils.HashString(request.Email);
+      CacheRegisterRequestModel? cacheData = CacheManager.Instance.Get<CacheRegisterRequestModel>(cacheKey);
       if (cacheData == null || cacheData.RegisterToken != request.ValidateRegisterToken)
       {
         throw new InvalidRegisterTokenException();
       }
-      var user = await UnitOfWork.Users.CreateAsync(new User()
+      User user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Id = Guid.NewGuid(),
         Email = HashUtils.HashString(cacheData.Request.Email),
         Password = HashUtils.HashPassword(cacheData.Request.Password),
       });
-      var attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
+      UserIndividualAttributes attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
       {
         Id = user.Id,
         FirstName = cacheData.Request.FirstName,
@@ -63,7 +63,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo)
     {
-      var user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(userInfo.Email));
+      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(userInfo.Email));
       if (user == null)
       {
         user = await UnitOfWork.Users.CreateAsync(new User()
@@ -73,7 +73,7 @@ namespace Petopia.Business.Implementations
           Password = string.Empty,
           Image = userInfo.Picture
         });
-        var attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
+        UserIndividualAttributes attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
         {
           Id = user.Id,
           FirstName = userInfo.GivenName,
@@ -91,7 +91,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> ResetPasswordAsync(ResetPasswordRequestModel request)
     {
-      var user = await UnitOfWork.Users
+      User? user = await UnitOfWork.Users
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(request.Email));
       if (user == null
@@ -108,7 +108,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> ChangePasswordAsync(ChangePasswordRequestModel request)
     {
-      var user = await UnitOfWork.Users
+      User user = await UnitOfWork.Users
         .AsTracking()
         .FirstAsync(x => x.Id == UserContext.Id);
       if (!HashUtils.VerifyHashedPassword(user.Password, request.OldPassword))

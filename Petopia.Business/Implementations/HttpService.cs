@@ -28,39 +28,39 @@ namespace Petopia.Business.Implementations
 
     public async Task<T?> GetAsync<T>(string uri)
     {
-      var response = await _httpClient.GetAsync(uri);
+      HttpResponseMessage response = await _httpClient.GetAsync(uri);
       return await UnpackAsync<T>(response);
     }
 
     public async Task<T?> GetAsync<T>(string uri, Dictionary<string, string?> query)
     {
       uri = QueryHelpers.AddQueryString(uri, query);
-      var response = await _httpClient.GetAsync(uri);
+      HttpResponseMessage response = await _httpClient.GetAsync(uri);
       return await UnpackAsync<T>(response);
     }
 
     public async Task<T?> PostFormAsync<T>(string uri, Dictionary<string, string> data)
     {
-      var formData = new FormUrlEncodedContent(data);
-      var response = await _httpClient.PostAsync(uri, formData);
+      FormUrlEncodedContent formData = new(data);
+      HttpResponseMessage response = await _httpClient.PostAsync(uri, formData);
       return await UnpackAsync<T>(response);
     }
 
     public async Task<TResult?> PostJsonAsync<TBody, TResult>(string uri, TBody data)
     {
-      var jsonData = JsonSerializer.Serialize(data, new JsonSerializerOptions()
+      string jsonData = JsonSerializer.Serialize(data, new JsonSerializerOptions()
       {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
       });
-      var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-      var response = await _httpClient.PostAsync(uri, content);
+      StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+      HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
       return await UnpackAsync<TResult>(response);
     }
 
     private async Task<T?> UnpackAsync<T>(HttpResponseMessage response)
     {
-      var responseContent = await response.Content.ReadAsStringAsync();
-      var result = JsonSerializer.Deserialize<T>(responseContent, new JsonSerializerOptions()
+      string responseContent = await response.Content.ReadAsStringAsync();
+      T? result = JsonSerializer.Deserialize<T>(responseContent, new JsonSerializerOptions()
       {
         PropertyNameCaseInsensitive = true
       });

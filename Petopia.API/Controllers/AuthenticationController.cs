@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
+using Petopia.Business.Models.Email;
+using Petopia.Business.Models.User;
 
 namespace Petopia.API.Controllers
 {
@@ -35,26 +37,26 @@ namespace Petopia.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<bool>> Register([FromBody] RegisterRequestModel request)
     {
-      // await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
-      var cacheData =  await _authService.CacheRegisterRequestAsync(request);
-      var mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
+      await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
+      CacheRegisterRequestModel cacheData =  await _authService.CacheRegisterRequestAsync(request);
+      MailDataModel mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
       _emailJobService.SendMail(mailMessage);
       return Ok(true);
     }
 
     [HttpGet("ValidateRegister")]
     [AllowAnonymous]
-    public async Task<ActionResult<string>> ValidateRegisterEmail([FromQuery] ValidateRegisterRequestModel request)
+    public async Task<ActionResult<bool>> ValidateRegisterEmail([FromQuery] ValidateRegisterRequestModel request)
     {
       await _userService.CreateUserSelfRegistrationAsync(request);
-      return Ok("Đăng ký thành công");
+      return Ok(true);
     }
 
     [HttpPost("Login")]
     [AllowAnonymous]
     public async Task<ActionResult<bool>> Login([FromBody] LoginRequestModel request)
     {
-      var result = await _authService.LoginAsync(request);
+      JwtTokensModel result = await _authService.LoginAsync(request);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return Ok(true);
     }
@@ -63,9 +65,9 @@ namespace Petopia.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<bool>> GoogleLogin([FromBody] GoogleLoginRequestModel request)
     {
-      var googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
-      var user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
-      var result = await _authService.LoginAsync(user);
+      GoogleUserModel googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
+      UserContextModel user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
+      JwtTokensModel result = await _authService.LoginAsync(user);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return Ok(true);
     }
@@ -74,8 +76,8 @@ namespace Petopia.API.Controllers
     [AllowAnonymous]
     public async Task<ActionResult<bool>> RefreshToken()
     {
-      var user = _authService.ValidateRefreshToken();
-      var result = await _authService.LoginAsync(user);
+      UserContextModel user = _authService.ValidateRefreshToken();
+      JwtTokensModel result = await _authService.LoginAsync(user);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return Ok(true);
     }
@@ -84,7 +86,7 @@ namespace Petopia.API.Controllers
     [Authorize]
     public async Task<ActionResult<bool>> Logout()
     {
-      var result = await _authService.LogoutAsync();
+      bool result = await _authService.LogoutAsync();
       _cookieService.ClearJwtTokens();
       return Ok(result);
     }
