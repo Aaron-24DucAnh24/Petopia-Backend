@@ -4,6 +4,7 @@ using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.User;
+using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
@@ -30,7 +31,7 @@ namespace Petopia.API.Controllers
     [Authorize]
     public async Task<ActionResult<CurrentUserResponseModel>> GetCurrentUser()
     {
-      return Ok(await _userService.GetCurrentUserAsync());
+      return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
     }
 
     [HttpPost("ForgotPassword")]
@@ -39,7 +40,7 @@ namespace Petopia.API.Controllers
     {
       MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
       _emailJobService.SendMail(mailMessage);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpPost("ResetPassword")]
@@ -53,7 +54,7 @@ namespace Petopia.API.Controllers
     [Authorize]
     public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
     {
-      return Ok(await _userService.ChangePasswordAsync(request));
+      return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
     }
   }
 }

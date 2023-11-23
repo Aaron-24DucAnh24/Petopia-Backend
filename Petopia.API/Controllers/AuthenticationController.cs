@@ -5,6 +5,7 @@ using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.User;
+using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
@@ -41,7 +42,7 @@ namespace Petopia.API.Controllers
       CacheRegisterRequestModel cacheData =  await _authService.CacheRegisterRequestAsync(request);
       MailDataModel mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
       _emailJobService.SendMail(mailMessage);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpGet("ValidateRegister")]
@@ -49,7 +50,7 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> ValidateRegisterEmail([FromQuery] ValidateRegisterRequestModel request)
     {
       await _userService.CreateUserSelfRegistrationAsync(request);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpPost("Login")]
@@ -58,7 +59,7 @@ namespace Petopia.API.Controllers
     {
       JwtTokensModel result = await _authService.LoginAsync(request);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpPost("GoogleLogin")]
@@ -69,7 +70,7 @@ namespace Petopia.API.Controllers
       UserContextModel user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
       JwtTokensModel result = await _authService.LoginAsync(user);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpGet("RefreshToken")]
@@ -79,7 +80,7 @@ namespace Petopia.API.Controllers
       UserContextModel user = _authService.ValidateRefreshToken();
       JwtTokensModel result = await _authService.LoginAsync(user);
       _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return Ok(true);
+      return ResponseUtils.OkResult(true);
     }
 
     [HttpGet("Logout")]
@@ -88,7 +89,7 @@ namespace Petopia.API.Controllers
     {
       bool result = await _authService.LogoutAsync();
       _cookieService.ClearJwtTokens();
-      return Ok(result);
+      return ResponseUtils.OkResult(result);
     }
   }
 }

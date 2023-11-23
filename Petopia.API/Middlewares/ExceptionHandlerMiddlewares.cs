@@ -26,6 +26,7 @@ namespace Petopia.API.Middlewares
       {
         string message = exception.Message;
         int statusCode;
+        int errorCode;
 
         switch (exception)
         {
@@ -45,7 +46,7 @@ namespace Petopia.API.Middlewares
             break;
 
           case ForbiddenAccessException _:
-            statusCode = (int) HttpStatusCode.Forbidden;
+            statusCode = (int) HttpStatusCode.Unauthorized;
             message = exception.Message;
             break;
 
@@ -62,7 +63,16 @@ namespace Petopia.API.Middlewares
             statusCode = (int) HttpStatusCode.InternalServerError;
             break;
         }
-        await context.CreateJsonResponseAsync(statusCode, message); 
+        if(exception is DomainException)
+        {
+          DomainException domainException = (DomainException)exception;
+          errorCode = domainException.ErrorCode;
+        }
+        else
+        {
+          errorCode = statusCode;
+        }
+        await context.CreateJsonResponseAsync(statusCode, errorCode, message); 
         _logger.LogError("{Message}", message);
       }
     }

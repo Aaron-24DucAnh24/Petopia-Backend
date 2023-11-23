@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Petopia.Business.Filters;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
@@ -21,7 +22,7 @@ namespace Petopia.API.Controllers
     [OrganizationAuthorize]
     public async Task<ActionResult<string>> GetToken()
     {
-      return Ok(await _paymentService.GenerateTokenAsync());
+      return ResponseUtils.OkResult(await _paymentService.GenerateTokenAsync());
     }
   }
 }
