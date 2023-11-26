@@ -32,6 +32,8 @@ namespace Petopia.Business.Implementations
       {
         Expires = DateTimeOffset.Now.AddDays(expirationDays),
         HttpOnly = httpOnly,
+        Secure = true,
+        SameSite = SameSiteMode.None,
       });
     }
   }
