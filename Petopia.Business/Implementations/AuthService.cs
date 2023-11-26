@@ -91,9 +91,10 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public async Task<CacheRegisterRequestModel> CacheRegisterRequestAsync (RegisterRequestModel request)
+    public async Task<CacheRegisterRequestModel> CacheRegisterRequestAsync(RegisterRequestModel request)
     {
-      if(await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email))){
+      if (await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email)))
+      {
         throw new UsedEmailException();
       }
       CacheRegisterRequestModel cacheData = new()
@@ -121,7 +122,7 @@ namespace Petopia.Business.Implementations
         ?? throw new SecurityTokenValidationException();
       UserContextModel userContextInfo = TokenUtils.GetUserContextInfoFromClaims(validatedToken.Claims)
         ?? throw new SecurityTokenValidationException();
-      UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token) 
+      UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token)
         ?? throw new SecurityTokenValidationException();
       if (userConnection.AccessTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
       {
@@ -160,11 +161,11 @@ namespace Petopia.Business.Implementations
 
     public async Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token)
     {
-      string endpoint = Configuration
-        .GetSection(AppSettingKey.GG_AUTHENTICATION_ENDPOINT)
-        .Get<string>()
+      GoogleAuthSettingModel configs = Configuration
+        .GetSection(AppSettingKey.GG_AUTH)
+        .Get<GoogleAuthSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      GoogleUserModel? result = await _httpService.GetAsync<GoogleUserModel>(endpoint, new Dictionary<string, string?>()
+      GoogleUserModel? result = await _httpService.GetAsync<GoogleUserModel>(configs.Endpoint, new Dictionary<string, string?>()
       {
         ["access_token"] = token,
       });
@@ -188,8 +189,26 @@ namespace Petopia.Business.Implementations
       });
       if (result == null || !result.Success)
       {
-        throw new SecurityTokenValidationException();
+        throw new GoogleRecaptchaTokenException();
       }
+    }
+
+    public string GetGoogleRecaptchaSiteKey()
+    {
+      GoogleRecaptchaSettingModel googleRecaptchaSetting = Configuration
+        .GetSection(AppSettingKey.GG_RECAPTCHA)
+        .Get<GoogleRecaptchaSettingModel>()
+        ?? throw new ConfigurationErrorsException();
+      return googleRecaptchaSetting.SiteKey;
+    }
+
+    public string GetGoogleAuthClientId()
+    {
+      GoogleAuthSettingModel googleAuthSetting = Configuration
+        .GetSection(AppSettingKey.GG_AUTH)
+        .Get<GoogleAuthSettingModel>()
+        ?? throw new ConfigurationErrorsException();
+      return googleAuthSetting.ClientId;
     }
   }
 }
