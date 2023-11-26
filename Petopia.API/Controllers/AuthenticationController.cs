@@ -39,7 +39,7 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> Register([FromBody] RegisterRequestModel request)
     {
       await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
-      CacheRegisterRequestModel cacheData =  await _authService.CacheRegisterRequestAsync(request);
+      CacheRegisterRequestModel cacheData = await _authService.CacheRegisterRequestAsync(request);
       MailDataModel mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
       _emailJobService.SendMail(mailMessage);
       return ResponseUtils.OkResult(true);
@@ -90,6 +90,20 @@ namespace Petopia.API.Controllers
       bool result = await _authService.LogoutAsync();
       _cookieService.ClearJwtTokens();
       return ResponseUtils.OkResult(result);
+    }
+
+    [HttpGet("GoogleRecaptchaSiteKey")]
+    [AllowAnonymous]
+    public ActionResult<string> GetGoogleRecaptchaSiteKey()
+    {
+      return ResponseUtils.OkResult(_authService.GetGoogleRecaptchaSiteKey());
+    }
+
+    [HttpGet("GoogleAuthClientId")]
+    [AllowAnonymous]
+    public ActionResult<string> GetGoogleAuthClientId()
+    {
+      return ResponseUtils.OkResult(_authService.GetGoogleAuthClientId());
     }
   }
 }
