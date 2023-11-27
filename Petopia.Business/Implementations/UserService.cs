@@ -81,6 +81,10 @@ namespace Petopia.Business.Implementations
         });
         await UnitOfWork.SaveChangesAsync();
       }
+      if(!string.IsNullOrEmpty(user.Password))
+      {
+        throw new WrongLoginMethodException();
+      }
       return new UserContextModel()
       {
         Id = user.Id,

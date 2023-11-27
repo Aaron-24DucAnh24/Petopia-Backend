@@ -31,17 +31,22 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> LoginAsync(LoginRequestModel request)
     {
-      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email));
-      if (user != null && HashUtils.VerifyHashedPassword(user.Password, request.Password))
+      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email))
+        ?? throw new InvalidCredentialException();
+      if (string.IsNullOrEmpty(user.Password))
       {
-        return await LoginAsync(new UserContextModel()
-        {
-          Id = user.Id,
-          Email = request.Email,
-          Role = user.Role
-        });
+        throw new WrongLoginMethodException();
       }
-      throw new InvalidCredentialException();
+      if (!HashUtils.VerifyHashedPassword(user.Password, request.Password))
+      {
+        throw new InvalidCredentialException();
+      }
+      return await LoginAsync(new UserContextModel()
+      {
+        Id = user.Id,
+        Email = request.Email,
+        Role = user.Role
+      });
     }
 
     public async Task<JwtTokensModel> LoginAsync(UserContextModel model)
