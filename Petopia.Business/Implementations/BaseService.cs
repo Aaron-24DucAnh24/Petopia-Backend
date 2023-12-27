@@ -8,6 +8,7 @@ using Petopia.Business.Constants;
 using Petopia.Business.Contexts;
 using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Setting;
 
 namespace Petopia.Business.Implementations
 {
@@ -20,7 +21,8 @@ namespace Petopia.Business.Implementations
     protected readonly ILogger Logger;
     protected readonly ICacheManager CacheManager;
     protected readonly IMapper Mapper;
-    protected readonly string ApiRoute;
+    protected readonly AppUrlsSettingModel AppUrls;
+    protected readonly IHttpService HttpService;
 
     public BaseService(
       IServiceProvider provider,
@@ -33,9 +35,12 @@ namespace Petopia.Business.Implementations
       UnitOfWork = provider.GetRequiredService<IUnitOfWork>();
       CacheManager = provider.GetRequiredService<ICacheManager>();
       Mapper = provider.GetRequiredService<IMapper>();
+      HttpService = provider.GetRequiredService<IHttpService>();
       Logger = logger;
-      ApiRoute = Configuration.GetSection(AppSettingKey.API_ROUTE).Get<string>()
-       ?? throw new ConfigurationErrorsException();
+      AppUrls = Configuration
+        .GetSection(AppSettingKey.APP_URLS)
+        .Get<AppUrlsSettingModel>()
+        ?? throw new ConfigurationErrorsException();
     }
   }
 }

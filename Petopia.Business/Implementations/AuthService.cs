@@ -18,15 +18,15 @@ namespace Petopia.Business.Implementations
 {
   public class AuthService : BaseService, IAuthService
   {
-    private readonly IHttpService _httpService;
+    private const string ACCESS_TOKEN = "access_token";
+    private const string RESPONSE = "response";
+    private const string SECRET = "secret";
 
     public AuthService(
       IServiceProvider provider,
-      ILogger<AuthService> logger,
-      IHttpService httpService
+      ILogger<AuthService> logger
     ) : base(provider, logger)
     {
-      _httpService = httpService;
     }
 
     public async Task<JwtTokensModel> LoginAsync(LoginRequestModel request)
@@ -96,18 +96,15 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public async Task<CacheRegisterRequestModel> CacheRegisterRequestAsync(RegisterRequestModel request)
+    public async Task<string> CacheRegisterRequestAsync(RegisterRequestModel request)
     {
       if (await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email)))
       {
         throw new UsedEmailException();
       }
-      CacheRegisterRequestModel cacheData = new()
-      {
-        RegisterToken = TokenUtils.CreateSecurityToken(),
-        Request = request
-      };
-      return CacheManager.Instance.Set(HashUtils.HashString(request.Email), cacheData, TokenSettingConstants.REGISTER_TOKEN_EXPIRATION_DAYS);
+      string cacheKey = TokenUtils.CreateSecurityToken();
+      CacheManager.Instance.Set(cacheKey, request, TokenSettingConstants.REGISTER_TOKEN_EXPIRATION_DAYS);
+      return cacheKey;
     }
 
     public UserContextModel ValidateAccessToken(string token)
@@ -170,9 +167,9 @@ namespace Petopia.Business.Implementations
         .GetSection(AppSettingKey.GG_AUTH)
         .Get<GoogleAuthSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      GoogleUserModel? result = await _httpService.GetAsync<GoogleUserModel>(configs.Endpoint, new Dictionary<string, string?>()
+      GoogleUserModel? result = await HttpService.GetAsync<GoogleUserModel>(configs.Endpoint, new Dictionary<string, string?>()
       {
-        ["access_token"] = token,
+        [ACCESS_TOKEN] = token,
       });
       if (result == null || !result.Error.IsNullOrEmpty())
       {
@@ -187,10 +184,10 @@ namespace Petopia.Business.Implementations
         .GetSection(AppSettingKey.GG_RECAPTCHA)
         .Get<GoogleRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
-      GoogleRecaptchaValidationModel? result = await _httpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
+      GoogleRecaptchaValidationModel? result = await HttpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
       {
-        ["secret"] = googleRecaptchaSetting.SecretKey,
-        ["response"] = token
+        [SECRET] = googleRecaptchaSetting.SecretKey,
+        [RESPONSE] = token
       });
       if (result == null || !result.Success)
       {

@@ -24,7 +24,7 @@ namespace Petopia.Business.Implementations
       EmailSettingModel settings
     ) : base(provider, logger)
     {
-      _smtpClient = new SmtpClient(settings.SmtpClient, 587)
+      _smtpClient = new SmtpClient(settings.SmtpClient, settings.Port)
       {
         EnableSsl = true,
         UseDefaultCredentials = false,
@@ -44,16 +44,19 @@ namespace Petopia.Business.Implementations
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
-      // TODO: create forgot password email template and import here
-      string subject = string.Empty;
-      string body = string.Empty;
-      List<string> toAddresses = new();
-      toAddresses.Add(email);
+      
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
+      string body = emailTemplate.Body
+        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice)
+        .Replace(EmailKey.PASSWORD_TOKEN, user.ResetPasswordToken);
+
+      List<string> toAddresses = new() { email };
+
       return new MailDataModel()
       {
         From = _settings.EmailClient,
         To = toAddresses,
-        Subject = subject,
+        Subject = emailTemplate.Subject,
         Body = body,
         IsBodyHtml = true
       };
@@ -61,14 +64,13 @@ namespace Petopia.Business.Implementations
 
     public async Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken)
     {
-      Email emailTemplate = await UnitOfWork.Emails.FirstAsync(x => x.Type == EmailType.ValidateRegister);
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ValidateRegister);
       string body = emailTemplate.Body
         .Replace(EmailKey.EMAIL, email)
         .Replace(EmailKey.REGISTER_TOKEN, registerToken)
-        .Replace(EmailKey.API_ROUTE, ApiRoute);
+        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
 
-      List<string> toAddresses = new();
-      toAddresses.Add(email);
+      List<string> toAddresses = new() { email };
 
       return new MailDataModel()
       {
@@ -93,11 +95,13 @@ namespace Petopia.Business.Implementations
 
     private MailMessage CreateMailMessage(MailDataModel data)
     {
-      MailMessage res = new();
-      res.From = new MailAddress(data.From);
-      res.Subject = data.Subject;
-      res.Body = data.Body;
-      res.IsBodyHtml = data.IsBodyHtml;
+      MailMessage res = new()
+      {
+        From = new MailAddress(data.From),
+        Subject = data.Subject,
+        Body = data.Body,
+        IsBodyHtml = data.IsBodyHtml,
+      };
       foreach (var addressString in data.To)
       {
         res.To.Add(new MailAddress(addressString));

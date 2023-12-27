@@ -5,18 +5,13 @@ namespace Petopia.BackgroundJobs.Implementations
 {
   public class BaseJobService
   {
-    private readonly IServiceProvider _serviceProvider;
-    protected readonly IBackgroundJobClient JobClient;
+    protected readonly IServiceProvider ServiceProvider;
+    protected readonly IBackgroundJobClient BackgroundJob;
 
     public BaseJobService(IServiceProvider serviceProvider)
     {
-      _serviceProvider = serviceProvider;
-      JobClient = serviceProvider.GetRequiredService<IBackgroundJobClient>();
-    }
-
-    protected T GetRequiredService<T>() where T : notnull
-    {
-      return _serviceProvider.GetRequiredService<T>();
+      ServiceProvider = serviceProvider;
+      BackgroundJob = serviceProvider.GetRequiredService<IBackgroundJobClient>();
     }
   }
 }
