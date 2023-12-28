@@ -41,6 +41,8 @@ namespace Petopia.Business.Extensions
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IUserService, UserService>();
       services.AddTransient<IHttpService, Implementations.HttpService>();
+      services.AddScoped<IPetService, PetService>();
+      services.AddScoped<IAzureService, AzureService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)

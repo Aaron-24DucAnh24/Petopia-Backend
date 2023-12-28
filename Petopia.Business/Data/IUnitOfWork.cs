@@ -12,5 +12,7 @@ namespace Petopia.Business.Data
     IUserIndividualAttributesDataLayer UserIndividualAttributes { get; }
     IUserOrganizationAttributesDataLayer UserOrganizationAttributes { get; }
     IEmailTemplateDataLayer EmailTemplates { get; }
+    IPetDataLayer Pets { get; }
+    IMediaDataLayer Medias { get; }
   }
 }

@@ -1,6 +1,7 @@
 using System.Configuration;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using Petopia.Business.Contexts;
 using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Setting;
+using Petopia.Data.Entities;
 
 namespace Petopia.Business.Implementations
 {
@@ -41,6 +43,14 @@ namespace Petopia.Business.Implementations
         .GetSection(AppSettingKey.APP_URLS)
         .Get<AppUrlsSettingModel>()
         ?? throw new ConfigurationErrorsException();
+    }
+
+    protected async Task<User> GetUserAttributesAsync()
+    {
+      return await UnitOfWork.Users
+        .Include(x => x.UserIndividualAttributes)
+        .Include(x => x.UserOrganizationAttributes)
+        .FirstAsync(x => x.Id == UserContext.Id);
     }
   }
 }

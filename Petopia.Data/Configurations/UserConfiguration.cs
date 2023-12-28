@@ -13,7 +13,8 @@ namespace Petopia.Data.Configurations
       builder.ToTable("User");
       builder.Property(x => x.Role).HasDefaultValue(UserRole.StandardUser);
       builder.Property(x => x.Image).HasDefaultValue(string.Empty);
-      builder.Property(x => x.IsCreatedAt).HasDefaultValue(DateTime.Now);
+      builder.Property(x => x.Address).HasDefaultValue(string.Empty);
+      builder.Property(x => x.IsCreatedAt).HasDefaultValue(DateTimeOffset.Now);
       builder
         .HasOne<UserConnection>(x => x.UserConnection)
         .WithOne(x => x.User)
@@ -26,6 +27,10 @@ namespace Petopia.Data.Configurations
         .HasOne<UserOrganizationAttributes>(x => x.UserOrganizationAttributes)
         .WithOne(x => x.User)
         .HasForeignKey<UserOrganizationAttributes>(x => x.Id);
+      builder
+        .HasMany<Pet>(x => x.Pets)
+        .WithOne(x => x.Owner)
+        .HasForeignKey(x => x.OwnerId);
     }
   }
 }

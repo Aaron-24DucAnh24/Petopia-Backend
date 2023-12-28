@@ -1,9 +1,9 @@
 namespace Petopia.Business.Models.Common
 {
-  public class PaginationModel<T>
+  public class PaginationResponseModel<T>
   {
-    public required T Data { get; set; }
-    public int ItemsNumber { get; set; }
+    public required List<T> Data { get; set; }
+    public int PageSize { get; set; }
     public int TotalNumber { get; set; }
     public int PageIndex { get; set; }
     public int PageNumber { get; set; }

@@ -39,8 +39,22 @@ namespace Petopia.DataLayer.Implementations
   }
 
   public class EmailTemplateDataLayer : BaseDataLayer<EmailTemplate>, IEmailTemplateDataLayer
-    {
+  {
     public EmailTemplateDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    {
+    }
+  }
+
+  public class PetDataLayer : BaseDataLayer<Pet>, IPetDataLayer
+  {
+    public PetDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class MediaDataLayer : BaseDataLayer<Media>, IMediaDataLayer
+  {
+    public MediaDataLayer(ApplicationDbContext context) : base(context)
     {
     }
   }

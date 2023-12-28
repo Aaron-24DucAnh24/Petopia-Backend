@@ -1,4 +1,5 @@
 using AutoMapper;
+using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
 using Petopia.Data.Entities;
 
@@ -17,6 +18,10 @@ namespace Petopia.Business.Utils
       CreateMap<UserIndividualAttributes, CurrentIndividualAttributesResponseModel>();
       
       CreateMap<UserOrganizationAttributes, CurrentOrganizationAttributesResponseModel>();
+
+      CreateMap<CreatePetRequestModel, CreatePetResponseModel>();
+
+      CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
     }
   }
 }

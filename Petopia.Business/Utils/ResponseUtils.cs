@@ -10,7 +10,7 @@ namespace Petopia.Business.Utils
   {
     public static OkObjectResult OkResult<T>(T data)
     {
-      if (data is PaginationModel<T>)
+      if (data is PaginationResponseModel<T>)
       {
         return new OkObjectResult(data);
       }

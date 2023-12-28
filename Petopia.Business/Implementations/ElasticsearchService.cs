@@ -27,7 +27,7 @@ namespace Petopia.Business.Implementations
       {
         await UnitOfWork.SyncDataCollections.CreateAsync(new SyncDataCollection()
         {
-          CollectionId = Guid.NewGuid(),
+          Id = Guid.NewGuid(),
           ItemId = user.Id,
           Index = ElasticsearchIndex.USERS
         });
