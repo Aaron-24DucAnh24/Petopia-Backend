@@ -1,4 +1,4 @@
-﻿
+﻿#nullable disable
 
 using Petopia.Data.Enums;
 
@@ -23,9 +23,9 @@ namespace Petopia.Data.Entities
         public string AdrCity { get; set; }
         public string AdrDistrict { get; set; }
 
-        public Answer IsPetOwner { get; set; }
-        public Answer IsHouseOwner { get; set; }
-        public Answer PetTakeDuration { get; set; }
+        public bool IsPetOwner { get; set; }
+        public HouseType HouseType{ get; set; }
+        public TakePetDuration TakePetDuration { get; set; }
 
         
 
