@@ -29,6 +29,8 @@ namespace Petopia.DataLayer.Extensions
       services.AddScoped<IUserIndividualAttributesDataLayer, UserIndividualAttributesDataLayer>();
       services.AddScoped<IUserOrganizationAttributesDataLayer, UserOrganizationAttributesDataLayer>();
       services.AddScoped<IEmailDataLayer, EmailDataLayer>();
+      services.AddScoped<IAdoptionFormDataLayer, AdoptionFormDataLayer>();
+            
     }
   }
 }
