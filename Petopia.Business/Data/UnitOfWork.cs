@@ -31,5 +31,6 @@ namespace Petopia.Business.Data
     public IUserIndividualAttributesDataLayer UserIndividualAttributes => _serviceProvider.GetRequiredService<IUserIndividualAttributesDataLayer>();
     public IUserOrganizationAttributesDataLayer UserOrganizationAttributes => _serviceProvider.GetRequiredService<IUserOrganizationAttributesDataLayer>();
     public IEmailDataLayer Emails => _serviceProvider.GetRequiredService<IEmailDataLayer>();
+    public IAdoptionFormDataLayer AdoptionForms => _serviceProvider.GetRequiredService<IAdoptionFormDataLayer>();
   }
 }

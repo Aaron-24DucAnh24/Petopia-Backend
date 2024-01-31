@@ -11,7 +11,7 @@ namespace Petopia.Data.Entities
         public Guid UserId { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        //Display 
+        //Display
 
         public string FName { get; set; }
         public string LName { get; set; }
@@ -24,11 +24,8 @@ namespace Petopia.Data.Entities
         public string AdrDistrict { get; set; }
 
         public bool IsPetOwner { get; set; }
-        public HouseType HouseType{ get; set; }
+        public HouseType HouseType { get; set; }
         public TakePetDuration TakePetDuration { get; set; }
-
-        
-
 
         /*public DateTime UpdatedAt { get; set; }*/
     }

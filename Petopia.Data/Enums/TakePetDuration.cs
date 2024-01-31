@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Petopia.Data.Enums
+﻿namespace Petopia.Data.Enums
 {
     public enum TakePetDuration
     {

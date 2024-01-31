@@ -1,5 +1,4 @@
-﻿
-namespace Petopia.Data.Enums
+﻿namespace Petopia.Data.Enums
 {
     public enum HouseType
     {

@@ -8,53 +8,53 @@ using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
-  [ApiController]
-  [Route("api/User")]
-  public class UserController : ControllerBase
-  {
-    private readonly IUserService _userService;
-    private readonly IEmailService _emailService;
-    private readonly IEmailJobService _emailJobService;
-
-    public UserController(
-      IUserService userService,
-      IEmailService emailService,
-      IEmailJobService emailJobService
-    )
+    [ApiController]
+    [Route("api/User")]
+    public class UserController : ControllerBase
     {
-      _userService = userService;
-      _emailService = emailService;
-      _emailJobService = emailJobService;
-    }
+        private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
+        private readonly IEmailJobService _emailJobService;
 
-    [HttpGet("CurrentUser")]
-    [Authorize]
-    public async Task<ActionResult<CurrentUserResponseModel>> GetCurrentUser()
-    {
-      return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
-    }
+        public UserController(
+          IUserService userService,
+          IEmailService emailService,
+          IEmailJobService emailJobService
+        )
+        {
+            _userService = userService;
+            _emailService = emailService;
+            _emailJobService = emailJobService;
+        }
 
-    [HttpPost("ForgotPassword")]
-    [AllowAnonymous]
-    public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)
-    {
-      MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
-      _emailJobService.SendMail(mailMessage);
-      return ResponseUtils.OkResult(true);
-    }
+        [HttpGet("CurrentUser")]
+        [Authorize]
+        public async Task<ActionResult<CurrentUserResponseModel>> GetCurrentUser()
+        {
+            return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
+        }
 
-    [HttpPost("ResetPassword")]
-    [AllowAnonymous]
-    public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
-    {
-      return Ok(await _userService.ResetPasswordAsync(request));
-    }
+        [HttpPost("ForgotPassword")]
+        [AllowAnonymous]
+        public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)
+        {
+            MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
+            _emailJobService.SendMail(mailMessage);
+            return ResponseUtils.OkResult(true);
+        }
 
-    [HttpPost("ChangePassword")]
-    [Authorize]
-    public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
-    {
-      return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
+        [HttpPost("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
+        {
+            return Ok(await _userService.ResetPasswordAsync(request));
+        }
+
+        [HttpPost("ChangePassword")]
+        [Authorize]
+        public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
+        {
+            return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
+        }
     }
-  }
 }

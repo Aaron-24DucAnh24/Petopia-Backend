@@ -5,24 +5,24 @@ using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
-  [ApiController]
-  [Route("api/Payment")]
-  public class PaymentController : ControllerBase
-  {
-    private readonly IPaymentService _paymentService;
-
-    public PaymentController(
-      IPaymentService paymentService
-    )
+    [ApiController]
+    [Route("api/Payment")]
+    public class PaymentController : ControllerBase
     {
-      _paymentService = paymentService;
-    }
+        private readonly IPaymentService _paymentService;
 
-    [HttpGet("GetToken")]
-    [OrganizationAuthorize]
-    public async Task<ActionResult<string>> GetToken()
-    {
-      return ResponseUtils.OkResult(await _paymentService.GenerateTokenAsync());
+        public PaymentController(
+          IPaymentService paymentService
+        )
+        {
+            _paymentService = paymentService;
+        }
+
+        [HttpGet("GetToken")]
+        [OrganizationAuthorize]
+        public async Task<ActionResult<string>> GetToken()
+        {
+            return ResponseUtils.OkResult(await _paymentService.GenerateTokenAsync());
+        }
     }
-  }
 }

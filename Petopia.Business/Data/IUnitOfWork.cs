@@ -12,5 +12,8 @@ namespace Petopia.Business.Data
     IUserIndividualAttributesDataLayer UserIndividualAttributes { get; }
     IUserOrganizationAttributesDataLayer UserOrganizationAttributes { get; }
     IEmailDataLayer Emails { get; }
+
+    IAdoptionFormDataLayer AdoptionForms { get; }
+
   }
 }

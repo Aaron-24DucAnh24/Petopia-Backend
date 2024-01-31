@@ -1,123 +1,123 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Petopia.Data;
 using Petopia.DataLayer.Interfaces;
+using System.Linq.Expressions;
 
 namespace Petopia.DataLayer.Implementations
 {
-  public class BaseDataLayer<T> : IBaseDataLayer<T> where T : class
-  {
-    private readonly ApplicationDbContext _dbContext;
-    protected DbSet<T> DbSet => _dbContext.Set<T>();
-
-    public BaseDataLayer(ApplicationDbContext dbContext)
+    public class BaseDataLayer<T> : IBaseDataLayer<T> where T : class
     {
-      _dbContext = dbContext;
-    }
+        private readonly ApplicationDbContext _dbContext;
+        protected DbSet<T> DbSet => _dbContext.Set<T>();
 
-    public bool Any(Expression<Func<T, bool>> exp)
-    {
-      return DbSet.Where(exp).Any();
-    }
+        public BaseDataLayer(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-    public async ValueTask<bool> AnyAsync(Expression<Func<T, bool>> exp)
-    {
-      return await DbSet.Where(exp).AnyAsync();
-    }
+        public bool Any(Expression<Func<T, bool>> exp)
+        {
+            return DbSet.Where(exp).Any();
+        }
 
-    public IQueryable<T> AsQueryable()
-    {
-      return DbSet;
-    }
+        public async ValueTask<bool> AnyAsync(Expression<Func<T, bool>> exp)
+        {
+            return await DbSet.Where(exp).AnyAsync();
+        }
 
-    public IQueryable<T> AsTracking()
-    {
-      return DbSet.AsTracking();
-    }
+        public IQueryable<T> AsQueryable()
+        {
+            return DbSet;
+        }
 
-    public int Count(Expression<Func<T, bool>> exp)
-    {
-      return DbSet.Where(exp).Count();
-    }
+        public IQueryable<T> AsTracking()
+        {
+            return DbSet.AsTracking();
+        }
 
-    public async ValueTask<int> CountAsync(Expression<Func<T, bool>> exp)
-    {
-      return await DbSet.Where(exp).CountAsync();
-    }
+        public int Count(Expression<Func<T, bool>> exp)
+        {
+            return DbSet.Where(exp).Count();
+        }
 
-    public T Create(T entity)
-    {
-      return DbSet.Add(entity).Entity;
-    }
+        public async ValueTask<int> CountAsync(Expression<Func<T, bool>> exp)
+        {
+            return await DbSet.Where(exp).CountAsync();
+        }
 
-    public async ValueTask<T> CreateAsync(T entity)
-    {
-      return (await DbSet.AddAsync(entity)).Entity;
-    }
+        public T Create(T entity)
+        {
+            return DbSet.Add(entity).Entity;
+        }
 
-    public async ValueTask CreateRangeAsync(T[] entity)
-    {
-      await DbSet.AddRangeAsync(entity);
-    }
+        public async ValueTask<T> CreateAsync(T entity)
+        {
+            return (await DbSet.AddAsync(entity)).Entity;
+        }
 
-    public void Delete(T entity)
-    {
-      DbSet.Remove(entity);
-    }
+        public async ValueTask CreateRangeAsync(T[] entity)
+        {
+            await DbSet.AddRangeAsync(entity);
+        }
 
-    public async ValueTask DeleteAllAsync(Expression<Func<T, bool>> exp)
-    {
-      List<T> objects = await DbSet.AsTracking().Where(exp).ToListAsync();
-      foreach (var obj in objects)
-      {
-        DbSet.Remove(obj);
-      }
-    }
+        public void Delete(T entity)
+        {
+            DbSet.Remove(entity);
+        }
 
-    public void DeleteRange(params T[] entities)
-    {
-      DbSet.RemoveRange(entities);
-    }
+        public async ValueTask DeleteAllAsync(Expression<Func<T, bool>> exp)
+        {
+            List<T> objects = await DbSet.AsTracking().Where(exp).ToListAsync();
+            foreach (var obj in objects)
+            {
+                DbSet.Remove(obj);
+            }
+        }
 
-    public T? FirstOrDefault(Expression<Func<T, bool>> exp)
-    {
-      return DbSet.Where(exp).FirstOrDefault();
-    }
+        public void DeleteRange(params T[] entities)
+        {
+            DbSet.RemoveRange(entities);
+        }
 
-    public async ValueTask<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> exp)
-    {
-      return await DbSet.Where(exp).FirstOrDefaultAsync();
-    }
+        public T? FirstOrDefault(Expression<Func<T, bool>> exp)
+        {
+            return DbSet.Where(exp).FirstOrDefault();
+        }
 
-    public async ValueTask<T> FirstAsync(Expression<Func<T, bool>> exp)
-    {
-      return await DbSet.Where(exp).FirstAsync();
-    }
+        public async ValueTask<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> exp)
+        {
+            return await DbSet.Where(exp).FirstOrDefaultAsync();
+        }
 
-    public IIncludableQueryable<T, K> Include<K>(Expression<Func<T, K>> exp)
-    {
-      return DbSet.Include(exp);
-    }
+        public async ValueTask<T> FirstAsync(Expression<Func<T, bool>> exp)
+        {
+            return await DbSet.Where(exp).FirstAsync();
+        }
 
-    public T Update(T entity)
-    {
-      return DbSet.Update(entity).Entity;
-    }
+        public IIncludableQueryable<T, K> Include<K>(Expression<Func<T, K>> exp)
+        {
+            return DbSet.Include(exp);
+        }
 
-    public void UpdateRange(T[] entities)
-    {
-      DbSet.UpdateRange(entities);
-    }
+        public T Update(T entity)
+        {
+            return DbSet.Update(entity).Entity;
+        }
 
-    public IQueryable<T> Where(Expression<Func<T, bool>> exp)
-    {
-      return DbSet.Where(exp);
-    }
+        public void UpdateRange(T[] entities)
+        {
+            DbSet.UpdateRange(entities);
+        }
 
-    public async Task<List<T>> ToListAsync()
-    {
-      return await DbSet.ToListAsync<T>();
+        public IQueryable<T> Where(Expression<Func<T, bool>> exp)
+        {
+            return DbSet.Where(exp);
+        }
+
+        public async Task<List<T>> ToListAsync()
+        {
+            return await DbSet.ToListAsync<T>();
+        }
     }
-  }
 }
