@@ -5,33 +5,34 @@ using Petopia.Business.Models.Exceptions;
 
 namespace Petopia.Business.Implementations
 {
-  public class PaymentService : BaseService, IPaymentService
-  {
-    private readonly IBraintreeGateway _gateway;
-    public PaymentService(
-      IServiceProvider provider,
-      ILogger<PaymentService> logger,
-      IBraintreeGateway gateway
-    ) : base(provider, logger)
+    public class PaymentService : BaseService, IPaymentService
     {
-      _gateway = gateway;
-    }
+        private readonly IBraintreeGateway _gateway;
 
-    public async Task<string> GenerateTokenAsync(string customerId = "")
-    {
-      try
-      {
-        ClientTokenRequest clientTokenRequest = new();
-        if (!string.IsNullOrEmpty(customerId))
+        public PaymentService(
+          IServiceProvider provider,
+          ILogger<PaymentService> logger,
+          IBraintreeGateway gateway
+        ) : base(provider, logger)
         {
-          clientTokenRequest.CustomerId = customerId;
+            _gateway = gateway;
         }
-        return await _gateway.ClientToken.GenerateAsync(clientTokenRequest);
-      }
-      catch (Exception)
-      {
-        throw new PaymentTokenException();
-      }
+
+        public async Task<string> GenerateTokenAsync(string customerId = "")
+        {
+            try
+            {
+                ClientTokenRequest clientTokenRequest = new();
+                if (!string.IsNullOrEmpty(customerId))
+                {
+                    clientTokenRequest.CustomerId = customerId;
+                }
+                return await _gateway.ClientToken.GenerateAsync(clientTokenRequest);
+            }
+            catch (Exception)
+            {
+                throw new PaymentTokenException();
+            }
+        }
     }
-  }
 }

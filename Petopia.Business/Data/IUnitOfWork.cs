@@ -2,18 +2,18 @@ using Petopia.DataLayer.Interfaces;
 
 namespace Petopia.Business.Data
 {
-  public interface IUnitOfWork
-  {
-    int SaveChange();
-    ValueTask<int> SaveChangesAsync();
-    IUserDataLayer Users { get; }
-    IUserConnectionDataLayer UserConnections { get; }
-    ISyncDataCollectionDataLayer SyncDataCollections { get; }
-    IUserIndividualAttributesDataLayer UserIndividualAttributes { get; }
-    IUserOrganizationAttributesDataLayer UserOrganizationAttributes { get; }
-    IEmailDataLayer Emails { get; }
+    public interface IUnitOfWork
+    {
+        int SaveChange();
 
-    IAdoptionFormDataLayer AdoptionForms { get; }
+        ValueTask<int> SaveChangesAsync();
 
-  }
+        IUserDataLayer Users { get; }
+        IUserConnectionDataLayer UserConnections { get; }
+        ISyncDataCollectionDataLayer SyncDataCollections { get; }
+        IUserIndividualAttributesDataLayer UserIndividualAttributes { get; }
+        IUserOrganizationAttributesDataLayer UserOrganizationAttributes { get; }
+        IEmailDataLayer Emails { get; }
+        IAdoptionFormDataLayer AdoptionForms { get; }
+    }
 }

@@ -1,20 +1,10 @@
-﻿#nullable disable
+﻿using Petopia.Data.Enums;
 
-using Petopia.Data.Enums;
-
-namespace Petopia.Data.Entities
+namespace Petopia.Business.Models.AdoptionForm
 {
-    public class AdoptionForm
+    public class AdoptionFormDataModel
     {
-        public Guid AdoptionFormId { get; set; }
-        public Guid PetId { get; set; }
-        public Guid UserId { get; set; }
-        public DateTime CreatedAt { get; set; }
-
-        public AdoptStatus AdoptStatus { get; set; }
-
         //Display
-
         public string FName { get; set; }
         public string LName { get; set; }
         public int Age { get; set; }
@@ -28,7 +18,5 @@ namespace Petopia.Data.Entities
         public bool IsPetOwner { get; set; }
         public HouseType HouseType { get; set; }
         public TakePetDuration TakePetDuration { get; set; }
-
-        /*public DateTime UpdatedAt { get; set; }*/
     }
 }
