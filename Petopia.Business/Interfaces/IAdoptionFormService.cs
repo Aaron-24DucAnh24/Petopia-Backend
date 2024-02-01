@@ -1,12 +1,13 @@
-﻿using Petopia.Data.Enums;
+﻿using Petopia.Business.Models.AdoptionForm;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Interfaces
 {
     public interface IAdoptionFormService
     {
-        public Task GetAdoptionFormByIdAsync(Guid id);
+        public Task<AdoptionFormDataModel> GetAdoptionFormByIdAsync(Guid id);
 
-        public Task GetAdoptionFormByPetIdAsync(Guid petId);
+        public Task<AdoptionFormDataModel> GetAdoptionFormByPetIdAsync(Guid petId);
 
         public Task CreateAdoptionFormAsync();
 

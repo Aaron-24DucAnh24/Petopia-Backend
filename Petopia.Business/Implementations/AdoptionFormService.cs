@@ -3,6 +3,7 @@ using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Exception;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
+using Petopia.Business.Models.AdoptionForm;
 
 namespace Petopia.Business.Implementations
 {
@@ -15,20 +16,26 @@ namespace Petopia.Business.Implementations
         {
         }
 
-        public async Task GetAdoptionFormByIdAsync(Guid id)
+        public async Task<AdoptionFormDataModel> GetAdoptionFormByIdAsync(Guid id)
         {
             AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == id);
             if (adoptionForm == null)
             {
                 throw new NotExistException();
             }
-            else return Mapper.Map<AdoptionFormResponseModel>(adoptionForm);
+            else return Mapper.Map<AdoptionFormDataModel>(adoptionForm);
             
         }
 
-        public Task GetAdoptionFormByPetIdAsync(Guid petId)
+        public async Task<AdoptionFormDataModel> GetAdoptionFormByPetIdAsync(Guid petId)
         {
-            throw new NotImplementedException();
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.PetId == petId);
+            if (adoptionForm == null)
+            {
+                throw new NotExistException();
+            }
+            else return Mapper.Map<AdoptionFormDataModel>(adoptionForm);
+            
         }
 
         public Task CreateAdoptionFormAsync()
