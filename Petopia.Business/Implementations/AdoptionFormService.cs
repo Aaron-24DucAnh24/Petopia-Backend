@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.AdoptionForm;
 using Petopia.Business.Models.Exception;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
-using Petopia.Business.Models.AdoptionForm;
 
 namespace Petopia.Business.Implementations
 {
@@ -24,7 +24,6 @@ namespace Petopia.Business.Implementations
                 throw new NotExistException();
             }
             else return Mapper.Map<AdoptionFormDataModel>(adoptionForm);
-            
         }
 
         public async Task<AdoptionFormDataModel> GetAdoptionFormByPetIdAsync(Guid petId)
@@ -35,27 +34,71 @@ namespace Petopia.Business.Implementations
                 throw new NotExistException();
             }
             else return Mapper.Map<AdoptionFormDataModel>(adoptionForm);
-            
         }
 
-        public Task CreateAdoptionFormAsync()
+        public async Task CreateAdoptionFormAsync()
         {
-            throw new NotImplementedException();
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
+            {
+                AdoptionFormId = Guid.NewGuid(),
+                //PetId = getPetId
+                //UserId = getCurrentUserId,
+                CreatedAt = DateTime.Now,
+                AdoptStatus = AdoptStatus.Pending,
+            });
+            await UnitOfWork.SaveChangesAsync();
         }
 
-        public Task UpdateAdoptionFormAsync(Guid id)
+        public async Task UpdateAdoptionFormAsync(Guid id, AdoptionFormDataModel data)
         {
-            throw new NotImplementedException();
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == id);
+            if (adoptionForm == null)
+            {
+                throw new NotExistException();
+            }
+            else
+            {
+                adoptionForm.AdoptStatus = AdoptStatus.Pending;
+                adoptionForm.FName = data.FName;
+                adoptionForm.LName = data.LName;
+                adoptionForm.Age = data.Age;
+                adoptionForm.Email = data.Email;
+                adoptionForm.PhoneNum = data.PhoneNum;
+                adoptionForm.Adr = data.Adr;
+                adoptionForm.AdrCity = data.AdrCity;
+                adoptionForm.AdrDistrict = data.AdrDistrict;
+                adoptionForm.IsPetOwner = data.IsPetOwner;
+                adoptionForm.HouseType = data.HouseType;
+                adoptionForm.TakePetDuration = data.TakePetDuration;
+
+                await UnitOfWork.SaveChangesAsync();
+            }
         }
 
-        public Task HandleAdoptionFormAsync(Guid id, AdoptStatus adoptStatus)
+        public async Task HandleAdoptionFormAsync(Guid id, AdoptStatus adoptStatus)
         {
-            throw new NotImplementedException();
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == id);
+            if (adoptionForm == null)
+            {
+                throw new NotExistException();
+            }
+            else
+            {
+                adoptionForm.AdoptStatus = adoptStatus;
+                //notify user
+                //NotifyUser(adoptionForm.UserId, adoptStatus);
+                await UnitOfWork.SaveChangesAsync();
+            }
         }
 
-        public Task DeleteAdoptionFormAsync(Guid id)
+        public async Task DeleteAdoptionFormAsync(Guid id)
         {
-            throw new NotImplementedException();
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == id);
+            if (adoptionForm != null)
+            {
+                UnitOfWork.AdoptionForms.Delete(adoptionForm);
+                await UnitOfWork.SaveChangesAsync();
+            }
         }
     }
 }
