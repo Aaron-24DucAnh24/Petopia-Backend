@@ -9,7 +9,7 @@ namespace Petopia.Business.Interfaces
 
         public Task<AdoptionFormDataModel> GetAdoptionFormByPetIdAsync(Guid petId);
 
-        public Task CreateAdoptionFormAsync();
+        public Task<Guid> CreateAdoptionFormAsync();
 
         public Task UpdateAdoptionFormAsync(Guid id, AdoptionFormDataModel data);
 

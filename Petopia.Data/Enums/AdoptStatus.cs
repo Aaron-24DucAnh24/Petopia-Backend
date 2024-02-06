@@ -3,7 +3,7 @@
     public enum AdoptStatus
     {
         Pending,
-        Approved,
+        Accepted,
         Rejected,
         Cancelled,
         Adopted

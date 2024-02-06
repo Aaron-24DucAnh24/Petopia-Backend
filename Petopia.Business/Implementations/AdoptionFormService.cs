@@ -36,7 +36,7 @@ namespace Petopia.Business.Implementations
             else return Mapper.Map<AdoptionFormDataModel>(adoptionForm);
         }
 
-        public async Task CreateAdoptionFormAsync()
+        public async Task<Guid> CreateAdoptionFormAsync()
         {
             AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
             {
@@ -46,7 +46,9 @@ namespace Petopia.Business.Implementations
                 CreatedAt = DateTime.Now,
                 AdoptStatus = AdoptStatus.Pending,
             });
+            
             await UnitOfWork.SaveChangesAsync();
+            return adoptionForm.AdoptionFormId;
         }
 
         public async Task UpdateAdoptionFormAsync(Guid id, AdoptionFormDataModel data)
