@@ -19,7 +19,7 @@ namespace Petopia.Business.Models.Common
       {
         if (value <= TimeSpan.Zero)
         {
-          throw new Exception("AbsoluteExpirationRelativeToNow must be positive");
+          throw new System.Exception("AbsoluteExpirationRelativeToNow must be positive");
         }
         else
         {
@@ -35,7 +35,7 @@ namespace Petopia.Business.Models.Common
       {
         if (value <= TimeSpan.Zero)
         {
-          throw new Exception("AbsoluteExpirationRelativeToNow must be positive");
+          throw new System.Exception("AbsoluteExpirationRelativeToNow must be positive");
         }
         else
         {
