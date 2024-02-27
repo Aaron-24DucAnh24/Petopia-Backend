@@ -41,19 +41,22 @@ namespace Petopia.Business.Implementations
             AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
             {
                 AdoptionFormId = Guid.NewGuid(),
+
                 //PetId = getPetId
-                //UserId = getCurrentUserId,
-                CreatedAt = DateTime.Now,
-                AdoptStatus = AdoptStatus.Pending,
+                //UserId = UserContext.Id,
+                /*     Fname = UserContext.FName,
+                     Lname = UserContext.LName,
+                     ... */
             });
-            
+
             await UnitOfWork.SaveChangesAsync();
+
             return adoptionForm.AdoptionFormId;
         }
 
-        public async Task UpdateAdoptionFormAsync(Guid id, AdoptionFormDataModel data)
+        public async Task UpdateAdoptionFormAsync(AdoptionFormDataModel data)
         {
-            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == id);
+            AdoptionForm adoptionForm = await UnitOfWork.AdoptionForms.FirstAsync(x => x.AdoptionFormId == data.AdoptionFormId);
             if (adoptionForm == null)
             {
                 throw new NotExistException();
@@ -61,14 +64,14 @@ namespace Petopia.Business.Implementations
             else
             {
                 adoptionForm.AdoptStatus = AdoptStatus.Pending;
-                adoptionForm.FName = data.FName;
-                adoptionForm.LName = data.LName;
-                adoptionForm.Age = data.Age;
-                adoptionForm.Email = data.Email;
-                adoptionForm.PhoneNum = data.PhoneNum;
-                adoptionForm.Adr = data.Adr;
-                adoptionForm.AdrCity = data.AdrCity;
-                adoptionForm.AdrDistrict = data.AdrDistrict;
+                /*                adoptionForm.FName = data.FName;
+                                adoptionForm.LName = data.LName;
+                                adoptionForm.Age = data.Age;
+                                adoptionForm.Email = data.Email;
+                                adoptionForm.PhoneNum = data.PhoneNum;
+                                adoptionForm.Adr = data.Adr;
+                                adoptionForm.AdrCity = data.AdrCity;
+                                adoptionForm.AdrDistrict = data.AdrDistrict;*/
                 adoptionForm.IsPetOwner = data.IsPetOwner;
                 adoptionForm.HouseType = data.HouseType;
                 adoptionForm.TakePetDuration = data.TakePetDuration;

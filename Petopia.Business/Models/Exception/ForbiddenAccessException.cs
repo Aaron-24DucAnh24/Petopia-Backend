@@ -1,3 +1,5 @@
+using System;
+
 namespace Petopia.Business.Models.Exceptions
 {
   public class ForbiddenAccessException : Exception

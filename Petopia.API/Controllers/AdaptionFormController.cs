@@ -38,17 +38,17 @@ namespace Petopia.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> UpdateAdoptionForm(Guid id, [FromBody] JsonElement jsonElement)
+        public async Task<ActionResult<bool>> UpdateAdoptionForm( [FromBody] AdoptionFormDataModel data )
         {
             //JSON Format:
             
-            var data = JsonSerializer.Deserialize<AdoptionFormDataModel>(jsonElement.ToString());
+/*            var data = JsonSerializer.Deserialize<AdoptionFormDataModel>(jsonElement.ToString());
             if (data == null)
             {
                 return BadRequest();
-            }
-            await _adoptionFormService.UpdateAdoptionFormAsync(id, data);
-            return Ok(true);
+            }*/
+            await _adoptionFormService.UpdateAdoptionFormAsync( data);
+            return ResponseUtils.OkResult(true);
         }
 
         [HttpPut("{id}/Accept")]

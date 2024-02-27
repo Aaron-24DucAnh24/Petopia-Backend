@@ -4,6 +4,8 @@ namespace Petopia.Business.Models.AdoptionForm
 {
     public class AdoptionFormDataModel
     {
+        public Guid AdoptionFormId { get; set; }
+
         //Display
         public string FName { get; set; } = string.Empty;
 
