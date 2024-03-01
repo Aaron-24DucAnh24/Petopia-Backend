@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Exceptions;
@@ -11,11 +12,15 @@ namespace Petopia.Business.Implementations
 {
   public class PetService : BaseService, IPetService
   {
+    private readonly IElasticsearchService _elasticsearchService;
+
     public PetService(
-      IServiceProvider provider, 
-      ILogger logger
+      IServiceProvider provider,
+      ILogger<PetService> logger,
+      IElasticsearchService elasticsearchService
     ) : base(provider, logger)
     {
+      _elasticsearchService = elasticsearchService;
     }
 
     public async Task<bool> DeletePetAsync(Guid petId)
@@ -53,7 +58,7 @@ namespace Petopia.Business.Implementations
         OwnerId = UserContext.Id,
       });
 
-      foreach(var image in model.Images)
+      foreach (var image in model.Images)
       {
         UnitOfWork.Medias.Create(new Media()
         {
@@ -65,8 +70,9 @@ namespace Petopia.Business.Implementations
       }
 
       await UnitOfWork.SaveChangesAsync();
-      var result =  Mapper.Map<CreatePetResponseModel>(model);
+      var result = Mapper.Map<CreatePetResponseModel>(model);
       result.Images = model.Images;
+      result.Id = pet.Id;
       return result;
     }
 
@@ -75,9 +81,47 @@ namespace Petopia.Business.Implementations
       throw new NotImplementedException();
     }
 
-    public Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
+    public async Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
     {
-      throw new NotImplementedException();
+      var query = UnitOfWork.Pets.AsQueryable();
+      var filter = model.Filter;
+
+      if (filter.Age != null)
+      {
+        query = query.Where(x => filter.Age.Contains(x.Age));
+      }
+      if (filter.Color != null)
+      {
+        query = query.Where(x => filter.Color.Contains(x.Color));
+      }
+      if (filter.IsSterillized != null)
+      {
+        query = query.Where(x => filter.IsSterillized.Contains(x.IsSterillized));
+      }
+      if (filter.IsVaccinated != null)
+      {
+        query = query.Where(x => filter.IsVaccinated.Contains(x.IsVaccinated));
+      }
+      if (filter.Sex != null)
+      {
+        query = query.Where(x => filter.Sex.Contains(x.Sex));
+      }
+      if (filter.Size != null)
+      {
+        query = query.Where(x => filter.Size.Contains(x.Size));
+      }
+      if (filter.Species != null)
+      {
+        query = query.Where(x => filter.Species.Contains(x.Species));
+      }
+      if (string.IsNullOrEmpty(model.OrderBy))
+      {
+        query = model.OrderBy == OrderKey.NEWEST
+        ? query.OrderByDescending(x => x.IsCreatedAt)
+        : query.OrderByDescending(x => x.View);
+      }
+
+      return await PagingAsync<PetResponseModel, Pet, PetFilterModel>(query, model);
     }
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
@@ -99,7 +143,7 @@ namespace Petopia.Business.Implementations
       pet.Address = string.IsNullOrEmpty(model.Address) ? userAttributes.Address : model.Address;
 
       var images = await UnitOfWork.Medias.AsTracking().Where(x => x.PetId == model.Id).ToListAsync();
-      foreach(var image in images)
+      foreach (var image in images)
       {
         image.IsDeleted = true;
       }

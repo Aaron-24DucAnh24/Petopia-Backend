@@ -22,6 +22,9 @@ namespace Petopia.Business.Utils
       CreateMap<CreatePetRequestModel, CreatePetResponseModel>();
 
       CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
+
+      CreateMap<Pet, PetResponseModel>()
+        .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url));
     }
   }
 }

@@ -27,7 +27,7 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _petService.CreatePetAsync(request));
     }
 
-    [HttpPost("")]
+    [HttpPost("Get")]
     [AllowAnonymous]
     public async Task<ActionResult<PaginationResponseModel<PetResponseModel>>> GetPets([FromBody] PaginationRequestModel<PetFilterModel> request)
     {

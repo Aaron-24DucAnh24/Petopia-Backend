@@ -9,6 +9,7 @@ using Petopia.Business.Constants;
 using Petopia.Business.Contexts;
 using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Setting;
 using Petopia.Data.Entities;
 
@@ -51,6 +52,37 @@ namespace Petopia.Business.Implementations
         .Include(x => x.UserIndividualAttributes)
         .Include(x => x.UserOrganizationAttributes)
         .FirstAsync(x => x.Id == UserContext.Id);
+    }
+
+    protected async Task<PaginationResponseModel<TResult>>
+    PagingAsync<TResult, TQuery, TFilter>(IQueryable<TQuery> query, PaginationRequestModel<TFilter> model)
+    {
+      var result = new PaginationResponseModel<TResult>();
+      result.TotalNumber = await query.CountAsync();
+      result.PageIndex = model.PageIndex;
+      result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
+      result.PageNumber = model.PageSize == 0 ? 0 : (int)Math.Ceiling((double)result.TotalNumber / result.PageSize);
+
+      if (result.PageNumber < 1)
+      {
+        result.PageNumber = 1;
+      }
+      if (result.PageIndex < 1)
+      {
+        result.PageIndex = 1;
+      }
+      if (result.PageIndex > result.PageNumber)
+      {
+        result.PageIndex = result.PageNumber;
+      }
+
+      if (result.PageNumber > 0)
+      {
+        var skipCount = (result.PageIndex - 1) * result.PageSize;
+        var domains = await query.Skip(skipCount).Take(result.PageSize).ToListAsync();
+        result.Data = Mapper.Map<List<TResult>>(domains);
+      }
+      return result;
     }
   }
 }

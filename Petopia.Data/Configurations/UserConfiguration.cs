@@ -14,7 +14,6 @@ namespace Petopia.Data.Configurations
       builder.Property(x => x.Role).HasDefaultValue(UserRole.StandardUser);
       builder.Property(x => x.Image).HasDefaultValue(string.Empty);
       builder.Property(x => x.Address).HasDefaultValue(string.Empty);
-      builder.Property(x => x.IsCreatedAt).HasDefaultValue(DateTimeOffset.Now);
       builder
         .HasOne<UserConnection>(x => x.UserConnection)
         .WithOne(x => x.User)

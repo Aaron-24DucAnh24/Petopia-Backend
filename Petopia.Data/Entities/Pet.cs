@@ -9,14 +9,14 @@ namespace Petopia.Data.Entities
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+    public string Breed { get; set; }
     public PetSex Sex { get; set; }
     public PetAge Age { get; set; }
     public PetColor Color { get; set; }
     public PetSpecies Species { get; set; }
     public PetSize Size { get; set; }
-    public string Breed { get; set; }
-    public bool IsVaccinated { get; set; }
-    public bool IsSterillized { get; set; }
+    public PetDedicalStatus IsVaccinated { get; set; }
+    public PetDedicalStatus IsSterillized { get; set; }
     public string Address { get; set; }
     public bool IsAvailable { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
@@ -25,5 +25,6 @@ namespace Petopia.Data.Entities
     public Guid OwnerId { get; set; }
     public User Owner { get; set; }
     public List<Media> Images { get; set; }
+    public int View { get; set; }
   }
 }

@@ -10,17 +10,19 @@ namespace Petopia.Business.Utils
   {
     public static OkObjectResult OkResult<T>(T data)
     {
-      if (data is PaginationResponseModel<T>)
+      try
       {
-        return new OkObjectResult(data);
-      }
-      else
-      {
-        return new OkObjectResult(new ApiResponseModel<T>()
+        if (data != null && data.GetType().GetGenericTypeDefinition() == typeof(PaginationResponseModel<>))
         {
-          Data = data
-        });
+          return new OkObjectResult(data);
+        }
       }
+      catch (System.Exception) { };
+
+      return new OkObjectResult(new ApiResponseModel<T>()
+      {
+        Data = data
+      });
     }
 
     public static async Task CreateJsonResponseAsync(this HttpContext context, int statusCode, int errorCode, string errorMessage)

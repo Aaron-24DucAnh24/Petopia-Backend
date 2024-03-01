@@ -7,7 +7,7 @@ namespace Petopia.Business.Implementations
   {
     public AzureService(
       IServiceProvider provider, 
-      ILogger logger
+      ILogger<AzureService> logger
     ) : base(provider, logger)
     {
     }

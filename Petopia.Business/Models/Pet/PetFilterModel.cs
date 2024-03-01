@@ -1,16 +1,15 @@
 ﻿using Petopia.Data.Enums;
 
-# nullable disable
-
 namespace Petopia.Business.Models.Pet
 {
   public class PetFilterModel
   {
-    public PetSex Sex { get; set; }
-    public PetColor Color { get; set; }
-    public PetSpecies Species { get; set; }
-    public PetSize Size { get; set; }
-    public string Breed { get; set; }
-    public bool IsVaccinated { get; set; }
+    public List<PetSex>? Sex { get; set; }
+    public List<PetColor>? Color { get; set; }
+    public List<PetSpecies>? Species { get; set; }
+    public List<PetSize>? Size { get; set; }
+    public List<PetAge>? Age { get; set; }
+    public List<PetDedicalStatus>? IsVaccinated { get; set; }
+    public List<PetDedicalStatus>? IsSterillized { get; set; }
   }
 }

@@ -17,14 +17,17 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new UserIndividualAttributesConfiguration());
       builder.ApplyConfiguration(new UserOrganizationAttributesConfiguration());
       builder.ApplyConfiguration(new SyncDataCollectionConfiguration());
+      builder.ApplyConfiguration(new PetConfiguration());
+      builder.AddDataSeeding();
     }
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserConnection> UserConnections { get; set; }
     public DbSet<UserIndividualAttributes> UserIndividualAttributes { get; set; }
     public DbSet<UserOrganizationAttributes> UserOrganizationAttributes { get; set; }
-    public DbSet<SyncDataCollection> SyncDataCollection { get; set; }
-    public DbSet<EmailTemplate> EmailTemplate { get; set; }
-    public DbSet<Pet> Pet { get; set; }
+    public DbSet<SyncDataCollection> SyncDataCollections { get; set; }
+    public DbSet<EmailTemplate> EmailTemplates { get; set; }
+    public DbSet<Pet> Pets { get; set; }
+    public DbSet<Media> Medias { get; set; }
   }
 }

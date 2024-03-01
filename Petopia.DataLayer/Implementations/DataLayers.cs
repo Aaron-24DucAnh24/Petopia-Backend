@@ -10,6 +10,7 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+  
   public class UserConnectionDataLayer : BaseDataLayer<UserConnection>, IUserConnectionDataLayer
   {
     public UserConnectionDataLayer(ApplicationDbContext dbContext) : base(dbContext)

@@ -11,6 +11,7 @@ namespace Petopia.Business.Implementations
   public class ElasticsearchService : BaseService, IElasticsearchService
   {
     private readonly ElasticsearchClient _elasticsearchClient;
+
     public ElasticsearchService(
       IServiceProvider provider,
       ILogger<ElasticsearchService> logger,
@@ -20,16 +21,24 @@ namespace Petopia.Business.Implementations
       _elasticsearchClient = new ElasticsearchClient(settings);
     }
 
+    public ElasticsearchClient ElasticsearchClient
+    {
+      get
+      {
+        return _elasticsearchClient;
+      }
+    }
+
     public async Task InitSyncDataCollectionsAsync()
     {
-      List<User> users = await UnitOfWork.Users.ToListAsync();
-      foreach (var user in users)
+      List<Pet> pets = await UnitOfWork.Pets.ToListAsync();
+      foreach (var pet in pets)
       {
         await UnitOfWork.SyncDataCollections.CreateAsync(new SyncDataCollection()
         {
           Id = Guid.NewGuid(),
-          ItemId = user.Id,
-          Index = ElasticsearchIndex.USERS
+          ItemId = pet.Id,
+          Index = ElasticsearchIndex.PETS
         });
       }
       await UnitOfWork.SaveChangesAsync();
@@ -47,8 +56,8 @@ namespace Petopia.Business.Implementations
       {
         switch (syncCollection.Key)
         {
-          case ElasticsearchIndex.USERS:
-            await SyncUsersAsync(syncCollection.ToList());
+          case ElasticsearchIndex.PETS:
+            await SyncPetsAsync(syncCollection.ToList());
             break;
           default:
             break;
@@ -57,22 +66,22 @@ namespace Petopia.Business.Implementations
       await UnitOfWork.SaveChangesAsync();
     }
 
-    private async Task SyncUsersAsync(List<SyncDataCollection> collections)
+    private async Task SyncPetsAsync(List<SyncDataCollection> collections)
     {
       List<SyncDataCollection> indexingCollections = collections.Where(x => x.Action == SyncDataAction.Index).ToList();
       List<SyncDataCollection> deletingCollections = collections.Where(x => x.Action == SyncDataAction.Delete).ToList();
-      List<User> indexingUsers = await UnitOfWork.Users
+      List<Pet> indexingPets = await UnitOfWork.Pets
         .Where(x => indexingCollections.Select(y => y.ItemId).Contains(x.Id))
         .ToListAsync();
-      foreach (var user in indexingUsers)
+      foreach (var pet in indexingPets)
       {
-        IndexResponse response = await _elasticsearchClient.IndexAsync(new IndexRequest<User>(user, ElasticsearchIndex.USERS, user.Id));
-        indexingCollections.Where(x => x.ItemId == user.Id)
+        IndexResponse response = await _elasticsearchClient.IndexAsync(new IndexRequest<Pet>(pet, ElasticsearchIndex.PETS, pet.Id));
+        indexingCollections.Where(x => x.ItemId == pet.Id)
           .First().Status = response.IsSuccess() ? SyncDataStatus.Success : SyncDataStatus.Fail;
       }
       foreach (var collection in deletingCollections)
       {
-        DeleteResponse response = await _elasticsearchClient.DeleteAsync(new DeleteRequest(ElasticsearchIndex.USERS, collection.ItemId));
+        DeleteResponse response = await _elasticsearchClient.DeleteAsync(new DeleteRequest(ElasticsearchIndex.PETS, collection.ItemId));
         collection.Status = response.IsSuccess() ? SyncDataStatus.Success : SyncDataStatus.Fail;
       }
     }
