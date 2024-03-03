@@ -9,7 +9,7 @@ namespace Petopia.Data.Configurations
   {
     public void Configure(EntityTypeBuilder<SyncDataCollection> builder)
     {
-      builder.HasKey(x => x.CollectionId);
+      builder.HasKey(x => x.Id);
       builder.Property(x => x.Status).HasDefaultValue(SyncDataStatus.Waiting);
       builder.Property(x => x.Action).HasDefaultValue(SyncDataAction.Index);
     }

@@ -34,7 +34,7 @@ namespace Petopia.Business.Implementations
     public async Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request)
     {
       RegisterRequestModel cacheData = CacheManager.Instance.Get<RegisterRequestModel>(request.ValidateRegisterToken)
-        ?? throw new InvalidRegisterTokenException(); ;
+        ?? throw new InvalidRegisterTokenException();
       User user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Id = Guid.NewGuid(),

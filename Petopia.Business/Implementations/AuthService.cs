@@ -76,7 +76,6 @@ namespace Petopia.Business.Implementations
         userConnection.AccessTokenExpirationDate = accessTokenExpirationDate;
         userConnection.RefreshTokenExpirationDate = refreshTokenExpirationDate;
         userConnection.IsDeleted = false;
-        UnitOfWork.UserConnections.Update(userConnection);
       }
       await UnitOfWork.SaveChangesAsync();
       return new JwtTokensModel()

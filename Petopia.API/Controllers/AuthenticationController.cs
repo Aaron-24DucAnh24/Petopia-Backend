@@ -45,9 +45,9 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(true);
     }
 
-    [HttpGet("ValidateRegister")]
+    [HttpPost("ValidateRegister")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> ValidateRegisterEmail([FromQuery] ValidateRegisterRequestModel request)
+    public async Task<ActionResult<bool>> ValidateRegisterEmail([FromBody] ValidateRegisterRequestModel request)
     {
       await _userService.CreateUserSelfRegistrationAsync(request);
       return ResponseUtils.OkResult(true);

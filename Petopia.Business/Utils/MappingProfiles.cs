@@ -1,4 +1,6 @@
 using AutoMapper;
+using Petopia.Business.Models.Location;
+using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
 using Petopia.Data.Entities;
 
@@ -10,13 +12,20 @@ namespace Petopia.Business.Utils
     {
       CreateMap<User, CurrentIndividualResponseModel>()
         .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.UserIndividualAttributes));
-
       CreateMap<User, CurrentOrganizationResponseModel>()
         .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.UserOrganizationAttributes));
 
       CreateMap<UserIndividualAttributes, CurrentIndividualAttributesResponseModel>();
-      
       CreateMap<UserOrganizationAttributes, CurrentOrganizationAttributesResponseModel>();
+
+      CreateMap<CreatePetRequestModel, CreatePetResponseModel>();
+      CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
+      CreateMap<Pet, PetResponseModel>()
+        .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url));
+
+      CreateMap<Province, LocationResponseModel>();
+      CreateMap<District, LocationResponseModel>();
+      CreateMap<Ward, LocationResponseModel>();
     }
   }
 }

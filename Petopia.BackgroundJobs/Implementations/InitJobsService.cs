@@ -21,7 +21,6 @@ namespace Petopia.BackgroundJobs.Implementations
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      // Add background jobs that have to be initialized here
       using (IServiceScope scope = _serviceProvider.CreateScope())
       {
         scope.ServiceProvider.GetRequiredService<ICacheJobService>().InitCacheData();
