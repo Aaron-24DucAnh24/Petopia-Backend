@@ -39,15 +39,15 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> Register([FromBody] RegisterRequestModel request)
     {
       await _authService.ValidateGoogleRecaptchaTokenAsync(request.GoogleRecaptchaToken);
-      CacheRegisterRequestModel cacheData = await _authService.CacheRegisterRequestAsync(request);
-      MailDataModel mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheData.RegisterToken);
+      string cacheKey = await _authService.CacheRegisterRequestAsync(request);
+      MailDataModel mailMessage = await _emailService.CreateValidateRegisterMailDataAsync(request.Email, cacheKey);
       _emailJobService.SendMail(mailMessage);
       return ResponseUtils.OkResult(true);
     }
 
-    [HttpGet("ValidateRegister")]
+    [HttpPost("ValidateRegister")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> ValidateRegisterEmail([FromQuery] ValidateRegisterRequestModel request)
+    public async Task<ActionResult<bool>> ValidateRegisterEmail([FromBody] ValidateRegisterRequestModel request)
     {
       await _userService.CreateUserSelfRegistrationAsync(request);
       return ResponseUtils.OkResult(true);

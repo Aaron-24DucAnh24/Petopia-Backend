@@ -10,6 +10,7 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+  
   public class UserConnectionDataLayer : BaseDataLayer<UserConnection>, IUserConnectionDataLayer
   {
     public UserConnectionDataLayer(ApplicationDbContext dbContext) : base(dbContext)
@@ -38,9 +39,23 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-  public class EmailDataLayer : BaseDataLayer<Email>, IEmailDataLayer
+  public class EmailTemplateDataLayer : BaseDataLayer<EmailTemplate>, IEmailTemplateDataLayer
   {
-    public EmailDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    public EmailTemplateDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    {
+    }
+  }
+
+  public class PetDataLayer : BaseDataLayer<Pet>, IPetDataLayer
+  {
+    public PetDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class MediaDataLayer : BaseDataLayer<Media>, IMediaDataLayer
+  {
+    public MediaDataLayer(ApplicationDbContext context) : base(context)
     {
     }
   }

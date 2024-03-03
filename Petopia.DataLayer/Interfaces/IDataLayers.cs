@@ -7,5 +7,7 @@ namespace Petopia.DataLayer.Interfaces
   public interface ISyncDataCollectionDataLayer : IBaseDataLayer<SyncDataCollection> { }
   public interface IUserIndividualAttributesDataLayer : IBaseDataLayer<UserIndividualAttributes> { }
   public interface IUserOrganizationAttributesDataLayer : IBaseDataLayer<UserOrganizationAttributes> { }
-  public interface IEmailDataLayer : IBaseDataLayer<Email> { }
+  public interface IEmailTemplateDataLayer : IBaseDataLayer<EmailTemplate> { }
+  public interface IPetDataLayer : IBaseDataLayer<Pet> { }
+  public interface IMediaDataLayer : IBaseDataLayer<Media> { }
 }

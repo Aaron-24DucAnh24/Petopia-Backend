@@ -1,4 +1,5 @@
 using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
@@ -13,7 +14,7 @@ namespace Petopia.BackgroundJobs.Implementations
 
     public void SendMail(MailDataModel data)
     {
-      JobClient.Enqueue(() => GetRequiredService<IEmailService>().SendMailAsync(data));
+      BackgroundJob.Enqueue(() => ServiceProvider.GetRequiredService<IEmailService>().SendMailAsync(data));
     }
   }
 }

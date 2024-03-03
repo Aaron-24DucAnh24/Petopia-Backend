@@ -22,9 +22,9 @@ namespace Petopia.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Petopia.Data.Entities.Email", b =>
+            modelBuilder.Entity("Petopia.Data.Entities.EmailTemplate", b =>
                 {
-                    b.Property<Guid>("EmailId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -37,23 +37,122 @@ namespace Petopia.Data.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("EmailId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Email");
+                    b.ToTable("EmailTemplates");
 
                     b.HasData(
                         new
                         {
-                            EmailId = new Guid("ba8bb0a2-298c-4425-91b4-b2c6eedb7f8d"),
-                            Body = "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{apiRoute}/api/Authentication/ValidateRegister?Email={email}&ValidateRegisterToken={registerToken}\"> Nhấn để hoàn thành đăng ký </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 30 phút.</div> </div> </body>",
+                            Id = new Guid("8ef178e4-2fc4-4592-be4f-38c568d5a6dd"),
+                            Body = "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/register/validate?email={email}&validateRegisterToken={registerToken}\"> Nhấn để hoàn thành đăng ký </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 30 phút.</div> </div> </body>",
                             Subject = "XÁC THỰC EMAIL CỦA BẠN",
                             Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("a96198b5-d868-45e7-8797-5ec7077a03cc"),
+                            Body = "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/login/reset-password?passwordToken={passwordToken}\"> Nhấn để khôi phục mật khẩu </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 1 giờ.</div> </div> </body>",
+                            Subject = "KHÔI PHỤC MẬT KHẨU CỦA BẠN",
+                            Type = 1
                         });
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSynced")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Pet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Breed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Color")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("IsCreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IsSterillized")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("IsUpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("IsVaccinated")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Species")
+                        .HasColumnType("int");
+
+                    b.Property<int>("View")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Pet", (string)null);
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.SyncDataCollection", b =>
                 {
-                    b.Property<Guid>("CollectionId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -73,9 +172,9 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
-                    b.HasKey("CollectionId");
+                    b.HasKey("Id");
 
-                    b.ToTable("SyncDataCollection");
+                    b.ToTable("SyncDataCollections");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.User", b =>
@@ -83,6 +182,11 @@ namespace Petopia.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -92,10 +196,11 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("");
 
-                    b.Property<DateTime>("IsCreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 11, 21, 23, 57, 44, 694, DateTimeKind.Local).AddTicks(6140));
+                    b.Property<DateTimeOffset>("IsCreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeactivated")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -118,9 +223,10 @@ namespace Petopia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d492a242-7612-4408-a5b0-09d30defff8e"),
+                            Id = new Guid("9ec23313-ac63-4dcd-b890-b9657e7179a3"),
                             Email = "6154B051E9E3D3179DE74C08D3294698CBEA931503E638A77CE9F43FB25E2710",
-                            IsCreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsCreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsDeactivated = false,
                             Password = "$2a$11$ZPqHXEjL.1K8ZYbRbY/jbOElxxjGpB34lyBdtzVvDVjvy2SvarzMq",
                             ResetPasswordTokenExpirationDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Role = 1
@@ -136,22 +242,16 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("AccessTokenExpirationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2023, 11, 21, 23, 57, 44, 695, DateTimeKind.Unspecified).AddTicks(4270), new TimeSpan(0, 7, 0, 0, 0)));
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("RefreshTokenExpirationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2023, 11, 21, 23, 57, 44, 695, DateTimeKind.Unspecified).AddTicks(4560), new TimeSpan(0, 7, 0, 0, 0)));
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
@@ -176,7 +276,7 @@ namespace Petopia.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d492a242-7612-4408-a5b0-09d30defff8e"),
+                            Id = new Guid("9ec23313-ac63-4dcd-b890-b9657e7179a3"),
                             FirstName = "Đức Anh",
                             LastName = "Bùi"
                         });
@@ -199,6 +299,28 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserOrganizationAttributes", (string)null);
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
+                {
+                    b.HasOne("Petopia.Data.Entities.Pet", "Pet")
+                        .WithMany("Images")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Pet", b =>
+                {
+                    b.HasOne("Petopia.Data.Entities.User", "Owner")
+                        .WithMany("Pets")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.UserConnection", b =>
@@ -234,8 +356,15 @@ namespace Petopia.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Petopia.Data.Entities.Pet", b =>
+                {
+                    b.Navigation("Images");
+                });
+
             modelBuilder.Entity("Petopia.Data.Entities.User", b =>
                 {
+                    b.Navigation("Pets");
+
                     b.Navigation("UserConnection");
 
                     b.Navigation("UserIndividualAttributes");

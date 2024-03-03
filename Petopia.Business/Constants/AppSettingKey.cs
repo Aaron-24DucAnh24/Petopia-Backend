@@ -13,6 +13,6 @@ namespace Petopia.Business.Constants
     public const string GG_AUTH = "GoogleAuth";
     public const string ELASTICSEARCH = "Elasticsearch";
     public const string BRAINTREE = "Braintree";
-    public const string API_ROUTE = "ApiRoute";
+    public const string APP_URLS = "AppUrls";
   }
 }

@@ -33,26 +33,22 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request)
     {
-      string cacheKey = HashUtils.HashString(request.Email);
-      CacheRegisterRequestModel? cacheData = CacheManager.Instance.Get<CacheRegisterRequestModel>(cacheKey);
-      if (cacheData == null || cacheData.RegisterToken != request.ValidateRegisterToken)
-      {
-        throw new InvalidRegisterTokenException();
-      }
+      RegisterRequestModel cacheData = CacheManager.Instance.Get<RegisterRequestModel>(request.ValidateRegisterToken)
+        ?? throw new InvalidRegisterTokenException();
       User user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Id = Guid.NewGuid(),
-        Email = HashUtils.HashString(cacheData.Request.Email),
-        Password = HashUtils.HashPassword(cacheData.Request.Password),
+        Email = HashUtils.HashString(cacheData.Email),
+        Password = HashUtils.HashPassword(cacheData.Password),
       });
-      UserIndividualAttributes attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
+      await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
       {
         Id = user.Id,
-        FirstName = cacheData.Request.FirstName,
-        LastName = cacheData.Request.LastName
+        FirstName = cacheData.FirstName,
+        LastName = cacheData.LastName
       });
       await UnitOfWork.SaveChangesAsync();
-      CacheManager.Instance.Remove(cacheKey);
+      CacheManager.Instance.Remove(request.ValidateRegisterToken);
       return new UserContextModel()
       {
         Id = user.Id,

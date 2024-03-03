@@ -45,9 +45,9 @@ namespace Petopia.API.Controllers
 
     [HttpPost("ResetPassword")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
+    public async Task<ActionResult<bool>> ResetPassword([FromQuery] ResetPasswordRequestModel request)
     {
-      return Ok(await _userService.ResetPasswordAsync(request));
+      return ResponseUtils.OkResult(await _userService.ResetPasswordAsync(request));
     }
 
     [HttpPost("ChangePassword")]

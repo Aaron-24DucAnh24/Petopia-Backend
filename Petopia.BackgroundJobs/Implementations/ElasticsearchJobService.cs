@@ -1,4 +1,5 @@
 using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 using Petopia.BackgroundJobs.Interfaces;
 using Petopia.Business.Interfaces;
 
@@ -12,12 +13,12 @@ namespace Petopia.BackgroundJobs.Implementations
 
     public void InitSyncDataCollections()
     {
-      JobClient.Enqueue(() => GetRequiredService<IElasticsearchService>().InitSyncDataCollectionsAsync());
+      BackgroundJob.Enqueue(() => ServiceProvider.GetRequiredService<IElasticsearchService>().InitSyncDataCollectionsAsync());
     }
 
     public void SyncData()
     {
-      JobClient.Enqueue(() => GetRequiredService<IElasticsearchService>().SyncDataAsync());
+      BackgroundJob.Enqueue(() => ServiceProvider.GetRequiredService<IElasticsearchService>().SyncDataAsync());
     }
   }
 }

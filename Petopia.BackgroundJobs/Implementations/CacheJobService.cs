@@ -11,7 +11,7 @@ namespace Petopia.BackgroundJobs.Implementations
 
     public void InitCacheData()
     {
-      JobClient.Enqueue(() => InitCacheDataTask());
+      BackgroundJob.Enqueue(() => InitCacheDataTask());
     }
 
     public Task InitCacheDataTask()

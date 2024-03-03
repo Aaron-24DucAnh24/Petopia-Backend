@@ -10,9 +10,6 @@ namespace Petopia.Data.Configurations
     {
       builder.HasKey(x => x.Id);
       builder.ToTable("UserConnection");
-      builder.Property(x => x.AccessTokenExpirationDate).HasDefaultValue(DateTimeOffset.Now);
-      builder.Property(x => x.RefreshTokenExpirationDate).HasDefaultValue(DateTimeOffset.Now);
-      builder.Property(x => x.IsDeleted).HasDefaultValue(false);
     }
   }
 }

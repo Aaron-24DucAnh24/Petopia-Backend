@@ -33,7 +33,7 @@ namespace Petopia.Data
       }
 
       /*------------------------------- INIT EMAILS -------------------------------  */
-      List<Email>? emails = JsonSerializer.Deserialize<List<Email>>(
+      List<EmailTemplate>? emails = JsonSerializer.Deserialize<List<EmailTemplate>>(
         new StreamReader("../Petopia.Data/SeedingData/Emails.json").ReadToEnd()
       );
 
@@ -41,8 +41,8 @@ namespace Petopia.Data
       {
         foreach (var email in emails)
         {
-          email.EmailId = Guid.NewGuid();
-          modelBuilder.Entity<Email>().HasData(email);
+          email.Id = Guid.NewGuid();
+          modelBuilder.Entity<EmailTemplate>().HasData(email);
         }
       }
     }
