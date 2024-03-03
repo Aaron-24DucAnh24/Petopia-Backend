@@ -33,5 +33,8 @@ namespace Petopia.Business.Data
     public IEmailTemplateDataLayer EmailTemplates => _serviceProvider.GetRequiredService<IEmailTemplateDataLayer>();
     public IPetDataLayer Pets => _serviceProvider.GetRequiredService<IPetDataLayer>();
     public IMediaDataLayer Medias => _serviceProvider.GetRequiredService<IMediaDataLayer>();
+    public IProvinceDataLayer Provinces => _serviceProvider.GetRequiredService<IProvinceDataLayer>();
+    public IDistrictDataLayer Districts => _serviceProvider.GetRequiredService<IDistrictDataLayer>();
+    public IWardDataLayer Wards => _serviceProvider.GetRequiredService<IWardDataLayer>();
   }
 }

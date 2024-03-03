@@ -18,7 +18,9 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new UserOrganizationAttributesConfiguration());
       builder.ApplyConfiguration(new SyncDataCollectionConfiguration());
       builder.ApplyConfiguration(new PetConfiguration());
-      builder.AddDataSeeding();
+      builder.ApplyConfiguration(new ProvinceConfiguration());
+      builder.ApplyConfiguration(new DistrictConfiguration());
+      builder.ApplyConfiguration(new WardConfiguration());
     }
 
     public DbSet<User> Users { get; set; }
@@ -29,5 +31,8 @@ namespace Petopia.Data
     public DbSet<EmailTemplate> EmailTemplates { get; set; }
     public DbSet<Pet> Pets { get; set; }
     public DbSet<Media> Medias { get; set; }
+    public DbSet<Province> Provinces { get; set; }
+    public DbSet<District> Districts { get; set; }
+    public DbSet<Ward> Wards { get; set; }
   }
 }

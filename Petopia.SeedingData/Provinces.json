@@ -1,0 +1,443 @@
+[
+  {
+    "minus1": "Hà Nội",
+    "minus3": "ha-noi",
+    "minus2": "thanh-pho",
+    "Name": "Thành phố Hà Nội",
+    "Code": "01"
+  },
+  {
+    "minus1": "Hà Giang",
+    "minus3": "ha-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hà Giang",
+    "Code": "02"
+  },
+  {
+    "minus1": "Cao Bằng",
+    "minus3": "cao-bang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Cao Bằng",
+    "Code": "04"
+  },
+  {
+    "minus1": "Bắc Kạn",
+    "minus3": "bac-kan",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bắc Kạn",
+    "Code": "06"
+  },
+  {
+    "minus1": "Tuyên Quang",
+    "minus3": "tuyen-quang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Tuyên Quang",
+    "Code": "08"
+  },
+  {
+    "minus1": "Lào Cai",
+    "minus3": "lao-cai",
+    "minus2": "tinh",
+    "Name": "Tỉnh Lào Cai",
+    "Code": "10"
+  },
+  {
+    "minus1": "Điện Biên",
+    "minus3": "dien-bien",
+    "minus2": "tinh",
+    "Name": "Tỉnh Điện Biên",
+    "Code": "11"
+  },
+  {
+    "minus1": "Lai Châu",
+    "minus3": "lai-chau",
+    "minus2": "tinh",
+    "Name": "Tỉnh Lai Châu",
+    "Code": "12"
+  },
+  {
+    "minus1": "Sơn La",
+    "minus3": "son-la",
+    "minus2": "tinh",
+    "Name": "Tỉnh Sơn La",
+    "Code": "14"
+  },
+  {
+    "minus1": "Yên Bái",
+    "minus3": "yen-bai",
+    "minus2": "tinh",
+    "Name": "Tỉnh Yên Bái",
+    "Code": "15"
+  },
+  {
+    "minus1": "Hoà Bình",
+    "minus3": "hoa-binh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hoà Bình",
+    "Code": "17"
+  },
+  {
+    "minus1": "Thái Nguyên",
+    "minus3": "thai-nguyen",
+    "minus2": "tinh",
+    "Name": "Tỉnh Thái Nguyên",
+    "Code": "19"
+  },
+  {
+    "minus1": "Lạng Sơn",
+    "minus3": "lang-son",
+    "minus2": "tinh",
+    "Name": "Tỉnh Lạng Sơn",
+    "Code": "20"
+  },
+  {
+    "minus1": "Quảng Ninh",
+    "minus3": "quang-ninh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Quảng Ninh",
+    "Code": "22"
+  },
+  {
+    "minus1": "Bắc Giang",
+    "minus3": "bac-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bắc Giang",
+    "Code": "24"
+  },
+  {
+    "minus1": "Phú Thọ",
+    "minus3": "phu-tho",
+    "minus2": "tinh",
+    "Name": "Tỉnh Phú Thọ",
+    "Code": "25"
+  },
+  {
+    "minus1": "Vĩnh Phúc",
+    "minus3": "vinh-phuc",
+    "minus2": "tinh",
+    "Name": "Tỉnh Vĩnh Phúc",
+    "Code": "26"
+  },
+  {
+    "minus1": "Bắc Ninh",
+    "minus3": "bac-ninh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bắc Ninh",
+    "Code": "27"
+  },
+  {
+    "minus1": "Hải Dương",
+    "minus3": "hai-duong",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hải Dương",
+    "Code": "30"
+  },
+  {
+    "minus1": "Hải Phòng",
+    "minus3": "hai-phong",
+    "minus2": "thanh-pho",
+    "Name": "Thành phố Hải Phòng",
+    "Code": "31"
+  },
+  {
+    "minus1": "Hưng Yên",
+    "minus3": "hung-yen",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hưng Yên",
+    "Code": "33"
+  },
+  {
+    "minus1": "Thái Bình",
+    "minus3": "thai-binh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Thái Bình",
+    "Code": "34"
+  },
+  {
+    "minus1": "Hà Nam",
+    "minus3": "ha-nam",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hà Nam",
+    "Code": "35"
+  },
+  {
+    "minus1": "Nam Định",
+    "minus3": "nam-dinh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Nam Định",
+    "Code": "36"
+  },
+  {
+    "minus1": "Ninh Bình",
+    "minus3": "ninh-binh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Ninh Bình",
+    "Code": "37"
+  },
+  {
+    "minus1": "Thanh Hóa",
+    "minus3": "thanh-hoa",
+    "minus2": "tinh",
+    "Name": "Tỉnh Thanh Hóa",
+    "Code": "38"
+  },
+  {
+    "minus1": "Nghệ An",
+    "minus3": "nghe-an",
+    "minus2": "tinh",
+    "Name": "Tỉnh Nghệ An",
+    "Code": "40"
+  },
+  {
+    "minus1": "Hà Tĩnh",
+    "minus3": "ha-tinh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hà Tĩnh",
+    "Code": "42"
+  },
+  {
+    "minus1": "Quảng Bình",
+    "minus3": "quang-binh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Quảng Bình",
+    "Code": "44"
+  },
+  {
+    "minus1": "Quảng Trị",
+    "minus3": "quang-tri",
+    "minus2": "tinh",
+    "Name": "Tỉnh Quảng Trị",
+    "Code": "45"
+  },
+  {
+    "minus1": "Thừa Thiên Huế",
+    "minus3": "thua-thien-hue",
+    "minus2": "tinh",
+    "Name": "Tỉnh Thừa Thiên Huế",
+    "Code": "46"
+  },
+  {
+    "minus1": "Đà Nẵng",
+    "minus3": "da-nang",
+    "minus2": "thanh-pho",
+    "Name": "Thành phố Đà Nẵng",
+    "Code": "48"
+  },
+  {
+    "minus1": "Quảng Nam",
+    "minus3": "quang-nam",
+    "minus2": "tinh",
+    "Name": "Tỉnh Quảng Nam",
+    "Code": "49"
+  },
+  {
+    "minus1": "Quảng Ngãi",
+    "minus3": "quang-ngai",
+    "minus2": "tinh",
+    "Name": "Tỉnh Quảng Ngãi",
+    "Code": "51"
+  },
+  {
+    "minus1": "Bình Định",
+    "minus3": "binh-dinh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bình Định",
+    "Code": "52"
+  },
+  {
+    "minus1": "Phú Yên",
+    "minus3": "phu-yen",
+    "minus2": "tinh",
+    "Name": "Tỉnh Phú Yên",
+    "Code": "54"
+  },
+  {
+    "minus1": "Khánh Hòa",
+    "minus3": "khanh-hoa",
+    "minus2": "tinh",
+    "Name": "Tỉnh Khánh Hòa",
+    "Code": "56"
+  },
+  {
+    "minus1": "Ninh Thuận",
+    "minus3": "ninh-thuan",
+    "minus2": "tinh",
+    "Name": "Tỉnh Ninh Thuận",
+    "Code": "58"
+  },
+  {
+    "minus1": "Bình Thuận",
+    "minus3": "binh-thuan",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bình Thuận",
+    "Code": "60"
+  },
+  {
+    "minus1": "Kon Tum",
+    "minus3": "kon-tum",
+    "minus2": "tinh",
+    "Name": "Tỉnh Kon Tum",
+    "Code": "62"
+  },
+  {
+    "minus1": "Gia Lai",
+    "minus3": "gia-lai",
+    "minus2": "tinh",
+    "Name": "Tỉnh Gia Lai",
+    "Code": "64"
+  },
+  {
+    "minus1": "Đắk Lắk",
+    "minus3": "dak-lak",
+    "minus2": "tinh",
+    "Name": "Tỉnh Đắk Lắk",
+    "Code": "66"
+  },
+  {
+    "minus1": "Đắk Nông",
+    "minus3": "dak-nong",
+    "minus2": "tinh",
+    "Name": "Tỉnh Đắk Nông",
+    "Code": "67"
+  },
+  {
+    "minus1": "Lâm Đồng",
+    "minus3": "lam-dong",
+    "minus2": "tinh",
+    "Name": "Tỉnh Lâm Đồng",
+    "Code": "68"
+  },
+  {
+    "minus1": "Bình Phước",
+    "minus3": "binh-phuoc",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bình Phước",
+    "Code": "70"
+  },
+  {
+    "minus1": "Tây Ninh",
+    "minus3": "tay-ninh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Tây Ninh",
+    "Code": "72"
+  },
+  {
+    "minus1": "Bình Dương",
+    "minus3": "binh-duong",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bình Dương",
+    "Code": "74"
+  },
+  {
+    "minus1": "Đồng Nai",
+    "minus3": "dong-nai",
+    "minus2": "tinh",
+    "Name": "Tỉnh Đồng Nai",
+    "Code": "75"
+  },
+  {
+    "minus1": "Bà Rịa - Vũng Tàu",
+    "minus3": "ba-ria-vung-tau",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "77"
+  },
+  {
+    "minus1": "Hồ Chí Minh",
+    "minus3": "ho-chi-minh",
+    "minus2": "thanh-pho",
+    "Name": "Thành phố Hồ Chí Minh",
+    "Code": "79"
+  },
+  {
+    "minus1": "Long An",
+    "minus3": "long-an",
+    "minus2": "tinh",
+    "Name": "Tỉnh Long An",
+    "Code": "80"
+  },
+  {
+    "minus1": "Tiền Giang",
+    "minus3": "tien-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Tiền Giang",
+    "Code": "82"
+  },
+  {
+    "minus1": "Bến Tre",
+    "minus3": "ben-tre",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bến Tre",
+    "Code": "83"
+  },
+  {
+    "minus1": "Trà Vinh",
+    "minus3": "tra-vinh",
+    "minus2": "tinh",
+    "Name": "Tỉnh Trà Vinh",
+    "Code": "84"
+  },
+  {
+    "minus1": "Vĩnh Long",
+    "minus3": "vinh-long",
+    "minus2": "tinh",
+    "Name": "Tỉnh Vĩnh Long",
+    "Code": "86"
+  },
+  {
+    "minus1": "Đồng Tháp",
+    "minus3": "dong-thap",
+    "minus2": "tinh",
+    "Name": "Tỉnh Đồng Tháp",
+    "Code": "87"
+  },
+  {
+    "minus1": "An Giang",
+    "minus3": "an-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh An Giang",
+    "Code": "89"
+  },
+  {
+    "minus1": "Kiên Giang",
+    "minus3": "kien-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Kiên Giang",
+    "Code": "91"
+  },
+  {
+    "minus1": "Cần Thơ",
+    "minus3": "can-tho",
+    "minus2": "thanh-pho",
+    "Name": "Thành phố Cần Thơ",
+    "Code": "92"
+  },
+  {
+    "minus1": "Hậu Giang",
+    "minus3": "hau-giang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Hậu Giang",
+    "Code": "93"
+  },
+  {
+    "minus1": "Sóc Trăng",
+    "minus3": "soc-trang",
+    "minus2": "tinh",
+    "Name": "Tỉnh Sóc Trăng",
+    "Code": "94"
+  },
+  {
+    "minus1": "Bạc Liêu",
+    "minus3": "bac-lieu",
+    "minus2": "tinh",
+    "Name": "Tỉnh Bạc Liêu",
+    "Code": "95"
+  },
+  {
+    "minus1": "Cà Mau",
+    "minus3": "ca-mau",
+    "minus2": "tinh",
+    "Name": "Tỉnh Cà Mau",
+    "Code": "96"
+  }
+]
