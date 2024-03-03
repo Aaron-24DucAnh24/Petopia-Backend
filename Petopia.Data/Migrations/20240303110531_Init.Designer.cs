@@ -12,7 +12,7 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240301143754_Init")]
+    [Migration("20240303110531_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,6 +24,26 @@ namespace Petopia.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Petopia.Data.Entities.District", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("District", (string)null);
+                });
 
             modelBuilder.Entity("Petopia.Data.Entities.EmailTemplate", b =>
                 {
@@ -43,22 +63,6 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmailTemplates");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8ef178e4-2fc4-4592-be4f-38c568d5a6dd"),
-                            Body = "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/register/validate?email={email}&validateRegisterToken={registerToken}\"> Nhấn để hoàn thành đăng ký </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 30 phút.</div> </div> </body>",
-                            Subject = "XÁC THỰC EMAIL CỦA BẠN",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("a96198b5-d868-45e7-8797-5ec7077a03cc"),
-                            Body = "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \">Chào mừng đến với nền tảng nhận nuôi thú cưng Petopia</div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/login/reset-password?passwordToken={passwordToken}\"> Nhấn để khôi phục mật khẩu </a> <div style=\"color: #9e9ea7; margin-top: 24px;\">Email xác thực có hiệu lực 1 giờ.</div> </div> </body>",
-                            Subject = "KHÔI PHỤC MẬT KHẨU CỦA BẠN",
-                            Type = 1
-                        });
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
@@ -153,6 +157,23 @@ namespace Petopia.Data.Migrations
                     b.ToTable("Pet", (string)null);
                 });
 
+            modelBuilder.Entity("Petopia.Data.Entities.Province", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Province", (string)null);
+                });
+
             modelBuilder.Entity("Petopia.Data.Entities.SyncDataCollection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -222,18 +243,6 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9ec23313-ac63-4dcd-b890-b9657e7179a3"),
-                            Email = "6154B051E9E3D3179DE74C08D3294698CBEA931503E638A77CE9F43FB25E2710",
-                            IsCreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            IsDeactivated = false,
-                            Password = "$2a$11$ZPqHXEjL.1K8ZYbRbY/jbOElxxjGpB34lyBdtzVvDVjvy2SvarzMq",
-                            ResetPasswordTokenExpirationDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            Role = 1
-                        });
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.UserConnection", b =>
@@ -275,14 +284,6 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserIndividualAttributes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9ec23313-ac63-4dcd-b890-b9657e7179a3"),
-                            FirstName = "Đức Anh",
-                            LastName = "Bùi"
-                        });
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.UserOrganizationAttributes", b =>
@@ -302,6 +303,26 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserOrganizationAttributes", (string)null);
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Ward", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ward", (string)null);
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>

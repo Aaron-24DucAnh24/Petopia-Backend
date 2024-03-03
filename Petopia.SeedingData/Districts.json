@@ -1,0 +1,7052 @@
+[
+  {
+    "minus1": "Ba Đình",
+    "minus2": "quan",
+    "minus3": "ba-dinh",
+    "Name": "Quận Ba Đình",
+    "minus4": "Ba Đình, Hà Nội",
+    "minus5": "Quận Ba Đình, Thành phố Hà Nội",
+    "Code": "001",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hoàn Kiếm",
+    "minus2": "quan",
+    "minus3": "hoan-kiem",
+    "Name": "Quận Hoàn Kiếm",
+    "minus4": "Hoàn Kiếm, Hà Nội",
+    "minus5": "Quận Hoàn Kiếm, Thành phố Hà Nội",
+    "Code": "002",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Tây Hồ",
+    "minus2": "quan",
+    "minus3": "tay-ho",
+    "Name": "Quận Tây Hồ",
+    "minus4": "Tây Hồ, Hà Nội",
+    "minus5": "Quận Tây Hồ, Thành phố Hà Nội",
+    "Code": "003",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Long Biên",
+    "minus2": "quan",
+    "minus3": "long-bien",
+    "Name": "Quận Long Biên",
+    "minus4": "Long Biên, Hà Nội",
+    "minus5": "Quận Long Biên, Thành phố Hà Nội",
+    "Code": "004",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Cầu Giấy",
+    "minus2": "quan",
+    "minus3": "cau-giay",
+    "Name": "Quận Cầu Giấy",
+    "minus4": "Cầu Giấy, Hà Nội",
+    "minus5": "Quận Cầu Giấy, Thành phố Hà Nội",
+    "Code": "005",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Đống Đa",
+    "minus2": "quan",
+    "minus3": "dong-da",
+    "Name": "Quận Đống Đa",
+    "minus4": "Đống Đa, Hà Nội",
+    "minus5": "Quận Đống Đa, Thành phố Hà Nội",
+    "Code": "006",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hai Bà Trưng",
+    "minus2": "quan",
+    "minus3": "hai-ba-trung",
+    "Name": "Quận Hai Bà Trưng",
+    "minus4": "Hai Bà Trưng, Hà Nội",
+    "minus5": "Quận Hai Bà Trưng, Thành phố Hà Nội",
+    "Code": "007",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hoàng Mai",
+    "minus2": "quan",
+    "minus3": "hoang-mai",
+    "Name": "Quận Hoàng Mai",
+    "minus4": "Hoàng Mai, Hà Nội",
+    "minus5": "Quận Hoàng Mai, Thành phố Hà Nội",
+    "Code": "008",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Thanh Xuân",
+    "minus2": "quan",
+    "minus3": "thanh-xuan",
+    "Name": "Quận Thanh Xuân",
+    "minus4": "Thanh Xuân, Hà Nội",
+    "minus5": "Quận Thanh Xuân, Thành phố Hà Nội",
+    "Code": "009",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Sóc Sơn",
+    "minus2": "huyen",
+    "minus3": "soc-son",
+    "Name": "Huyện Sóc Sơn",
+    "minus4": "Sóc Sơn, Hà Nội",
+    "minus5": "Huyện Sóc Sơn, Thành phố Hà Nội",
+    "Code": "016",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Đông Anh",
+    "minus2": "huyen",
+    "minus3": "dong-anh",
+    "Name": "Huyện Đông Anh",
+    "minus4": "Đông Anh, Hà Nội",
+    "minus5": "Huyện Đông Anh, Thành phố Hà Nội",
+    "Code": "017",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Gia Lâm",
+    "minus2": "huyen",
+    "minus3": "gia-lam",
+    "Name": "Huyện Gia Lâm",
+    "minus4": "Gia Lâm, Hà Nội",
+    "minus5": "Huyện Gia Lâm, Thành phố Hà Nội",
+    "Code": "018",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Nam Từ Liêm",
+    "minus2": "quan",
+    "minus3": "nam-tu-liem",
+    "Name": "Quận Nam Từ Liêm",
+    "minus4": "Nam Từ Liêm, Hà Nội",
+    "minus5": "Quận Nam Từ Liêm, Thành phố Hà Nội",
+    "Code": "019",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Thanh Trì",
+    "minus2": "huyen",
+    "minus3": "thanh-tri",
+    "Name": "Huyện Thanh Trì",
+    "minus4": "Thanh Trì, Hà Nội",
+    "minus5": "Huyện Thanh Trì, Thành phố Hà Nội",
+    "Code": "020",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Bắc Từ Liêm",
+    "minus2": "quan",
+    "minus3": "bac-tu-liem",
+    "Name": "Quận Bắc Từ Liêm",
+    "minus4": "Bắc Từ Liêm, Hà Nội",
+    "minus5": "Quận Bắc Từ Liêm, Thành phố Hà Nội",
+    "Code": "021",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hà Giang",
+    "minus2": "thanh-pho",
+    "minus3": "ha-giang",
+    "Name": "Thành phố Hà Giang",
+    "minus4": "Hà Giang, Hà Giang",
+    "minus5": "Thành phố Hà Giang, Tỉnh Hà Giang",
+    "Code": "024",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Đồng Văn",
+    "minus2": "huyen",
+    "minus3": "dong-van",
+    "Name": "Huyện Đồng Văn",
+    "minus4": "Đồng Văn, Hà Giang",
+    "minus5": "Huyện Đồng Văn, Tỉnh Hà Giang",
+    "Code": "026",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Mèo Vạc",
+    "minus2": "huyen",
+    "minus3": "meo-vac",
+    "Name": "Huyện Mèo Vạc",
+    "minus4": "Mèo Vạc, Hà Giang",
+    "minus5": "Huyện Mèo Vạc, Tỉnh Hà Giang",
+    "Code": "027",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Yên Minh",
+    "minus2": "huyen",
+    "minus3": "yen-minh",
+    "Name": "Huyện Yên Minh",
+    "minus4": "Yên Minh, Hà Giang",
+    "minus5": "Huyện Yên Minh, Tỉnh Hà Giang",
+    "Code": "028",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Quản Bạ",
+    "minus2": "huyen",
+    "minus3": "quan-ba",
+    "Name": "Huyện Quản Bạ",
+    "minus4": "Quản Bạ, Hà Giang",
+    "minus5": "Huyện Quản Bạ, Tỉnh Hà Giang",
+    "Code": "029",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Vị Xuyên",
+    "minus2": "huyen",
+    "minus3": "vi-xuyen",
+    "Name": "Huyện Vị Xuyên",
+    "minus4": "Vị Xuyên, Hà Giang",
+    "minus5": "Huyện Vị Xuyên, Tỉnh Hà Giang",
+    "Code": "030",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Bắc Mê",
+    "minus2": "huyen",
+    "minus3": "bac-me",
+    "Name": "Huyện Bắc Mê",
+    "minus4": "Bắc Mê, Hà Giang",
+    "minus5": "Huyện Bắc Mê, Tỉnh Hà Giang",
+    "Code": "031",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Hoàng Su Phì",
+    "minus2": "huyen",
+    "minus3": "hoang-su-phi",
+    "Name": "Huyện Hoàng Su Phì",
+    "minus4": "Hoàng Su Phì, Hà Giang",
+    "minus5": "Huyện Hoàng Su Phì, Tỉnh Hà Giang",
+    "Code": "032",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Xín Mần",
+    "minus2": "huyen",
+    "minus3": "xin-man",
+    "Name": "Huyện Xín Mần",
+    "minus4": "Xín Mần, Hà Giang",
+    "minus5": "Huyện Xín Mần, Tỉnh Hà Giang",
+    "Code": "033",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Bắc Quang",
+    "minus2": "huyen",
+    "minus3": "bac-quang",
+    "Name": "Huyện Bắc Quang",
+    "minus4": "Bắc Quang, Hà Giang",
+    "minus5": "Huyện Bắc Quang, Tỉnh Hà Giang",
+    "Code": "034",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Quang Bình",
+    "minus2": "huyen",
+    "minus3": "quang-binh",
+    "Name": "Huyện Quang Bình",
+    "minus4": "Quang Bình, Hà Giang",
+    "minus5": "Huyện Quang Bình, Tỉnh Hà Giang",
+    "Code": "035",
+    "ParentCode": "02"
+  },
+  {
+    "minus1": "Cao Bằng",
+    "minus2": "thanh-pho",
+    "minus3": "cao-bang",
+    "Name": "Thành phố Cao Bằng",
+    "minus4": "Cao Bằng, Cao Bằng",
+    "minus5": "Thành phố Cao Bằng, Tỉnh Cao Bằng",
+    "Code": "040",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Bảo Lâm",
+    "minus2": "huyen",
+    "minus3": "bao-lam",
+    "Name": "Huyện Bảo Lâm",
+    "minus4": "Bảo Lâm, Cao Bằng",
+    "minus5": "Huyện Bảo Lâm, Tỉnh Cao Bằng",
+    "Code": "042",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Bảo Lạc",
+    "minus2": "huyen",
+    "minus3": "bao-lac",
+    "Name": "Huyện Bảo Lạc",
+    "minus4": "Bảo Lạc, Cao Bằng",
+    "minus5": "Huyện Bảo Lạc, Tỉnh Cao Bằng",
+    "Code": "043",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Hà Quảng",
+    "minus2": "huyen",
+    "minus3": "ha-quang",
+    "Name": "Huyện Hà Quảng",
+    "minus4": "Hà Quảng, Cao Bằng",
+    "minus5": "Huyện Hà Quảng, Tỉnh Cao Bằng",
+    "Code": "045",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Trùng Khánh",
+    "minus2": "huyen",
+    "minus3": "trung-khanh",
+    "Name": "Huyện Trùng Khánh",
+    "minus4": "Trùng Khánh, Cao Bằng",
+    "minus5": "Huyện Trùng Khánh, Tỉnh Cao Bằng",
+    "Code": "047",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Hạ Lang",
+    "minus2": "huyen",
+    "minus3": "ha-lang",
+    "Name": "Huyện Hạ Lang",
+    "minus4": "Hạ Lang, Cao Bằng",
+    "minus5": "Huyện Hạ Lang, Tỉnh Cao Bằng",
+    "Code": "048",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Quảng Hòa",
+    "minus2": "huyen",
+    "minus3": "quang-hoa",
+    "Name": "Huyện Quảng Hòa",
+    "minus4": "Quảng Hòa, Cao Bằng",
+    "minus5": "Huyện Quảng Hòa, Tỉnh Cao Bằng",
+    "Code": "049",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Hoà An",
+    "minus2": "huyen",
+    "minus3": "hoa-an",
+    "Name": "Huyện Hoà An",
+    "minus4": "Hoà An, Cao Bằng",
+    "minus5": "Huyện Hoà An, Tỉnh Cao Bằng",
+    "Code": "051",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Nguyên Bình",
+    "minus2": "huyen",
+    "minus3": "nguyen-binh",
+    "Name": "Huyện Nguyên Bình",
+    "minus4": "Nguyên Bình, Cao Bằng",
+    "minus5": "Huyện Nguyên Bình, Tỉnh Cao Bằng",
+    "Code": "052",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Thạch An",
+    "minus2": "huyen",
+    "minus3": "thach-an",
+    "Name": "Huyện Thạch An",
+    "minus4": "Thạch An, Cao Bằng",
+    "minus5": "Huyện Thạch An, Tỉnh Cao Bằng",
+    "Code": "053",
+    "ParentCode": "04"
+  },
+  {
+    "minus1": "Bắc Kạn",
+    "minus2": "thanh-pho",
+    "minus3": "bac-kan",
+    "Name": "Thành Phố Bắc Kạn",
+    "minus4": "Bắc Kạn, Bắc Kạn",
+    "minus5": "Thành Phố Bắc Kạn, Tỉnh Bắc Kạn",
+    "Code": "058",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Pác Nặm",
+    "minus2": "huyen",
+    "minus3": "pac-nam",
+    "Name": "Huyện Pác Nặm",
+    "minus4": "Pác Nặm, Bắc Kạn",
+    "minus5": "Huyện Pác Nặm, Tỉnh Bắc Kạn",
+    "Code": "060",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Ba Bể",
+    "minus2": "huyen",
+    "minus3": "ba-be",
+    "Name": "Huyện Ba Bể",
+    "minus4": "Ba Bể, Bắc Kạn",
+    "minus5": "Huyện Ba Bể, Tỉnh Bắc Kạn",
+    "Code": "061",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Ngân Sơn",
+    "minus2": "huyen",
+    "minus3": "ngan-son",
+    "Name": "Huyện Ngân Sơn",
+    "minus4": "Ngân Sơn, Bắc Kạn",
+    "minus5": "Huyện Ngân Sơn, Tỉnh Bắc Kạn",
+    "Code": "062",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Bạch Thông",
+    "minus2": "huyen",
+    "minus3": "bach-thong",
+    "Name": "Huyện Bạch Thông",
+    "minus4": "Bạch Thông, Bắc Kạn",
+    "minus5": "Huyện Bạch Thông, Tỉnh Bắc Kạn",
+    "Code": "063",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Chợ Đồn",
+    "minus2": "huyen",
+    "minus3": "cho-don",
+    "Name": "Huyện Chợ Đồn",
+    "minus4": "Chợ Đồn, Bắc Kạn",
+    "minus5": "Huyện Chợ Đồn, Tỉnh Bắc Kạn",
+    "Code": "064",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Chợ Mới",
+    "minus2": "huyen",
+    "minus3": "cho-moi",
+    "Name": "Huyện Chợ Mới",
+    "minus4": "Chợ Mới, Bắc Kạn",
+    "minus5": "Huyện Chợ Mới, Tỉnh Bắc Kạn",
+    "Code": "065",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Na Rì",
+    "minus2": "huyen",
+    "minus3": "na-ri",
+    "Name": "Huyện Na Rì",
+    "minus4": "Na Rì, Bắc Kạn",
+    "minus5": "Huyện Na Rì, Tỉnh Bắc Kạn",
+    "Code": "066",
+    "ParentCode": "06"
+  },
+  {
+    "minus1": "Tuyên Quang",
+    "minus2": "thanh-pho",
+    "minus3": "tuyen-quang",
+    "Name": "Thành phố Tuyên Quang",
+    "minus4": "Tuyên Quang, Tuyên Quang",
+    "minus5": "Thành phố Tuyên Quang, Tỉnh Tuyên Quang",
+    "Code": "070",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Lâm Bình",
+    "minus2": "huyen",
+    "minus3": "lam-binh",
+    "Name": "Huyện Lâm Bình",
+    "minus4": "Lâm Bình, Tuyên Quang",
+    "minus5": "Huyện Lâm Bình, Tỉnh Tuyên Quang",
+    "Code": "071",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Na Hang",
+    "minus2": "huyen",
+    "minus3": "na-hang",
+    "Name": "Huyện Na Hang",
+    "minus4": "Na Hang, Tuyên Quang",
+    "minus5": "Huyện Na Hang, Tỉnh Tuyên Quang",
+    "Code": "072",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Chiêm Hóa",
+    "minus2": "huyen",
+    "minus3": "chiem-hoa",
+    "Name": "Huyện Chiêm Hóa",
+    "minus4": "Chiêm Hóa, Tuyên Quang",
+    "minus5": "Huyện Chiêm Hóa, Tỉnh Tuyên Quang",
+    "Code": "073",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Hàm Yên",
+    "minus2": "huyen",
+    "minus3": "ham-yen",
+    "Name": "Huyện Hàm Yên",
+    "minus4": "Hàm Yên, Tuyên Quang",
+    "minus5": "Huyện Hàm Yên, Tỉnh Tuyên Quang",
+    "Code": "074",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Yên Sơn",
+    "minus2": "huyen",
+    "minus3": "yen-son",
+    "Name": "Huyện Yên Sơn",
+    "minus4": "Yên Sơn, Tuyên Quang",
+    "minus5": "Huyện Yên Sơn, Tỉnh Tuyên Quang",
+    "Code": "075",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Sơn Dương",
+    "minus2": "huyen",
+    "minus3": "son-duong",
+    "Name": "Huyện Sơn Dương",
+    "minus4": "Sơn Dương, Tuyên Quang",
+    "minus5": "Huyện Sơn Dương, Tỉnh Tuyên Quang",
+    "Code": "076",
+    "ParentCode": "08"
+  },
+  {
+    "minus1": "Lào Cai",
+    "minus2": "thanh-pho",
+    "minus3": "lao-cai",
+    "Name": "Thành phố Lào Cai",
+    "minus4": "Lào Cai, Lào Cai",
+    "minus5": "Thành phố Lào Cai, Tỉnh Lào Cai",
+    "Code": "080",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Bát Xát",
+    "minus2": "huyen",
+    "minus3": "bat-xat",
+    "Name": "Huyện Bát Xát",
+    "minus4": "Bát Xát, Lào Cai",
+    "minus5": "Huyện Bát Xát, Tỉnh Lào Cai",
+    "Code": "082",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Mường Khương",
+    "minus2": "huyen",
+    "minus3": "muong-khuong",
+    "Name": "Huyện Mường Khương",
+    "minus4": "Mường Khương, Lào Cai",
+    "minus5": "Huyện Mường Khương, Tỉnh Lào Cai",
+    "Code": "083",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Si Ma Cai",
+    "minus2": "huyen",
+    "minus3": "si-ma-cai",
+    "Name": "Huyện Si Ma Cai",
+    "minus4": "Si Ma Cai, Lào Cai",
+    "minus5": "Huyện Si Ma Cai, Tỉnh Lào Cai",
+    "Code": "084",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Bắc Hà",
+    "minus2": "huyen",
+    "minus3": "bac-ha",
+    "Name": "Huyện Bắc Hà",
+    "minus4": "Bắc Hà, Lào Cai",
+    "minus5": "Huyện Bắc Hà, Tỉnh Lào Cai",
+    "Code": "085",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Bảo Thắng",
+    "minus2": "huyen",
+    "minus3": "bao-thang",
+    "Name": "Huyện Bảo Thắng",
+    "minus4": "Bảo Thắng, Lào Cai",
+    "minus5": "Huyện Bảo Thắng, Tỉnh Lào Cai",
+    "Code": "086",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Bảo Yên",
+    "minus2": "huyen",
+    "minus3": "bao-yen",
+    "Name": "Huyện Bảo Yên",
+    "minus4": "Bảo Yên, Lào Cai",
+    "minus5": "Huyện Bảo Yên, Tỉnh Lào Cai",
+    "Code": "087",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Sa Pa",
+    "minus2": "thi-xa",
+    "minus3": "sa-pa",
+    "Name": "Thị xã Sa Pa",
+    "minus4": "Sa Pa, Lào Cai",
+    "minus5": "Thị xã Sa Pa, Tỉnh Lào Cai",
+    "Code": "088",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Văn Bàn",
+    "minus2": "huyen",
+    "minus3": "van-ban",
+    "Name": "Huyện Văn Bàn",
+    "minus4": "Văn Bàn, Lào Cai",
+    "minus5": "Huyện Văn Bàn, Tỉnh Lào Cai",
+    "Code": "089",
+    "ParentCode": "10"
+  },
+  {
+    "minus1": "Điện Biên Phủ",
+    "minus2": "thanh-pho",
+    "minus3": "dien-bien-phu",
+    "Name": "Thành phố Điện Biên Phủ",
+    "minus4": "Điện Biên Phủ, Điện Biên",
+    "minus5": "Thành phố Điện Biên Phủ, Tỉnh Điện Biên",
+    "Code": "094",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Mường Lay",
+    "minus2": "thi-xa",
+    "minus3": "muong-lay",
+    "Name": "Thị xã Mường Lay",
+    "minus4": "Mường Lay, Điện Biên",
+    "minus5": "Thị xã Mường Lay, Tỉnh Điện Biên",
+    "Code": "095",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Mường Nhé",
+    "minus2": "huyen",
+    "minus3": "muong-nhe",
+    "Name": "Huyện Mường Nhé",
+    "minus4": "Mường Nhé, Điện Biên",
+    "minus5": "Huyện Mường Nhé, Tỉnh Điện Biên",
+    "Code": "096",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Mường Chà",
+    "minus2": "huyen",
+    "minus3": "muong-cha",
+    "Name": "Huyện Mường Chà",
+    "minus4": "Mường Chà, Điện Biên",
+    "minus5": "Huyện Mường Chà, Tỉnh Điện Biên",
+    "Code": "097",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Tủa Chùa",
+    "minus2": "huyen",
+    "minus3": "tua-chua",
+    "Name": "Huyện Tủa Chùa",
+    "minus4": "Tủa Chùa, Điện Biên",
+    "minus5": "Huyện Tủa Chùa, Tỉnh Điện Biên",
+    "Code": "098",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Tuần Giáo",
+    "minus2": "huyen",
+    "minus3": "tuan-giao",
+    "Name": "Huyện Tuần Giáo",
+    "minus4": "Tuần Giáo, Điện Biên",
+    "minus5": "Huyện Tuần Giáo, Tỉnh Điện Biên",
+    "Code": "099",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Điện Biên",
+    "minus2": "huyen",
+    "minus3": "dien-bien",
+    "Name": "Huyện Điện Biên",
+    "minus4": "Điện Biên, Điện Biên",
+    "minus5": "Huyện Điện Biên, Tỉnh Điện Biên",
+    "Code": "100",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Điện Biên Đông",
+    "minus2": "huyen",
+    "minus3": "dien-bien-dong",
+    "Name": "Huyện Điện Biên Đông",
+    "minus4": "Điện Biên Đông, Điện Biên",
+    "minus5": "Huyện Điện Biên Đông, Tỉnh Điện Biên",
+    "Code": "101",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Mường Ảng",
+    "minus2": "huyen",
+    "minus3": "muong-ang",
+    "Name": "Huyện Mường Ảng",
+    "minus4": "Mường Ảng, Điện Biên",
+    "minus5": "Huyện Mường Ảng, Tỉnh Điện Biên",
+    "Code": "102",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Nậm Pồ",
+    "minus2": "huyen",
+    "minus3": "nam-po",
+    "Name": "Huyện Nậm Pồ",
+    "minus4": "Nậm Pồ, Điện Biên",
+    "minus5": "Huyện Nậm Pồ, Tỉnh Điện Biên",
+    "Code": "103",
+    "ParentCode": "11"
+  },
+  {
+    "minus1": "Lai Châu",
+    "minus2": "thanh-pho",
+    "minus3": "lai-chau",
+    "Name": "Thành phố Lai Châu",
+    "minus4": "Lai Châu, Lai Châu",
+    "minus5": "Thành phố Lai Châu, Tỉnh Lai Châu",
+    "Code": "105",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Tam Đường",
+    "minus2": "huyen",
+    "minus3": "tam-duong",
+    "Name": "Huyện Tam Đường",
+    "minus4": "Tam Đường, Lai Châu",
+    "minus5": "Huyện Tam Đường, Tỉnh Lai Châu",
+    "Code": "106",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Mường Tè",
+    "minus2": "huyen",
+    "minus3": "muong-te",
+    "Name": "Huyện Mường Tè",
+    "minus4": "Mường Tè, Lai Châu",
+    "minus5": "Huyện Mường Tè, Tỉnh Lai Châu",
+    "Code": "107",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Sìn Hồ",
+    "minus2": "huyen",
+    "minus3": "sin-ho",
+    "Name": "Huyện Sìn Hồ",
+    "minus4": "Sìn Hồ, Lai Châu",
+    "minus5": "Huyện Sìn Hồ, Tỉnh Lai Châu",
+    "Code": "108",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Phong Thổ",
+    "minus2": "huyen",
+    "minus3": "phong-tho",
+    "Name": "Huyện Phong Thổ",
+    "minus4": "Phong Thổ, Lai Châu",
+    "minus5": "Huyện Phong Thổ, Tỉnh Lai Châu",
+    "Code": "109",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Than Uyên",
+    "minus2": "huyen",
+    "minus3": "than-uyen",
+    "Name": "Huyện Than Uyên",
+    "minus4": "Than Uyên, Lai Châu",
+    "minus5": "Huyện Than Uyên, Tỉnh Lai Châu",
+    "Code": "110",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Tân Uyên",
+    "minus2": "huyen",
+    "minus3": "tan-uyen",
+    "Name": "Huyện Tân Uyên",
+    "minus4": "Tân Uyên, Lai Châu",
+    "minus5": "Huyện Tân Uyên, Tỉnh Lai Châu",
+    "Code": "111",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Nậm Nhùn",
+    "minus2": "huyen",
+    "minus3": "nam-nhun",
+    "Name": "Huyện Nậm Nhùn",
+    "minus4": "Nậm Nhùn, Lai Châu",
+    "minus5": "Huyện Nậm Nhùn, Tỉnh Lai Châu",
+    "Code": "112",
+    "ParentCode": "12"
+  },
+  {
+    "minus1": "Sơn La",
+    "minus2": "thanh-pho",
+    "minus3": "son-la",
+    "Name": "Thành phố Sơn La",
+    "minus4": "Sơn La, Sơn La",
+    "minus5": "Thành phố Sơn La, Tỉnh Sơn La",
+    "Code": "116",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Quỳnh Nhai",
+    "minus2": "huyen",
+    "minus3": "quynh-nhai",
+    "Name": "Huyện Quỳnh Nhai",
+    "minus4": "Quỳnh Nhai, Sơn La",
+    "minus5": "Huyện Quỳnh Nhai, Tỉnh Sơn La",
+    "Code": "118",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Thuận Châu",
+    "minus2": "huyen",
+    "minus3": "thuan-chau",
+    "Name": "Huyện Thuận Châu",
+    "minus4": "Thuận Châu, Sơn La",
+    "minus5": "Huyện Thuận Châu, Tỉnh Sơn La",
+    "Code": "119",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Mường La",
+    "minus2": "huyen",
+    "minus3": "muong-la",
+    "Name": "Huyện Mường La",
+    "minus4": "Mường La, Sơn La",
+    "minus5": "Huyện Mường La, Tỉnh Sơn La",
+    "Code": "120",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Bắc Yên",
+    "minus2": "huyen",
+    "minus3": "bac-yen",
+    "Name": "Huyện Bắc Yên",
+    "minus4": "Bắc Yên, Sơn La",
+    "minus5": "Huyện Bắc Yên, Tỉnh Sơn La",
+    "Code": "121",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Phù Yên",
+    "minus2": "huyen",
+    "minus3": "phu-yen",
+    "Name": "Huyện Phù Yên",
+    "minus4": "Phù Yên, Sơn La",
+    "minus5": "Huyện Phù Yên, Tỉnh Sơn La",
+    "Code": "122",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Mộc Châu",
+    "minus2": "huyen",
+    "minus3": "moc-chau",
+    "Name": "Huyện Mộc Châu",
+    "minus4": "Mộc Châu, Sơn La",
+    "minus5": "Huyện Mộc Châu, Tỉnh Sơn La",
+    "Code": "123",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Yên Châu",
+    "minus2": "huyen",
+    "minus3": "yen-chau",
+    "Name": "Huyện Yên Châu",
+    "minus4": "Yên Châu, Sơn La",
+    "minus5": "Huyện Yên Châu, Tỉnh Sơn La",
+    "Code": "124",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Mai Sơn",
+    "minus2": "huyen",
+    "minus3": "mai-son",
+    "Name": "Huyện Mai Sơn",
+    "minus4": "Mai Sơn, Sơn La",
+    "minus5": "Huyện Mai Sơn, Tỉnh Sơn La",
+    "Code": "125",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Sông Mã",
+    "minus2": "huyen",
+    "minus3": "song-ma",
+    "Name": "Huyện Sông Mã",
+    "minus4": "Sông Mã, Sơn La",
+    "minus5": "Huyện Sông Mã, Tỉnh Sơn La",
+    "Code": "126",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Sốp Cộp",
+    "minus2": "huyen",
+    "minus3": "sop-cop",
+    "Name": "Huyện Sốp Cộp",
+    "minus4": "Sốp Cộp, Sơn La",
+    "minus5": "Huyện Sốp Cộp, Tỉnh Sơn La",
+    "Code": "127",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Vân Hồ",
+    "minus2": "huyen",
+    "minus3": "van-ho",
+    "Name": "Huyện Vân Hồ",
+    "minus4": "Vân Hồ, Sơn La",
+    "minus5": "Huyện Vân Hồ, Tỉnh Sơn La",
+    "Code": "128",
+    "ParentCode": "14"
+  },
+  {
+    "minus1": "Yên Bái",
+    "minus2": "thanh-pho",
+    "minus3": "yen-bai",
+    "Name": "Thành phố Yên Bái",
+    "minus4": "Yên Bái, Yên Bái",
+    "minus5": "Thành phố Yên Bái, Tỉnh Yên Bái",
+    "Code": "132",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Nghĩa Lộ",
+    "minus2": "thi-xa",
+    "minus3": "nghia-lo",
+    "Name": "Thị xã Nghĩa Lộ",
+    "minus4": "Nghĩa Lộ, Yên Bái",
+    "minus5": "Thị xã Nghĩa Lộ, Tỉnh Yên Bái",
+    "Code": "133",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Lục Yên",
+    "minus2": "huyen",
+    "minus3": "luc-yen",
+    "Name": "Huyện Lục Yên",
+    "minus4": "Lục Yên, Yên Bái",
+    "minus5": "Huyện Lục Yên, Tỉnh Yên Bái",
+    "Code": "135",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Văn Yên",
+    "minus2": "huyen",
+    "minus3": "van-yen",
+    "Name": "Huyện Văn Yên",
+    "minus4": "Văn Yên, Yên Bái",
+    "minus5": "Huyện Văn Yên, Tỉnh Yên Bái",
+    "Code": "136",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Mù Căng Chải",
+    "minus2": "huyen",
+    "minus3": "mu-cang-chai",
+    "Name": "Huyện Mù Căng Chải",
+    "minus4": "Mù Căng Chải, Yên Bái",
+    "minus5": "Huyện Mù Căng Chải, Tỉnh Yên Bái",
+    "Code": "137",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Trấn Yên",
+    "minus2": "huyen",
+    "minus3": "tran-yen",
+    "Name": "Huyện Trấn Yên",
+    "minus4": "Trấn Yên, Yên Bái",
+    "minus5": "Huyện Trấn Yên, Tỉnh Yên Bái",
+    "Code": "138",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Trạm Tấu",
+    "minus2": "huyen",
+    "minus3": "tram-tau",
+    "Name": "Huyện Trạm Tấu",
+    "minus4": "Trạm Tấu, Yên Bái",
+    "minus5": "Huyện Trạm Tấu, Tỉnh Yên Bái",
+    "Code": "139",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Văn Chấn",
+    "minus2": "huyen",
+    "minus3": "van-chan",
+    "Name": "Huyện Văn Chấn",
+    "minus4": "Văn Chấn, Yên Bái",
+    "minus5": "Huyện Văn Chấn, Tỉnh Yên Bái",
+    "Code": "140",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Yên Bình",
+    "minus2": "huyen",
+    "minus3": "yen-binh",
+    "Name": "Huyện Yên Bình",
+    "minus4": "Yên Bình, Yên Bái",
+    "minus5": "Huyện Yên Bình, Tỉnh Yên Bái",
+    "Code": "141",
+    "ParentCode": "15"
+  },
+  {
+    "minus1": "Hòa Bình",
+    "minus2": "thanh-pho",
+    "minus3": "hoa-binh",
+    "Name": "Thành phố Hòa Bình",
+    "minus4": "Hòa Bình, Hoà Bình",
+    "minus5": "Thành phố Hòa Bình, Tỉnh Hoà Bình",
+    "Code": "148",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Đà Bắc",
+    "minus2": "huyen",
+    "minus3": "da-bac",
+    "Name": "Huyện Đà Bắc",
+    "minus4": "Đà Bắc, Hoà Bình",
+    "minus5": "Huyện Đà Bắc, Tỉnh Hoà Bình",
+    "Code": "150",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Lương Sơn",
+    "minus2": "huyen",
+    "minus3": "luong-son",
+    "Name": "Huyện Lương Sơn",
+    "minus4": "Lương Sơn, Hoà Bình",
+    "minus5": "Huyện Lương Sơn, Tỉnh Hoà Bình",
+    "Code": "152",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Kim Bôi",
+    "minus2": "huyen",
+    "minus3": "kim-boi",
+    "Name": "Huyện Kim Bôi",
+    "minus4": "Kim Bôi, Hoà Bình",
+    "minus5": "Huyện Kim Bôi, Tỉnh Hoà Bình",
+    "Code": "153",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Cao Phong",
+    "minus2": "huyen",
+    "minus3": "cao-phong",
+    "Name": "Huyện Cao Phong",
+    "minus4": "Cao Phong, Hoà Bình",
+    "minus5": "Huyện Cao Phong, Tỉnh Hoà Bình",
+    "Code": "154",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Tân Lạc",
+    "minus2": "huyen",
+    "minus3": "tan-lac",
+    "Name": "Huyện Tân Lạc",
+    "minus4": "Tân Lạc, Hoà Bình",
+    "minus5": "Huyện Tân Lạc, Tỉnh Hoà Bình",
+    "Code": "155",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Mai Châu",
+    "minus2": "huyen",
+    "minus3": "mai-chau",
+    "Name": "Huyện Mai Châu",
+    "minus4": "Mai Châu, Hoà Bình",
+    "minus5": "Huyện Mai Châu, Tỉnh Hoà Bình",
+    "Code": "156",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Lạc Sơn",
+    "minus2": "huyen",
+    "minus3": "lac-son",
+    "Name": "Huyện Lạc Sơn",
+    "minus4": "Lạc Sơn, Hoà Bình",
+    "minus5": "Huyện Lạc Sơn, Tỉnh Hoà Bình",
+    "Code": "157",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Yên Thủy",
+    "minus2": "huyen",
+    "minus3": "yen-thuy",
+    "Name": "Huyện Yên Thủy",
+    "minus4": "Yên Thủy, Hoà Bình",
+    "minus5": "Huyện Yên Thủy, Tỉnh Hoà Bình",
+    "Code": "158",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Lạc Thủy",
+    "minus2": "huyen",
+    "minus3": "lac-thuy",
+    "Name": "Huyện Lạc Thủy",
+    "minus4": "Lạc Thủy, Hoà Bình",
+    "minus5": "Huyện Lạc Thủy, Tỉnh Hoà Bình",
+    "Code": "159",
+    "ParentCode": "17"
+  },
+  {
+    "minus1": "Thái Nguyên",
+    "minus2": "thanh-pho",
+    "minus3": "thai-nguyen",
+    "Name": "Thành phố Thái Nguyên",
+    "minus4": "Thái Nguyên, Thái Nguyên",
+    "minus5": "Thành phố Thái Nguyên, Tỉnh Thái Nguyên",
+    "Code": "164",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Sông Công",
+    "minus2": "thanh-pho",
+    "minus3": "song-cong",
+    "Name": "Thành phố Sông Công",
+    "minus4": "Sông Công, Thái Nguyên",
+    "minus5": "Thành phố Sông Công, Tỉnh Thái Nguyên",
+    "Code": "165",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Định Hóa",
+    "minus2": "huyen",
+    "minus3": "dinh-hoa",
+    "Name": "Huyện Định Hóa",
+    "minus4": "Định Hóa, Thái Nguyên",
+    "minus5": "Huyện Định Hóa, Tỉnh Thái Nguyên",
+    "Code": "167",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Phú Lương",
+    "minus2": "huyen",
+    "minus3": "phu-luong",
+    "Name": "Huyện Phú Lương",
+    "minus4": "Phú Lương, Thái Nguyên",
+    "minus5": "Huyện Phú Lương, Tỉnh Thái Nguyên",
+    "Code": "168",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Đồng Hỷ",
+    "minus2": "huyen",
+    "minus3": "dong-hy",
+    "Name": "Huyện Đồng Hỷ",
+    "minus4": "Đồng Hỷ, Thái Nguyên",
+    "minus5": "Huyện Đồng Hỷ, Tỉnh Thái Nguyên",
+    "Code": "169",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Võ Nhai",
+    "minus2": "huyen",
+    "minus3": "vo-nhai",
+    "Name": "Huyện Võ Nhai",
+    "minus4": "Võ Nhai, Thái Nguyên",
+    "minus5": "Huyện Võ Nhai, Tỉnh Thái Nguyên",
+    "Code": "170",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Đại Từ",
+    "minus2": "huyen",
+    "minus3": "dai-tu",
+    "Name": "Huyện Đại Từ",
+    "minus4": "Đại Từ, Thái Nguyên",
+    "minus5": "Huyện Đại Từ, Tỉnh Thái Nguyên",
+    "Code": "171",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Phổ Yên",
+    "minus2": "thanh-pho",
+    "minus3": "pho-yen",
+    "Name": "Thành phố Phổ Yên",
+    "minus4": "Phổ Yên, Thái Nguyên",
+    "minus5": "Thành phố Phổ Yên, Tỉnh Thái Nguyên",
+    "Code": "172",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Phú Bình",
+    "minus2": "huyen",
+    "minus3": "phu-binh",
+    "Name": "Huyện Phú Bình",
+    "minus4": "Phú Bình, Thái Nguyên",
+    "minus5": "Huyện Phú Bình, Tỉnh Thái Nguyên",
+    "Code": "173",
+    "ParentCode": "19"
+  },
+  {
+    "minus1": "Lạng Sơn",
+    "minus2": "thanh-pho",
+    "minus3": "lang-son",
+    "Name": "Thành phố Lạng Sơn",
+    "minus4": "Lạng Sơn, Lạng Sơn",
+    "minus5": "Thành phố Lạng Sơn, Tỉnh Lạng Sơn",
+    "Code": "178",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Tràng Định",
+    "minus2": "huyen",
+    "minus3": "trang-dinh",
+    "Name": "Huyện Tràng Định",
+    "minus4": "Tràng Định, Lạng Sơn",
+    "minus5": "Huyện Tràng Định, Tỉnh Lạng Sơn",
+    "Code": "180",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Bình Gia",
+    "minus2": "huyen",
+    "minus3": "binh-gia",
+    "Name": "Huyện Bình Gia",
+    "minus4": "Bình Gia, Lạng Sơn",
+    "minus5": "Huyện Bình Gia, Tỉnh Lạng Sơn",
+    "Code": "181",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Văn Lãng",
+    "minus2": "huyen",
+    "minus3": "van-lang",
+    "Name": "Huyện Văn Lãng",
+    "minus4": "Văn Lãng, Lạng Sơn",
+    "minus5": "Huyện Văn Lãng, Tỉnh Lạng Sơn",
+    "Code": "182",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Cao Lộc",
+    "minus2": "huyen",
+    "minus3": "cao-loc",
+    "Name": "Huyện Cao Lộc",
+    "minus4": "Cao Lộc, Lạng Sơn",
+    "minus5": "Huyện Cao Lộc, Tỉnh Lạng Sơn",
+    "Code": "183",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Văn Quan",
+    "minus2": "huyen",
+    "minus3": "van-quan",
+    "Name": "Huyện Văn Quan",
+    "minus4": "Văn Quan, Lạng Sơn",
+    "minus5": "Huyện Văn Quan, Tỉnh Lạng Sơn",
+    "Code": "184",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Bắc Sơn",
+    "minus2": "huyen",
+    "minus3": "bac-son",
+    "Name": "Huyện Bắc Sơn",
+    "minus4": "Bắc Sơn, Lạng Sơn",
+    "minus5": "Huyện Bắc Sơn, Tỉnh Lạng Sơn",
+    "Code": "185",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Hữu Lũng",
+    "minus2": "huyen",
+    "minus3": "huu-lung",
+    "Name": "Huyện Hữu Lũng",
+    "minus4": "Hữu Lũng, Lạng Sơn",
+    "minus5": "Huyện Hữu Lũng, Tỉnh Lạng Sơn",
+    "Code": "186",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Chi Lăng",
+    "minus2": "huyen",
+    "minus3": "chi-lang",
+    "Name": "Huyện Chi Lăng",
+    "minus4": "Chi Lăng, Lạng Sơn",
+    "minus5": "Huyện Chi Lăng, Tỉnh Lạng Sơn",
+    "Code": "187",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Lộc Bình",
+    "minus2": "huyen",
+    "minus3": "loc-binh",
+    "Name": "Huyện Lộc Bình",
+    "minus4": "Lộc Bình, Lạng Sơn",
+    "minus5": "Huyện Lộc Bình, Tỉnh Lạng Sơn",
+    "Code": "188",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Đình Lập",
+    "minus2": "huyen",
+    "minus3": "dinh-lap",
+    "Name": "Huyện Đình Lập",
+    "minus4": "Đình Lập, Lạng Sơn",
+    "minus5": "Huyện Đình Lập, Tỉnh Lạng Sơn",
+    "Code": "189",
+    "ParentCode": "20"
+  },
+  {
+    "minus1": "Hạ Long",
+    "minus2": "thanh-pho",
+    "minus3": "ha-long",
+    "Name": "Thành phố Hạ Long",
+    "minus4": "Hạ Long, Quảng Ninh",
+    "minus5": "Thành phố Hạ Long, Tỉnh Quảng Ninh",
+    "Code": "193",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Móng Cái",
+    "minus2": "thanh-pho",
+    "minus3": "mong-cai",
+    "Name": "Thành phố Móng Cái",
+    "minus4": "Móng Cái, Quảng Ninh",
+    "minus5": "Thành phố Móng Cái, Tỉnh Quảng Ninh",
+    "Code": "194",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Cẩm Phả",
+    "minus2": "thanh-pho",
+    "minus3": "cam-pha",
+    "Name": "Thành phố Cẩm Phả",
+    "minus4": "Cẩm Phả, Quảng Ninh",
+    "minus5": "Thành phố Cẩm Phả, Tỉnh Quảng Ninh",
+    "Code": "195",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Uông Bí",
+    "minus2": "thanh-pho",
+    "minus3": "uong-bi",
+    "Name": "Thành phố Uông Bí",
+    "minus4": "Uông Bí, Quảng Ninh",
+    "minus5": "Thành phố Uông Bí, Tỉnh Quảng Ninh",
+    "Code": "196",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Bình Liêu",
+    "minus2": "huyen",
+    "minus3": "binh-lieu",
+    "Name": "Huyện Bình Liêu",
+    "minus4": "Bình Liêu, Quảng Ninh",
+    "minus5": "Huyện Bình Liêu, Tỉnh Quảng Ninh",
+    "Code": "198",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Tiên Yên",
+    "minus2": "huyen",
+    "minus3": "tien-yen",
+    "Name": "Huyện Tiên Yên",
+    "minus4": "Tiên Yên, Quảng Ninh",
+    "minus5": "Huyện Tiên Yên, Tỉnh Quảng Ninh",
+    "Code": "199",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Đầm Hà",
+    "minus2": "huyen",
+    "minus3": "dam-ha",
+    "Name": "Huyện Đầm Hà",
+    "minus4": "Đầm Hà, Quảng Ninh",
+    "minus5": "Huyện Đầm Hà, Tỉnh Quảng Ninh",
+    "Code": "200",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Hải Hà",
+    "minus2": "huyen",
+    "minus3": "hai-ha",
+    "Name": "Huyện Hải Hà",
+    "minus4": "Hải Hà, Quảng Ninh",
+    "minus5": "Huyện Hải Hà, Tỉnh Quảng Ninh",
+    "Code": "201",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Ba Chẽ",
+    "minus2": "huyen",
+    "minus3": "ba-che",
+    "Name": "Huyện Ba Chẽ",
+    "minus4": "Ba Chẽ, Quảng Ninh",
+    "minus5": "Huyện Ba Chẽ, Tỉnh Quảng Ninh",
+    "Code": "202",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Vân Đồn",
+    "minus2": "huyen",
+    "minus3": "van-don",
+    "Name": "Huyện Vân Đồn",
+    "minus4": "Vân Đồn, Quảng Ninh",
+    "minus5": "Huyện Vân Đồn, Tỉnh Quảng Ninh",
+    "Code": "203",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Đông Triều",
+    "minus2": "thi-xa",
+    "minus3": "dong-trieu",
+    "Name": "Thị xã Đông Triều",
+    "minus4": "Đông Triều, Quảng Ninh",
+    "minus5": "Thị xã Đông Triều, Tỉnh Quảng Ninh",
+    "Code": "205",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Quảng Yên",
+    "minus2": "thi-xa",
+    "minus3": "quang-yen",
+    "Name": "Thị xã Quảng Yên",
+    "minus4": "Quảng Yên, Quảng Ninh",
+    "minus5": "Thị xã Quảng Yên, Tỉnh Quảng Ninh",
+    "Code": "206",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Cô Tô",
+    "minus2": "huyen",
+    "minus3": "co-to",
+    "Name": "Huyện Cô Tô",
+    "minus4": "Cô Tô, Quảng Ninh",
+    "minus5": "Huyện Cô Tô, Tỉnh Quảng Ninh",
+    "Code": "207",
+    "ParentCode": "22"
+  },
+  {
+    "minus1": "Bắc Giang",
+    "minus2": "thanh-pho",
+    "minus3": "bac-giang",
+    "Name": "Thành phố Bắc Giang",
+    "minus4": "Bắc Giang, Bắc Giang",
+    "minus5": "Thành phố Bắc Giang, Tỉnh Bắc Giang",
+    "Code": "213",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Yên Thế",
+    "minus2": "huyen",
+    "minus3": "yen-the",
+    "Name": "Huyện Yên Thế",
+    "minus4": "Yên Thế, Bắc Giang",
+    "minus5": "Huyện Yên Thế, Tỉnh Bắc Giang",
+    "Code": "215",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Tân Yên",
+    "minus2": "huyen",
+    "minus3": "tan-yen",
+    "Name": "Huyện Tân Yên",
+    "minus4": "Tân Yên, Bắc Giang",
+    "minus5": "Huyện Tân Yên, Tỉnh Bắc Giang",
+    "Code": "216",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Lạng Giang",
+    "minus2": "huyen",
+    "minus3": "lang-giang",
+    "Name": "Huyện Lạng Giang",
+    "minus4": "Lạng Giang, Bắc Giang",
+    "minus5": "Huyện Lạng Giang, Tỉnh Bắc Giang",
+    "Code": "217",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Lục Nam",
+    "minus2": "huyen",
+    "minus3": "luc-nam",
+    "Name": "Huyện Lục Nam",
+    "minus4": "Lục Nam, Bắc Giang",
+    "minus5": "Huyện Lục Nam, Tỉnh Bắc Giang",
+    "Code": "218",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Lục Ngạn",
+    "minus2": "huyen",
+    "minus3": "luc-ngan",
+    "Name": "Huyện Lục Ngạn",
+    "minus4": "Lục Ngạn, Bắc Giang",
+    "minus5": "Huyện Lục Ngạn, Tỉnh Bắc Giang",
+    "Code": "219",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Sơn Động",
+    "minus2": "huyen",
+    "minus3": "son-dong",
+    "Name": "Huyện Sơn Động",
+    "minus4": "Sơn Động, Bắc Giang",
+    "minus5": "Huyện Sơn Động, Tỉnh Bắc Giang",
+    "Code": "220",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Yên Dũng",
+    "minus2": "huyen",
+    "minus3": "yen-dung",
+    "Name": "Huyện Yên Dũng",
+    "minus4": "Yên Dũng, Bắc Giang",
+    "minus5": "Huyện Yên Dũng, Tỉnh Bắc Giang",
+    "Code": "221",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Việt Yên",
+    "minus2": "huyen",
+    "minus3": "viet-yen",
+    "Name": "Huyện Việt Yên",
+    "minus4": "Việt Yên, Bắc Giang",
+    "minus5": "Huyện Việt Yên, Tỉnh Bắc Giang",
+    "Code": "222",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Hiệp Hòa",
+    "minus2": "huyen",
+    "minus3": "hiep-hoa",
+    "Name": "Huyện Hiệp Hòa",
+    "minus4": "Hiệp Hòa, Bắc Giang",
+    "minus5": "Huyện Hiệp Hòa, Tỉnh Bắc Giang",
+    "Code": "223",
+    "ParentCode": "24"
+  },
+  {
+    "minus1": "Việt Trì",
+    "minus2": "thanh-pho",
+    "minus3": "viet-tri",
+    "Name": "Thành phố Việt Trì",
+    "minus4": "Việt Trì, Phú Thọ",
+    "minus5": "Thành phố Việt Trì, Tỉnh Phú Thọ",
+    "Code": "227",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Phú Thọ",
+    "minus2": "thi-xa",
+    "minus3": "phu-tho",
+    "Name": "Thị xã Phú Thọ",
+    "minus4": "Phú Thọ, Phú Thọ",
+    "minus5": "Thị xã Phú Thọ, Tỉnh Phú Thọ",
+    "Code": "228",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Đoan Hùng",
+    "minus2": "huyen",
+    "minus3": "doan-hung",
+    "Name": "Huyện Đoan Hùng",
+    "minus4": "Đoan Hùng, Phú Thọ",
+    "minus5": "Huyện Đoan Hùng, Tỉnh Phú Thọ",
+    "Code": "230",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Hạ Hoà",
+    "minus2": "huyen",
+    "minus3": "ha-hoa",
+    "Name": "Huyện Hạ Hoà",
+    "minus4": "Hạ Hoà, Phú Thọ",
+    "minus5": "Huyện Hạ Hoà, Tỉnh Phú Thọ",
+    "Code": "231",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Thanh Ba",
+    "minus2": "huyen",
+    "minus3": "thanh-ba",
+    "Name": "Huyện Thanh Ba",
+    "minus4": "Thanh Ba, Phú Thọ",
+    "minus5": "Huyện Thanh Ba, Tỉnh Phú Thọ",
+    "Code": "232",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Phù Ninh",
+    "minus2": "huyen",
+    "minus3": "phu-ninh",
+    "Name": "Huyện Phù Ninh",
+    "minus4": "Phù Ninh, Phú Thọ",
+    "minus5": "Huyện Phù Ninh, Tỉnh Phú Thọ",
+    "Code": "233",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Yên Lập",
+    "minus2": "huyen",
+    "minus3": "yen-lap",
+    "Name": "Huyện Yên Lập",
+    "minus4": "Yên Lập, Phú Thọ",
+    "minus5": "Huyện Yên Lập, Tỉnh Phú Thọ",
+    "Code": "234",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Cẩm Khê",
+    "minus2": "huyen",
+    "minus3": "cam-khe",
+    "Name": "Huyện Cẩm Khê",
+    "minus4": "Cẩm Khê, Phú Thọ",
+    "minus5": "Huyện Cẩm Khê, Tỉnh Phú Thọ",
+    "Code": "235",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Tam Nông",
+    "minus2": "huyen",
+    "minus3": "tam-nong",
+    "Name": "Huyện Tam Nông",
+    "minus4": "Tam Nông, Phú Thọ",
+    "minus5": "Huyện Tam Nông, Tỉnh Phú Thọ",
+    "Code": "236",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Lâm Thao",
+    "minus2": "huyen",
+    "minus3": "lam-thao",
+    "Name": "Huyện Lâm Thao",
+    "minus4": "Lâm Thao, Phú Thọ",
+    "minus5": "Huyện Lâm Thao, Tỉnh Phú Thọ",
+    "Code": "237",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Thanh Sơn",
+    "minus2": "huyen",
+    "minus3": "thanh-son",
+    "Name": "Huyện Thanh Sơn",
+    "minus4": "Thanh Sơn, Phú Thọ",
+    "minus5": "Huyện Thanh Sơn, Tỉnh Phú Thọ",
+    "Code": "238",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Thanh Thuỷ",
+    "minus2": "huyen",
+    "minus3": "thanh-thuy",
+    "Name": "Huyện Thanh Thuỷ",
+    "minus4": "Thanh Thuỷ, Phú Thọ",
+    "minus5": "Huyện Thanh Thuỷ, Tỉnh Phú Thọ",
+    "Code": "239",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Tân Sơn",
+    "minus2": "huyen",
+    "minus3": "tan-son",
+    "Name": "Huyện Tân Sơn",
+    "minus4": "Tân Sơn, Phú Thọ",
+    "minus5": "Huyện Tân Sơn, Tỉnh Phú Thọ",
+    "Code": "240",
+    "ParentCode": "25"
+  },
+  {
+    "minus1": "Vĩnh Yên",
+    "minus2": "thanh-pho",
+    "minus3": "vinh-yen",
+    "Name": "Thành phố Vĩnh Yên",
+    "minus4": "Vĩnh Yên, Vĩnh Phúc",
+    "minus5": "Thành phố Vĩnh Yên, Tỉnh Vĩnh Phúc",
+    "Code": "243",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Phúc Yên",
+    "minus2": "thanh-pho",
+    "minus3": "phuc-yen",
+    "Name": "Thành phố Phúc Yên",
+    "minus4": "Phúc Yên, Vĩnh Phúc",
+    "minus5": "Thành phố Phúc Yên, Tỉnh Vĩnh Phúc",
+    "Code": "244",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Lập Thạch",
+    "minus2": "huyen",
+    "minus3": "lap-thach",
+    "Name": "Huyện Lập Thạch",
+    "minus4": "Lập Thạch, Vĩnh Phúc",
+    "minus5": "Huyện Lập Thạch, Tỉnh Vĩnh Phúc",
+    "Code": "246",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Tam Dương",
+    "minus2": "huyen",
+    "minus3": "tam-duong",
+    "Name": "Huyện Tam Dương",
+    "minus4": "Tam Dương, Vĩnh Phúc",
+    "minus5": "Huyện Tam Dương, Tỉnh Vĩnh Phúc",
+    "Code": "247",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Tam Đảo",
+    "minus2": "huyen",
+    "minus3": "tam-dao",
+    "Name": "Huyện Tam Đảo",
+    "minus4": "Tam Đảo, Vĩnh Phúc",
+    "minus5": "Huyện Tam Đảo, Tỉnh Vĩnh Phúc",
+    "Code": "248",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Bình Xuyên",
+    "minus2": "huyen",
+    "minus3": "binh-xuyen",
+    "Name": "Huyện Bình Xuyên",
+    "minus4": "Bình Xuyên, Vĩnh Phúc",
+    "minus5": "Huyện Bình Xuyên, Tỉnh Vĩnh Phúc",
+    "Code": "249",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Mê Linh",
+    "minus2": "huyen",
+    "minus3": "me-linh",
+    "Name": "Huyện Mê Linh",
+    "minus4": "Mê Linh, Hà Nội",
+    "minus5": "Huyện Mê Linh, Thành phố Hà Nội",
+    "Code": "250",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Yên Lạc",
+    "minus2": "huyen",
+    "minus3": "yen-lac",
+    "Name": "Huyện Yên Lạc",
+    "minus4": "Yên Lạc, Vĩnh Phúc",
+    "minus5": "Huyện Yên Lạc, Tỉnh Vĩnh Phúc",
+    "Code": "251",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Vĩnh Tường",
+    "minus2": "huyen",
+    "minus3": "vinh-tuong",
+    "Name": "Huyện Vĩnh Tường",
+    "minus4": "Vĩnh Tường, Vĩnh Phúc",
+    "minus5": "Huyện Vĩnh Tường, Tỉnh Vĩnh Phúc",
+    "Code": "252",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Sông Lô",
+    "minus2": "huyen",
+    "minus3": "song-lo",
+    "Name": "Huyện Sông Lô",
+    "minus4": "Sông Lô, Vĩnh Phúc",
+    "minus5": "Huyện Sông Lô, Tỉnh Vĩnh Phúc",
+    "Code": "253",
+    "ParentCode": "26"
+  },
+  {
+    "minus1": "Bắc Ninh",
+    "minus2": "thanh-pho",
+    "minus3": "bac-ninh",
+    "Name": "Thành phố Bắc Ninh",
+    "minus4": "Bắc Ninh, Bắc Ninh",
+    "minus5": "Thành phố Bắc Ninh, Tỉnh Bắc Ninh",
+    "Code": "256",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Yên Phong",
+    "minus2": "huyen",
+    "minus3": "yen-phong",
+    "Name": "Huyện Yên Phong",
+    "minus4": "Yên Phong, Bắc Ninh",
+    "minus5": "Huyện Yên Phong, Tỉnh Bắc Ninh",
+    "Code": "258",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Quế Võ",
+    "minus2": "thi-xa",
+    "minus3": "que-vo",
+    "Name": "Thị xã Quế Võ",
+    "minus4": "Quế Võ, Bắc Ninh",
+    "minus5": "Thị xã Quế Võ, Tỉnh Bắc Ninh",
+    "Code": "259",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Tiên Du",
+    "minus2": "huyen",
+    "minus3": "tien-du",
+    "Name": "Huyện Tiên Du",
+    "minus4": "Tiên Du, Bắc Ninh",
+    "minus5": "Huyện Tiên Du, Tỉnh Bắc Ninh",
+    "Code": "260",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Từ Sơn",
+    "minus2": "thanh-pho",
+    "minus3": "tu-son",
+    "Name": "Thành phố Từ Sơn",
+    "minus4": "Từ Sơn, Bắc Ninh",
+    "minus5": "Thành phố Từ Sơn, Tỉnh Bắc Ninh",
+    "Code": "261",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Thuận Thành",
+    "minus2": "thi-xa",
+    "minus3": "thuan-thanh",
+    "Name": "Thị xã Thuận Thành",
+    "minus4": "Thuận Thành, Bắc Ninh",
+    "minus5": "Thị xã Thuận Thành, Tỉnh Bắc Ninh",
+    "Code": "262",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Gia Bình",
+    "minus2": "huyen",
+    "minus3": "gia-binh",
+    "Name": "Huyện Gia Bình",
+    "minus4": "Gia Bình, Bắc Ninh",
+    "minus5": "Huyện Gia Bình, Tỉnh Bắc Ninh",
+    "Code": "263",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Lương Tài",
+    "minus2": "huyen",
+    "minus3": "luong-tai",
+    "Name": "Huyện Lương Tài",
+    "minus4": "Lương Tài, Bắc Ninh",
+    "minus5": "Huyện Lương Tài, Tỉnh Bắc Ninh",
+    "Code": "264",
+    "ParentCode": "27"
+  },
+  {
+    "minus1": "Hà Đông",
+    "minus2": "quan",
+    "minus3": "ha-dong",
+    "Name": "Quận Hà Đông",
+    "minus4": "Hà Đông, Hà Nội",
+    "minus5": "Quận Hà Đông, Thành phố Hà Nội",
+    "Code": "268",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Sơn Tây",
+    "minus2": "thi-xa",
+    "minus3": "son-tay",
+    "Name": "Thị xã Sơn Tây",
+    "minus4": "Sơn Tây, Hà Nội",
+    "minus5": "Thị xã Sơn Tây, Thành phố Hà Nội",
+    "Code": "269",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Ba Vì",
+    "minus2": "huyen",
+    "minus3": "ba-vi",
+    "Name": "Huyện Ba Vì",
+    "minus4": "Ba Vì, Hà Nội",
+    "minus5": "Huyện Ba Vì, Thành phố Hà Nội",
+    "Code": "271",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Phúc Thọ",
+    "minus2": "huyen",
+    "minus3": "phuc-tho",
+    "Name": "Huyện Phúc Thọ",
+    "minus4": "Phúc Thọ, Hà Nội",
+    "minus5": "Huyện Phúc Thọ, Thành phố Hà Nội",
+    "Code": "272",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Đan Phượng",
+    "minus2": "huyen",
+    "minus3": "dan-phuong",
+    "Name": "Huyện Đan Phượng",
+    "minus4": "Đan Phượng, Hà Nội",
+    "minus5": "Huyện Đan Phượng, Thành phố Hà Nội",
+    "Code": "273",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hoài Đức",
+    "minus2": "huyen",
+    "minus3": "hoai-duc",
+    "Name": "Huyện Hoài Đức",
+    "minus4": "Hoài Đức, Hà Nội",
+    "minus5": "Huyện Hoài Đức, Thành phố Hà Nội",
+    "Code": "274",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Quốc Oai",
+    "minus2": "huyen",
+    "minus3": "quoc-oai",
+    "Name": "Huyện Quốc Oai",
+    "minus4": "Quốc Oai, Hà Nội",
+    "minus5": "Huyện Quốc Oai, Thành phố Hà Nội",
+    "Code": "275",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Thạch Thất",
+    "minus2": "huyen",
+    "minus3": "thach-that",
+    "Name": "Huyện Thạch Thất",
+    "minus4": "Thạch Thất, Hà Nội",
+    "minus5": "Huyện Thạch Thất, Thành phố Hà Nội",
+    "Code": "276",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Chương Mỹ",
+    "minus2": "huyen",
+    "minus3": "chuong-my",
+    "Name": "Huyện Chương Mỹ",
+    "minus4": "Chương Mỹ, Hà Nội",
+    "minus5": "Huyện Chương Mỹ, Thành phố Hà Nội",
+    "Code": "277",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Thanh Oai",
+    "minus2": "huyen",
+    "minus3": "thanh-oai",
+    "Name": "Huyện Thanh Oai",
+    "minus4": "Thanh Oai, Hà Nội",
+    "minus5": "Huyện Thanh Oai, Thành phố Hà Nội",
+    "Code": "278",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Thường Tín",
+    "minus2": "huyen",
+    "minus3": "thuong-tin",
+    "Name": "Huyện Thường Tín",
+    "minus4": "Thường Tín, Hà Nội",
+    "minus5": "Huyện Thường Tín, Thành phố Hà Nội",
+    "Code": "279",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Phú Xuyên",
+    "minus2": "huyen",
+    "minus3": "phu-xuyen",
+    "Name": "Huyện Phú Xuyên",
+    "minus4": "Phú Xuyên, Hà Nội",
+    "minus5": "Huyện Phú Xuyên, Thành phố Hà Nội",
+    "Code": "280",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Ứng Hòa",
+    "minus2": "huyen",
+    "minus3": "ung-hoa",
+    "Name": "Huyện Ứng Hòa",
+    "minus4": "Ứng Hòa, Hà Nội",
+    "minus5": "Huyện Ứng Hòa, Thành phố Hà Nội",
+    "Code": "281",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Mỹ Đức",
+    "minus2": "huyen",
+    "minus3": "my-duc",
+    "Name": "Huyện Mỹ Đức",
+    "minus4": "Mỹ Đức, Hà Nội",
+    "minus5": "Huyện Mỹ Đức, Thành phố Hà Nội",
+    "Code": "282",
+    "ParentCode": "01"
+  },
+  {
+    "minus1": "Hải Dương",
+    "minus2": "thanh-pho",
+    "minus3": "hai-duong",
+    "Name": "Thành phố Hải Dương",
+    "minus4": "Hải Dương, Hải Dương",
+    "minus5": "Thành phố Hải Dương, Tỉnh Hải Dương",
+    "Code": "288",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Chí Linh",
+    "minus2": "thanh-pho",
+    "minus3": "chi-linh",
+    "Name": "Thành phố Chí Linh",
+    "minus4": "Chí Linh, Hải Dương",
+    "minus5": "Thành phố Chí Linh, Tỉnh Hải Dương",
+    "Code": "290",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Nam Sách",
+    "minus2": "huyen",
+    "minus3": "nam-sach",
+    "Name": "Huyện Nam Sách",
+    "minus4": "Nam Sách, Hải Dương",
+    "minus5": "Huyện Nam Sách, Tỉnh Hải Dương",
+    "Code": "291",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Kinh Môn",
+    "minus2": "thi-xa",
+    "minus3": "kinh-mon",
+    "Name": "Thị xã Kinh Môn",
+    "minus4": "Kinh Môn, Hải Dương",
+    "minus5": "Thị xã Kinh Môn, Tỉnh Hải Dương",
+    "Code": "292",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Kim Thành",
+    "minus2": "huyen",
+    "minus3": "kim-thanh",
+    "Name": "Huyện Kim Thành",
+    "minus4": "Kim Thành, Hải Dương",
+    "minus5": "Huyện Kim Thành, Tỉnh Hải Dương",
+    "Code": "293",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Thanh Hà",
+    "minus2": "huyen",
+    "minus3": "thanh-ha",
+    "Name": "Huyện Thanh Hà",
+    "minus4": "Thanh Hà, Hải Dương",
+    "minus5": "Huyện Thanh Hà, Tỉnh Hải Dương",
+    "Code": "294",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Cẩm Giàng",
+    "minus2": "huyen",
+    "minus3": "cam-giang",
+    "Name": "Huyện Cẩm Giàng",
+    "minus4": "Cẩm Giàng, Hải Dương",
+    "minus5": "Huyện Cẩm Giàng, Tỉnh Hải Dương",
+    "Code": "295",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Bình Giang",
+    "minus2": "huyen",
+    "minus3": "binh-giang",
+    "Name": "Huyện Bình Giang",
+    "minus4": "Bình Giang, Hải Dương",
+    "minus5": "Huyện Bình Giang, Tỉnh Hải Dương",
+    "Code": "296",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Gia Lộc",
+    "minus2": "huyen",
+    "minus3": "gia-loc",
+    "Name": "Huyện Gia Lộc",
+    "minus4": "Gia Lộc, Hải Dương",
+    "minus5": "Huyện Gia Lộc, Tỉnh Hải Dương",
+    "Code": "297",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Tứ Kỳ",
+    "minus2": "huyen",
+    "minus3": "tu-ky",
+    "Name": "Huyện Tứ Kỳ",
+    "minus4": "Tứ Kỳ, Hải Dương",
+    "minus5": "Huyện Tứ Kỳ, Tỉnh Hải Dương",
+    "Code": "298",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Ninh Giang",
+    "minus2": "huyen",
+    "minus3": "ninh-giang",
+    "Name": "Huyện Ninh Giang",
+    "minus4": "Ninh Giang, Hải Dương",
+    "minus5": "Huyện Ninh Giang, Tỉnh Hải Dương",
+    "Code": "299",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Thanh Miện",
+    "minus2": "huyen",
+    "minus3": "thanh-mien",
+    "Name": "Huyện Thanh Miện",
+    "minus4": "Thanh Miện, Hải Dương",
+    "minus5": "Huyện Thanh Miện, Tỉnh Hải Dương",
+    "Code": "300",
+    "ParentCode": "30"
+  },
+  {
+    "minus1": "Hồng Bàng",
+    "minus2": "quan",
+    "minus3": "hong-bang",
+    "Name": "Quận Hồng Bàng",
+    "minus4": "Hồng Bàng, Hải Phòng",
+    "minus5": "Quận Hồng Bàng, Thành phố Hải Phòng",
+    "Code": "303",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Ngô Quyền",
+    "minus2": "quan",
+    "minus3": "ngo-quyen",
+    "Name": "Quận Ngô Quyền",
+    "minus4": "Ngô Quyền, Hải Phòng",
+    "minus5": "Quận Ngô Quyền, Thành phố Hải Phòng",
+    "Code": "304",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Lê Chân",
+    "minus2": "quan",
+    "minus3": "le-chan",
+    "Name": "Quận Lê Chân",
+    "minus4": "Lê Chân, Hải Phòng",
+    "minus5": "Quận Lê Chân, Thành phố Hải Phòng",
+    "Code": "305",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Hải An",
+    "minus2": "quan",
+    "minus3": "hai-an",
+    "Name": "Quận Hải An",
+    "minus4": "Hải An, Hải Phòng",
+    "minus5": "Quận Hải An, Thành phố Hải Phòng",
+    "Code": "306",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Kiến An",
+    "minus2": "quan",
+    "minus3": "kien-an",
+    "Name": "Quận Kiến An",
+    "minus4": "Kiến An, Hải Phòng",
+    "minus5": "Quận Kiến An, Thành phố Hải Phòng",
+    "Code": "307",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Đồ Sơn",
+    "minus2": "quan",
+    "minus3": "do-son",
+    "Name": "Quận Đồ Sơn",
+    "minus4": "Đồ Sơn, Hải Phòng",
+    "minus5": "Quận Đồ Sơn, Thành phố Hải Phòng",
+    "Code": "308",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Dương Kinh",
+    "minus2": "quan",
+    "minus3": "duong-kinh",
+    "Name": "Quận Dương Kinh",
+    "minus4": "Dương Kinh, Hải Phòng",
+    "minus5": "Quận Dương Kinh, Thành phố Hải Phòng",
+    "Code": "309",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Thuỷ Nguyên",
+    "minus2": "huyen",
+    "minus3": "thuy-nguyen",
+    "Name": "Huyện Thuỷ Nguyên",
+    "minus4": "Thuỷ Nguyên, Hải Phòng",
+    "minus5": "Huyện Thuỷ Nguyên, Thành phố Hải Phòng",
+    "Code": "311",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "An Dương",
+    "minus2": "huyen",
+    "minus3": "an-duong",
+    "Name": "Huyện An Dương",
+    "minus4": "An Dương, Hải Phòng",
+    "minus5": "Huyện An Dương, Thành phố Hải Phòng",
+    "Code": "312",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "An Lão",
+    "minus2": "huyen",
+    "minus3": "an-lao",
+    "Name": "Huyện An Lão",
+    "minus4": "An Lão, Hải Phòng",
+    "minus5": "Huyện An Lão, Thành phố Hải Phòng",
+    "Code": "313",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Kiến Thuỵ",
+    "minus2": "huyen",
+    "minus3": "kien-thuy",
+    "Name": "Huyện Kiến Thuỵ",
+    "minus4": "Kiến Thuỵ, Hải Phòng",
+    "minus5": "Huyện Kiến Thuỵ, Thành phố Hải Phòng",
+    "Code": "314",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Tiên Lãng",
+    "minus2": "huyen",
+    "minus3": "tien-lang",
+    "Name": "Huyện Tiên Lãng",
+    "minus4": "Tiên Lãng, Hải Phòng",
+    "minus5": "Huyện Tiên Lãng, Thành phố Hải Phòng",
+    "Code": "315",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Vĩnh Bảo",
+    "minus2": "huyen",
+    "minus3": "vinh-bao",
+    "Name": "Huyện Vĩnh Bảo",
+    "minus4": "Vĩnh Bảo, Hải Phòng",
+    "minus5": "Huyện Vĩnh Bảo, Thành phố Hải Phòng",
+    "Code": "316",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Cát Hải",
+    "minus2": "huyen",
+    "minus3": "cat-hai",
+    "Name": "Huyện Cát Hải",
+    "minus4": "Cát Hải, Hải Phòng",
+    "minus5": "Huyện Cát Hải, Thành phố Hải Phòng",
+    "Code": "317",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Bạch Long Vĩ",
+    "minus2": "huyen",
+    "minus3": "bach-long-vi",
+    "Name": "Huyện Bạch Long Vĩ",
+    "minus4": "Bạch Long Vĩ, Hải Phòng",
+    "minus5": "Huyện Bạch Long Vĩ, Thành phố Hải Phòng",
+    "Code": "318",
+    "ParentCode": "31"
+  },
+  {
+    "minus1": "Hưng Yên",
+    "minus2": "thanh-pho",
+    "minus3": "hung-yen",
+    "Name": "Thành phố Hưng Yên",
+    "minus4": "Hưng Yên, Hưng Yên",
+    "minus5": "Thành phố Hưng Yên, Tỉnh Hưng Yên",
+    "Code": "323",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Văn Lâm",
+    "minus2": "huyen",
+    "minus3": "van-lam",
+    "Name": "Huyện Văn Lâm",
+    "minus4": "Văn Lâm, Hưng Yên",
+    "minus5": "Huyện Văn Lâm, Tỉnh Hưng Yên",
+    "Code": "325",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Văn Giang",
+    "minus2": "huyen",
+    "minus3": "van-giang",
+    "Name": "Huyện Văn Giang",
+    "minus4": "Văn Giang, Hưng Yên",
+    "minus5": "Huyện Văn Giang, Tỉnh Hưng Yên",
+    "Code": "326",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Yên Mỹ",
+    "minus2": "huyen",
+    "minus3": "yen-my",
+    "Name": "Huyện Yên Mỹ",
+    "minus4": "Yên Mỹ, Hưng Yên",
+    "minus5": "Huyện Yên Mỹ, Tỉnh Hưng Yên",
+    "Code": "327",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Mỹ Hào",
+    "minus2": "thi-xa",
+    "minus3": "my-hao",
+    "Name": "Thị xã Mỹ Hào",
+    "minus4": "Mỹ Hào, Hưng Yên",
+    "minus5": "Thị xã Mỹ Hào, Tỉnh Hưng Yên",
+    "Code": "328",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Ân Thi",
+    "minus2": "huyen",
+    "minus3": "an-thi",
+    "Name": "Huyện Ân Thi",
+    "minus4": "Ân Thi, Hưng Yên",
+    "minus5": "Huyện Ân Thi, Tỉnh Hưng Yên",
+    "Code": "329",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Khoái Châu",
+    "minus2": "huyen",
+    "minus3": "khoai-chau",
+    "Name": "Huyện Khoái Châu",
+    "minus4": "Khoái Châu, Hưng Yên",
+    "minus5": "Huyện Khoái Châu, Tỉnh Hưng Yên",
+    "Code": "330",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Kim Động",
+    "minus2": "huyen",
+    "minus3": "kim-dong",
+    "Name": "Huyện Kim Động",
+    "minus4": "Kim Động, Hưng Yên",
+    "minus5": "Huyện Kim Động, Tỉnh Hưng Yên",
+    "Code": "331",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Tiên Lữ",
+    "minus2": "huyen",
+    "minus3": "tien-lu",
+    "Name": "Huyện Tiên Lữ",
+    "minus4": "Tiên Lữ, Hưng Yên",
+    "minus5": "Huyện Tiên Lữ, Tỉnh Hưng Yên",
+    "Code": "332",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Phù Cừ",
+    "minus2": "huyen",
+    "minus3": "phu-cu",
+    "Name": "Huyện Phù Cừ",
+    "minus4": "Phù Cừ, Hưng Yên",
+    "minus5": "Huyện Phù Cừ, Tỉnh Hưng Yên",
+    "Code": "333",
+    "ParentCode": "33"
+  },
+  {
+    "minus1": "Thái Bình",
+    "minus2": "thanh-pho",
+    "minus3": "thai-binh",
+    "Name": "Thành phố Thái Bình",
+    "minus4": "Thái Bình, Thái Bình",
+    "minus5": "Thành phố Thái Bình, Tỉnh Thái Bình",
+    "Code": "336",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Quỳnh Phụ",
+    "minus2": "huyen",
+    "minus3": "quynh-phu",
+    "Name": "Huyện Quỳnh Phụ",
+    "minus4": "Quỳnh Phụ, Thái Bình",
+    "minus5": "Huyện Quỳnh Phụ, Tỉnh Thái Bình",
+    "Code": "338",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Hưng Hà",
+    "minus2": "huyen",
+    "minus3": "hung-ha",
+    "Name": "Huyện Hưng Hà",
+    "minus4": "Hưng Hà, Thái Bình",
+    "minus5": "Huyện Hưng Hà, Tỉnh Thái Bình",
+    "Code": "339",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Đông Hưng",
+    "minus2": "huyen",
+    "minus3": "dong-hung",
+    "Name": "Huyện Đông Hưng",
+    "minus4": "Đông Hưng, Thái Bình",
+    "minus5": "Huyện Đông Hưng, Tỉnh Thái Bình",
+    "Code": "340",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Thái Thụy",
+    "minus2": "huyen",
+    "minus3": "thai-thuy",
+    "Name": "Huyện Thái Thụy",
+    "minus4": "Thái Thụy, Thái Bình",
+    "minus5": "Huyện Thái Thụy, Tỉnh Thái Bình",
+    "Code": "341",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Tiền Hải",
+    "minus2": "huyen",
+    "minus3": "tien-hai",
+    "Name": "Huyện Tiền Hải",
+    "minus4": "Tiền Hải, Thái Bình",
+    "minus5": "Huyện Tiền Hải, Tỉnh Thái Bình",
+    "Code": "342",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Kiến Xương",
+    "minus2": "huyen",
+    "minus3": "kien-xuong",
+    "Name": "Huyện Kiến Xương",
+    "minus4": "Kiến Xương, Thái Bình",
+    "minus5": "Huyện Kiến Xương, Tỉnh Thái Bình",
+    "Code": "343",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Vũ Thư",
+    "minus2": "huyen",
+    "minus3": "vu-thu",
+    "Name": "Huyện Vũ Thư",
+    "minus4": "Vũ Thư, Thái Bình",
+    "minus5": "Huyện Vũ Thư, Tỉnh Thái Bình",
+    "Code": "344",
+    "ParentCode": "34"
+  },
+  {
+    "minus1": "Phủ Lý",
+    "minus2": "thanh-pho",
+    "minus3": "phu-ly",
+    "Name": "Thành phố Phủ Lý",
+    "minus4": "Phủ Lý, Hà Nam",
+    "minus5": "Thành phố Phủ Lý, Tỉnh Hà Nam",
+    "Code": "347",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Duy Tiên",
+    "minus2": "thi-xa",
+    "minus3": "duy-tien",
+    "Name": "Thị xã Duy Tiên",
+    "minus4": "Duy Tiên, Hà Nam",
+    "minus5": "Thị xã Duy Tiên, Tỉnh Hà Nam",
+    "Code": "349",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Kim Bảng",
+    "minus2": "huyen",
+    "minus3": "kim-bang",
+    "Name": "Huyện Kim Bảng",
+    "minus4": "Kim Bảng, Hà Nam",
+    "minus5": "Huyện Kim Bảng, Tỉnh Hà Nam",
+    "Code": "350",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Thanh Liêm",
+    "minus2": "huyen",
+    "minus3": "thanh-liem",
+    "Name": "Huyện Thanh Liêm",
+    "minus4": "Thanh Liêm, Hà Nam",
+    "minus5": "Huyện Thanh Liêm, Tỉnh Hà Nam",
+    "Code": "351",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Bình Lục",
+    "minus2": "huyen",
+    "minus3": "binh-luc",
+    "Name": "Huyện Bình Lục",
+    "minus4": "Bình Lục, Hà Nam",
+    "minus5": "Huyện Bình Lục, Tỉnh Hà Nam",
+    "Code": "352",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Lý Nhân",
+    "minus2": "huyen",
+    "minus3": "ly-nhan",
+    "Name": "Huyện Lý Nhân",
+    "minus4": "Lý Nhân, Hà Nam",
+    "minus5": "Huyện Lý Nhân, Tỉnh Hà Nam",
+    "Code": "353",
+    "ParentCode": "35"
+  },
+  {
+    "minus1": "Nam Định",
+    "minus2": "thanh-pho",
+    "minus3": "nam-dinh",
+    "Name": "Thành phố Nam Định",
+    "minus4": "Nam Định, Nam Định",
+    "minus5": "Thành phố Nam Định, Tỉnh Nam Định",
+    "Code": "356",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Mỹ Lộc",
+    "minus2": "huyen",
+    "minus3": "my-loc",
+    "Name": "Huyện Mỹ Lộc",
+    "minus4": "Mỹ Lộc, Nam Định",
+    "minus5": "Huyện Mỹ Lộc, Tỉnh Nam Định",
+    "Code": "358",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Vụ Bản",
+    "minus2": "huyen",
+    "minus3": "vu-ban",
+    "Name": "Huyện Vụ Bản",
+    "minus4": "Vụ Bản, Nam Định",
+    "minus5": "Huyện Vụ Bản, Tỉnh Nam Định",
+    "Code": "359",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Ý Yên",
+    "minus2": "huyen",
+    "minus3": "y-yen",
+    "Name": "Huyện Ý Yên",
+    "minus4": "Ý Yên, Nam Định",
+    "minus5": "Huyện Ý Yên, Tỉnh Nam Định",
+    "Code": "360",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Nghĩa Hưng",
+    "minus2": "huyen",
+    "minus3": "nghia-hung",
+    "Name": "Huyện Nghĩa Hưng",
+    "minus4": "Nghĩa Hưng, Nam Định",
+    "minus5": "Huyện Nghĩa Hưng, Tỉnh Nam Định",
+    "Code": "361",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Nam Trực",
+    "minus2": "huyen",
+    "minus3": "nam-truc",
+    "Name": "Huyện Nam Trực",
+    "minus4": "Nam Trực, Nam Định",
+    "minus5": "Huyện Nam Trực, Tỉnh Nam Định",
+    "Code": "362",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Trực Ninh",
+    "minus2": "huyen",
+    "minus3": "truc-ninh",
+    "Name": "Huyện Trực Ninh",
+    "minus4": "Trực Ninh, Nam Định",
+    "minus5": "Huyện Trực Ninh, Tỉnh Nam Định",
+    "Code": "363",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Xuân Trường",
+    "minus2": "huyen",
+    "minus3": "xuan-truong",
+    "Name": "Huyện Xuân Trường",
+    "minus4": "Xuân Trường, Nam Định",
+    "minus5": "Huyện Xuân Trường, Tỉnh Nam Định",
+    "Code": "364",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Giao Thủy",
+    "minus2": "huyen",
+    "minus3": "giao-thuy",
+    "Name": "Huyện Giao Thủy",
+    "minus4": "Giao Thủy, Nam Định",
+    "minus5": "Huyện Giao Thủy, Tỉnh Nam Định",
+    "Code": "365",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Hải Hậu",
+    "minus2": "huyen",
+    "minus3": "hai-hau",
+    "Name": "Huyện Hải Hậu",
+    "minus4": "Hải Hậu, Nam Định",
+    "minus5": "Huyện Hải Hậu, Tỉnh Nam Định",
+    "Code": "366",
+    "ParentCode": "36"
+  },
+  {
+    "minus1": "Ninh Bình",
+    "minus2": "thanh-pho",
+    "minus3": "ninh-binh",
+    "Name": "Thành phố Ninh Bình",
+    "minus4": "Ninh Bình, Ninh Bình",
+    "minus5": "Thành phố Ninh Bình, Tỉnh Ninh Bình",
+    "Code": "369",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Tam Điệp",
+    "minus2": "thanh-pho",
+    "minus3": "tam-diep",
+    "Name": "Thành phố Tam Điệp",
+    "minus4": "Tam Điệp, Ninh Bình",
+    "minus5": "Thành phố Tam Điệp, Tỉnh Ninh Bình",
+    "Code": "370",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Nho Quan",
+    "minus2": "huyen",
+    "minus3": "nho-quan",
+    "Name": "Huyện Nho Quan",
+    "minus4": "Nho Quan, Ninh Bình",
+    "minus5": "Huyện Nho Quan, Tỉnh Ninh Bình",
+    "Code": "372",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Gia Viễn",
+    "minus2": "huyen",
+    "minus3": "gia-vien",
+    "Name": "Huyện Gia Viễn",
+    "minus4": "Gia Viễn, Ninh Bình",
+    "minus5": "Huyện Gia Viễn, Tỉnh Ninh Bình",
+    "Code": "373",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Hoa Lư",
+    "minus2": "huyen",
+    "minus3": "hoa-lu",
+    "Name": "Huyện Hoa Lư",
+    "minus4": "Hoa Lư, Ninh Bình",
+    "minus5": "Huyện Hoa Lư, Tỉnh Ninh Bình",
+    "Code": "374",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Yên Khánh",
+    "minus2": "huyen",
+    "minus3": "yen-khanh",
+    "Name": "Huyện Yên Khánh",
+    "minus4": "Yên Khánh, Ninh Bình",
+    "minus5": "Huyện Yên Khánh, Tỉnh Ninh Bình",
+    "Code": "375",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Kim Sơn",
+    "minus2": "huyen",
+    "minus3": "kim-son",
+    "Name": "Huyện Kim Sơn",
+    "minus4": "Kim Sơn, Ninh Bình",
+    "minus5": "Huyện Kim Sơn, Tỉnh Ninh Bình",
+    "Code": "376",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Yên Mô",
+    "minus2": "huyen",
+    "minus3": "yen-mo",
+    "Name": "Huyện Yên Mô",
+    "minus4": "Yên Mô, Ninh Bình",
+    "minus5": "Huyện Yên Mô, Tỉnh Ninh Bình",
+    "Code": "377",
+    "ParentCode": "37"
+  },
+  {
+    "minus1": "Thanh Hóa",
+    "minus2": "thanh-pho",
+    "minus3": "thanh-hoa",
+    "Name": "Thành phố Thanh Hóa",
+    "minus4": "Thanh Hóa, Thanh Hóa",
+    "minus5": "Thành phố Thanh Hóa, Tỉnh Thanh Hóa",
+    "Code": "380",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Bỉm Sơn",
+    "minus2": "thi-xa",
+    "minus3": "bim-son",
+    "Name": "Thị xã Bỉm Sơn",
+    "minus4": "Bỉm Sơn, Thanh Hóa",
+    "minus5": "Thị xã Bỉm Sơn, Tỉnh Thanh Hóa",
+    "Code": "381",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Sầm Sơn",
+    "minus2": "thanh-pho",
+    "minus3": "sam-son",
+    "Name": "Thành phố Sầm Sơn",
+    "minus4": "Sầm Sơn, Thanh Hóa",
+    "minus5": "Thành phố Sầm Sơn, Tỉnh Thanh Hóa",
+    "Code": "382",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Mường Lát",
+    "minus2": "huyen",
+    "minus3": "muong-lat",
+    "Name": "Huyện Mường Lát",
+    "minus4": "Mường Lát, Thanh Hóa",
+    "minus5": "Huyện Mường Lát, Tỉnh Thanh Hóa",
+    "Code": "384",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Quan Hóa",
+    "minus2": "huyen",
+    "minus3": "quan-hoa",
+    "Name": "Huyện Quan Hóa",
+    "minus4": "Quan Hóa, Thanh Hóa",
+    "minus5": "Huyện Quan Hóa, Tỉnh Thanh Hóa",
+    "Code": "385",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Bá Thước",
+    "minus2": "huyen",
+    "minus3": "ba-thuoc",
+    "Name": "Huyện Bá Thước",
+    "minus4": "Bá Thước, Thanh Hóa",
+    "minus5": "Huyện Bá Thước, Tỉnh Thanh Hóa",
+    "Code": "386",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Quan Sơn",
+    "minus2": "huyen",
+    "minus3": "quan-son",
+    "Name": "Huyện Quan Sơn",
+    "minus4": "Quan Sơn, Thanh Hóa",
+    "minus5": "Huyện Quan Sơn, Tỉnh Thanh Hóa",
+    "Code": "387",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Lang Chánh",
+    "minus2": "huyen",
+    "minus3": "lang-chanh",
+    "Name": "Huyện Lang Chánh",
+    "minus4": "Lang Chánh, Thanh Hóa",
+    "minus5": "Huyện Lang Chánh, Tỉnh Thanh Hóa",
+    "Code": "388",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Ngọc Lặc",
+    "minus2": "huyen",
+    "minus3": "ngoc-lac",
+    "Name": "Huyện Ngọc Lặc",
+    "minus4": "Ngọc Lặc, Thanh Hóa",
+    "minus5": "Huyện Ngọc Lặc, Tỉnh Thanh Hóa",
+    "Code": "389",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Cẩm Thủy",
+    "minus2": "huyen",
+    "minus3": "cam-thuy",
+    "Name": "Huyện Cẩm Thủy",
+    "minus4": "Cẩm Thủy, Thanh Hóa",
+    "minus5": "Huyện Cẩm Thủy, Tỉnh Thanh Hóa",
+    "Code": "390",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Thạch Thành",
+    "minus2": "huyen",
+    "minus3": "thach-thanh",
+    "Name": "Huyện Thạch Thành",
+    "minus4": "Thạch Thành, Thanh Hóa",
+    "minus5": "Huyện Thạch Thành, Tỉnh Thanh Hóa",
+    "Code": "391",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Hà Trung",
+    "minus2": "huyen",
+    "minus3": "ha-trung",
+    "Name": "Huyện Hà Trung",
+    "minus4": "Hà Trung, Thanh Hóa",
+    "minus5": "Huyện Hà Trung, Tỉnh Thanh Hóa",
+    "Code": "392",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Vĩnh Lộc",
+    "minus2": "huyen",
+    "minus3": "vinh-loc",
+    "Name": "Huyện Vĩnh Lộc",
+    "minus4": "Vĩnh Lộc, Thanh Hóa",
+    "minus5": "Huyện Vĩnh Lộc, Tỉnh Thanh Hóa",
+    "Code": "393",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Yên Định",
+    "minus2": "huyen",
+    "minus3": "yen-dinh",
+    "Name": "Huyện Yên Định",
+    "minus4": "Yên Định, Thanh Hóa",
+    "minus5": "Huyện Yên Định, Tỉnh Thanh Hóa",
+    "Code": "394",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Thọ Xuân",
+    "minus2": "huyen",
+    "minus3": "tho-xuan",
+    "Name": "Huyện Thọ Xuân",
+    "minus4": "Thọ Xuân, Thanh Hóa",
+    "minus5": "Huyện Thọ Xuân, Tỉnh Thanh Hóa",
+    "Code": "395",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Thường Xuân",
+    "minus2": "huyen",
+    "minus3": "thuong-xuan",
+    "Name": "Huyện Thường Xuân",
+    "minus4": "Thường Xuân, Thanh Hóa",
+    "minus5": "Huyện Thường Xuân, Tỉnh Thanh Hóa",
+    "Code": "396",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Triệu Sơn",
+    "minus2": "huyen",
+    "minus3": "trieu-son",
+    "Name": "Huyện Triệu Sơn",
+    "minus4": "Triệu Sơn, Thanh Hóa",
+    "minus5": "Huyện Triệu Sơn, Tỉnh Thanh Hóa",
+    "Code": "397",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Thiệu Hóa",
+    "minus2": "huyen",
+    "minus3": "thieu-hoa",
+    "Name": "Huyện Thiệu Hóa",
+    "minus4": "Thiệu Hóa, Thanh Hóa",
+    "minus5": "Huyện Thiệu Hóa, Tỉnh Thanh Hóa",
+    "Code": "398",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Hoằng Hóa",
+    "minus2": "huyen",
+    "minus3": "hoang-hoa",
+    "Name": "Huyện Hoằng Hóa",
+    "minus4": "Hoằng Hóa, Thanh Hóa",
+    "minus5": "Huyện Hoằng Hóa, Tỉnh Thanh Hóa",
+    "Code": "399",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Hậu Lộc",
+    "minus2": "huyen",
+    "minus3": "hau-loc",
+    "Name": "Huyện Hậu Lộc",
+    "minus4": "Hậu Lộc, Thanh Hóa",
+    "minus5": "Huyện Hậu Lộc, Tỉnh Thanh Hóa",
+    "Code": "400",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Nga Sơn",
+    "minus2": "huyen",
+    "minus3": "nga-son",
+    "Name": "Huyện Nga Sơn",
+    "minus4": "Nga Sơn, Thanh Hóa",
+    "minus5": "Huyện Nga Sơn, Tỉnh Thanh Hóa",
+    "Code": "401",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Như Xuân",
+    "minus2": "huyen",
+    "minus3": "nhu-xuan",
+    "Name": "Huyện Như Xuân",
+    "minus4": "Như Xuân, Thanh Hóa",
+    "minus5": "Huyện Như Xuân, Tỉnh Thanh Hóa",
+    "Code": "402",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Như Thanh",
+    "minus2": "huyen",
+    "minus3": "nhu-thanh",
+    "Name": "Huyện Như Thanh",
+    "minus4": "Như Thanh, Thanh Hóa",
+    "minus5": "Huyện Như Thanh, Tỉnh Thanh Hóa",
+    "Code": "403",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Nông Cống",
+    "minus2": "huyen",
+    "minus3": "nong-cong",
+    "Name": "Huyện Nông Cống",
+    "minus4": "Nông Cống, Thanh Hóa",
+    "minus5": "Huyện Nông Cống, Tỉnh Thanh Hóa",
+    "Code": "404",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Đông Sơn",
+    "minus2": "huyen",
+    "minus3": "dong-son",
+    "Name": "Huyện Đông Sơn",
+    "minus4": "Đông Sơn, Thanh Hóa",
+    "minus5": "Huyện Đông Sơn, Tỉnh Thanh Hóa",
+    "Code": "405",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Quảng Xương",
+    "minus2": "huyen",
+    "minus3": "quang-xuong",
+    "Name": "Huyện Quảng Xương",
+    "minus4": "Quảng Xương, Thanh Hóa",
+    "minus5": "Huyện Quảng Xương, Tỉnh Thanh Hóa",
+    "Code": "406",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Nghi Sơn",
+    "minus2": "thi-xa",
+    "minus3": "nghi-son",
+    "Name": "Thị xã Nghi Sơn",
+    "minus4": "Nghi Sơn, Thanh Hóa",
+    "minus5": "Thị xã Nghi Sơn, Tỉnh Thanh Hóa",
+    "Code": "407",
+    "ParentCode": "38"
+  },
+  {
+    "minus1": "Vinh",
+    "minus2": "thanh-pho",
+    "minus3": "vinh",
+    "Name": "Thành phố Vinh",
+    "minus4": "Vinh, Nghệ An",
+    "minus5": "Thành phố Vinh, Tỉnh Nghệ An",
+    "Code": "412",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Cửa Lò",
+    "minus2": "thi-xa",
+    "minus3": "cua-lo",
+    "Name": "Thị xã Cửa Lò",
+    "minus4": "Cửa Lò, Nghệ An",
+    "minus5": "Thị xã Cửa Lò, Tỉnh Nghệ An",
+    "Code": "413",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Thái Hoà",
+    "minus2": "thi-xa",
+    "minus3": "thai-hoa",
+    "Name": "Thị xã Thái Hoà",
+    "minus4": "Thái Hoà, Nghệ An",
+    "minus5": "Thị xã Thái Hoà, Tỉnh Nghệ An",
+    "Code": "414",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Quế Phong",
+    "minus2": "huyen",
+    "minus3": "que-phong",
+    "Name": "Huyện Quế Phong",
+    "minus4": "Quế Phong, Nghệ An",
+    "minus5": "Huyện Quế Phong, Tỉnh Nghệ An",
+    "Code": "415",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Quỳ Châu",
+    "minus2": "huyen",
+    "minus3": "quy-chau",
+    "Name": "Huyện Quỳ Châu",
+    "minus4": "Quỳ Châu, Nghệ An",
+    "minus5": "Huyện Quỳ Châu, Tỉnh Nghệ An",
+    "Code": "416",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Kỳ Sơn",
+    "minus2": "huyen",
+    "minus3": "ky-son",
+    "Name": "Huyện Kỳ Sơn",
+    "minus4": "Kỳ Sơn, Nghệ An",
+    "minus5": "Huyện Kỳ Sơn, Tỉnh Nghệ An",
+    "Code": "417",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Tương Dương",
+    "minus2": "huyen",
+    "minus3": "tuong-duong",
+    "Name": "Huyện Tương Dương",
+    "minus4": "Tương Dương, Nghệ An",
+    "minus5": "Huyện Tương Dương, Tỉnh Nghệ An",
+    "Code": "418",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Nghĩa Đàn",
+    "minus2": "huyen",
+    "minus3": "nghia-dan",
+    "Name": "Huyện Nghĩa Đàn",
+    "minus4": "Nghĩa Đàn, Nghệ An",
+    "minus5": "Huyện Nghĩa Đàn, Tỉnh Nghệ An",
+    "Code": "419",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Quỳ Hợp",
+    "minus2": "huyen",
+    "minus3": "quy-hop",
+    "Name": "Huyện Quỳ Hợp",
+    "minus4": "Quỳ Hợp, Nghệ An",
+    "minus5": "Huyện Quỳ Hợp, Tỉnh Nghệ An",
+    "Code": "420",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Quỳnh Lưu",
+    "minus2": "huyen",
+    "minus3": "quynh-luu",
+    "Name": "Huyện Quỳnh Lưu",
+    "minus4": "Quỳnh Lưu, Nghệ An",
+    "minus5": "Huyện Quỳnh Lưu, Tỉnh Nghệ An",
+    "Code": "421",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Con Cuông",
+    "minus2": "huyen",
+    "minus3": "con-cuong",
+    "Name": "Huyện Con Cuông",
+    "minus4": "Con Cuông, Nghệ An",
+    "minus5": "Huyện Con Cuông, Tỉnh Nghệ An",
+    "Code": "422",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Tân Kỳ",
+    "minus2": "huyen",
+    "minus3": "tan-ky",
+    "Name": "Huyện Tân Kỳ",
+    "minus4": "Tân Kỳ, Nghệ An",
+    "minus5": "Huyện Tân Kỳ, Tỉnh Nghệ An",
+    "Code": "423",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Anh Sơn",
+    "minus2": "huyen",
+    "minus3": "anh-son",
+    "Name": "Huyện Anh Sơn",
+    "minus4": "Anh Sơn, Nghệ An",
+    "minus5": "Huyện Anh Sơn, Tỉnh Nghệ An",
+    "Code": "424",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Diễn Châu",
+    "minus2": "huyen",
+    "minus3": "dien-chau",
+    "Name": "Huyện Diễn Châu",
+    "minus4": "Diễn Châu, Nghệ An",
+    "minus5": "Huyện Diễn Châu, Tỉnh Nghệ An",
+    "Code": "425",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Yên Thành",
+    "minus2": "huyen",
+    "minus3": "yen-thanh",
+    "Name": "Huyện Yên Thành",
+    "minus4": "Yên Thành, Nghệ An",
+    "minus5": "Huyện Yên Thành, Tỉnh Nghệ An",
+    "Code": "426",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Đô Lương",
+    "minus2": "huyen",
+    "minus3": "do-luong",
+    "Name": "Huyện Đô Lương",
+    "minus4": "Đô Lương, Nghệ An",
+    "minus5": "Huyện Đô Lương, Tỉnh Nghệ An",
+    "Code": "427",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Thanh Chương",
+    "minus2": "huyen",
+    "minus3": "thanh-chuong",
+    "Name": "Huyện Thanh Chương",
+    "minus4": "Thanh Chương, Nghệ An",
+    "minus5": "Huyện Thanh Chương, Tỉnh Nghệ An",
+    "Code": "428",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Nghi Lộc",
+    "minus2": "huyen",
+    "minus3": "nghi-loc",
+    "Name": "Huyện Nghi Lộc",
+    "minus4": "Nghi Lộc, Nghệ An",
+    "minus5": "Huyện Nghi Lộc, Tỉnh Nghệ An",
+    "Code": "429",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Nam Đàn",
+    "minus2": "huyen",
+    "minus3": "nam-dan",
+    "Name": "Huyện Nam Đàn",
+    "minus4": "Nam Đàn, Nghệ An",
+    "minus5": "Huyện Nam Đàn, Tỉnh Nghệ An",
+    "Code": "430",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Hưng Nguyên",
+    "minus2": "huyen",
+    "minus3": "hung-nguyen",
+    "Name": "Huyện Hưng Nguyên",
+    "minus4": "Hưng Nguyên, Nghệ An",
+    "minus5": "Huyện Hưng Nguyên, Tỉnh Nghệ An",
+    "Code": "431",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Hoàng Mai",
+    "minus2": "thi-xa",
+    "minus3": "hoang-mai",
+    "Name": "Thị xã Hoàng Mai",
+    "minus4": "Hoàng Mai, Nghệ An",
+    "minus5": "Thị xã Hoàng Mai, Tỉnh Nghệ An",
+    "Code": "432",
+    "ParentCode": "40"
+  },
+  {
+    "minus1": "Hà Tĩnh",
+    "minus2": "thanh-pho",
+    "minus3": "ha-tinh",
+    "Name": "Thành phố Hà Tĩnh",
+    "minus4": "Hà Tĩnh, Hà Tĩnh",
+    "minus5": "Thành phố Hà Tĩnh, Tỉnh Hà Tĩnh",
+    "Code": "436",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Hồng Lĩnh",
+    "minus2": "thi-xa",
+    "minus3": "hong-linh",
+    "Name": "Thị xã Hồng Lĩnh",
+    "minus4": "Hồng Lĩnh, Hà Tĩnh",
+    "minus5": "Thị xã Hồng Lĩnh, Tỉnh Hà Tĩnh",
+    "Code": "437",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Hương Sơn",
+    "minus2": "huyen",
+    "minus3": "huong-son",
+    "Name": "Huyện Hương Sơn",
+    "minus4": "Hương Sơn, Hà Tĩnh",
+    "minus5": "Huyện Hương Sơn, Tỉnh Hà Tĩnh",
+    "Code": "439",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Đức Thọ",
+    "minus2": "huyen",
+    "minus3": "duc-tho",
+    "Name": "Huyện Đức Thọ",
+    "minus4": "Đức Thọ, Hà Tĩnh",
+    "minus5": "Huyện Đức Thọ, Tỉnh Hà Tĩnh",
+    "Code": "440",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Vũ Quang",
+    "minus2": "huyen",
+    "minus3": "vu-quang",
+    "Name": "Huyện Vũ Quang",
+    "minus4": "Vũ Quang, Hà Tĩnh",
+    "minus5": "Huyện Vũ Quang, Tỉnh Hà Tĩnh",
+    "Code": "441",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Nghi Xuân",
+    "minus2": "huyen",
+    "minus3": "nghi-xuan",
+    "Name": "Huyện Nghi Xuân",
+    "minus4": "Nghi Xuân, Hà Tĩnh",
+    "minus5": "Huyện Nghi Xuân, Tỉnh Hà Tĩnh",
+    "Code": "442",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Can Lộc",
+    "minus2": "huyen",
+    "minus3": "can-loc",
+    "Name": "Huyện Can Lộc",
+    "minus4": "Can Lộc, Hà Tĩnh",
+    "minus5": "Huyện Can Lộc, Tỉnh Hà Tĩnh",
+    "Code": "443",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Hương Khê",
+    "minus2": "huyen",
+    "minus3": "huong-khe",
+    "Name": "Huyện Hương Khê",
+    "minus4": "Hương Khê, Hà Tĩnh",
+    "minus5": "Huyện Hương Khê, Tỉnh Hà Tĩnh",
+    "Code": "444",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Thạch Hà",
+    "minus2": "huyen",
+    "minus3": "thach-ha",
+    "Name": "Huyện Thạch Hà",
+    "minus4": "Thạch Hà, Hà Tĩnh",
+    "minus5": "Huyện Thạch Hà, Tỉnh Hà Tĩnh",
+    "Code": "445",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Cẩm Xuyên",
+    "minus2": "huyen",
+    "minus3": "cam-xuyen",
+    "Name": "Huyện Cẩm Xuyên",
+    "minus4": "Cẩm Xuyên, Hà Tĩnh",
+    "minus5": "Huyện Cẩm Xuyên, Tỉnh Hà Tĩnh",
+    "Code": "446",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Kỳ Anh",
+    "minus2": "huyen",
+    "minus3": "ky-anh",
+    "Name": "Huyện Kỳ Anh",
+    "minus4": "Kỳ Anh, Hà Tĩnh",
+    "minus5": "Huyện Kỳ Anh, Tỉnh Hà Tĩnh",
+    "Code": "447",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Lộc Hà",
+    "minus2": "huyen",
+    "minus3": "loc-ha",
+    "Name": "Huyện Lộc Hà",
+    "minus4": "Lộc Hà, Hà Tĩnh",
+    "minus5": "Huyện Lộc Hà, Tỉnh Hà Tĩnh",
+    "Code": "448",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Kỳ Anh",
+    "minus2": "thi-xa",
+    "minus3": "ky-anh",
+    "Name": "Thị xã Kỳ Anh",
+    "minus4": "Kỳ Anh, Hà Tĩnh",
+    "minus5": "Thị xã Kỳ Anh, Tỉnh Hà Tĩnh",
+    "Code": "449",
+    "ParentCode": "42"
+  },
+  {
+    "minus1": "Đồng Hới",
+    "minus2": "thanh-pho",
+    "minus3": "dong-hoi",
+    "Name": "Thành Phố Đồng Hới",
+    "minus4": "Đồng Hới, Quảng Bình",
+    "minus5": "Thành Phố Đồng Hới, Tỉnh Quảng Bình",
+    "Code": "450",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Minh Hóa",
+    "minus2": "huyen",
+    "minus3": "minh-hoa",
+    "Name": "Huyện Minh Hóa",
+    "minus4": "Minh Hóa, Quảng Bình",
+    "minus5": "Huyện Minh Hóa, Tỉnh Quảng Bình",
+    "Code": "452",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Tuyên Hóa",
+    "minus2": "huyen",
+    "minus3": "tuyen-hoa",
+    "Name": "Huyện Tuyên Hóa",
+    "minus4": "Tuyên Hóa, Quảng Bình",
+    "minus5": "Huyện Tuyên Hóa, Tỉnh Quảng Bình",
+    "Code": "453",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Quảng Trạch",
+    "minus2": "huyen",
+    "minus3": "quang-trach",
+    "Name": "Huyện Quảng Trạch",
+    "minus4": "Quảng Trạch, Quảng Bình",
+    "minus5": "Huyện Quảng Trạch, Tỉnh Quảng Bình",
+    "Code": "454",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Bố Trạch",
+    "minus2": "huyen",
+    "minus3": "bo-trach",
+    "Name": "Huyện Bố Trạch",
+    "minus4": "Bố Trạch, Quảng Bình",
+    "minus5": "Huyện Bố Trạch, Tỉnh Quảng Bình",
+    "Code": "455",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Quảng Ninh",
+    "minus2": "huyen",
+    "minus3": "quang-ninh",
+    "Name": "Huyện Quảng Ninh",
+    "minus4": "Quảng Ninh, Quảng Bình",
+    "minus5": "Huyện Quảng Ninh, Tỉnh Quảng Bình",
+    "Code": "456",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Lệ Thủy",
+    "minus2": "huyen",
+    "minus3": "le-thuy",
+    "Name": "Huyện Lệ Thủy",
+    "minus4": "Lệ Thủy, Quảng Bình",
+    "minus5": "Huyện Lệ Thủy, Tỉnh Quảng Bình",
+    "Code": "457",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Ba Đồn",
+    "minus2": "thi-xa",
+    "minus3": "ba-don",
+    "Name": "Thị xã Ba Đồn",
+    "minus4": "Ba Đồn, Quảng Bình",
+    "minus5": "Thị xã Ba Đồn, Tỉnh Quảng Bình",
+    "Code": "458",
+    "ParentCode": "44"
+  },
+  {
+    "minus1": "Đông Hà",
+    "minus2": "thanh-pho",
+    "minus3": "dong-ha",
+    "Name": "Thành phố Đông Hà",
+    "minus4": "Đông Hà, Quảng Trị",
+    "minus5": "Thành phố Đông Hà, Tỉnh Quảng Trị",
+    "Code": "461",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Quảng Trị",
+    "minus2": "thi-xa",
+    "minus3": "quang-tri",
+    "Name": "Thị xã Quảng Trị",
+    "minus4": "Quảng Trị, Quảng Trị",
+    "minus5": "Thị xã Quảng Trị, Tỉnh Quảng Trị",
+    "Code": "462",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Vĩnh Linh",
+    "minus2": "huyen",
+    "minus3": "vinh-linh",
+    "Name": "Huyện Vĩnh Linh",
+    "minus4": "Vĩnh Linh, Quảng Trị",
+    "minus5": "Huyện Vĩnh Linh, Tỉnh Quảng Trị",
+    "Code": "464",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Hướng Hóa",
+    "minus2": "huyen",
+    "minus3": "huong-hoa",
+    "Name": "Huyện Hướng Hóa",
+    "minus4": "Hướng Hóa, Quảng Trị",
+    "minus5": "Huyện Hướng Hóa, Tỉnh Quảng Trị",
+    "Code": "465",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Gio Linh",
+    "minus2": "huyen",
+    "minus3": "gio-linh",
+    "Name": "Huyện Gio Linh",
+    "minus4": "Gio Linh, Quảng Trị",
+    "minus5": "Huyện Gio Linh, Tỉnh Quảng Trị",
+    "Code": "466",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Đa Krông",
+    "minus2": "huyen",
+    "minus3": "da-krong",
+    "Name": "Huyện Đa Krông",
+    "minus4": "Đa Krông, Quảng Trị",
+    "minus5": "Huyện Đa Krông, Tỉnh Quảng Trị",
+    "Code": "467",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Cam Lộ",
+    "minus2": "huyen",
+    "minus3": "cam-lo",
+    "Name": "Huyện Cam Lộ",
+    "minus4": "Cam Lộ, Quảng Trị",
+    "minus5": "Huyện Cam Lộ, Tỉnh Quảng Trị",
+    "Code": "468",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Triệu Phong",
+    "minus2": "huyen",
+    "minus3": "trieu-phong",
+    "Name": "Huyện Triệu Phong",
+    "minus4": "Triệu Phong, Quảng Trị",
+    "minus5": "Huyện Triệu Phong, Tỉnh Quảng Trị",
+    "Code": "469",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Hải Lăng",
+    "minus2": "huyen",
+    "minus3": "hai-lang",
+    "Name": "Huyện Hải Lăng",
+    "minus4": "Hải Lăng, Quảng Trị",
+    "minus5": "Huyện Hải Lăng, Tỉnh Quảng Trị",
+    "Code": "470",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Cồn Cỏ",
+    "minus2": "huyen",
+    "minus3": "con-co",
+    "Name": "Huyện Cồn Cỏ",
+    "minus4": "Cồn Cỏ, Quảng Trị",
+    "minus5": "Huyện Cồn Cỏ, Tỉnh Quảng Trị",
+    "Code": "471",
+    "ParentCode": "45"
+  },
+  {
+    "minus1": "Huế",
+    "minus2": "thanh-pho",
+    "minus3": "hue",
+    "Name": "Thành phố Huế",
+    "minus4": "Huế, Thừa Thiên Huế",
+    "minus5": "Thành phố Huế, Tỉnh Thừa Thiên Huế",
+    "Code": "474",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Phong Điền",
+    "minus2": "huyen",
+    "minus3": "phong-dien",
+    "Name": "Huyện Phong Điền",
+    "minus4": "Phong Điền, Thừa Thiên Huế",
+    "minus5": "Huyện Phong Điền, Tỉnh Thừa Thiên Huế",
+    "Code": "476",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Quảng Điền",
+    "minus2": "huyen",
+    "minus3": "quang-dien",
+    "Name": "Huyện Quảng Điền",
+    "minus4": "Quảng Điền, Thừa Thiên Huế",
+    "minus5": "Huyện Quảng Điền, Tỉnh Thừa Thiên Huế",
+    "Code": "477",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Phú Vang",
+    "minus2": "huyen",
+    "minus3": "phu-vang",
+    "Name": "Huyện Phú Vang",
+    "minus4": "Phú Vang, Thừa Thiên Huế",
+    "minus5": "Huyện Phú Vang, Tỉnh Thừa Thiên Huế",
+    "Code": "478",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Hương Thủy",
+    "minus2": "thi-xa",
+    "minus3": "huong-thuy",
+    "Name": "Thị xã Hương Thủy",
+    "minus4": "Hương Thủy, Thừa Thiên Huế",
+    "minus5": "Thị xã Hương Thủy, Tỉnh Thừa Thiên Huế",
+    "Code": "479",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Hương Trà",
+    "minus2": "thi-xa",
+    "minus3": "huong-tra",
+    "Name": "Thị xã Hương Trà",
+    "minus4": "Hương Trà, Thừa Thiên Huế",
+    "minus5": "Thị xã Hương Trà, Tỉnh Thừa Thiên Huế",
+    "Code": "480",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "A Lưới",
+    "minus2": "huyen",
+    "minus3": "a-luoi",
+    "Name": "Huyện A Lưới",
+    "minus4": "A Lưới, Thừa Thiên Huế",
+    "minus5": "Huyện A Lưới, Tỉnh Thừa Thiên Huế",
+    "Code": "481",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Phú Lộc",
+    "minus2": "huyen",
+    "minus3": "phu-loc",
+    "Name": "Huyện Phú Lộc",
+    "minus4": "Phú Lộc, Thừa Thiên Huế",
+    "minus5": "Huyện Phú Lộc, Tỉnh Thừa Thiên Huế",
+    "Code": "482",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Nam Đông",
+    "minus2": "huyen",
+    "minus3": "nam-dong",
+    "Name": "Huyện Nam Đông",
+    "minus4": "Nam Đông, Thừa Thiên Huế",
+    "minus5": "Huyện Nam Đông, Tỉnh Thừa Thiên Huế",
+    "Code": "483",
+    "ParentCode": "46"
+  },
+  {
+    "minus1": "Liên Chiểu",
+    "minus2": "quan",
+    "minus3": "lien-chieu",
+    "Name": "Quận Liên Chiểu",
+    "minus4": "Liên Chiểu, Đà Nẵng",
+    "minus5": "Quận Liên Chiểu, Thành phố Đà Nẵng",
+    "Code": "490",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Thanh Khê",
+    "minus2": "quan",
+    "minus3": "thanh-khe",
+    "Name": "Quận Thanh Khê",
+    "minus4": "Thanh Khê, Đà Nẵng",
+    "minus5": "Quận Thanh Khê, Thành phố Đà Nẵng",
+    "Code": "491",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Hải Châu",
+    "minus2": "quan",
+    "minus3": "hai-chau",
+    "Name": "Quận Hải Châu",
+    "minus4": "Hải Châu, Đà Nẵng",
+    "minus5": "Quận Hải Châu, Thành phố Đà Nẵng",
+    "Code": "492",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Sơn Trà",
+    "minus2": "quan",
+    "minus3": "son-tra",
+    "Name": "Quận Sơn Trà",
+    "minus4": "Sơn Trà, Đà Nẵng",
+    "minus5": "Quận Sơn Trà, Thành phố Đà Nẵng",
+    "Code": "493",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Ngũ Hành Sơn",
+    "minus2": "quan",
+    "minus3": "ngu-hanh-son",
+    "Name": "Quận Ngũ Hành Sơn",
+    "minus4": "Ngũ Hành Sơn, Đà Nẵng",
+    "minus5": "Quận Ngũ Hành Sơn, Thành phố Đà Nẵng",
+    "Code": "494",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Cẩm Lệ",
+    "minus2": "quan",
+    "minus3": "cam-le",
+    "Name": "Quận Cẩm Lệ",
+    "minus4": "Cẩm Lệ, Đà Nẵng",
+    "minus5": "Quận Cẩm Lệ, Thành phố Đà Nẵng",
+    "Code": "495",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Hòa Vang",
+    "minus2": "huyen",
+    "minus3": "hoa-vang",
+    "Name": "Huyện Hòa Vang",
+    "minus4": "Hòa Vang, Đà Nẵng",
+    "minus5": "Huyện Hòa Vang, Thành phố Đà Nẵng",
+    "Code": "497",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Hoàng Sa",
+    "minus2": "huyen",
+    "minus3": "hoang-sa",
+    "Name": "Huyện Hoàng Sa",
+    "minus4": "Hoàng Sa, Đà Nẵng",
+    "minus5": "Huyện Hoàng Sa, Thành phố Đà Nẵng",
+    "Code": "498",
+    "ParentCode": "48"
+  },
+  {
+    "minus1": "Tam Kỳ",
+    "minus2": "thanh-pho",
+    "minus3": "tam-ky",
+    "Name": "Thành phố Tam Kỳ",
+    "minus4": "Tam Kỳ, Quảng Nam",
+    "minus5": "Thành phố Tam Kỳ, Tỉnh Quảng Nam",
+    "Code": "502",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Hội An",
+    "minus2": "thanh-pho",
+    "minus3": "hoi-an",
+    "Name": "Thành phố Hội An",
+    "minus4": "Hội An, Quảng Nam",
+    "minus5": "Thành phố Hội An, Tỉnh Quảng Nam",
+    "Code": "503",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Tây Giang",
+    "minus2": "huyen",
+    "minus3": "tay-giang",
+    "Name": "Huyện Tây Giang",
+    "minus4": "Tây Giang, Quảng Nam",
+    "minus5": "Huyện Tây Giang, Tỉnh Quảng Nam",
+    "Code": "504",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Đông Giang",
+    "minus2": "huyen",
+    "minus3": "dong-giang",
+    "Name": "Huyện Đông Giang",
+    "minus4": "Đông Giang, Quảng Nam",
+    "minus5": "Huyện Đông Giang, Tỉnh Quảng Nam",
+    "Code": "505",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Đại Lộc",
+    "minus2": "huyen",
+    "minus3": "dai-loc",
+    "Name": "Huyện Đại Lộc",
+    "minus4": "Đại Lộc, Quảng Nam",
+    "minus5": "Huyện Đại Lộc, Tỉnh Quảng Nam",
+    "Code": "506",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Điện Bàn",
+    "minus2": "thi-xa",
+    "minus3": "dien-ban",
+    "Name": "Thị xã Điện Bàn",
+    "minus4": "Điện Bàn, Quảng Nam",
+    "minus5": "Thị xã Điện Bàn, Tỉnh Quảng Nam",
+    "Code": "507",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Duy Xuyên",
+    "minus2": "huyen",
+    "minus3": "duy-xuyen",
+    "Name": "Huyện Duy Xuyên",
+    "minus4": "Duy Xuyên, Quảng Nam",
+    "minus5": "Huyện Duy Xuyên, Tỉnh Quảng Nam",
+    "Code": "508",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Quế Sơn",
+    "minus2": "huyen",
+    "minus3": "que-son",
+    "Name": "Huyện Quế Sơn",
+    "minus4": "Quế Sơn, Quảng Nam",
+    "minus5": "Huyện Quế Sơn, Tỉnh Quảng Nam",
+    "Code": "509",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Nam Giang",
+    "minus2": "huyen",
+    "minus3": "nam-giang",
+    "Name": "Huyện Nam Giang",
+    "minus4": "Nam Giang, Quảng Nam",
+    "minus5": "Huyện Nam Giang, Tỉnh Quảng Nam",
+    "Code": "510",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Phước Sơn",
+    "minus2": "huyen",
+    "minus3": "phuoc-son",
+    "Name": "Huyện Phước Sơn",
+    "minus4": "Phước Sơn, Quảng Nam",
+    "minus5": "Huyện Phước Sơn, Tỉnh Quảng Nam",
+    "Code": "511",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Hiệp Đức",
+    "minus2": "huyen",
+    "minus3": "hiep-duc",
+    "Name": "Huyện Hiệp Đức",
+    "minus4": "Hiệp Đức, Quảng Nam",
+    "minus5": "Huyện Hiệp Đức, Tỉnh Quảng Nam",
+    "Code": "512",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Thăng Bình",
+    "minus2": "huyen",
+    "minus3": "thang-binh",
+    "Name": "Huyện Thăng Bình",
+    "minus4": "Thăng Bình, Quảng Nam",
+    "minus5": "Huyện Thăng Bình, Tỉnh Quảng Nam",
+    "Code": "513",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Tiên Phước",
+    "minus2": "huyen",
+    "minus3": "tien-phuoc",
+    "Name": "Huyện Tiên Phước",
+    "minus4": "Tiên Phước, Quảng Nam",
+    "minus5": "Huyện Tiên Phước, Tỉnh Quảng Nam",
+    "Code": "514",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Bắc Trà My",
+    "minus2": "huyen",
+    "minus3": "bac-tra-my",
+    "Name": "Huyện Bắc Trà My",
+    "minus4": "Bắc Trà My, Quảng Nam",
+    "minus5": "Huyện Bắc Trà My, Tỉnh Quảng Nam",
+    "Code": "515",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Nam Trà My",
+    "minus2": "huyen",
+    "minus3": "nam-tra-my",
+    "Name": "Huyện Nam Trà My",
+    "minus4": "Nam Trà My, Quảng Nam",
+    "minus5": "Huyện Nam Trà My, Tỉnh Quảng Nam",
+    "Code": "516",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Núi Thành",
+    "minus2": "huyen",
+    "minus3": "nui-thanh",
+    "Name": "Huyện Núi Thành",
+    "minus4": "Núi Thành, Quảng Nam",
+    "minus5": "Huyện Núi Thành, Tỉnh Quảng Nam",
+    "Code": "517",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Phú Ninh",
+    "minus2": "huyen",
+    "minus3": "phu-ninh",
+    "Name": "Huyện Phú Ninh",
+    "minus4": "Phú Ninh, Quảng Nam",
+    "minus5": "Huyện Phú Ninh, Tỉnh Quảng Nam",
+    "Code": "518",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Nông Sơn",
+    "minus2": "huyen",
+    "minus3": "nong-son",
+    "Name": "Huyện Nông Sơn",
+    "minus4": "Nông Sơn, Quảng Nam",
+    "minus5": "Huyện Nông Sơn, Tỉnh Quảng Nam",
+    "Code": "519",
+    "ParentCode": "49"
+  },
+  {
+    "minus1": "Quảng Ngãi",
+    "minus2": "thanh-pho",
+    "minus3": "quang-ngai",
+    "Name": "Thành phố Quảng Ngãi",
+    "minus4": "Quảng Ngãi, Quảng Ngãi",
+    "minus5": "Thành phố Quảng Ngãi, Tỉnh Quảng Ngãi",
+    "Code": "522",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Bình Sơn",
+    "minus2": "huyen",
+    "minus3": "binh-son",
+    "Name": "Huyện Bình Sơn",
+    "minus4": "Bình Sơn, Quảng Ngãi",
+    "minus5": "Huyện Bình Sơn, Tỉnh Quảng Ngãi",
+    "Code": "524",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Trà Bồng",
+    "minus2": "huyen",
+    "minus3": "tra-bong",
+    "Name": "Huyện Trà Bồng",
+    "minus4": "Trà Bồng, Quảng Ngãi",
+    "minus5": "Huyện Trà Bồng, Tỉnh Quảng Ngãi",
+    "Code": "525",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Sơn Tịnh",
+    "minus2": "huyen",
+    "minus3": "son-tinh",
+    "Name": "Huyện Sơn Tịnh",
+    "minus4": "Sơn Tịnh, Quảng Ngãi",
+    "minus5": "Huyện Sơn Tịnh, Tỉnh Quảng Ngãi",
+    "Code": "527",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Tư Nghĩa",
+    "minus2": "huyen",
+    "minus3": "tu-nghia",
+    "Name": "Huyện Tư Nghĩa",
+    "minus4": "Tư Nghĩa, Quảng Ngãi",
+    "minus5": "Huyện Tư Nghĩa, Tỉnh Quảng Ngãi",
+    "Code": "528",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Sơn Hà",
+    "minus2": "huyen",
+    "minus3": "son-ha",
+    "Name": "Huyện Sơn Hà",
+    "minus4": "Sơn Hà, Quảng Ngãi",
+    "minus5": "Huyện Sơn Hà, Tỉnh Quảng Ngãi",
+    "Code": "529",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Sơn Tây",
+    "minus2": "huyen",
+    "minus3": "son-tay",
+    "Name": "Huyện Sơn Tây",
+    "minus4": "Sơn Tây, Quảng Ngãi",
+    "minus5": "Huyện Sơn Tây, Tỉnh Quảng Ngãi",
+    "Code": "530",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Minh Long",
+    "minus2": "huyen",
+    "minus3": "minh-long",
+    "Name": "Huyện Minh Long",
+    "minus4": "Minh Long, Quảng Ngãi",
+    "minus5": "Huyện Minh Long, Tỉnh Quảng Ngãi",
+    "Code": "531",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Nghĩa Hành",
+    "minus2": "huyen",
+    "minus3": "nghia-hanh",
+    "Name": "Huyện Nghĩa Hành",
+    "minus4": "Nghĩa Hành, Quảng Ngãi",
+    "minus5": "Huyện Nghĩa Hành, Tỉnh Quảng Ngãi",
+    "Code": "532",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Mộ Đức",
+    "minus2": "huyen",
+    "minus3": "mo-duc",
+    "Name": "Huyện Mộ Đức",
+    "minus4": "Mộ Đức, Quảng Ngãi",
+    "minus5": "Huyện Mộ Đức, Tỉnh Quảng Ngãi",
+    "Code": "533",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Đức Phổ",
+    "minus2": "thi-xa",
+    "minus3": "duc-pho",
+    "Name": "Thị xã Đức Phổ",
+    "minus4": "Đức Phổ, Quảng Ngãi",
+    "minus5": "Thị xã Đức Phổ, Tỉnh Quảng Ngãi",
+    "Code": "534",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Ba Tơ",
+    "minus2": "huyen",
+    "minus3": "ba-to",
+    "Name": "Huyện Ba Tơ",
+    "minus4": "Ba Tơ, Quảng Ngãi",
+    "minus5": "Huyện Ba Tơ, Tỉnh Quảng Ngãi",
+    "Code": "535",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Lý Sơn",
+    "minus2": "huyen",
+    "minus3": "ly-son",
+    "Name": "Huyện Lý Sơn",
+    "minus4": "Lý Sơn, Quảng Ngãi",
+    "minus5": "Huyện Lý Sơn, Tỉnh Quảng Ngãi",
+    "Code": "536",
+    "ParentCode": "51"
+  },
+  {
+    "minus1": "Quy Nhơn",
+    "minus2": "thanh-pho",
+    "minus3": "quy-nhon",
+    "Name": "Thành phố Quy Nhơn",
+    "minus4": "Quy Nhơn, Bình Định",
+    "minus5": "Thành phố Quy Nhơn, Tỉnh Bình Định",
+    "Code": "540",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "An Lão",
+    "minus2": "huyen",
+    "minus3": "an-lao",
+    "Name": "Huyện An Lão",
+    "minus4": "An Lão, Bình Định",
+    "minus5": "Huyện An Lão, Tỉnh Bình Định",
+    "Code": "542",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Hoài Nhơn",
+    "minus2": "thi-xa",
+    "minus3": "hoai-nhon",
+    "Name": "Thị xã Hoài Nhơn",
+    "minus4": "Hoài Nhơn, Bình Định",
+    "minus5": "Thị xã Hoài Nhơn, Tỉnh Bình Định",
+    "Code": "543",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Hoài Ân",
+    "minus2": "huyen",
+    "minus3": "hoai-an",
+    "Name": "Huyện Hoài Ân",
+    "minus4": "Hoài Ân, Bình Định",
+    "minus5": "Huyện Hoài Ân, Tỉnh Bình Định",
+    "Code": "544",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Phù Mỹ",
+    "minus2": "huyen",
+    "minus3": "phu-my",
+    "Name": "Huyện Phù Mỹ",
+    "minus4": "Phù Mỹ, Bình Định",
+    "minus5": "Huyện Phù Mỹ, Tỉnh Bình Định",
+    "Code": "545",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Vĩnh Thạnh",
+    "minus2": "huyen",
+    "minus3": "vinh-thanh",
+    "Name": "Huyện Vĩnh Thạnh",
+    "minus4": "Vĩnh Thạnh, Bình Định",
+    "minus5": "Huyện Vĩnh Thạnh, Tỉnh Bình Định",
+    "Code": "546",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Tây Sơn",
+    "minus2": "huyen",
+    "minus3": "tay-son",
+    "Name": "Huyện Tây Sơn",
+    "minus4": "Tây Sơn, Bình Định",
+    "minus5": "Huyện Tây Sơn, Tỉnh Bình Định",
+    "Code": "547",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Phù Cát",
+    "minus2": "huyen",
+    "minus3": "phu-cat",
+    "Name": "Huyện Phù Cát",
+    "minus4": "Phù Cát, Bình Định",
+    "minus5": "Huyện Phù Cát, Tỉnh Bình Định",
+    "Code": "548",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "An Nhơn",
+    "minus2": "thi-xa",
+    "minus3": "an-nhon",
+    "Name": "Thị xã An Nhơn",
+    "minus4": "An Nhơn, Bình Định",
+    "minus5": "Thị xã An Nhơn, Tỉnh Bình Định",
+    "Code": "549",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Tuy Phước",
+    "minus2": "huyen",
+    "minus3": "tuy-phuoc",
+    "Name": "Huyện Tuy Phước",
+    "minus4": "Tuy Phước, Bình Định",
+    "minus5": "Huyện Tuy Phước, Tỉnh Bình Định",
+    "Code": "550",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Vân Canh",
+    "minus2": "huyen",
+    "minus3": "van-canh",
+    "Name": "Huyện Vân Canh",
+    "minus4": "Vân Canh, Bình Định",
+    "minus5": "Huyện Vân Canh, Tỉnh Bình Định",
+    "Code": "551",
+    "ParentCode": "52"
+  },
+  {
+    "minus1": "Tuy Hoà",
+    "minus2": "thanh-pho",
+    "minus3": "tuy-hoa",
+    "Name": "Thành phố Tuy Hoà",
+    "minus4": "Tuy Hoà, Phú Yên",
+    "minus5": "Thành phố Tuy Hoà, Tỉnh Phú Yên",
+    "Code": "555",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Sông Cầu",
+    "minus2": "thi-xa",
+    "minus3": "song-cau",
+    "Name": "Thị xã Sông Cầu",
+    "minus4": "Sông Cầu, Phú Yên",
+    "minus5": "Thị xã Sông Cầu, Tỉnh Phú Yên",
+    "Code": "557",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Đồng Xuân",
+    "minus2": "huyen",
+    "minus3": "dong-xuan",
+    "Name": "Huyện Đồng Xuân",
+    "minus4": "Đồng Xuân, Phú Yên",
+    "minus5": "Huyện Đồng Xuân, Tỉnh Phú Yên",
+    "Code": "558",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Tuy An",
+    "minus2": "huyen",
+    "minus3": "tuy-an",
+    "Name": "Huyện Tuy An",
+    "minus4": "Tuy An, Phú Yên",
+    "minus5": "Huyện Tuy An, Tỉnh Phú Yên",
+    "Code": "559",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Sơn Hòa",
+    "minus2": "huyen",
+    "minus3": "son-hoa",
+    "Name": "Huyện Sơn Hòa",
+    "minus4": "Sơn Hòa, Phú Yên",
+    "minus5": "Huyện Sơn Hòa, Tỉnh Phú Yên",
+    "Code": "560",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Sông Hinh",
+    "minus2": "huyen",
+    "minus3": "song-hinh",
+    "Name": "Huyện Sông Hinh",
+    "minus4": "Sông Hinh, Phú Yên",
+    "minus5": "Huyện Sông Hinh, Tỉnh Phú Yên",
+    "Code": "561",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Tây Hoà",
+    "minus2": "huyen",
+    "minus3": "tay-hoa",
+    "Name": "Huyện Tây Hoà",
+    "minus4": "Tây Hoà, Phú Yên",
+    "minus5": "Huyện Tây Hoà, Tỉnh Phú Yên",
+    "Code": "562",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Phú Hoà",
+    "minus2": "huyen",
+    "minus3": "phu-hoa",
+    "Name": "Huyện Phú Hoà",
+    "minus4": "Phú Hoà, Phú Yên",
+    "minus5": "Huyện Phú Hoà, Tỉnh Phú Yên",
+    "Code": "563",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Đông Hòa",
+    "minus2": "thi-xa",
+    "minus3": "dong-hoa",
+    "Name": "Thị xã Đông Hòa",
+    "minus4": "Đông Hòa, Phú Yên",
+    "minus5": "Thị xã Đông Hòa, Tỉnh Phú Yên",
+    "Code": "564",
+    "ParentCode": "54"
+  },
+  {
+    "minus1": "Nha Trang",
+    "minus2": "thanh-pho",
+    "minus3": "nha-trang",
+    "Name": "Thành phố Nha Trang",
+    "minus4": "Nha Trang, Khánh Hòa",
+    "minus5": "Thành phố Nha Trang, Tỉnh Khánh Hòa",
+    "Code": "568",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Cam Ranh",
+    "minus2": "thanh-pho",
+    "minus3": "cam-ranh",
+    "Name": "Thành phố Cam Ranh",
+    "minus4": "Cam Ranh, Khánh Hòa",
+    "minus5": "Thành phố Cam Ranh, Tỉnh Khánh Hòa",
+    "Code": "569",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Cam Lâm",
+    "minus2": "huyen",
+    "minus3": "cam-lam",
+    "Name": "Huyện Cam Lâm",
+    "minus4": "Cam Lâm, Khánh Hòa",
+    "minus5": "Huyện Cam Lâm, Tỉnh Khánh Hòa",
+    "Code": "570",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Vạn Ninh",
+    "minus2": "huyen",
+    "minus3": "van-ninh",
+    "Name": "Huyện Vạn Ninh",
+    "minus4": "Vạn Ninh, Khánh Hòa",
+    "minus5": "Huyện Vạn Ninh, Tỉnh Khánh Hòa",
+    "Code": "571",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Ninh Hòa",
+    "minus2": "thi-xa",
+    "minus3": "ninh-hoa",
+    "Name": "Thị xã Ninh Hòa",
+    "minus4": "Ninh Hòa, Khánh Hòa",
+    "minus5": "Thị xã Ninh Hòa, Tỉnh Khánh Hòa",
+    "Code": "572",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Khánh Vĩnh",
+    "minus2": "huyen",
+    "minus3": "khanh-vinh",
+    "Name": "Huyện Khánh Vĩnh",
+    "minus4": "Khánh Vĩnh, Khánh Hòa",
+    "minus5": "Huyện Khánh Vĩnh, Tỉnh Khánh Hòa",
+    "Code": "573",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Diên Khánh",
+    "minus2": "huyen",
+    "minus3": "dien-khanh",
+    "Name": "Huyện Diên Khánh",
+    "minus4": "Diên Khánh, Khánh Hòa",
+    "minus5": "Huyện Diên Khánh, Tỉnh Khánh Hòa",
+    "Code": "574",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Khánh Sơn",
+    "minus2": "huyen",
+    "minus3": "khanh-son",
+    "Name": "Huyện Khánh Sơn",
+    "minus4": "Khánh Sơn, Khánh Hòa",
+    "minus5": "Huyện Khánh Sơn, Tỉnh Khánh Hòa",
+    "Code": "575",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Trường Sa",
+    "minus2": "huyen",
+    "minus3": "truong-sa",
+    "Name": "Huyện Trường Sa",
+    "minus4": "Trường Sa, Khánh Hòa",
+    "minus5": "Huyện Trường Sa, Tỉnh Khánh Hòa",
+    "Code": "576",
+    "ParentCode": "56"
+  },
+  {
+    "minus1": "Phan Rang-Tháp Chàm",
+    "minus2": "thanh-pho",
+    "minus3": "phan-rang-thap-cham",
+    "Name": "Thành phố Phan Rang-Tháp Chàm",
+    "minus4": "Phan Rang-Tháp Chàm, Ninh Thuận",
+    "minus5": "Thành phố Phan Rang-Tháp Chàm, Tỉnh Ninh Thuận",
+    "Code": "582",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Bác Ái",
+    "minus2": "huyen",
+    "minus3": "bac-ai",
+    "Name": "Huyện Bác Ái",
+    "minus4": "Bác Ái, Ninh Thuận",
+    "minus5": "Huyện Bác Ái, Tỉnh Ninh Thuận",
+    "Code": "584",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Ninh Sơn",
+    "minus2": "huyen",
+    "minus3": "ninh-son",
+    "Name": "Huyện Ninh Sơn",
+    "minus4": "Ninh Sơn, Ninh Thuận",
+    "minus5": "Huyện Ninh Sơn, Tỉnh Ninh Thuận",
+    "Code": "585",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Ninh Hải",
+    "minus2": "huyen",
+    "minus3": "ninh-hai",
+    "Name": "Huyện Ninh Hải",
+    "minus4": "Ninh Hải, Ninh Thuận",
+    "minus5": "Huyện Ninh Hải, Tỉnh Ninh Thuận",
+    "Code": "586",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Ninh Phước",
+    "minus2": "huyen",
+    "minus3": "ninh-phuoc",
+    "Name": "Huyện Ninh Phước",
+    "minus4": "Ninh Phước, Ninh Thuận",
+    "minus5": "Huyện Ninh Phước, Tỉnh Ninh Thuận",
+    "Code": "587",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Thuận Bắc",
+    "minus2": "huyen",
+    "minus3": "thuan-bac",
+    "Name": "Huyện Thuận Bắc",
+    "minus4": "Thuận Bắc, Ninh Thuận",
+    "minus5": "Huyện Thuận Bắc, Tỉnh Ninh Thuận",
+    "Code": "588",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Thuận Nam",
+    "minus2": "huyen",
+    "minus3": "thuan-nam",
+    "Name": "Huyện Thuận Nam",
+    "minus4": "Thuận Nam, Ninh Thuận",
+    "minus5": "Huyện Thuận Nam, Tỉnh Ninh Thuận",
+    "Code": "589",
+    "ParentCode": "58"
+  },
+  {
+    "minus1": "Phan Thiết",
+    "minus2": "thanh-pho",
+    "minus3": "phan-thiet",
+    "Name": "Thành phố Phan Thiết",
+    "minus4": "Phan Thiết, Bình Thuận",
+    "minus5": "Thành phố Phan Thiết, Tỉnh Bình Thuận",
+    "Code": "593",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "La Gi",
+    "minus2": "thi-xa",
+    "minus3": "la-gi",
+    "Name": "Thị xã La Gi",
+    "minus4": "La Gi, Bình Thuận",
+    "minus5": "Thị xã La Gi, Tỉnh Bình Thuận",
+    "Code": "594",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Tuy Phong",
+    "minus2": "huyen",
+    "minus3": "tuy-phong",
+    "Name": "Huyện Tuy Phong",
+    "minus4": "Tuy Phong, Bình Thuận",
+    "minus5": "Huyện Tuy Phong, Tỉnh Bình Thuận",
+    "Code": "595",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Bắc Bình",
+    "minus2": "huyen",
+    "minus3": "bac-binh",
+    "Name": "Huyện Bắc Bình",
+    "minus4": "Bắc Bình, Bình Thuận",
+    "minus5": "Huyện Bắc Bình, Tỉnh Bình Thuận",
+    "Code": "596",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Hàm Thuận Bắc",
+    "minus2": "huyen",
+    "minus3": "ham-thuan-bac",
+    "Name": "Huyện Hàm Thuận Bắc",
+    "minus4": "Hàm Thuận Bắc, Bình Thuận",
+    "minus5": "Huyện Hàm Thuận Bắc, Tỉnh Bình Thuận",
+    "Code": "597",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Hàm Thuận Nam",
+    "minus2": "huyen",
+    "minus3": "ham-thuan-nam",
+    "Name": "Huyện Hàm Thuận Nam",
+    "minus4": "Hàm Thuận Nam, Bình Thuận",
+    "minus5": "Huyện Hàm Thuận Nam, Tỉnh Bình Thuận",
+    "Code": "598",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Tánh Linh",
+    "minus2": "huyen",
+    "minus3": "tanh-linh",
+    "Name": "Huyện Tánh Linh",
+    "minus4": "Tánh Linh, Bình Thuận",
+    "minus5": "Huyện Tánh Linh, Tỉnh Bình Thuận",
+    "Code": "599",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Đức Linh",
+    "minus2": "huyen",
+    "minus3": "duc-linh",
+    "Name": "Huyện Đức Linh",
+    "minus4": "Đức Linh, Bình Thuận",
+    "minus5": "Huyện Đức Linh, Tỉnh Bình Thuận",
+    "Code": "600",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Hàm Tân",
+    "minus2": "huyen",
+    "minus3": "ham-tan",
+    "Name": "Huyện Hàm Tân",
+    "minus4": "Hàm Tân, Bình Thuận",
+    "minus5": "Huyện Hàm Tân, Tỉnh Bình Thuận",
+    "Code": "601",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Phú Quí",
+    "minus2": "huyen",
+    "minus3": "phu-qui",
+    "Name": "Huyện Phú Quí",
+    "minus4": "Phú Quí, Bình Thuận",
+    "minus5": "Huyện Phú Quí, Tỉnh Bình Thuận",
+    "Code": "602",
+    "ParentCode": "60"
+  },
+  {
+    "minus1": "Kon Tum",
+    "minus2": "thanh-pho",
+    "minus3": "kon-tum",
+    "Name": "Thành phố Kon Tum",
+    "minus4": "Kon Tum, Kon Tum",
+    "minus5": "Thành phố Kon Tum, Tỉnh Kon Tum",
+    "Code": "608",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Đắk Glei",
+    "minus2": "huyen",
+    "minus3": "dak-glei",
+    "Name": "Huyện Đắk Glei",
+    "minus4": "Đắk Glei, Kon Tum",
+    "minus5": "Huyện Đắk Glei, Tỉnh Kon Tum",
+    "Code": "610",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Ngọc Hồi",
+    "minus2": "huyen",
+    "minus3": "ngoc-hoi",
+    "Name": "Huyện Ngọc Hồi",
+    "minus4": "Ngọc Hồi, Kon Tum",
+    "minus5": "Huyện Ngọc Hồi, Tỉnh Kon Tum",
+    "Code": "611",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Đắk Tô",
+    "minus2": "huyen",
+    "minus3": "dak-to",
+    "Name": "Huyện Đắk Tô",
+    "minus4": "Đắk Tô, Kon Tum",
+    "minus5": "Huyện Đắk Tô, Tỉnh Kon Tum",
+    "Code": "612",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Kon Plông",
+    "minus2": "huyen",
+    "minus3": "kon-plong",
+    "Name": "Huyện Kon Plông",
+    "minus4": "Kon Plông, Kon Tum",
+    "minus5": "Huyện Kon Plông, Tỉnh Kon Tum",
+    "Code": "613",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Kon Rẫy",
+    "minus2": "huyen",
+    "minus3": "kon-ray",
+    "Name": "Huyện Kon Rẫy",
+    "minus4": "Kon Rẫy, Kon Tum",
+    "minus5": "Huyện Kon Rẫy, Tỉnh Kon Tum",
+    "Code": "614",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Đắk Hà",
+    "minus2": "huyen",
+    "minus3": "dak-ha",
+    "Name": "Huyện Đắk Hà",
+    "minus4": "Đắk Hà, Kon Tum",
+    "minus5": "Huyện Đắk Hà, Tỉnh Kon Tum",
+    "Code": "615",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Sa Thầy",
+    "minus2": "huyen",
+    "minus3": "sa-thay",
+    "Name": "Huyện Sa Thầy",
+    "minus4": "Sa Thầy, Kon Tum",
+    "minus5": "Huyện Sa Thầy, Tỉnh Kon Tum",
+    "Code": "616",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Tu Mơ Rông",
+    "minus2": "huyen",
+    "minus3": "tu-mo-rong",
+    "Name": "Huyện Tu Mơ Rông",
+    "minus4": "Tu Mơ Rông, Kon Tum",
+    "minus5": "Huyện Tu Mơ Rông, Tỉnh Kon Tum",
+    "Code": "617",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Ia H' Drai",
+    "minus2": "huyen",
+    "minus3": "ia-h-drai",
+    "Name": "Huyện Ia H' Drai",
+    "minus4": "Ia H' Drai, Kon Tum",
+    "minus5": "Huyện Ia H' Drai, Tỉnh Kon Tum",
+    "Code": "618",
+    "ParentCode": "62"
+  },
+  {
+    "minus1": "Pleiku",
+    "minus2": "thanh-pho",
+    "minus3": "pleiku",
+    "Name": "Thành phố Pleiku",
+    "minus4": "Pleiku, Gia Lai",
+    "minus5": "Thành phố Pleiku, Tỉnh Gia Lai",
+    "Code": "622",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "An Khê",
+    "minus2": "thi-xa",
+    "minus3": "an-khe",
+    "Name": "Thị xã An Khê",
+    "minus4": "An Khê, Gia Lai",
+    "minus5": "Thị xã An Khê, Tỉnh Gia Lai",
+    "Code": "623",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Ayun Pa",
+    "minus2": "thi-xa",
+    "minus3": "ayun-pa",
+    "Name": "Thị xã Ayun Pa",
+    "minus4": "Ayun Pa, Gia Lai",
+    "minus5": "Thị xã Ayun Pa, Tỉnh Gia Lai",
+    "Code": "624",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "KBang",
+    "minus2": "huyen",
+    "minus3": "kbang",
+    "Name": "Huyện KBang",
+    "minus4": "KBang, Gia Lai",
+    "minus5": "Huyện KBang, Tỉnh Gia Lai",
+    "Code": "625",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Đăk Đoa",
+    "minus2": "huyen",
+    "minus3": "dak-doa",
+    "Name": "Huyện Đăk Đoa",
+    "minus4": "Đăk Đoa, Gia Lai",
+    "minus5": "Huyện Đăk Đoa, Tỉnh Gia Lai",
+    "Code": "626",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Chư Păh",
+    "minus2": "huyen",
+    "minus3": "chu-pah",
+    "Name": "Huyện Chư Păh",
+    "minus4": "Chư Păh, Gia Lai",
+    "minus5": "Huyện Chư Păh, Tỉnh Gia Lai",
+    "Code": "627",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Ia Grai",
+    "minus2": "huyen",
+    "minus3": "ia-grai",
+    "Name": "Huyện Ia Grai",
+    "minus4": "Ia Grai, Gia Lai",
+    "minus5": "Huyện Ia Grai, Tỉnh Gia Lai",
+    "Code": "628",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Mang Yang",
+    "minus2": "huyen",
+    "minus3": "mang-yang",
+    "Name": "Huyện Mang Yang",
+    "minus4": "Mang Yang, Gia Lai",
+    "minus5": "Huyện Mang Yang, Tỉnh Gia Lai",
+    "Code": "629",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Kông Chro",
+    "minus2": "huyen",
+    "minus3": "kong-chro",
+    "Name": "Huyện Kông Chro",
+    "minus4": "Kông Chro, Gia Lai",
+    "minus5": "Huyện Kông Chro, Tỉnh Gia Lai",
+    "Code": "630",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Đức Cơ",
+    "minus2": "huyen",
+    "minus3": "duc-co",
+    "Name": "Huyện Đức Cơ",
+    "minus4": "Đức Cơ, Gia Lai",
+    "minus5": "Huyện Đức Cơ, Tỉnh Gia Lai",
+    "Code": "631",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Chư Prông",
+    "minus2": "huyen",
+    "minus3": "chu-prong",
+    "Name": "Huyện Chư Prông",
+    "minus4": "Chư Prông, Gia Lai",
+    "minus5": "Huyện Chư Prông, Tỉnh Gia Lai",
+    "Code": "632",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Chư Sê",
+    "minus2": "huyen",
+    "minus3": "chu-se",
+    "Name": "Huyện Chư Sê",
+    "minus4": "Chư Sê, Gia Lai",
+    "minus5": "Huyện Chư Sê, Tỉnh Gia Lai",
+    "Code": "633",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Đăk Pơ",
+    "minus2": "huyen",
+    "minus3": "dak-po",
+    "Name": "Huyện Đăk Pơ",
+    "minus4": "Đăk Pơ, Gia Lai",
+    "minus5": "Huyện Đăk Pơ, Tỉnh Gia Lai",
+    "Code": "634",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Ia Pa",
+    "minus2": "huyen",
+    "minus3": "ia-pa",
+    "Name": "Huyện Ia Pa",
+    "minus4": "Ia Pa, Gia Lai",
+    "minus5": "Huyện Ia Pa, Tỉnh Gia Lai",
+    "Code": "635",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Krông Pa",
+    "minus2": "huyen",
+    "minus3": "krong-pa",
+    "Name": "Huyện Krông Pa",
+    "minus4": "Krông Pa, Gia Lai",
+    "minus5": "Huyện Krông Pa, Tỉnh Gia Lai",
+    "Code": "637",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Phú Thiện",
+    "minus2": "huyen",
+    "minus3": "phu-thien",
+    "Name": "Huyện Phú Thiện",
+    "minus4": "Phú Thiện, Gia Lai",
+    "minus5": "Huyện Phú Thiện, Tỉnh Gia Lai",
+    "Code": "638",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Chư Pưh",
+    "minus2": "huyen",
+    "minus3": "chu-puh",
+    "Name": "Huyện Chư Pưh",
+    "minus4": "Chư Pưh, Gia Lai",
+    "minus5": "Huyện Chư Pưh, Tỉnh Gia Lai",
+    "Code": "639",
+    "ParentCode": "64"
+  },
+  {
+    "minus1": "Buôn Ma Thuột",
+    "minus2": "thanh-pho",
+    "minus3": "buon-ma-thuot",
+    "Name": "Thành phố Buôn Ma Thuột",
+    "minus4": "Buôn Ma Thuột, Đắk Lắk",
+    "minus5": "Thành phố Buôn Ma Thuột, Tỉnh Đắk Lắk",
+    "Code": "643",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Buôn Hồ",
+    "minus2": "thi-xa",
+    "minus3": "buon-ho",
+    "Name": "Thị xã Buôn Hồ",
+    "minus4": "Buôn Hồ, Đắk Lắk",
+    "minus5": "Thị xã Buôn Hồ, Tỉnh Đắk Lắk",
+    "Code": "644",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Ea H'leo",
+    "minus2": "huyen",
+    "minus3": "ea-h-leo",
+    "Name": "Huyện Ea H'leo",
+    "minus4": "Ea H'leo, Đắk Lắk",
+    "minus5": "Huyện Ea H'leo, Tỉnh Đắk Lắk",
+    "Code": "645",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Ea Súp",
+    "minus2": "huyen",
+    "minus3": "ea-sup",
+    "Name": "Huyện Ea Súp",
+    "minus4": "Ea Súp, Đắk Lắk",
+    "minus5": "Huyện Ea Súp, Tỉnh Đắk Lắk",
+    "Code": "646",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Buôn Đôn",
+    "minus2": "huyen",
+    "minus3": "buon-don",
+    "Name": "Huyện Buôn Đôn",
+    "minus4": "Buôn Đôn, Đắk Lắk",
+    "minus5": "Huyện Buôn Đôn, Tỉnh Đắk Lắk",
+    "Code": "647",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Cư M'gar",
+    "minus2": "huyen",
+    "minus3": "cu-m-gar",
+    "Name": "Huyện Cư M'gar",
+    "minus4": "Cư M'gar, Đắk Lắk",
+    "minus5": "Huyện Cư M'gar, Tỉnh Đắk Lắk",
+    "Code": "648",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Krông Búk",
+    "minus2": "huyen",
+    "minus3": "krong-buk",
+    "Name": "Huyện Krông Búk",
+    "minus4": "Krông Búk, Đắk Lắk",
+    "minus5": "Huyện Krông Búk, Tỉnh Đắk Lắk",
+    "Code": "649",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Krông Năng",
+    "minus2": "huyen",
+    "minus3": "krong-nang",
+    "Name": "Huyện Krông Năng",
+    "minus4": "Krông Năng, Đắk Lắk",
+    "minus5": "Huyện Krông Năng, Tỉnh Đắk Lắk",
+    "Code": "650",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Ea Kar",
+    "minus2": "huyen",
+    "minus3": "ea-kar",
+    "Name": "Huyện Ea Kar",
+    "minus4": "Ea Kar, Đắk Lắk",
+    "minus5": "Huyện Ea Kar, Tỉnh Đắk Lắk",
+    "Code": "651",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "M'Đrắk",
+    "minus2": "huyen",
+    "minus3": "m-drak",
+    "Name": "Huyện M'Đrắk",
+    "minus4": "M'Đrắk, Đắk Lắk",
+    "minus5": "Huyện M'Đrắk, Tỉnh Đắk Lắk",
+    "Code": "652",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Krông Bông",
+    "minus2": "huyen",
+    "minus3": "krong-bong",
+    "Name": "Huyện Krông Bông",
+    "minus4": "Krông Bông, Đắk Lắk",
+    "minus5": "Huyện Krông Bông, Tỉnh Đắk Lắk",
+    "Code": "653",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Krông Pắc",
+    "minus2": "huyen",
+    "minus3": "krong-pac",
+    "Name": "Huyện Krông Pắc",
+    "minus4": "Krông Pắc, Đắk Lắk",
+    "minus5": "Huyện Krông Pắc, Tỉnh Đắk Lắk",
+    "Code": "654",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Krông A Na",
+    "minus2": "huyen",
+    "minus3": "krong-a-na",
+    "Name": "Huyện Krông A Na",
+    "minus4": "Krông A Na, Đắk Lắk",
+    "minus5": "Huyện Krông A Na, Tỉnh Đắk Lắk",
+    "Code": "655",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Lắk",
+    "minus2": "huyen",
+    "minus3": "lak",
+    "Name": "Huyện Lắk",
+    "minus4": "Lắk, Đắk Lắk",
+    "minus5": "Huyện Lắk, Tỉnh Đắk Lắk",
+    "Code": "656",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Cư Kuin",
+    "minus2": "huyen",
+    "minus3": "cu-kuin",
+    "Name": "Huyện Cư Kuin",
+    "minus4": "Cư Kuin, Đắk Lắk",
+    "minus5": "Huyện Cư Kuin, Tỉnh Đắk Lắk",
+    "Code": "657",
+    "ParentCode": "66"
+  },
+  {
+    "minus1": "Gia Nghĩa",
+    "minus2": "thanh-pho",
+    "minus3": "gia-nghia",
+    "Name": "Thành phố Gia Nghĩa",
+    "minus4": "Gia Nghĩa, Đắk Nông",
+    "minus5": "Thành phố Gia Nghĩa, Tỉnh Đắk Nông",
+    "Code": "660",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Đăk Glong",
+    "minus2": "huyen",
+    "minus3": "dak-glong",
+    "Name": "Huyện Đăk Glong",
+    "minus4": "Đăk Glong, Đắk Nông",
+    "minus5": "Huyện Đăk Glong, Tỉnh Đắk Nông",
+    "Code": "661",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Cư Jút",
+    "minus2": "huyen",
+    "minus3": "cu-jut",
+    "Name": "Huyện Cư Jút",
+    "minus4": "Cư Jút, Đắk Nông",
+    "minus5": "Huyện Cư Jút, Tỉnh Đắk Nông",
+    "Code": "662",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Đắk Mil",
+    "minus2": "huyen",
+    "minus3": "dak-mil",
+    "Name": "Huyện Đắk Mil",
+    "minus4": "Đắk Mil, Đắk Nông",
+    "minus5": "Huyện Đắk Mil, Tỉnh Đắk Nông",
+    "Code": "663",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Krông Nô",
+    "minus2": "huyen",
+    "minus3": "krong-no",
+    "Name": "Huyện Krông Nô",
+    "minus4": "Krông Nô, Đắk Nông",
+    "minus5": "Huyện Krông Nô, Tỉnh Đắk Nông",
+    "Code": "664",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Đắk Song",
+    "minus2": "huyen",
+    "minus3": "dak-song",
+    "Name": "Huyện Đắk Song",
+    "minus4": "Đắk Song, Đắk Nông",
+    "minus5": "Huyện Đắk Song, Tỉnh Đắk Nông",
+    "Code": "665",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Đắk R'Lấp",
+    "minus2": "huyen",
+    "minus3": "dak-r-lap",
+    "Name": "Huyện Đắk R'Lấp",
+    "minus4": "Đắk R'Lấp, Đắk Nông",
+    "minus5": "Huyện Đắk R'Lấp, Tỉnh Đắk Nông",
+    "Code": "666",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Tuy Đức",
+    "minus2": "huyen",
+    "minus3": "tuy-duc",
+    "Name": "Huyện Tuy Đức",
+    "minus4": "Tuy Đức, Đắk Nông",
+    "minus5": "Huyện Tuy Đức, Tỉnh Đắk Nông",
+    "Code": "667",
+    "ParentCode": "67"
+  },
+  {
+    "minus1": "Đà Lạt",
+    "minus2": "thanh-pho",
+    "minus3": "da-lat",
+    "Name": "Thành phố Đà Lạt",
+    "minus4": "Đà Lạt, Lâm Đồng",
+    "minus5": "Thành phố Đà Lạt, Tỉnh Lâm Đồng",
+    "Code": "672",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Bảo Lộc",
+    "minus2": "thanh-pho",
+    "minus3": "bao-loc",
+    "Name": "Thành phố Bảo Lộc",
+    "minus4": "Bảo Lộc, Lâm Đồng",
+    "minus5": "Thành phố Bảo Lộc, Tỉnh Lâm Đồng",
+    "Code": "673",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Đam Rông",
+    "minus2": "huyen",
+    "minus3": "dam-rong",
+    "Name": "Huyện Đam Rông",
+    "minus4": "Đam Rông, Lâm Đồng",
+    "minus5": "Huyện Đam Rông, Tỉnh Lâm Đồng",
+    "Code": "674",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Lạc Dương",
+    "minus2": "huyen",
+    "minus3": "lac-duong",
+    "Name": "Huyện Lạc Dương",
+    "minus4": "Lạc Dương, Lâm Đồng",
+    "minus5": "Huyện Lạc Dương, Tỉnh Lâm Đồng",
+    "Code": "675",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Lâm Hà",
+    "minus2": "huyen",
+    "minus3": "lam-ha",
+    "Name": "Huyện Lâm Hà",
+    "minus4": "Lâm Hà, Lâm Đồng",
+    "minus5": "Huyện Lâm Hà, Tỉnh Lâm Đồng",
+    "Code": "676",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Đơn Dương",
+    "minus2": "huyen",
+    "minus3": "don-duong",
+    "Name": "Huyện Đơn Dương",
+    "minus4": "Đơn Dương, Lâm Đồng",
+    "minus5": "Huyện Đơn Dương, Tỉnh Lâm Đồng",
+    "Code": "677",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Đức Trọng",
+    "minus2": "huyen",
+    "minus3": "duc-trong",
+    "Name": "Huyện Đức Trọng",
+    "minus4": "Đức Trọng, Lâm Đồng",
+    "minus5": "Huyện Đức Trọng, Tỉnh Lâm Đồng",
+    "Code": "678",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Di Linh",
+    "minus2": "huyen",
+    "minus3": "di-linh",
+    "Name": "Huyện Di Linh",
+    "minus4": "Di Linh, Lâm Đồng",
+    "minus5": "Huyện Di Linh, Tỉnh Lâm Đồng",
+    "Code": "679",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Bảo Lâm",
+    "minus2": "huyen",
+    "minus3": "bao-lam",
+    "Name": "Huyện Bảo Lâm",
+    "minus4": "Bảo Lâm, Lâm Đồng",
+    "minus5": "Huyện Bảo Lâm, Tỉnh Lâm Đồng",
+    "Code": "680",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Đạ Huoai",
+    "minus2": "huyen",
+    "minus3": "da-huoai",
+    "Name": "Huyện Đạ Huoai",
+    "minus4": "Đạ Huoai, Lâm Đồng",
+    "minus5": "Huyện Đạ Huoai, Tỉnh Lâm Đồng",
+    "Code": "681",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Đạ Tẻh",
+    "minus2": "huyen",
+    "minus3": "da-teh",
+    "Name": "Huyện Đạ Tẻh",
+    "minus4": "Đạ Tẻh, Lâm Đồng",
+    "minus5": "Huyện Đạ Tẻh, Tỉnh Lâm Đồng",
+    "Code": "682",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Cát Tiên",
+    "minus2": "huyen",
+    "minus3": "cat-tien",
+    "Name": "Huyện Cát Tiên",
+    "minus4": "Cát Tiên, Lâm Đồng",
+    "minus5": "Huyện Cát Tiên, Tỉnh Lâm Đồng",
+    "Code": "683",
+    "ParentCode": "68"
+  },
+  {
+    "minus1": "Phước Long",
+    "minus2": "thi-xa",
+    "minus3": "phuoc-long",
+    "Name": "Thị xã Phước Long",
+    "minus4": "Phước Long, Bình Phước",
+    "minus5": "Thị xã Phước Long, Tỉnh Bình Phước",
+    "Code": "688",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Đồng Xoài",
+    "minus2": "thanh-pho",
+    "minus3": "dong-xoai",
+    "Name": "Thành phố Đồng Xoài",
+    "minus4": "Đồng Xoài, Bình Phước",
+    "minus5": "Thành phố Đồng Xoài, Tỉnh Bình Phước",
+    "Code": "689",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Bình Long",
+    "minus2": "thi-xa",
+    "minus3": "binh-long",
+    "Name": "Thị xã Bình Long",
+    "minus4": "Bình Long, Bình Phước",
+    "minus5": "Thị xã Bình Long, Tỉnh Bình Phước",
+    "Code": "690",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Bù Gia Mập",
+    "minus2": "huyen",
+    "minus3": "bu-gia-map",
+    "Name": "Huyện Bù Gia Mập",
+    "minus4": "Bù Gia Mập, Bình Phước",
+    "minus5": "Huyện Bù Gia Mập, Tỉnh Bình Phước",
+    "Code": "691",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Lộc Ninh",
+    "minus2": "huyen",
+    "minus3": "loc-ninh",
+    "Name": "Huyện Lộc Ninh",
+    "minus4": "Lộc Ninh, Bình Phước",
+    "minus5": "Huyện Lộc Ninh, Tỉnh Bình Phước",
+    "Code": "692",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Bù Đốp",
+    "minus2": "huyen",
+    "minus3": "bu-dop",
+    "Name": "Huyện Bù Đốp",
+    "minus4": "Bù Đốp, Bình Phước",
+    "minus5": "Huyện Bù Đốp, Tỉnh Bình Phước",
+    "Code": "693",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Hớn Quản",
+    "minus2": "huyen",
+    "minus3": "hon-quan",
+    "Name": "Huyện Hớn Quản",
+    "minus4": "Hớn Quản, Bình Phước",
+    "minus5": "Huyện Hớn Quản, Tỉnh Bình Phước",
+    "Code": "694",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Đồng Phú",
+    "minus2": "huyen",
+    "minus3": "dong-phu",
+    "Name": "Huyện Đồng Phú",
+    "minus4": "Đồng Phú, Bình Phước",
+    "minus5": "Huyện Đồng Phú, Tỉnh Bình Phước",
+    "Code": "695",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Bù Đăng",
+    "minus2": "huyen",
+    "minus3": "bu-dang",
+    "Name": "Huyện Bù Đăng",
+    "minus4": "Bù Đăng, Bình Phước",
+    "minus5": "Huyện Bù Đăng, Tỉnh Bình Phước",
+    "Code": "696",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Chơn Thành",
+    "minus2": "thi-xa",
+    "minus3": "chon-thanh",
+    "Name": "Thị xã Chơn Thành",
+    "minus4": "Chơn Thành, Bình Phước",
+    "minus5": "Thị xã Chơn Thành, Tỉnh Bình Phước",
+    "Code": "697",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Phú Riềng",
+    "minus2": "huyen",
+    "minus3": "phu-rieng",
+    "Name": "Huyện Phú Riềng",
+    "minus4": "Phú Riềng, Bình Phước",
+    "minus5": "Huyện Phú Riềng, Tỉnh Bình Phước",
+    "Code": "698",
+    "ParentCode": "70"
+  },
+  {
+    "minus1": "Tây Ninh",
+    "minus2": "thanh-pho",
+    "minus3": "tay-ninh",
+    "Name": "Thành phố Tây Ninh",
+    "minus4": "Tây Ninh, Tây Ninh",
+    "minus5": "Thành phố Tây Ninh, Tỉnh Tây Ninh",
+    "Code": "703",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Tân Biên",
+    "minus2": "huyen",
+    "minus3": "tan-bien",
+    "Name": "Huyện Tân Biên",
+    "minus4": "Tân Biên, Tây Ninh",
+    "minus5": "Huyện Tân Biên, Tỉnh Tây Ninh",
+    "Code": "705",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Tân Châu",
+    "minus2": "huyen",
+    "minus3": "tan-chau",
+    "Name": "Huyện Tân Châu",
+    "minus4": "Tân Châu, Tây Ninh",
+    "minus5": "Huyện Tân Châu, Tỉnh Tây Ninh",
+    "Code": "706",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Dương Minh Châu",
+    "minus2": "huyen",
+    "minus3": "duong-minh-chau",
+    "Name": "Huyện Dương Minh Châu",
+    "minus4": "Dương Minh Châu, Tây Ninh",
+    "minus5": "Huyện Dương Minh Châu, Tỉnh Tây Ninh",
+    "Code": "707",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Tây Ninh",
+    "minus5": "Huyện Châu Thành, Tỉnh Tây Ninh",
+    "Code": "708",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Hòa Thành",
+    "minus2": "thi-xa",
+    "minus3": "hoa-thanh",
+    "Name": "Thị xã Hòa Thành",
+    "minus4": "Hòa Thành, Tây Ninh",
+    "minus5": "Thị xã Hòa Thành, Tỉnh Tây Ninh",
+    "Code": "709",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Gò Dầu",
+    "minus2": "huyen",
+    "minus3": "go-dau",
+    "Name": "Huyện Gò Dầu",
+    "minus4": "Gò Dầu, Tây Ninh",
+    "minus5": "Huyện Gò Dầu, Tỉnh Tây Ninh",
+    "Code": "710",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Bến Cầu",
+    "minus2": "huyen",
+    "minus3": "ben-cau",
+    "Name": "Huyện Bến Cầu",
+    "minus4": "Bến Cầu, Tây Ninh",
+    "minus5": "Huyện Bến Cầu, Tỉnh Tây Ninh",
+    "Code": "711",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Trảng Bàng",
+    "minus2": "thi-xa",
+    "minus3": "trang-bang",
+    "Name": "Thị xã Trảng Bàng",
+    "minus4": "Trảng Bàng, Tây Ninh",
+    "minus5": "Thị xã Trảng Bàng, Tỉnh Tây Ninh",
+    "Code": "712",
+    "ParentCode": "72"
+  },
+  {
+    "minus1": "Thủ Dầu Một",
+    "minus2": "thanh-pho",
+    "minus3": "thu-dau-mot",
+    "Name": "Thành phố Thủ Dầu Một",
+    "minus4": "Thủ Dầu Một, Bình Dương",
+    "minus5": "Thành phố Thủ Dầu Một, Tỉnh Bình Dương",
+    "Code": "718",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Bàu Bàng",
+    "minus2": "huyen",
+    "minus3": "bau-bang",
+    "Name": "Huyện Bàu Bàng",
+    "minus4": "Bàu Bàng, Bình Dương",
+    "minus5": "Huyện Bàu Bàng, Tỉnh Bình Dương",
+    "Code": "719",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Dầu Tiếng",
+    "minus2": "huyen",
+    "minus3": "dau-tieng",
+    "Name": "Huyện Dầu Tiếng",
+    "minus4": "Dầu Tiếng, Bình Dương",
+    "minus5": "Huyện Dầu Tiếng, Tỉnh Bình Dương",
+    "Code": "720",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Bến Cát",
+    "minus2": "thi-xa",
+    "minus3": "ben-cat",
+    "Name": "Thị xã Bến Cát",
+    "minus4": "Bến Cát, Bình Dương",
+    "minus5": "Thị xã Bến Cát, Tỉnh Bình Dương",
+    "Code": "721",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Phú Giáo",
+    "minus2": "huyen",
+    "minus3": "phu-giao",
+    "Name": "Huyện Phú Giáo",
+    "minus4": "Phú Giáo, Bình Dương",
+    "minus5": "Huyện Phú Giáo, Tỉnh Bình Dương",
+    "Code": "722",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Tân Uyên",
+    "minus2": "thanh-pho",
+    "minus3": "tan-uyen",
+    "Name": "Thành phố Tân Uyên",
+    "minus4": "Tân Uyên, Bình Dương",
+    "minus5": "Thành phố Tân Uyên, Tỉnh Bình Dương",
+    "Code": "723",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Dĩ An",
+    "minus2": "thanh-pho",
+    "minus3": "di-an",
+    "Name": "Thành phố Dĩ An",
+    "minus4": "Dĩ An, Bình Dương",
+    "minus5": "Thành phố Dĩ An, Tỉnh Bình Dương",
+    "Code": "724",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Thuận An",
+    "minus2": "thanh-pho",
+    "minus3": "thuan-an",
+    "Name": "Thành phố Thuận An",
+    "minus4": "Thuận An, Bình Dương",
+    "minus5": "Thành phố Thuận An, Tỉnh Bình Dương",
+    "Code": "725",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Bắc Tân Uyên",
+    "minus2": "huyen",
+    "minus3": "bac-tan-uyen",
+    "Name": "Huyện Bắc Tân Uyên",
+    "minus4": "Bắc Tân Uyên, Bình Dương",
+    "minus5": "Huyện Bắc Tân Uyên, Tỉnh Bình Dương",
+    "Code": "726",
+    "ParentCode": "74"
+  },
+  {
+    "minus1": "Biên Hòa",
+    "minus2": "thanh-pho",
+    "minus3": "bien-hoa",
+    "Name": "Thành phố Biên Hòa",
+    "minus4": "Biên Hòa, Đồng Nai",
+    "minus5": "Thành phố Biên Hòa, Tỉnh Đồng Nai",
+    "Code": "731",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Long Khánh",
+    "minus2": "thanh-pho",
+    "minus3": "long-khanh",
+    "Name": "Thành phố Long Khánh",
+    "minus4": "Long Khánh, Đồng Nai",
+    "minus5": "Thành phố Long Khánh, Tỉnh Đồng Nai",
+    "Code": "732",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Tân Phú",
+    "minus2": "huyen",
+    "minus3": "tan-phu",
+    "Name": "Huyện Tân Phú",
+    "minus4": "Tân Phú, Đồng Nai",
+    "minus5": "Huyện Tân Phú, Tỉnh Đồng Nai",
+    "Code": "734",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Vĩnh Cửu",
+    "minus2": "huyen",
+    "minus3": "vinh-cuu",
+    "Name": "Huyện Vĩnh Cửu",
+    "minus4": "Vĩnh Cửu, Đồng Nai",
+    "minus5": "Huyện Vĩnh Cửu, Tỉnh Đồng Nai",
+    "Code": "735",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Định Quán",
+    "minus2": "huyen",
+    "minus3": "dinh-quan",
+    "Name": "Huyện Định Quán",
+    "minus4": "Định Quán, Đồng Nai",
+    "minus5": "Huyện Định Quán, Tỉnh Đồng Nai",
+    "Code": "736",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Trảng Bom",
+    "minus2": "huyen",
+    "minus3": "trang-bom",
+    "Name": "Huyện Trảng Bom",
+    "minus4": "Trảng Bom, Đồng Nai",
+    "minus5": "Huyện Trảng Bom, Tỉnh Đồng Nai",
+    "Code": "737",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Thống Nhất",
+    "minus2": "huyen",
+    "minus3": "thong-nhat",
+    "Name": "Huyện Thống Nhất",
+    "minus4": "Thống Nhất, Đồng Nai",
+    "minus5": "Huyện Thống Nhất, Tỉnh Đồng Nai",
+    "Code": "738",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Cẩm Mỹ",
+    "minus2": "huyen",
+    "minus3": "cam-my",
+    "Name": "Huyện Cẩm Mỹ",
+    "minus4": "Cẩm Mỹ, Đồng Nai",
+    "minus5": "Huyện Cẩm Mỹ, Tỉnh Đồng Nai",
+    "Code": "739",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Long Thành",
+    "minus2": "huyen",
+    "minus3": "long-thanh",
+    "Name": "Huyện Long Thành",
+    "minus4": "Long Thành, Đồng Nai",
+    "minus5": "Huyện Long Thành, Tỉnh Đồng Nai",
+    "Code": "740",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Xuân Lộc",
+    "minus2": "huyen",
+    "minus3": "xuan-loc",
+    "Name": "Huyện Xuân Lộc",
+    "minus4": "Xuân Lộc, Đồng Nai",
+    "minus5": "Huyện Xuân Lộc, Tỉnh Đồng Nai",
+    "Code": "741",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Nhơn Trạch",
+    "minus2": "huyen",
+    "minus3": "nhon-trach",
+    "Name": "Huyện Nhơn Trạch",
+    "minus4": "Nhơn Trạch, Đồng Nai",
+    "minus5": "Huyện Nhơn Trạch, Tỉnh Đồng Nai",
+    "Code": "742",
+    "ParentCode": "75"
+  },
+  {
+    "minus1": "Vũng Tàu",
+    "minus2": "thanh-pho",
+    "minus3": "vung-tau",
+    "Name": "Thành phố Vũng Tàu",
+    "minus4": "Vũng Tàu, Bà Rịa - Vũng Tàu",
+    "minus5": "Thành phố Vũng Tàu, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "747",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Bà Rịa",
+    "minus2": "thanh-pho",
+    "minus3": "ba-ria",
+    "Name": "Thành phố Bà Rịa",
+    "minus4": "Bà Rịa, Bà Rịa - Vũng Tàu",
+    "minus5": "Thành phố Bà Rịa, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "748",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Châu Đức",
+    "minus2": "huyen",
+    "minus3": "chau-duc",
+    "Name": "Huyện Châu Đức",
+    "minus4": "Châu Đức, Bà Rịa - Vũng Tàu",
+    "minus5": "Huyện Châu Đức, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "750",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Xuyên Mộc",
+    "minus2": "huyen",
+    "minus3": "xuyen-moc",
+    "Name": "Huyện Xuyên Mộc",
+    "minus4": "Xuyên Mộc, Bà Rịa - Vũng Tàu",
+    "minus5": "Huyện Xuyên Mộc, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "751",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Long Điền",
+    "minus2": "huyen",
+    "minus3": "long-dien",
+    "Name": "Huyện Long Điền",
+    "minus4": "Long Điền, Bà Rịa - Vũng Tàu",
+    "minus5": "Huyện Long Điền, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "752",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Đất Đỏ",
+    "minus2": "huyen",
+    "minus3": "dat-do",
+    "Name": "Huyện Đất Đỏ",
+    "minus4": "Đất Đỏ, Bà Rịa - Vũng Tàu",
+    "minus5": "Huyện Đất Đỏ, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "753",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Phú Mỹ",
+    "minus2": "thi-xa",
+    "minus3": "phu-my",
+    "Name": "Thị xã Phú Mỹ",
+    "minus4": "Phú Mỹ, Bà Rịa - Vũng Tàu",
+    "minus5": "Thị xã Phú Mỹ, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "754",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "Côn Đảo",
+    "minus2": "huyen",
+    "minus3": "con-dao",
+    "Name": "Huyện Côn Đảo",
+    "minus4": "Côn Đảo, Bà Rịa - Vũng Tàu",
+    "minus5": "Huyện Côn Đảo, Tỉnh Bà Rịa - Vũng Tàu",
+    "Code": "755",
+    "ParentCode": "77"
+  },
+  {
+    "minus1": "1",
+    "minus2": "quan",
+    "minus3": "1",
+    "Name": "Quận 1",
+    "minus4": "1, Hồ Chí Minh",
+    "minus5": "Quận 1, Thành phố Hồ Chí Minh",
+    "Code": "760",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "12",
+    "minus2": "quan",
+    "minus3": "12",
+    "Name": "Quận 12",
+    "minus4": "12, Hồ Chí Minh",
+    "minus5": "Quận 12, Thành phố Hồ Chí Minh",
+    "Code": "761",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Gò Vấp",
+    "minus2": "quan",
+    "minus3": "go-vap",
+    "Name": "Quận Gò Vấp",
+    "minus4": "Gò Vấp, Hồ Chí Minh",
+    "minus5": "Quận Gò Vấp, Thành phố Hồ Chí Minh",
+    "Code": "764",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Bình Thạnh",
+    "minus2": "quan",
+    "minus3": "binh-thanh",
+    "Name": "Quận Bình Thạnh",
+    "minus4": "Bình Thạnh, Hồ Chí Minh",
+    "minus5": "Quận Bình Thạnh, Thành phố Hồ Chí Minh",
+    "Code": "765",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Tân Bình",
+    "minus2": "quan",
+    "minus3": "tan-binh",
+    "Name": "Quận Tân Bình",
+    "minus4": "Tân Bình, Hồ Chí Minh",
+    "minus5": "Quận Tân Bình, Thành phố Hồ Chí Minh",
+    "Code": "766",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Tân Phú",
+    "minus2": "quan",
+    "minus3": "tan-phu",
+    "Name": "Quận Tân Phú",
+    "minus4": "Tân Phú, Hồ Chí Minh",
+    "minus5": "Quận Tân Phú, Thành phố Hồ Chí Minh",
+    "Code": "767",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Phú Nhuận",
+    "minus2": "quan",
+    "minus3": "phu-nhuan",
+    "Name": "Quận Phú Nhuận",
+    "minus4": "Phú Nhuận, Hồ Chí Minh",
+    "minus5": "Quận Phú Nhuận, Thành phố Hồ Chí Minh",
+    "Code": "768",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Thủ Đức",
+    "minus2": "thanh-pho",
+    "minus3": "thu-duc",
+    "Name": "Thành phố Thủ Đức",
+    "minus4": "Thủ Đức, Hồ Chí Minh",
+    "minus5": "Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
+    "Code": "769",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "3",
+    "minus2": "quan",
+    "minus3": "3",
+    "Name": "Quận 3",
+    "minus4": "3, Hồ Chí Minh",
+    "minus5": "Quận 3, Thành phố Hồ Chí Minh",
+    "Code": "770",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "10",
+    "minus2": "quan",
+    "minus3": "10",
+    "Name": "Quận 10",
+    "minus4": "10, Hồ Chí Minh",
+    "minus5": "Quận 10, Thành phố Hồ Chí Minh",
+    "Code": "771",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "11",
+    "minus2": "quan",
+    "minus3": "11",
+    "Name": "Quận 11",
+    "minus4": "11, Hồ Chí Minh",
+    "minus5": "Quận 11, Thành phố Hồ Chí Minh",
+    "Code": "772",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "4",
+    "minus2": "quan",
+    "minus3": "4",
+    "Name": "Quận 4",
+    "minus4": "4, Hồ Chí Minh",
+    "minus5": "Quận 4, Thành phố Hồ Chí Minh",
+    "Code": "773",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "5",
+    "minus2": "quan",
+    "minus3": "5",
+    "Name": "Quận 5",
+    "minus4": "5, Hồ Chí Minh",
+    "minus5": "Quận 5, Thành phố Hồ Chí Minh",
+    "Code": "774",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "6",
+    "minus2": "quan",
+    "minus3": "6",
+    "Name": "Quận 6",
+    "minus4": "6, Hồ Chí Minh",
+    "minus5": "Quận 6, Thành phố Hồ Chí Minh",
+    "Code": "775",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "8",
+    "minus2": "quan",
+    "minus3": "8",
+    "Name": "Quận 8",
+    "minus4": "8, Hồ Chí Minh",
+    "minus5": "Quận 8, Thành phố Hồ Chí Minh",
+    "Code": "776",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Bình Tân",
+    "minus2": "quan",
+    "minus3": "binh-tan",
+    "Name": "Quận Bình Tân",
+    "minus4": "Bình Tân, Hồ Chí Minh",
+    "minus5": "Quận Bình Tân, Thành phố Hồ Chí Minh",
+    "Code": "777",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "7",
+    "minus2": "quan",
+    "minus3": "7",
+    "Name": "Quận 7",
+    "minus4": "7, Hồ Chí Minh",
+    "minus5": "Quận 7, Thành phố Hồ Chí Minh",
+    "Code": "778",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Củ Chi",
+    "minus2": "huyen",
+    "minus3": "cu-chi",
+    "Name": "Huyện Củ Chi",
+    "minus4": "Củ Chi, Hồ Chí Minh",
+    "minus5": "Huyện Củ Chi, Thành phố Hồ Chí Minh",
+    "Code": "783",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Hóc Môn",
+    "minus2": "huyen",
+    "minus3": "hoc-mon",
+    "Name": "Huyện Hóc Môn",
+    "minus4": "Hóc Môn, Hồ Chí Minh",
+    "minus5": "Huyện Hóc Môn, Thành phố Hồ Chí Minh",
+    "Code": "784",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Bình Chánh",
+    "minus2": "huyen",
+    "minus3": "binh-chanh",
+    "Name": "Huyện Bình Chánh",
+    "minus4": "Bình Chánh, Hồ Chí Minh",
+    "minus5": "Huyện Bình Chánh, Thành phố Hồ Chí Minh",
+    "Code": "785",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Nhà Bè",
+    "minus2": "huyen",
+    "minus3": "nha-be",
+    "Name": "Huyện Nhà Bè",
+    "minus4": "Nhà Bè, Hồ Chí Minh",
+    "minus5": "Huyện Nhà Bè, Thành phố Hồ Chí Minh",
+    "Code": "786",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Cần Giờ",
+    "minus2": "huyen",
+    "minus3": "can-gio",
+    "Name": "Huyện Cần Giờ",
+    "minus4": "Cần Giờ, Hồ Chí Minh",
+    "minus5": "Huyện Cần Giờ, Thành phố Hồ Chí Minh",
+    "Code": "787",
+    "ParentCode": "79"
+  },
+  {
+    "minus1": "Tân An",
+    "minus2": "thanh-pho",
+    "minus3": "tan-an",
+    "Name": "Thành phố Tân An",
+    "minus4": "Tân An, Long An",
+    "minus5": "Thành phố Tân An, Tỉnh Long An",
+    "Code": "794",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Kiến Tường",
+    "minus2": "thi-xa",
+    "minus3": "kien-tuong",
+    "Name": "Thị xã Kiến Tường",
+    "minus4": "Kiến Tường, Long An",
+    "minus5": "Thị xã Kiến Tường, Tỉnh Long An",
+    "Code": "795",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Tân Hưng",
+    "minus2": "huyen",
+    "minus3": "tan-hung",
+    "Name": "Huyện Tân Hưng",
+    "minus4": "Tân Hưng, Long An",
+    "minus5": "Huyện Tân Hưng, Tỉnh Long An",
+    "Code": "796",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Vĩnh Hưng",
+    "minus2": "huyen",
+    "minus3": "vinh-hung",
+    "Name": "Huyện Vĩnh Hưng",
+    "minus4": "Vĩnh Hưng, Long An",
+    "minus5": "Huyện Vĩnh Hưng, Tỉnh Long An",
+    "Code": "797",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Mộc Hóa",
+    "minus2": "huyen",
+    "minus3": "moc-hoa",
+    "Name": "Huyện Mộc Hóa",
+    "minus4": "Mộc Hóa, Long An",
+    "minus5": "Huyện Mộc Hóa, Tỉnh Long An",
+    "Code": "798",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Tân Thạnh",
+    "minus2": "huyen",
+    "minus3": "tan-thanh",
+    "Name": "Huyện Tân Thạnh",
+    "minus4": "Tân Thạnh, Long An",
+    "minus5": "Huyện Tân Thạnh, Tỉnh Long An",
+    "Code": "799",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Thạnh Hóa",
+    "minus2": "huyen",
+    "minus3": "thanh-hoa",
+    "Name": "Huyện Thạnh Hóa",
+    "minus4": "Thạnh Hóa, Long An",
+    "minus5": "Huyện Thạnh Hóa, Tỉnh Long An",
+    "Code": "800",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Đức Huệ",
+    "minus2": "huyen",
+    "minus3": "duc-hue",
+    "Name": "Huyện Đức Huệ",
+    "minus4": "Đức Huệ, Long An",
+    "minus5": "Huyện Đức Huệ, Tỉnh Long An",
+    "Code": "801",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Đức Hòa",
+    "minus2": "huyen",
+    "minus3": "duc-hoa",
+    "Name": "Huyện Đức Hòa",
+    "minus4": "Đức Hòa, Long An",
+    "minus5": "Huyện Đức Hòa, Tỉnh Long An",
+    "Code": "802",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Bến Lức",
+    "minus2": "huyen",
+    "minus3": "ben-luc",
+    "Name": "Huyện Bến Lức",
+    "minus4": "Bến Lức, Long An",
+    "minus5": "Huyện Bến Lức, Tỉnh Long An",
+    "Code": "803",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Thủ Thừa",
+    "minus2": "huyen",
+    "minus3": "thu-thua",
+    "Name": "Huyện Thủ Thừa",
+    "minus4": "Thủ Thừa, Long An",
+    "minus5": "Huyện Thủ Thừa, Tỉnh Long An",
+    "Code": "804",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Tân Trụ",
+    "minus2": "huyen",
+    "minus3": "tan-tru",
+    "Name": "Huyện Tân Trụ",
+    "minus4": "Tân Trụ, Long An",
+    "minus5": "Huyện Tân Trụ, Tỉnh Long An",
+    "Code": "805",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Cần Đước",
+    "minus2": "huyen",
+    "minus3": "can-duoc",
+    "Name": "Huyện Cần Đước",
+    "minus4": "Cần Đước, Long An",
+    "minus5": "Huyện Cần Đước, Tỉnh Long An",
+    "Code": "806",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Cần Giuộc",
+    "minus2": "huyen",
+    "minus3": "can-giuoc",
+    "Name": "Huyện Cần Giuộc",
+    "minus4": "Cần Giuộc, Long An",
+    "minus5": "Huyện Cần Giuộc, Tỉnh Long An",
+    "Code": "807",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Long An",
+    "minus5": "Huyện Châu Thành, Tỉnh Long An",
+    "Code": "808",
+    "ParentCode": "80"
+  },
+  {
+    "minus1": "Mỹ Tho",
+    "minus2": "thanh-pho",
+    "minus3": "my-tho",
+    "Name": "Thành phố Mỹ Tho",
+    "minus4": "Mỹ Tho, Tiền Giang",
+    "minus5": "Thành phố Mỹ Tho, Tỉnh Tiền Giang",
+    "Code": "815",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Gò Công",
+    "minus2": "thi-xa",
+    "minus3": "go-cong",
+    "Name": "Thị xã Gò Công",
+    "minus4": "Gò Công, Tiền Giang",
+    "minus5": "Thị xã Gò Công, Tỉnh Tiền Giang",
+    "Code": "816",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Cai Lậy",
+    "minus2": "thi-xa",
+    "minus3": "cai-lay",
+    "Name": "Thị xã Cai Lậy",
+    "minus4": "Cai Lậy, Tiền Giang",
+    "minus5": "Thị xã Cai Lậy, Tỉnh Tiền Giang",
+    "Code": "817",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Tân Phước",
+    "minus2": "huyen",
+    "minus3": "tan-phuoc",
+    "Name": "Huyện Tân Phước",
+    "minus4": "Tân Phước, Tiền Giang",
+    "minus5": "Huyện Tân Phước, Tỉnh Tiền Giang",
+    "Code": "818",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Cái Bè",
+    "minus2": "huyen",
+    "minus3": "cai-be",
+    "Name": "Huyện Cái Bè",
+    "minus4": "Cái Bè, Tiền Giang",
+    "minus5": "Huyện Cái Bè, Tỉnh Tiền Giang",
+    "Code": "819",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Cai Lậy",
+    "minus2": "huyen",
+    "minus3": "cai-lay",
+    "Name": "Huyện Cai Lậy",
+    "minus4": "Cai Lậy, Tiền Giang",
+    "minus5": "Huyện Cai Lậy, Tỉnh Tiền Giang",
+    "Code": "820",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Tiền Giang",
+    "minus5": "Huyện Châu Thành, Tỉnh Tiền Giang",
+    "Code": "821",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Chợ Gạo",
+    "minus2": "huyen",
+    "minus3": "cho-gao",
+    "Name": "Huyện Chợ Gạo",
+    "minus4": "Chợ Gạo, Tiền Giang",
+    "minus5": "Huyện Chợ Gạo, Tỉnh Tiền Giang",
+    "Code": "822",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Gò Công Tây",
+    "minus2": "huyen",
+    "minus3": "go-cong-tay",
+    "Name": "Huyện Gò Công Tây",
+    "minus4": "Gò Công Tây, Tiền Giang",
+    "minus5": "Huyện Gò Công Tây, Tỉnh Tiền Giang",
+    "Code": "823",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Gò Công Đông",
+    "minus2": "huyen",
+    "minus3": "go-cong-dong",
+    "Name": "Huyện Gò Công Đông",
+    "minus4": "Gò Công Đông, Tiền Giang",
+    "minus5": "Huyện Gò Công Đông, Tỉnh Tiền Giang",
+    "Code": "824",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Tân Phú Đông",
+    "minus2": "huyen",
+    "minus3": "tan-phu-dong",
+    "Name": "Huyện Tân Phú Đông",
+    "minus4": "Tân Phú Đông, Tiền Giang",
+    "minus5": "Huyện Tân Phú Đông, Tỉnh Tiền Giang",
+    "Code": "825",
+    "ParentCode": "82"
+  },
+  {
+    "minus1": "Bến Tre",
+    "minus2": "thanh-pho",
+    "minus3": "ben-tre",
+    "Name": "Thành phố Bến Tre",
+    "minus4": "Bến Tre, Bến Tre",
+    "minus5": "Thành phố Bến Tre, Tỉnh Bến Tre",
+    "Code": "829",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Bến Tre",
+    "minus5": "Huyện Châu Thành, Tỉnh Bến Tre",
+    "Code": "831",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Chợ Lách",
+    "minus2": "huyen",
+    "minus3": "cho-lach",
+    "Name": "Huyện Chợ Lách",
+    "minus4": "Chợ Lách, Bến Tre",
+    "minus5": "Huyện Chợ Lách, Tỉnh Bến Tre",
+    "Code": "832",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Mỏ Cày Nam",
+    "minus2": "huyen",
+    "minus3": "mo-cay-nam",
+    "Name": "Huyện Mỏ Cày Nam",
+    "minus4": "Mỏ Cày Nam, Bến Tre",
+    "minus5": "Huyện Mỏ Cày Nam, Tỉnh Bến Tre",
+    "Code": "833",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Giồng Trôm",
+    "minus2": "huyen",
+    "minus3": "giong-trom",
+    "Name": "Huyện Giồng Trôm",
+    "minus4": "Giồng Trôm, Bến Tre",
+    "minus5": "Huyện Giồng Trôm, Tỉnh Bến Tre",
+    "Code": "834",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Bình Đại",
+    "minus2": "huyen",
+    "minus3": "binh-dai",
+    "Name": "Huyện Bình Đại",
+    "minus4": "Bình Đại, Bến Tre",
+    "minus5": "Huyện Bình Đại, Tỉnh Bến Tre",
+    "Code": "835",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Ba Tri",
+    "minus2": "huyen",
+    "minus3": "ba-tri",
+    "Name": "Huyện Ba Tri",
+    "minus4": "Ba Tri, Bến Tre",
+    "minus5": "Huyện Ba Tri, Tỉnh Bến Tre",
+    "Code": "836",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Thạnh Phú",
+    "minus2": "huyen",
+    "minus3": "thanh-phu",
+    "Name": "Huyện Thạnh Phú",
+    "minus4": "Thạnh Phú, Bến Tre",
+    "minus5": "Huyện Thạnh Phú, Tỉnh Bến Tre",
+    "Code": "837",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Mỏ Cày Bắc",
+    "minus2": "huyen",
+    "minus3": "mo-cay-bac",
+    "Name": "Huyện Mỏ Cày Bắc",
+    "minus4": "Mỏ Cày Bắc, Bến Tre",
+    "minus5": "Huyện Mỏ Cày Bắc, Tỉnh Bến Tre",
+    "Code": "838",
+    "ParentCode": "83"
+  },
+  {
+    "minus1": "Trà Vinh",
+    "minus2": "thanh-pho",
+    "minus3": "tra-vinh",
+    "Name": "Thành phố Trà Vinh",
+    "minus4": "Trà Vinh, Trà Vinh",
+    "minus5": "Thành phố Trà Vinh, Tỉnh Trà Vinh",
+    "Code": "842",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Càng Long",
+    "minus2": "huyen",
+    "minus3": "cang-long",
+    "Name": "Huyện Càng Long",
+    "minus4": "Càng Long, Trà Vinh",
+    "minus5": "Huyện Càng Long, Tỉnh Trà Vinh",
+    "Code": "844",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Cầu Kè",
+    "minus2": "huyen",
+    "minus3": "cau-ke",
+    "Name": "Huyện Cầu Kè",
+    "minus4": "Cầu Kè, Trà Vinh",
+    "minus5": "Huyện Cầu Kè, Tỉnh Trà Vinh",
+    "Code": "845",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Tiểu Cần",
+    "minus2": "huyen",
+    "minus3": "tieu-can",
+    "Name": "Huyện Tiểu Cần",
+    "minus4": "Tiểu Cần, Trà Vinh",
+    "minus5": "Huyện Tiểu Cần, Tỉnh Trà Vinh",
+    "Code": "846",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Trà Vinh",
+    "minus5": "Huyện Châu Thành, Tỉnh Trà Vinh",
+    "Code": "847",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Cầu Ngang",
+    "minus2": "huyen",
+    "minus3": "cau-ngang",
+    "Name": "Huyện Cầu Ngang",
+    "minus4": "Cầu Ngang, Trà Vinh",
+    "minus5": "Huyện Cầu Ngang, Tỉnh Trà Vinh",
+    "Code": "848",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Trà Cú",
+    "minus2": "huyen",
+    "minus3": "tra-cu",
+    "Name": "Huyện Trà Cú",
+    "minus4": "Trà Cú, Trà Vinh",
+    "minus5": "Huyện Trà Cú, Tỉnh Trà Vinh",
+    "Code": "849",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Duyên Hải",
+    "minus2": "huyen",
+    "minus3": "duyen-hai",
+    "Name": "Huyện Duyên Hải",
+    "minus4": "Duyên Hải, Trà Vinh",
+    "minus5": "Huyện Duyên Hải, Tỉnh Trà Vinh",
+    "Code": "850",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Duyên Hải",
+    "minus2": "thi-xa",
+    "minus3": "duyen-hai",
+    "Name": "Thị xã Duyên Hải",
+    "minus4": "Duyên Hải, Trà Vinh",
+    "minus5": "Thị xã Duyên Hải, Tỉnh Trà Vinh",
+    "Code": "851",
+    "ParentCode": "84"
+  },
+  {
+    "minus1": "Vĩnh Long",
+    "minus2": "thanh-pho",
+    "minus3": "vinh-long",
+    "Name": "Thành phố Vĩnh Long",
+    "minus4": "Vĩnh Long, Vĩnh Long",
+    "minus5": "Thành phố Vĩnh Long, Tỉnh Vĩnh Long",
+    "Code": "855",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Long Hồ",
+    "minus2": "huyen",
+    "minus3": "long-ho",
+    "Name": "Huyện Long Hồ",
+    "minus4": "Long Hồ, Vĩnh Long",
+    "minus5": "Huyện Long Hồ, Tỉnh Vĩnh Long",
+    "Code": "857",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Mang Thít",
+    "minus2": "huyen",
+    "minus3": "mang-thit",
+    "Name": "Huyện Mang Thít",
+    "minus4": "Mang Thít, Vĩnh Long",
+    "minus5": "Huyện Mang Thít, Tỉnh Vĩnh Long",
+    "Code": "858",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Vũng Liêm",
+    "minus2": "huyen",
+    "minus3": "vung-liem",
+    "Name": "Huyện  Vũng Liêm",
+    "minus4": "Vũng Liêm, Vĩnh Long",
+    "minus5": "Huyện  Vũng Liêm, Tỉnh Vĩnh Long",
+    "Code": "859",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Tam Bình",
+    "minus2": "huyen",
+    "minus3": "tam-binh",
+    "Name": "Huyện Tam Bình",
+    "minus4": "Tam Bình, Vĩnh Long",
+    "minus5": "Huyện Tam Bình, Tỉnh Vĩnh Long",
+    "Code": "860",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Bình Minh",
+    "minus2": "thi-xa",
+    "minus3": "binh-minh",
+    "Name": "Thị xã Bình Minh",
+    "minus4": "Bình Minh, Vĩnh Long",
+    "minus5": "Thị xã Bình Minh, Tỉnh Vĩnh Long",
+    "Code": "861",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Trà Ôn",
+    "minus2": "huyen",
+    "minus3": "tra-on",
+    "Name": "Huyện Trà Ôn",
+    "minus4": "Trà Ôn, Vĩnh Long",
+    "minus5": "Huyện Trà Ôn, Tỉnh Vĩnh Long",
+    "Code": "862",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Bình Tân",
+    "minus2": "huyen",
+    "minus3": "binh-tan",
+    "Name": "Huyện Bình Tân",
+    "minus4": "Bình Tân, Vĩnh Long",
+    "minus5": "Huyện Bình Tân, Tỉnh Vĩnh Long",
+    "Code": "863",
+    "ParentCode": "86"
+  },
+  {
+    "minus1": "Cao Lãnh",
+    "minus2": "thanh-pho",
+    "minus3": "cao-lanh",
+    "Name": "Thành phố Cao Lãnh",
+    "minus4": "Cao Lãnh, Đồng Tháp",
+    "minus5": "Thành phố Cao Lãnh, Tỉnh Đồng Tháp",
+    "Code": "866",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Sa Đéc",
+    "minus2": "thanh-pho",
+    "minus3": "sa-dec",
+    "Name": "Thành phố Sa Đéc",
+    "minus4": "Sa Đéc, Đồng Tháp",
+    "minus5": "Thành phố Sa Đéc, Tỉnh Đồng Tháp",
+    "Code": "867",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Hồng Ngự",
+    "minus2": "thanh-pho",
+    "minus3": "hong-ngu",
+    "Name": "Thành phố Hồng Ngự",
+    "minus4": "Hồng Ngự, Đồng Tháp",
+    "minus5": "Thành phố Hồng Ngự, Tỉnh Đồng Tháp",
+    "Code": "868",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Tân Hồng",
+    "minus2": "huyen",
+    "minus3": "tan-hong",
+    "Name": "Huyện Tân Hồng",
+    "minus4": "Tân Hồng, Đồng Tháp",
+    "minus5": "Huyện Tân Hồng, Tỉnh Đồng Tháp",
+    "Code": "869",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Hồng Ngự",
+    "minus2": "huyen",
+    "minus3": "hong-ngu",
+    "Name": "Huyện Hồng Ngự",
+    "minus4": "Hồng Ngự, Đồng Tháp",
+    "minus5": "Huyện Hồng Ngự, Tỉnh Đồng Tháp",
+    "Code": "870",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Tam Nông",
+    "minus2": "huyen",
+    "minus3": "tam-nong",
+    "Name": "Huyện Tam Nông",
+    "minus4": "Tam Nông, Đồng Tháp",
+    "minus5": "Huyện Tam Nông, Tỉnh Đồng Tháp",
+    "Code": "871",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Tháp Mười",
+    "minus2": "huyen",
+    "minus3": "thap-muoi",
+    "Name": "Huyện Tháp Mười",
+    "minus4": "Tháp Mười, Đồng Tháp",
+    "minus5": "Huyện Tháp Mười, Tỉnh Đồng Tháp",
+    "Code": "872",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Cao Lãnh",
+    "minus2": "huyen",
+    "minus3": "cao-lanh",
+    "Name": "Huyện Cao Lãnh",
+    "minus4": "Cao Lãnh, Đồng Tháp",
+    "minus5": "Huyện Cao Lãnh, Tỉnh Đồng Tháp",
+    "Code": "873",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Thanh Bình",
+    "minus2": "huyen",
+    "minus3": "thanh-binh",
+    "Name": "Huyện Thanh Bình",
+    "minus4": "Thanh Bình, Đồng Tháp",
+    "minus5": "Huyện Thanh Bình, Tỉnh Đồng Tháp",
+    "Code": "874",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Lấp Vò",
+    "minus2": "huyen",
+    "minus3": "lap-vo",
+    "Name": "Huyện Lấp Vò",
+    "minus4": "Lấp Vò, Đồng Tháp",
+    "minus5": "Huyện Lấp Vò, Tỉnh Đồng Tháp",
+    "Code": "875",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Lai Vung",
+    "minus2": "huyen",
+    "minus3": "lai-vung",
+    "Name": "Huyện Lai Vung",
+    "minus4": "Lai Vung, Đồng Tháp",
+    "minus5": "Huyện Lai Vung, Tỉnh Đồng Tháp",
+    "Code": "876",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Đồng Tháp",
+    "minus5": "Huyện Châu Thành, Tỉnh Đồng Tháp",
+    "Code": "877",
+    "ParentCode": "87"
+  },
+  {
+    "minus1": "Long Xuyên",
+    "minus2": "thanh-pho",
+    "minus3": "long-xuyen",
+    "Name": "Thành phố Long Xuyên",
+    "minus4": "Long Xuyên, An Giang",
+    "minus5": "Thành phố Long Xuyên, Tỉnh An Giang",
+    "Code": "883",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Châu Đốc",
+    "minus2": "thanh-pho",
+    "minus3": "chau-doc",
+    "Name": "Thành phố Châu Đốc",
+    "minus4": "Châu Đốc, An Giang",
+    "minus5": "Thành phố Châu Đốc, Tỉnh An Giang",
+    "Code": "884",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "An Phú",
+    "minus2": "huyen",
+    "minus3": "an-phu",
+    "Name": "Huyện An Phú",
+    "minus4": "An Phú, An Giang",
+    "minus5": "Huyện An Phú, Tỉnh An Giang",
+    "Code": "886",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Tân Châu",
+    "minus2": "thi-xa",
+    "minus3": "tan-chau",
+    "Name": "Thị xã Tân Châu",
+    "minus4": "Tân Châu, An Giang",
+    "minus5": "Thị xã Tân Châu, Tỉnh An Giang",
+    "Code": "887",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Phú Tân",
+    "minus2": "huyen",
+    "minus3": "phu-tan",
+    "Name": "Huyện Phú Tân",
+    "minus4": "Phú Tân, An Giang",
+    "minus5": "Huyện Phú Tân, Tỉnh An Giang",
+    "Code": "888",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Châu Phú",
+    "minus2": "huyen",
+    "minus3": "chau-phu",
+    "Name": "Huyện Châu Phú",
+    "minus4": "Châu Phú, An Giang",
+    "minus5": "Huyện Châu Phú, Tỉnh An Giang",
+    "Code": "889",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Tịnh Biên",
+    "minus2": "thi-xa",
+    "minus3": "tinh-bien",
+    "Name": "Thị xã Tịnh Biên",
+    "minus4": "Tịnh Biên, An Giang",
+    "minus5": "Thị xã Tịnh Biên, Tỉnh An Giang",
+    "Code": "890",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Tri Tôn",
+    "minus2": "huyen",
+    "minus3": "tri-ton",
+    "Name": "Huyện Tri Tôn",
+    "minus4": "Tri Tôn, An Giang",
+    "minus5": "Huyện Tri Tôn, Tỉnh An Giang",
+    "Code": "891",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, An Giang",
+    "minus5": "Huyện Châu Thành, Tỉnh An Giang",
+    "Code": "892",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Chợ Mới",
+    "minus2": "huyen",
+    "minus3": "cho-moi",
+    "Name": "Huyện Chợ Mới",
+    "minus4": "Chợ Mới, An Giang",
+    "minus5": "Huyện Chợ Mới, Tỉnh An Giang",
+    "Code": "893",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Thoại Sơn",
+    "minus2": "huyen",
+    "minus3": "thoai-son",
+    "Name": "Huyện Thoại Sơn",
+    "minus4": "Thoại Sơn, An Giang",
+    "minus5": "Huyện Thoại Sơn, Tỉnh An Giang",
+    "Code": "894",
+    "ParentCode": "89"
+  },
+  {
+    "minus1": "Rạch Giá",
+    "minus2": "thanh-pho",
+    "minus3": "rach-gia",
+    "Name": "Thành phố Rạch Giá",
+    "minus4": "Rạch Giá, Kiên Giang",
+    "minus5": "Thành phố Rạch Giá, Tỉnh Kiên Giang",
+    "Code": "899",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Hà Tiên",
+    "minus2": "thanh-pho",
+    "minus3": "ha-tien",
+    "Name": "Thành phố Hà Tiên",
+    "minus4": "Hà Tiên, Kiên Giang",
+    "minus5": "Thành phố Hà Tiên, Tỉnh Kiên Giang",
+    "Code": "900",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Kiên Lương",
+    "minus2": "huyen",
+    "minus3": "kien-luong",
+    "Name": "Huyện Kiên Lương",
+    "minus4": "Kiên Lương, Kiên Giang",
+    "minus5": "Huyện Kiên Lương, Tỉnh Kiên Giang",
+    "Code": "902",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Hòn Đất",
+    "minus2": "huyen",
+    "minus3": "hon-dat",
+    "Name": "Huyện Hòn Đất",
+    "minus4": "Hòn Đất, Kiên Giang",
+    "minus5": "Huyện Hòn Đất, Tỉnh Kiên Giang",
+    "Code": "903",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Tân Hiệp",
+    "minus2": "huyen",
+    "minus3": "tan-hiep",
+    "Name": "Huyện Tân Hiệp",
+    "minus4": "Tân Hiệp, Kiên Giang",
+    "minus5": "Huyện Tân Hiệp, Tỉnh Kiên Giang",
+    "Code": "904",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Kiên Giang",
+    "minus5": "Huyện Châu Thành, Tỉnh Kiên Giang",
+    "Code": "905",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Giồng Riềng",
+    "minus2": "huyen",
+    "minus3": "giong-rieng",
+    "Name": "Huyện Giồng Riềng",
+    "minus4": "Giồng Riềng, Kiên Giang",
+    "minus5": "Huyện Giồng Riềng, Tỉnh Kiên Giang",
+    "Code": "906",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Gò Quao",
+    "minus2": "huyen",
+    "minus3": "go-quao",
+    "Name": "Huyện Gò Quao",
+    "minus4": "Gò Quao, Kiên Giang",
+    "minus5": "Huyện Gò Quao, Tỉnh Kiên Giang",
+    "Code": "907",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "An Biên",
+    "minus2": "huyen",
+    "minus3": "an-bien",
+    "Name": "Huyện An Biên",
+    "minus4": "An Biên, Kiên Giang",
+    "minus5": "Huyện An Biên, Tỉnh Kiên Giang",
+    "Code": "908",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "An Minh",
+    "minus2": "huyen",
+    "minus3": "an-minh",
+    "Name": "Huyện An Minh",
+    "minus4": "An Minh, Kiên Giang",
+    "minus5": "Huyện An Minh, Tỉnh Kiên Giang",
+    "Code": "909",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Vĩnh Thuận",
+    "minus2": "huyen",
+    "minus3": "vinh-thuan",
+    "Name": "Huyện Vĩnh Thuận",
+    "minus4": "Vĩnh Thuận, Kiên Giang",
+    "minus5": "Huyện Vĩnh Thuận, Tỉnh Kiên Giang",
+    "Code": "910",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Phú Quốc",
+    "minus2": "thanh-pho",
+    "minus3": "phu-quoc",
+    "Name": "Thành phố Phú Quốc",
+    "minus4": "Phú Quốc, Kiên Giang",
+    "minus5": "Thành phố Phú Quốc, Tỉnh Kiên Giang",
+    "Code": "911",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Kiên Hải",
+    "minus2": "huyen",
+    "minus3": "kien-hai",
+    "Name": "Huyện Kiên Hải",
+    "minus4": "Kiên Hải, Kiên Giang",
+    "minus5": "Huyện Kiên Hải, Tỉnh Kiên Giang",
+    "Code": "912",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "U Minh Thượng",
+    "minus2": "huyen",
+    "minus3": "u-minh-thuong",
+    "Name": "Huyện U Minh Thượng",
+    "minus4": "U Minh Thượng, Kiên Giang",
+    "minus5": "Huyện U Minh Thượng, Tỉnh Kiên Giang",
+    "Code": "913",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Giang Thành",
+    "minus2": "huyen",
+    "minus3": "giang-thanh",
+    "Name": "Huyện Giang Thành",
+    "minus4": "Giang Thành, Kiên Giang",
+    "minus5": "Huyện Giang Thành, Tỉnh Kiên Giang",
+    "Code": "914",
+    "ParentCode": "91"
+  },
+  {
+    "minus1": "Ninh Kiều",
+    "minus2": "quan",
+    "minus3": "ninh-kieu",
+    "Name": "Quận Ninh Kiều",
+    "minus4": "Ninh Kiều, Cần Thơ",
+    "minus5": "Quận Ninh Kiều, Thành phố Cần Thơ",
+    "Code": "916",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Ô Môn",
+    "minus2": "quan",
+    "minus3": "o-mon",
+    "Name": "Quận Ô Môn",
+    "minus4": "Ô Môn, Cần Thơ",
+    "minus5": "Quận Ô Môn, Thành phố Cần Thơ",
+    "Code": "917",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Bình Thuỷ",
+    "minus2": "quan",
+    "minus3": "binh-thuy",
+    "Name": "Quận Bình Thuỷ",
+    "minus4": "Bình Thuỷ, Cần Thơ",
+    "minus5": "Quận Bình Thuỷ, Thành phố Cần Thơ",
+    "Code": "918",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Cái Răng",
+    "minus2": "quan",
+    "minus3": "cai-rang",
+    "Name": "Quận Cái Răng",
+    "minus4": "Cái Răng, Cần Thơ",
+    "minus5": "Quận Cái Răng, Thành phố Cần Thơ",
+    "Code": "919",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Thốt Nốt",
+    "minus2": "quan",
+    "minus3": "thot-not",
+    "Name": "Quận Thốt Nốt",
+    "minus4": "Thốt Nốt, Cần Thơ",
+    "minus5": "Quận Thốt Nốt, Thành phố Cần Thơ",
+    "Code": "923",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Vĩnh Thạnh",
+    "minus2": "huyen",
+    "minus3": "vinh-thanh",
+    "Name": "Huyện Vĩnh Thạnh",
+    "minus4": "Vĩnh Thạnh, Cần Thơ",
+    "minus5": "Huyện Vĩnh Thạnh, Thành phố Cần Thơ",
+    "Code": "924",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Cờ Đỏ",
+    "minus2": "huyen",
+    "minus3": "co-do",
+    "Name": "Huyện Cờ Đỏ",
+    "minus4": "Cờ Đỏ, Cần Thơ",
+    "minus5": "Huyện Cờ Đỏ, Thành phố Cần Thơ",
+    "Code": "925",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Phong Điền",
+    "minus2": "huyen",
+    "minus3": "phong-dien",
+    "Name": "Huyện Phong Điền",
+    "minus4": "Phong Điền, Cần Thơ",
+    "minus5": "Huyện Phong Điền, Thành phố Cần Thơ",
+    "Code": "926",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Thới Lai",
+    "minus2": "huyen",
+    "minus3": "thoi-lai",
+    "Name": "Huyện Thới Lai",
+    "minus4": "Thới Lai, Cần Thơ",
+    "minus5": "Huyện Thới Lai, Thành phố Cần Thơ",
+    "Code": "927",
+    "ParentCode": "92"
+  },
+  {
+    "minus1": "Vị Thanh",
+    "minus2": "thanh-pho",
+    "minus3": "vi-thanh",
+    "Name": "Thành phố Vị Thanh",
+    "minus4": "Vị Thanh, Hậu Giang",
+    "minus5": "Thành phố Vị Thanh, Tỉnh Hậu Giang",
+    "Code": "930",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Ngã Bảy",
+    "minus2": "thanh-pho",
+    "minus3": "nga-bay",
+    "Name": "Thành phố Ngã Bảy",
+    "minus4": "Ngã Bảy, Hậu Giang",
+    "minus5": "Thành phố Ngã Bảy, Tỉnh Hậu Giang",
+    "Code": "931",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Châu Thành A",
+    "minus2": "huyen",
+    "minus3": "chau-thanh-a",
+    "Name": "Huyện Châu Thành A",
+    "minus4": "Châu Thành A, Hậu Giang",
+    "minus5": "Huyện Châu Thành A, Tỉnh Hậu Giang",
+    "Code": "932",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Hậu Giang",
+    "minus5": "Huyện Châu Thành, Tỉnh Hậu Giang",
+    "Code": "933",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Phụng Hiệp",
+    "minus2": "huyen",
+    "minus3": "phung-hiep",
+    "Name": "Huyện Phụng Hiệp",
+    "minus4": "Phụng Hiệp, Hậu Giang",
+    "minus5": "Huyện Phụng Hiệp, Tỉnh Hậu Giang",
+    "Code": "934",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Vị Thuỷ",
+    "minus2": "huyen",
+    "minus3": "vi-thuy",
+    "Name": "Huyện Vị Thuỷ",
+    "minus4": "Vị Thuỷ, Hậu Giang",
+    "minus5": "Huyện Vị Thuỷ, Tỉnh Hậu Giang",
+    "Code": "935",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Long Mỹ",
+    "minus2": "huyen",
+    "minus3": "long-my",
+    "Name": "Huyện Long Mỹ",
+    "minus4": "Long Mỹ, Hậu Giang",
+    "minus5": "Huyện Long Mỹ, Tỉnh Hậu Giang",
+    "Code": "936",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Long Mỹ",
+    "minus2": "thi-xa",
+    "minus3": "long-my",
+    "Name": "Thị xã Long Mỹ",
+    "minus4": "Long Mỹ, Hậu Giang",
+    "minus5": "Thị xã Long Mỹ, Tỉnh Hậu Giang",
+    "Code": "937",
+    "ParentCode": "93"
+  },
+  {
+    "minus1": "Sóc Trăng",
+    "minus2": "thanh-pho",
+    "minus3": "soc-trang",
+    "Name": "Thành phố Sóc Trăng",
+    "minus4": "Sóc Trăng, Sóc Trăng",
+    "minus5": "Thành phố Sóc Trăng, Tỉnh Sóc Trăng",
+    "Code": "941",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Châu Thành",
+    "minus2": "huyen",
+    "minus3": "chau-thanh",
+    "Name": "Huyện Châu Thành",
+    "minus4": "Châu Thành, Sóc Trăng",
+    "minus5": "Huyện Châu Thành, Tỉnh Sóc Trăng",
+    "Code": "942",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Kế Sách",
+    "minus2": "huyen",
+    "minus3": "ke-sach",
+    "Name": "Huyện Kế Sách",
+    "minus4": "Kế Sách, Sóc Trăng",
+    "minus5": "Huyện Kế Sách, Tỉnh Sóc Trăng",
+    "Code": "943",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Mỹ Tú",
+    "minus2": "huyen",
+    "minus3": "my-tu",
+    "Name": "Huyện Mỹ Tú",
+    "minus4": "Mỹ Tú, Sóc Trăng",
+    "minus5": "Huyện Mỹ Tú, Tỉnh Sóc Trăng",
+    "Code": "944",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Cù Lao Dung",
+    "minus2": "huyen",
+    "minus3": "cu-lao-dung",
+    "Name": "Huyện Cù Lao Dung",
+    "minus4": "Cù Lao Dung, Sóc Trăng",
+    "minus5": "Huyện Cù Lao Dung, Tỉnh Sóc Trăng",
+    "Code": "945",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Long Phú",
+    "minus2": "huyen",
+    "minus3": "long-phu",
+    "Name": "Huyện Long Phú",
+    "minus4": "Long Phú, Sóc Trăng",
+    "minus5": "Huyện Long Phú, Tỉnh Sóc Trăng",
+    "Code": "946",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Mỹ Xuyên",
+    "minus2": "huyen",
+    "minus3": "my-xuyen",
+    "Name": "Huyện Mỹ Xuyên",
+    "minus4": "Mỹ Xuyên, Sóc Trăng",
+    "minus5": "Huyện Mỹ Xuyên, Tỉnh Sóc Trăng",
+    "Code": "947",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Ngã Năm",
+    "minus2": "thi-xa",
+    "minus3": "nga-nam",
+    "Name": "Thị xã Ngã Năm",
+    "minus4": "Ngã Năm, Sóc Trăng",
+    "minus5": "Thị xã Ngã Năm, Tỉnh Sóc Trăng",
+    "Code": "948",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Thạnh Trị",
+    "minus2": "huyen",
+    "minus3": "thanh-tri",
+    "Name": "Huyện Thạnh Trị",
+    "minus4": "Thạnh Trị, Sóc Trăng",
+    "minus5": "Huyện Thạnh Trị, Tỉnh Sóc Trăng",
+    "Code": "949",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Vĩnh Châu",
+    "minus2": "thi-xa",
+    "minus3": "vinh-chau",
+    "Name": "Thị xã Vĩnh Châu",
+    "minus4": "Vĩnh Châu, Sóc Trăng",
+    "minus5": "Thị xã Vĩnh Châu, Tỉnh Sóc Trăng",
+    "Code": "950",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Trần Đề",
+    "minus2": "huyen",
+    "minus3": "tran-de",
+    "Name": "Huyện Trần Đề",
+    "minus4": "Trần Đề, Sóc Trăng",
+    "minus5": "Huyện Trần Đề, Tỉnh Sóc Trăng",
+    "Code": "951",
+    "ParentCode": "94"
+  },
+  {
+    "minus1": "Bạc Liêu",
+    "minus2": "thanh-pho",
+    "minus3": "bac-lieu",
+    "Name": "Thành phố Bạc Liêu",
+    "minus4": "Bạc Liêu, Bạc Liêu",
+    "minus5": "Thành phố Bạc Liêu, Tỉnh Bạc Liêu",
+    "Code": "954",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Hồng Dân",
+    "minus2": "huyen",
+    "minus3": "hong-dan",
+    "Name": "Huyện Hồng Dân",
+    "minus4": "Hồng Dân, Bạc Liêu",
+    "minus5": "Huyện Hồng Dân, Tỉnh Bạc Liêu",
+    "Code": "956",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Phước Long",
+    "minus2": "huyen",
+    "minus3": "phuoc-long",
+    "Name": "Huyện Phước Long",
+    "minus4": "Phước Long, Bạc Liêu",
+    "minus5": "Huyện Phước Long, Tỉnh Bạc Liêu",
+    "Code": "957",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Vĩnh Lợi",
+    "minus2": "huyen",
+    "minus3": "vinh-loi",
+    "Name": "Huyện Vĩnh Lợi",
+    "minus4": "Vĩnh Lợi, Bạc Liêu",
+    "minus5": "Huyện Vĩnh Lợi, Tỉnh Bạc Liêu",
+    "Code": "958",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Giá Rai",
+    "minus2": "thi-xa",
+    "minus3": "gia-rai",
+    "Name": "Thị xã Giá Rai",
+    "minus4": "Giá Rai, Bạc Liêu",
+    "minus5": "Thị xã Giá Rai, Tỉnh Bạc Liêu",
+    "Code": "959",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Đông Hải",
+    "minus2": "huyen",
+    "minus3": "dong-hai",
+    "Name": "Huyện Đông Hải",
+    "minus4": "Đông Hải, Bạc Liêu",
+    "minus5": "Huyện Đông Hải, Tỉnh Bạc Liêu",
+    "Code": "960",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Hoà Bình",
+    "minus2": "huyen",
+    "minus3": "hoa-binh",
+    "Name": "Huyện Hoà Bình",
+    "minus4": "Hoà Bình, Bạc Liêu",
+    "minus5": "Huyện Hoà Bình, Tỉnh Bạc Liêu",
+    "Code": "961",
+    "ParentCode": "95"
+  },
+  {
+    "minus1": "Cà Mau",
+    "minus2": "thanh-pho",
+    "minus3": "ca-mau",
+    "Name": "Thành phố Cà Mau",
+    "minus4": "Cà Mau, Cà Mau",
+    "minus5": "Thành phố Cà Mau, Tỉnh Cà Mau",
+    "Code": "964",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "U Minh",
+    "minus2": "huyen",
+    "minus3": "u-minh",
+    "Name": "Huyện U Minh",
+    "minus4": "U Minh, Cà Mau",
+    "minus5": "Huyện U Minh, Tỉnh Cà Mau",
+    "Code": "966",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Thới Bình",
+    "minus2": "huyen",
+    "minus3": "thoi-binh",
+    "Name": "Huyện Thới Bình",
+    "minus4": "Thới Bình, Cà Mau",
+    "minus5": "Huyện Thới Bình, Tỉnh Cà Mau",
+    "Code": "967",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Trần Văn Thời",
+    "minus2": "huyen",
+    "minus3": "tran-van-thoi",
+    "Name": "Huyện Trần Văn Thời",
+    "minus4": "Trần Văn Thời, Cà Mau",
+    "minus5": "Huyện Trần Văn Thời, Tỉnh Cà Mau",
+    "Code": "968",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Cái Nước",
+    "minus2": "huyen",
+    "minus3": "cai-nuoc",
+    "Name": "Huyện Cái Nước",
+    "minus4": "Cái Nước, Cà Mau",
+    "minus5": "Huyện Cái Nước, Tỉnh Cà Mau",
+    "Code": "969",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Đầm Dơi",
+    "minus2": "huyen",
+    "minus3": "dam-doi",
+    "Name": "Huyện Đầm Dơi",
+    "minus4": "Đầm Dơi, Cà Mau",
+    "minus5": "Huyện Đầm Dơi, Tỉnh Cà Mau",
+    "Code": "970",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Năm Căn",
+    "minus2": "huyen",
+    "minus3": "nam-can",
+    "Name": "Huyện Năm Căn",
+    "minus4": "Năm Căn, Cà Mau",
+    "minus5": "Huyện Năm Căn, Tỉnh Cà Mau",
+    "Code": "971",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Phú Tân",
+    "minus2": "huyen",
+    "minus3": "phu-tan",
+    "Name": "Huyện Phú Tân",
+    "minus4": "Phú Tân, Cà Mau",
+    "minus5": "Huyện Phú Tân, Tỉnh Cà Mau",
+    "Code": "972",
+    "ParentCode": "96"
+  },
+  {
+    "minus1": "Ngọc Hiển",
+    "minus2": "huyen",
+    "minus3": "ngoc-hien",
+    "Name": "Huyện Ngọc Hiển",
+    "minus4": "Ngọc Hiển, Cà Mau",
+    "minus5": "Huyện Ngọc Hiển, Tỉnh Cà Mau",
+    "Code": "973",
+    "ParentCode": "96"
+  }
+]

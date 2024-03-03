@@ -83,8 +83,8 @@ namespace Petopia.Business.Implementations
 
     public async Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
     {
-      var query = UnitOfWork.Pets.AsQueryable();
-      var filter = model.Filter;
+      IQueryable<Pet> query = UnitOfWork.Pets.AsQueryable();
+      PetFilterModel filter = model.Filter;
 
       if (filter.Age != null)
       {

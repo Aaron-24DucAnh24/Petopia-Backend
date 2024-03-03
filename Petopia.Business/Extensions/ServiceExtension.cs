@@ -43,6 +43,7 @@ namespace Petopia.Business.Extensions
       services.AddTransient<IHttpService, Implementations.HttpService>();
       services.AddScoped<IPetService, PetService>();
       services.AddScoped<IAzureService, AzureService>();
+      services.AddScoped<ILocationService, LocationService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)

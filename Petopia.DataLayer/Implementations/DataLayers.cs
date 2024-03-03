@@ -10,7 +10,7 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
-  
+
   public class UserConnectionDataLayer : BaseDataLayer<UserConnection>, IUserConnectionDataLayer
   {
     public UserConnectionDataLayer(ApplicationDbContext dbContext) : base(dbContext)
@@ -56,6 +56,27 @@ namespace Petopia.DataLayer.Implementations
   public class MediaDataLayer : BaseDataLayer<Media>, IMediaDataLayer
   {
     public MediaDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class ProvinceDataLayer : BaseDataLayer<Province>, IProvinceDataLayer
+  {
+    public ProvinceDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class DistrictDataLayer : BaseDataLayer<District>, IDistrictDataLayer
+  {
+    public DistrictDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class WardDataLayer : BaseDataLayer<Ward>, IWardDataLayer
+  {
+    public WardDataLayer(ApplicationDbContext context) : base(context)
     {
     }
   }

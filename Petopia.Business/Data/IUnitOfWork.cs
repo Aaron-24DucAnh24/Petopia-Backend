@@ -14,5 +14,8 @@ namespace Petopia.Business.Data
     IEmailTemplateDataLayer EmailTemplates { get; }
     IPetDataLayer Pets { get; }
     IMediaDataLayer Medias { get; }
+    IProvinceDataLayer Provinces { get; }
+    IDistrictDataLayer Districts { get; }
+    IWardDataLayer Wards { get; }
   }
 }
