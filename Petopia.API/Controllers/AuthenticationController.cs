@@ -58,7 +58,6 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<JwtTokensModel>> Login([FromBody] LoginRequestModel request)
     {
       JwtTokensModel result = await _authService.LoginAsync(request);
-      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return ResponseUtils.OkResult(result);
     }
 
@@ -69,7 +68,6 @@ namespace Petopia.API.Controllers
       GoogleUserModel googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
       UserContextModel user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
       JwtTokensModel result = await _authService.LoginAsync(user);
-      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return ResponseUtils.OkResult(result);
     }
 
@@ -79,7 +77,6 @@ namespace Petopia.API.Controllers
     {
       UserContextModel user = _authService.ValidateRefreshToken(refreshToken);
       JwtTokensModel result = await _authService.LoginAsync(user);
-      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
       return ResponseUtils.OkResult(result);
     }
 
@@ -88,7 +85,6 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> Logout()
     {
       bool result = await _authService.LogoutAsync();
-      // _cookieService.ClearJwtTokens();
       return ResponseUtils.OkResult(result);
     }
 

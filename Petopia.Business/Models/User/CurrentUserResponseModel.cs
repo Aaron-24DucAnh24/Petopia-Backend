@@ -1,3 +1,4 @@
+using Petopia.Business.Models.Pet;
 using Petopia.Data.Enums;
 
 namespace Petopia.Business.Models.User
@@ -8,6 +9,8 @@ namespace Petopia.Business.Models.User
     public string Email { get; set; } = null!;
     public string Image { get; set; } = null!;
     public UserRole UserRole { get; set; }
+    public string Phone { get; set; } = null!;
+		public List<PetResponseModel> Pets { get; set; } = null!;
   }
 
   public class CurrentIndividualResponseModel : CurrentUserResponseModel
@@ -18,10 +21,5 @@ namespace Petopia.Business.Models.User
   public class CurrentOrganizationResponseModel : CurrentUserResponseModel
   {
     public CurrentOrganizationAttributesResponseModel Attributes { get; set; } = null!;
-  }
-
-  public class CurrentUserCoreResponseModel : CurrentUserResponseModel
-  {
-    public string Name { get; set; } = null!;
-  }
+	}
 }
