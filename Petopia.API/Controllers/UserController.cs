@@ -34,6 +34,13 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
     }
 
+    [HttpGet("CurrentUserCore")]
+    [Authorize]
+    public async Task<ActionResult<CurrentUserCoreResponseModel>> GetCurrentUserCore()
+    {
+      return ResponseUtils.OkResult(await _userService.GetCurrentUserCoreAsync());
+    }
+
     [HttpPost("ForgotPassword")]
     [AllowAnonymous]
     public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)

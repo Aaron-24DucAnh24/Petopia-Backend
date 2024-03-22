@@ -22,13 +22,31 @@ namespace Petopia.Business.Implementations
     public async Task<CurrentUserResponseModel> GetCurrentUserAsync()
     {
       User user = await UnitOfWork.Users.FirstAsync(x => x.Id == UserContext.Id);
+      CurrentUserResponseModel result = new();
       if (user.Role == UserRole.Organization)
       {
         user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstAsync(x => x.Id == user.Id);
-        return Mapper.Map<CurrentOrganizationResponseModel>(user);
+        result = Mapper.Map<CurrentOrganizationResponseModel>(user);
+        result.Email = HashUtils.DecryptString(result.Email);
       }
       user.UserIndividualAttributes = await UnitOfWork.UserIndividualAttributes.FirstAsync(x => x.Id == user.Id);
-      return Mapper.Map<CurrentIndividualResponseModel>(user);
+      result = Mapper.Map<CurrentIndividualResponseModel>(user);
+      result.Email = HashUtils.DecryptString(result.Email);
+      return result;
+    }
+
+    public async Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync()
+    {
+      User user = await UnitOfWork.Users
+        .Include(x => x.UserIndividualAttributes)
+        .Include(x => x.UserOrganizationAttributes)
+        .FirstAsync(x => x.Id == UserContext.Id);
+      var result = Mapper.Map<CurrentUserCoreResponseModel>(user);
+      result.Email = HashUtils.DecryptString(result.Email);
+      result.Name = user.Role == UserRole.Organization 
+        ? user.UserOrganizationAttributes.OrganizationName
+        : string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
+      return result;
     }
 
     public async Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request)
@@ -38,8 +56,9 @@ namespace Petopia.Business.Implementations
       User user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Id = Guid.NewGuid(),
-        Email = HashUtils.HashString(cacheData.Email),
+        Email = HashUtils.EnryptString(cacheData.Email),
         Password = HashUtils.HashPassword(cacheData.Password),
+        IsCreatedAt = DateTimeOffset.Now,
       });
       await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
       {
@@ -59,15 +78,16 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo)
     {
-      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(userInfo.Email));
+      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(userInfo.Email));
       if (user == null)
       {
         user = await UnitOfWork.Users.CreateAsync(new User()
         {
           Id = Guid.NewGuid(),
-          Email = HashUtils.HashString(userInfo.Email),
+          Email = HashUtils.EnryptString(userInfo.Email),
           Password = string.Empty,
-          Image = userInfo.Picture
+          Image = userInfo.Picture,
+          IsCreatedAt = DateTimeOffset.Now,
         });
         UserIndividualAttributes attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
         {
@@ -77,7 +97,7 @@ namespace Petopia.Business.Implementations
         });
         await UnitOfWork.SaveChangesAsync();
       }
-      if(!string.IsNullOrEmpty(user.Password))
+      if (!string.IsNullOrEmpty(user.Password))
       {
         throw new WrongLoginMethodException();
       }
@@ -93,7 +113,7 @@ namespace Petopia.Business.Implementations
     {
       User? user = await UnitOfWork.Users
         .AsTracking()
-        .FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(request.Email));
+        .FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(request.Email));
       if (user == null
       || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now
       || user.ResetPasswordToken != request.ResetPasswordToken)

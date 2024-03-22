@@ -88,7 +88,7 @@ namespace Petopia.Business.Implementations
         .AsTracking()
         .Include(x => x.UserIndividualAttributes)
         .Include(x => x.UserOrganizationAttributes)
-        .FirstOrDefaultAsync(x => x.Email == HashUtils.HashString(email))
+        .FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(email))
         ?? throw new IncorrectEmailException();
       return user;
     }
