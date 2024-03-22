@@ -55,32 +55,32 @@ namespace Petopia.API.Controllers
 
     [HttpPost("Login")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> Login([FromBody] LoginRequestModel request)
+    public async Task<ActionResult<JwtTokensModel>> Login([FromBody] LoginRequestModel request)
     {
       JwtTokensModel result = await _authService.LoginAsync(request);
-      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return ResponseUtils.OkResult(true);
+      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
     }
 
     [HttpPost("GoogleLogin")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> GoogleLogin([FromBody] GoogleLoginRequestModel request)
+    public async Task<ActionResult<JwtTokensModel>> GoogleLogin([FromBody] GoogleLoginRequestModel request)
     {
       GoogleUserModel googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
       UserContextModel user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
       JwtTokensModel result = await _authService.LoginAsync(user);
-      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return ResponseUtils.OkResult(true);
+      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
     }
 
-    [HttpGet("RefreshToken")]
+    [HttpGet("Refresh")]
     [AllowAnonymous]
-    public async Task<ActionResult<bool>> RefreshToken()
+    public async Task<ActionResult<JwtTokensModel>> RefreshToken([FromQuery] string refreshToken)
     {
-      UserContextModel user = _authService.ValidateRefreshToken();
+      UserContextModel user = _authService.ValidateRefreshToken(refreshToken);
       JwtTokensModel result = await _authService.LoginAsync(user);
-      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-      return ResponseUtils.OkResult(true);
+      // _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
     }
 
     [HttpGet("Logout")]
@@ -88,7 +88,7 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> Logout()
     {
       bool result = await _authService.LogoutAsync();
-      _cookieService.ClearJwtTokens();
+      // _cookieService.ClearJwtTokens();
       return ResponseUtils.OkResult(result);
     }
 

@@ -31,7 +31,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> LoginAsync(LoginRequestModel request)
     {
-      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.HashString(request.Email))
+      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.EnryptString(request.Email))
         ?? throw new InvalidCredentialException();
       if (string.IsNullOrEmpty(user.Password))
       {
@@ -82,6 +82,8 @@ namespace Petopia.Business.Implementations
       {
         AccessToken = accessToken,
         RefreshToken = refreshToken,
+        RefreshTokenExpiredDate = userConnection.RefreshTokenExpirationDate,
+        AccessTokenExpiredDate = userConnection.AccessTokenExpirationDate,
       };
     }
 
@@ -97,7 +99,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<string> CacheRegisterRequestAsync(RegisterRequestModel request)
     {
-      if (await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.HashString(request.Email)))
+      if (await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.EnryptString(request.Email)))
       {
         throw new UsedEmailException();
       }
@@ -132,10 +134,8 @@ namespace Petopia.Business.Implementations
       return userContextInfo;
     }
 
-    public UserContextModel ValidateRefreshToken()
+    public UserContextModel ValidateRefreshToken(string token)
     {
-      string token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
-        ?? throw new SecurityTokenValidationException();
       JwtSecurityTokenHandler tokenHandler = new();
       SecurityToken? securityToken;
       try
