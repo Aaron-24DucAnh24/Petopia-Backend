@@ -11,5 +11,6 @@ namespace Petopia.Business.Models.Pet
     public List<PetAge>? Age { get; set; }
     public List<PetDedicalStatus>? IsVaccinated { get; set; }
     public List<PetDedicalStatus>? IsSterillized { get; set; }
+    public string Text { get; set; } = null!;
   }
 }

@@ -54,8 +54,8 @@ namespace Petopia.Business.Implementations
         IsVaccinated = model.IsVaccinated,
         IsSterillized = model.IsSterillized,
         IsAvailable = model.IsAvailable,
-        Address = string.IsNullOrEmpty(model.Address) ? userAttributes.Address : model.Address,
         OwnerId = UserContext.Id,
+        IsCreatedAt = DateTimeOffset.Now,
       });
 
       foreach (var image in model.Images)
@@ -76,16 +76,75 @@ namespace Petopia.Business.Implementations
       return result;
     }
 
-    public Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId)
+    public async Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId)
     {
-      throw new NotImplementedException();
+      Pet result = await UnitOfWork.Pets
+        .Include(x => x.Images)
+        .Where(x => x.Id == petId)
+        .FirstOrDefaultAsync()
+        ?? throw new PetNotFoundException();
+
+      return Mapper.Map<PetDetailsResponseModel>(result);
     }
 
     public async Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
     {
-      IQueryable<Pet> query = UnitOfWork.Pets.AsQueryable();
-      PetFilterModel filter = model.Filter;
+      IQueryable<Pet> query = UnitOfWork.Pets
+        .Include(x => x.Images)
+        .AsQueryable();
+      query = GetPetsFromFilter(query, model);
+      query = GetPetsFromText(query, model.Filter.Text);
+      return await PagingAsync<PetResponseModel, Pet, PetFilterModel>(query, model);
+    }
 
+    public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
+    {
+      User userAttributes = await GetUserAttributesAsync();
+
+      Pet pet = await UnitOfWork.Pets.AsTracking().FirstAsync(x => x.Id == model.Id);
+      pet.Name = model.Name;
+      pet.Description = model.Description;
+      pet.Sex = model.Sex;
+      pet.Age = model.Age;
+      pet.Color = model.Color;
+      pet.Species = model.Species;
+      pet.Size = model.Size;
+      pet.Breed = model.Breed;
+      pet.IsVaccinated = model.IsVaccinated;
+      pet.IsSterillized = model.IsSterillized;
+      pet.IsAvailable = model.IsAvailable;
+
+      var images = await UnitOfWork.Medias.AsTracking().Where(x => x.PetId == model.Id).ToListAsync();
+      foreach (var image in images)
+      {
+        image.IsDeleted = true;
+      }
+
+      foreach (var image in model.Images)
+      {
+        UnitOfWork.Medias.Create(new Media()
+        {
+          Id = Guid.NewGuid(),
+          PetId = pet.Id,
+          Url = image,
+          Type = MediaType.Image,
+        });
+      }
+
+      await UnitOfWork.SaveChangesAsync();
+      var result = Mapper.Map<UpdatePetResponseModel>(model);
+      result.Images = model.Images;
+      return result;
+    }
+
+    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
+    {
+      return query;
+    }
+
+    private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PaginationRequestModel<PetFilterModel> model)
+    {
+      PetFilterModel filter = model.Filter;
       if (filter.Age != null)
       {
         query = query.Where(x => filter.Age.Contains(x.Age));
@@ -120,49 +179,7 @@ namespace Petopia.Business.Implementations
         ? query.OrderByDescending(x => x.IsCreatedAt)
         : query.OrderByDescending(x => x.View);
       }
-
-      return await PagingAsync<PetResponseModel, Pet, PetFilterModel>(query, model);
-    }
-
-    public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
-    {
-      User userAttributes = await GetUserAttributesAsync();
-
-      Pet pet = await UnitOfWork.Pets.AsTracking().FirstAsync(x => x.Id == model.Id);
-      pet.Name = model.Name;
-      pet.Description = model.Description;
-      pet.Sex = model.Sex;
-      pet.Age = model.Age;
-      pet.Color = model.Color;
-      pet.Species = model.Species;
-      pet.Size = model.Size;
-      pet.Breed = model.Breed;
-      pet.IsVaccinated = model.IsVaccinated;
-      pet.IsSterillized = model.IsSterillized;
-      pet.IsAvailable = model.IsAvailable;
-      pet.Address = string.IsNullOrEmpty(model.Address) ? userAttributes.Address : model.Address;
-
-      var images = await UnitOfWork.Medias.AsTracking().Where(x => x.PetId == model.Id).ToListAsync();
-      foreach (var image in images)
-      {
-        image.IsDeleted = true;
-      }
-
-      foreach (var image in model.Images)
-      {
-        UnitOfWork.Medias.Create(new Media()
-        {
-          Id = Guid.NewGuid(),
-          PetId = pet.Id,
-          Url = image,
-          Type = MediaType.Image,
-        });
-      }
-
-      await UnitOfWork.SaveChangesAsync();
-      var result = Mapper.Map<UpdatePetResponseModel>(model);
-      result.Images = model.Images;
-      return result;
+      return query;
     }
   }
 }

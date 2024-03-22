@@ -46,7 +46,6 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<UpdatePetResponseModel>> UpdatePet([FromBody] UpdatePetRequestModel request)
     {
       UpdatePetResponseModel result = await _petService.UpdatePetAsync(request);
-      // TODO: background service to sync media records
       return ResponseUtils.OkResult(result);
     }
 
