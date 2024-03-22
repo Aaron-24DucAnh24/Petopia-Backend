@@ -19,4 +19,9 @@ namespace Petopia.Business.Models.User
   {
     public CurrentOrganizationAttributesResponseModel Attributes { get; set; } = null!;
   }
+
+  public class CurrentUserCoreResponseModel : CurrentUserResponseModel
+  {
+    public string Name { get; set; } = null!;
+  }
 }

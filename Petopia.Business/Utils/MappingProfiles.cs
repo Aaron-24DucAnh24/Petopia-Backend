@@ -14,14 +14,16 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.UserIndividualAttributes));
       CreateMap<User, CurrentOrganizationResponseModel>()
         .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.UserOrganizationAttributes));
-
       CreateMap<UserIndividualAttributes, CurrentIndividualAttributesResponseModel>();
       CreateMap<UserOrganizationAttributes, CurrentOrganizationAttributesResponseModel>();
+      CreateMap<User, CurrentUserCoreResponseModel>();
 
       CreateMap<CreatePetRequestModel, CreatePetResponseModel>();
       CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
       CreateMap<Pet, PetResponseModel>()
         .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url));
+      CreateMap<Pet, PetDetailsResponseModel>()
+        .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
 
       CreateMap<Province, LocationResponseModel>();
       CreateMap<District, LocationResponseModel>();
