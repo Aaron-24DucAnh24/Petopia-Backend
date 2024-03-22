@@ -16,11 +16,9 @@ namespace Petopia.Business.Models.Pet
     public PetDedicalStatus IsSterillized { get; set; }
     public PetDedicalStatus IsVaccinated { get; set; }
     public bool IsAvailable { get; set; }
-    public string Address { get; set; }
     public string Breed { get; set; }
     public List<string> Images { get; set; }
   }
-
 
   public class CreatePetResponseModel : CreatePetRequestModel
   {
@@ -30,5 +28,10 @@ namespace Petopia.Business.Models.Pet
 
   public class UpdatePetResponseModel : CreatePetResponseModel { }
 
-  public class PetDetailsResponseModel : CreatePetResponseModel { } 
+  public class PetDetailsResponseModel : CreatePetResponseModel
+  {
+    public Guid OwnerId { get; set; }
+    public DateTimeOffset IsCreatedAt { get; set; }
+    public string Address { get; set; }
+  }
 }

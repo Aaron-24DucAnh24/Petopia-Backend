@@ -17,7 +17,6 @@ namespace Petopia.Data.Entities
     public PetSize Size { get; set; }
     public PetDedicalStatus IsVaccinated { get; set; }
     public PetDedicalStatus IsSterillized { get; set; }
-    public string Address { get; set; }
     public bool IsAvailable { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
     public DateTimeOffset IsUpdatedAt { get; set; }
