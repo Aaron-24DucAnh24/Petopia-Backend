@@ -39,7 +39,6 @@ namespace Petopia.Business.Implementations
 
     public async Task<CreatePetResponseModel> CreatePetAsync(CreatePetRequestModel model)
     {
-      User userAttributes = await GetUserAttributesAsync();
       Pet pet = await UnitOfWork.Pets.CreateAsync(new Pet()
       {
         Id = Guid.NewGuid(),
