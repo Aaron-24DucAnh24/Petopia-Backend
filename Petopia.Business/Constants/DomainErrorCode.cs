@@ -10,6 +10,7 @@ namespace Petopia.Business.Constants
     public const int INVALID_PASSWORD_TOKEN = 10004;
     public const int EXPIRED_GOOGLE_RECAPTCHA_TOKEN = 10005;
     public const int WRONG_LOGIN_TYPE = 10006;
+    public const int INVALID_PASSWORD = 10007;
 
     // PET
     public const int NOT_FOUND_PET = 11007;
