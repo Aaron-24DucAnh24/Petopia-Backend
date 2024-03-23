@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petopia.Data", "Petopia.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petopia.BackgroundJobs", "Petopia.BackgroundJobs\Petopia.BackgroundJobs.csproj", "{914681F8-A1AE-44FC-8858-EEC73F185D94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petopia.SeedingData", "Petopia.SeedingData\Petopia.SeedingData.csproj", "{FFF541A3-8130-4A5D-B141-1CA829A9481A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{914681F8-A1AE-44FC-8858-EEC73F185D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914681F8-A1AE-44FC-8858-EEC73F185D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{914681F8-A1AE-44FC-8858-EEC73F185D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

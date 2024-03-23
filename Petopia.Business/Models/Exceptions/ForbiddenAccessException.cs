@@ -1,6 +1,6 @@
 namespace Petopia.Business.Models.Exceptions
 {
-  public class ForbiddenAccessException : Exception
+  public class ForbiddenAccessException : DomainException
   {
     public ForbiddenAccessException() : base("Forbidden")
     {

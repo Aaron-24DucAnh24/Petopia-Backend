@@ -129,7 +129,7 @@ namespace Petopia.Business.Implementations
 				.FirstAsync(x => x.Id == UserContext.Id);
 			if (!HashUtils.VerifyHashedPassword(user.Password, request.OldPassword))
 			{
-				throw new InvalidPasswordTokenException();
+				throw new InvalidPasswordException();
 			}
 			user.Password = HashUtils.HashPassword(request.NewPassword);
 			await UnitOfWork.SaveChangesAsync();

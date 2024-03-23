@@ -41,6 +41,10 @@ namespace Petopia.Business.Implementations
     public async Task<MailDataModel> CreateForgotPasswordMailDataAsync(string email)
     {
       User user = await CheckCorrectEmailAsync(email);
+      if(string.IsNullOrEmpty(user.Password))
+      {
+        throw new WrongLoginMethodException();
+      };
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
@@ -48,7 +52,8 @@ namespace Petopia.Business.Implementations
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
       string body = emailTemplate.Body
         .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice)
-        .Replace(EmailKey.PASSWORD_TOKEN, user.ResetPasswordToken);
+        .Replace(EmailKey.PASSWORD_TOKEN, user.ResetPasswordToken)
+        .Replace(EmailKey.EMAIL, email);
 
       List<string> toAddresses = new() { email };
 
