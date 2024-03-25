@@ -36,7 +36,7 @@ namespace Petopia.Business.Extensions
       services.AddEmailService(configuration);
       services.AddElasticsearchService(configuration);
       services.AddPaymentService(configuration);
-      services.AddAutoMapper(configuration);
+      services.AddAutoMapper();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IUserService, UserService>();
@@ -122,7 +122,7 @@ namespace Petopia.Business.Extensions
       }
     }
 
-    public static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
+    public static void AddAutoMapper(this IServiceCollection services)
     {
       MapperConfiguration mapperConfig = new(mc =>
       {

@@ -134,8 +134,13 @@ namespace Petopia.Business.Implementations
       return userContextInfo;
     }
 
-    public UserContextModel ValidateRefreshToken(string token)
+    public UserContextModel ValidateRefreshToken(string? token)
     {
+      if(string.IsNullOrEmpty(token))
+      {
+        token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
+          ?? throw new SecurityTokenValidationException();
+			}
       JwtSecurityTokenHandler tokenHandler = new();
       SecurityToken? securityToken;
       try

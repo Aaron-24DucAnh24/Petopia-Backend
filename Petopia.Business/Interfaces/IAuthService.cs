@@ -12,7 +12,7 @@ namespace Petopia.Business.Interfaces
     public Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token);
     public Task ValidateGoogleRecaptchaTokenAsync(string token);
     public UserContextModel ValidateAccessToken(string token);
-    public UserContextModel ValidateRefreshToken(string token);
+    public UserContextModel ValidateRefreshToken(string? token);
     public string GetGoogleRecaptchaSiteKey();
     public string GetGoogleAuthClientId();
   }

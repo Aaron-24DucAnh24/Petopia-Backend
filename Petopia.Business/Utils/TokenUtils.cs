@@ -55,13 +55,11 @@ namespace Petopia.Business.Utils
     public static string? GetAccessTokenFromRequest(HttpRequest request)
     {
       string? bearerToken = request.Headers["Authorization"].FirstOrDefault();
-      if (bearerToken == null)
-      {
-        return null;
-      }
-      string jwtToken = bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
+      string? jwtToken = string.IsNullOrEmpty(bearerToken)
+        ? request.Cookies[CookieName.ACCESS_TOKEN]
+        : bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
       return jwtToken;
-    }
+		}
 
     public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {
