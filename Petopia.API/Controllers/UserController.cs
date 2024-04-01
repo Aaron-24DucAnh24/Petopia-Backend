@@ -63,5 +63,19 @@ namespace Petopia.API.Controllers
 		{
 			return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
 		}
+
+		[HttpPut]
+		[Authorize]
+		public async Task<ActionResult<CurrentUserResponseModel>> Update([FromBody] UpdateUserRequestModel request)
+		{
+			return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
+		}
+
+		[HttpPut("UpdateAvatar")]
+		[Authorize]
+		public async Task<ActionResult<string>> UpdateAvatar([FromBody] string image)
+		{
+			return ResponseUtils.OkResult(await _userService.UpdateUserAvatarAsync(image));
+		}
 	}
 }

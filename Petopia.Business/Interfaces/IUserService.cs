@@ -11,5 +11,7 @@ namespace Petopia.Business.Interfaces
     public Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo);
     public Task<bool> ResetPasswordAsync(ResetPasswordRequestModel request);
     public Task<bool> ChangePasswordAsync(ChangePasswordRequestModel request);
-  }  
+    public Task<CurrentUserResponseModel> UpdateUserAsync(UpdateUserRequestModel request);
+    public Task<string> UpdateUserAvatarAsync(string image);
+	}  
 }

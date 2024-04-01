@@ -11,6 +11,10 @@ namespace Petopia.Data.Entities
 		public string Password { get; set; }
 		public string Image { get; set; }
 		public string Address { get; set; }
+		public string ProvinceCode { get; set; }
+		public string DistrictCode { get; set; }
+		public string WardCode { get; set; }
+		public string Street { get; set; }
 		public UserRole Role { get; set; }
 		public DateTimeOffset IsCreatedAt { get; set; }
 		public string ResetPasswordToken { get; set; }

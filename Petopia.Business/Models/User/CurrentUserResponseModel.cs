@@ -11,7 +11,12 @@ namespace Petopia.Business.Models.User
     public UserRole UserRole { get; set; }
     public string Phone { get; set; } = null!;
 		public List<PetResponseModel> Pets { get; set; } = null!;
-  }
+    public string Address { get; set; } = null!;
+		public string ProvinceCode { get; set; } = null!;
+		public string DistrictCode { get; set; } = null!;
+		public string WardCode { get; set; } = null!;
+		public string Street { get; set; } = null!;
+	}
 
   public class CurrentIndividualResponseModel : CurrentUserResponseModel
   {

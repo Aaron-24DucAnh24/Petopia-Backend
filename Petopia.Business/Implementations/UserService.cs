@@ -26,7 +26,10 @@ namespace Petopia.Business.Implementations
 			CurrentUserResponseModel result = user.Role == UserRole.Organization
 				? await GetCurrentOrganizationAsync(user)
 				: await GetCurrentIndividualAsync(user);
-			List<Pet> pets = await UnitOfWork.Pets.Where(x => x.OwnerId == UserContext.Id).ToListAsync();
+			List<Pet> pets = await UnitOfWork.Pets
+				.Include(x => x.Images)
+				.Where(x => x.OwnerId == UserContext.Id)
+				.ToListAsync();
 			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
 			return result;
 		}
@@ -136,6 +139,51 @@ namespace Petopia.Business.Implementations
 			return true;
 		}
 
+		public async Task<CurrentUserResponseModel> UpdateUserAsync(UpdateUserRequestModel request)
+		{
+			User user = await UnitOfWork.Users
+				.AsTracking()
+				.Include(x => x.UserIndividualAttributes)
+				.Include(x => x.UserOrganizationAttributes)
+				.Where(x => x.Id == UserContext.Id)
+				.FirstAsync();
+			user.Phone = request.Phone;
+			user.DistrictCode = request.DistrictCode;
+			user.ProvinceCode = request.ProvinceCode;
+			user.WardCode = request.WardCode;
+			user.Street = request.Street;
+			user.Address = await GetAddressAsync(
+				request.ProvinceCode,
+				request.DistrictCode,
+				request.WardCode,
+				request.Street
+			);
+			if (UserContext.Role == UserRole.Organization)
+			{
+				// do something
+			}
+			else
+			{
+				user.UserIndividualAttributes.FirstName = request.FirstName;
+				user.UserIndividualAttributes.LastName = request.LastName;
+			}
+			UnitOfWork.Users.Update(user);
+			await UnitOfWork.SaveChangesAsync();
+			return await GetCurrentUserAsync();
+		}
+
+		public async Task<string> UpdateUserAvatarAsync(string image)
+		{
+			User user = await UnitOfWork.Users
+				.AsTracking()
+				.Where(x => x.Id == UserContext.Id)
+				.FirstAsync();
+			user.Image = image;
+			UnitOfWork.Users.Update(user);
+			await UnitOfWork.SaveChangesAsync();
+			return image;
+		}
+
 		#region private
 
 		private async Task<CurrentOrganizationResponseModel> GetCurrentOrganizationAsync(User user)
@@ -152,6 +200,14 @@ namespace Petopia.Business.Implementations
 			var result = Mapper.Map<CurrentIndividualResponseModel>(user);
 			result.Email = HashUtils.DecryptString(result.Email);
 			return result;
+		}
+
+		private async Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street)
+		{
+			string province = (await UnitOfWork.Provinces.Where(x => x.Code == provinceCode).FirstAsync()).Name;
+			string district = (await UnitOfWork.Districts.Where(x => x.Code == districtCode).FirstAsync()).Name;
+			string ward = (await UnitOfWork.Wards.Where(x => x.Code == wardCode).FirstAsync()).Name;
+			return string.Join(", ", street, ward, district, province);
 		}
 
 		#endregion
