@@ -77,13 +77,21 @@ namespace Petopia.Business.Implementations
 
     public async Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId)
     {
-      Pet result = await UnitOfWork.Pets
+      Pet pet = await UnitOfWork.Pets
+        .AsTracking()
         .Include(x => x.Images)
+        .Include(x => x.Owner)
         .Where(x => x.Id == petId)
         .FirstOrDefaultAsync()
         ?? throw new PetNotFoundException();
 
-      return Mapper.Map<PetDetailsResponseModel>(result);
+      pet.View += 1;
+      UnitOfWork.Pets.Update(pet);
+      await UnitOfWork.SaveChangesAsync();
+
+      var result = Mapper.Map<PetDetailsResponseModel>(pet);
+      result.Address = pet.Owner.Address;
+      return result;
     }
 
     public async Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
