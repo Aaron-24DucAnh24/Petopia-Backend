@@ -6,7 +6,8 @@ namespace Petopia.Business.Interfaces
   public interface IUserService
   {
     public Task<CurrentUserResponseModel> GetCurrentUserAsync();
-    public Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync();    
+    public Task<CurrentUserResponseModel> GetOtherUserAsync(string userId);
+		public Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync();    
     public Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request);
     public Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo);
     public Task<bool> ResetPasswordAsync(ResetPasswordRequestModel request);

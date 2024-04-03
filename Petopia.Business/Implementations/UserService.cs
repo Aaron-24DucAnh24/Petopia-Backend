@@ -22,16 +22,16 @@ namespace Petopia.Business.Implementations
 
 		public async Task<CurrentUserResponseModel> GetCurrentUserAsync()
 		{
-			User user = await UnitOfWork.Users.FirstAsync(x => x.Id == UserContext.Id);
-			CurrentUserResponseModel result = user.Role == UserRole.Organization
-				? await GetCurrentOrganizationAsync(user)
-				: await GetCurrentIndividualAsync(user);
-			List<Pet> pets = await UnitOfWork.Pets
-				.Include(x => x.Images)
-				.Where(x => x.OwnerId == UserContext.Id)
-				.ToListAsync();
-			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
-			return result;
+			return await GetUserInfoAsync(UserContext.Id);
+		}
+
+		public async Task<CurrentUserResponseModel> GetOtherUserAsync(string userId)
+		{
+			if (Guid.TryParse(userId, out Guid id))
+			{
+				return await GetUserInfoAsync(id);
+			}
+			throw new UserNotFoundException();
 		}
 
 		public async Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync()
@@ -130,7 +130,14 @@ namespace Petopia.Business.Implementations
 			User user = await UnitOfWork.Users
 				.AsTracking()
 				.FirstAsync(x => x.Id == UserContext.Id);
-			if (!HashUtils.VerifyHashedPassword(user.Password, request.OldPassword))
+			if (string.IsNullOrEmpty(user.Password))
+			{
+				throw new WrongLoginMethodException();
+			}
+			if (!HashUtils.VerifyHashedPassword(user.Password, request.OldPassword)) {
+				throw new IncorrectPasswordException();
+			}
+			if (HashUtils.VerifyHashedPassword(user.Password, request.NewPassword))
 			{
 				throw new InvalidPasswordException();
 			}
@@ -182,6 +189,22 @@ namespace Petopia.Business.Implementations
 			UnitOfWork.Users.Update(user);
 			await UnitOfWork.SaveChangesAsync();
 			return image;
+		}
+
+		private async Task<CurrentUserResponseModel> GetUserInfoAsync(Guid userId)
+		{
+			User user = await UnitOfWork.Users
+				.FirstOrDefaultAsync(x => x.Id == userId)
+				?? throw new UserNotFoundException();
+			CurrentUserResponseModel result = user.Role == UserRole.Organization
+				? await GetCurrentOrganizationAsync(user)
+				: await GetCurrentIndividualAsync(user);
+			List<Pet> pets = await UnitOfWork.Pets
+				.Include(x => x.Images)
+				.Where(x => x.OwnerId == userId)
+				.ToListAsync();
+			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
+			return result;
 		}
 
 		#region private

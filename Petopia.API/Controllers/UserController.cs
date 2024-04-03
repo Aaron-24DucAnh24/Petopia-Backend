@@ -34,6 +34,13 @@ namespace Petopia.API.Controllers
 			return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
 		}
 
+		[HttpGet("OtherUser")]
+		[AllowAnonymous]
+		public async Task<ActionResult<CurrentUserResponseModel>> GetOtherUser([FromQuery] string userId)
+		{
+			return ResponseUtils.OkResult(await _userService.GetOtherUserAsync(userId));
+		}
+
 		[HttpGet("CurrentUserCore")]
 		[Authorize]
 		public async Task<ActionResult<CurrentUserCoreResponseModel>> GetCurrentUserCore()
