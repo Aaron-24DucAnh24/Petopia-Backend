@@ -13,6 +13,7 @@ namespace Petopia.Business.Implementations
   public class PetService : BaseService, IPetService
   {
     private readonly IElasticsearchService _elasticsearchService;
+    private const int SEE_MORE_LENGTH = 4;
 
     public PetService(
       IServiceProvider provider,
@@ -89,8 +90,23 @@ namespace Petopia.Business.Implementations
       UnitOfWork.Pets.Update(pet);
       await UnitOfWork.SaveChangesAsync();
 
+      List<Pet> seeMore = await UnitOfWork.Pets
+        .Include(x => x.Images)
+        .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
+        .ToListAsync();
+      if(seeMore.Count == 0)
+      {
+				seeMore = await UnitOfWork.Pets
+				.Include(x => x.Images)
+        .Where(x => x.Id != pet.Id)
+        .Take(SEE_MORE_LENGTH)
+				.ToListAsync();
+			}
+
       var result = Mapper.Map<PetDetailsResponseModel>(pet);
       result.Address = pet.Owner.Address;
+      result.SeeMore = Mapper.Map<List<PetResponseModel>>(seeMore);
+
       return result;
     }
 

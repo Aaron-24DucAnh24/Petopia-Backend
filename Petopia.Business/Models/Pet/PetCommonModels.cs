@@ -33,5 +33,6 @@ namespace Petopia.Business.Models.Pet
     public Guid OwnerId { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
     public string Address { get; set; }
+    public List<PetResponseModel> SeeMore { get; set; }
   }
 }
