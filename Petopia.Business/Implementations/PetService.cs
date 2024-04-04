@@ -168,31 +168,31 @@ namespace Petopia.Business.Implementations
     private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PaginationRequestModel<PetFilterModel> model)
     {
       PetFilterModel filter = model.Filter;
-      if (filter.Age != null)
+      if (filter.Age != null && filter.Age.Any())
       {
         query = query.Where(x => filter.Age.Contains(x.Age));
       }
-      if (filter.Color != null)
+      if (filter.Color != null && filter.Color.Any())
       {
         query = query.Where(x => filter.Color.Contains(x.Color));
       }
-      if (filter.IsSterillized != null)
+      if (filter.IsSterillized != null && filter.IsSterillized.Any())
       {
         query = query.Where(x => filter.IsSterillized.Contains(x.IsSterillized));
       }
-      if (filter.IsVaccinated != null)
+      if (filter.IsVaccinated != null && filter.IsVaccinated.Any())
       {
         query = query.Where(x => filter.IsVaccinated.Contains(x.IsVaccinated));
       }
-      if (filter.Sex != null)
+      if (filter.Sex != null && filter.Sex.Any())
       {
         query = query.Where(x => filter.Sex.Contains(x.Sex));
       }
-      if (filter.Size != null)
+      if (filter.Size != null && filter.Size.Any())
       {
         query = query.Where(x => filter.Size.Contains(x.Size));
       }
-      if (filter.Species != null)
+      if (filter.Species != null && filter.Species.Any())
       {
         query = query.Where(x => filter.Species.Contains(x.Species));
       }
