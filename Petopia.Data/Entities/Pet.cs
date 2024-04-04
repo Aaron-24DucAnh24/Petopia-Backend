@@ -22,8 +22,10 @@ namespace Petopia.Data.Entities
     public DateTimeOffset IsUpdatedAt { get; set; }
     public bool IsDeleted { get; set; }
     public Guid OwnerId { get; set; }
+    public int View { get; set; }
+
     public User Owner { get; set; }
     public List<Media> Images { get; set; }
-    public int View { get; set; }
+    public List<AdoptionForm> AdoptionForms { get; set; }
   }
 }

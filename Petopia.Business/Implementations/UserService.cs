@@ -191,6 +191,20 @@ namespace Petopia.Business.Implementations
 			return image;
 		}
 
+		public async Task<string> GetUserNameAsync(Guid userId)
+		{
+			User user = await UnitOfWork.Users
+				.Include(x => x.UserIndividualAttributes)
+				.Include(x => x.UserOrganizationAttributes)
+				.FirstAsync(x => x.Id == UserContext.Id);
+			string userName = user.Role == UserRole.Organization
+				? user.UserOrganizationAttributes.OrganizationName
+				: string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
+			return userName;
+		}
+
+		#region private
+
 		private async Task<CurrentUserResponseModel> GetUserInfoAsync(Guid userId)
 		{
 			User user = await UnitOfWork.Users
@@ -207,11 +221,9 @@ namespace Petopia.Business.Implementations
 			return result;
 		}
 
-		#region private
-
 		private async Task<CurrentOrganizationResponseModel> GetCurrentOrganizationAsync(User user)
 		{
-			user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstAsync(x => x.Id == user.Id);
+			user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstOrDefaultAsync(x => x.Id == user.Id);
 			var result = Mapper.Map<CurrentOrganizationResponseModel>(user);
 			result.Email = HashUtils.DecryptString(result.Email);
 			return result;
@@ -219,7 +231,7 @@ namespace Petopia.Business.Implementations
 
 		private async Task<CurrentIndividualResponseModel> GetCurrentIndividualAsync(User user)
 		{
-			user.UserIndividualAttributes = await UnitOfWork.UserIndividualAttributes.FirstAsync(x => x.Id == user.Id);
+			user.UserIndividualAttributes = await UnitOfWork.UserIndividualAttributes.FirstOrDefaultAsync(x => x.Id == user.Id);
 			var result = Mapper.Map<CurrentIndividualResponseModel>(user);
 			result.Email = HashUtils.DecryptString(result.Email);
 			return result;

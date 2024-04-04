@@ -15,6 +15,9 @@ namespace Petopia.Business.Constants
     public const int INCORRECT_PASSWORD = 10009;
 
 		// PET
-		public const int NOT_FOUND_PET = 11007;
+		public const int NOT_FOUND_PET = 11001;
+
+    // ADOPTION FORM
+    public const int NOT_FOUND_FORM = 12001;
   }
 }

@@ -49,7 +49,7 @@ namespace Petopia.Business.Implementations
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
       
-      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstOrDefaultAsync(x => x.Type == EmailType.ForgotPassword);
       string body = emailTemplate.Body
         .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice)
         .Replace(EmailKey.PASSWORD_TOKEN, user.ResetPasswordToken)
@@ -69,7 +69,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken)
     {
-      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ValidateRegister);
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstOrDefaultAsync(x => x.Type == EmailType.ValidateRegister);
       string body = emailTemplate.Body
         .Replace(EmailKey.EMAIL, email)
         .Replace(EmailKey.REGISTER_TOKEN, registerToken)
