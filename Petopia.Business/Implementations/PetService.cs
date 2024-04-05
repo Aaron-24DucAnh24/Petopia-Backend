@@ -114,6 +114,7 @@ namespace Petopia.Business.Implementations
     {
       IQueryable<Pet> query = UnitOfWork.Pets
         .Include(x => x.Images)
+        .Where(x => !x.IsDeleted)
         .AsQueryable();
       query = GetPetsFromFilter(query, model);
       query = GetPetsFromText(query, model.Filter.Text);

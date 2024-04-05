@@ -201,7 +201,7 @@ namespace Petopia.Business.Implementations
 				: await GetCurrentIndividualAsync(user);
 			List<Pet> pets = await UnitOfWork.Pets
 				.Include(x => x.Images)
-				.Where(x => x.OwnerId == userId)
+				.Where(x => x.OwnerId == userId && !x.IsDeleted)
 				.ToListAsync();
 			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
 			return result;
