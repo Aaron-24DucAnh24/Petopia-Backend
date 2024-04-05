@@ -26,6 +26,8 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
+app.UseSockets(builder.Configuration);
+
 app.UseCors();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
