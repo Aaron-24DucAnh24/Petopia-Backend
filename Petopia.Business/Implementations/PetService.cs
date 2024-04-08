@@ -123,9 +123,10 @@ namespace Petopia.Business.Implementations
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
     {
-      User userAttributes = await GetUserAttributesAsync();
+      Pet pet = await UnitOfWork.Pets
+        .AsTracking()
+        .FirstAsync(x => x.Id == model.Id);
 
-      Pet pet = await UnitOfWork.Pets.AsTracking().FirstAsync(x => x.Id == model.Id);
       pet.Name = model.Name;
       pet.Description = model.Description;
       pet.Sex = model.Sex;
@@ -137,22 +138,33 @@ namespace Petopia.Business.Implementations
       pet.IsVaccinated = model.IsVaccinated;
       pet.IsSterillized = model.IsSterillized;
       pet.IsAvailable = model.IsAvailable;
+      pet.IsUpdatedAt = DateTimeOffset.Now;
 
-      var images = await UnitOfWork.Medias.AsTracking().Where(x => x.PetId == model.Id).ToListAsync();
+      List<Media> images = await UnitOfWork.Medias
+        .AsTracking()
+        .Where(x => x.PetId == model.Id)
+        .ToListAsync();
+
       foreach (var image in images)
       {
-        image.IsDeleted = true;
+        if(!model.Images.Contains(image.Url))
+        {
+          UnitOfWork.Medias.Delete(image);
+        }
       }
 
       foreach (var image in model.Images)
       {
-        UnitOfWork.Medias.Create(new Media()
+        if(!images.Select(x => x.Url).ToList().Contains(image))
         {
-          Id = Guid.NewGuid(),
-          PetId = pet.Id,
-          Url = image,
-          Type = MediaType.Image,
-        });
+					UnitOfWork.Medias.Create(new Media()
+					{
+						Id = Guid.NewGuid(),
+						PetId = pet.Id,
+						Url = image,
+						Type = MediaType.Image,
+					});
+				}
       }
 
       await UnitOfWork.SaveChangesAsync();
