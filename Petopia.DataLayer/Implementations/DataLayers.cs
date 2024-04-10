@@ -80,4 +80,11 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+
+	public class BlogDataLayer : BaseDataLayer<Blog>, IBlogDataLayer
+	{
+		public BlogDataLayer(ApplicationDbContext context) : base(context)
+		{
+		}
+	}
 }

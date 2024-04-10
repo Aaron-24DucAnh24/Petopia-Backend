@@ -13,4 +13,5 @@ namespace Petopia.DataLayer.Interfaces
   public interface IProvinceDataLayer : IBaseDataLayer<Province> { }
   public interface IDistrictDataLayer : IBaseDataLayer<District> { }
   public interface IWardDataLayer : IBaseDataLayer<Ward> { }
+  public interface IBlogDataLayer: IBaseDataLayer<Blog> { }
 }
