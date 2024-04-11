@@ -24,6 +24,12 @@
     <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Models\Adoption\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Adoption\" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

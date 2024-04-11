@@ -21,6 +21,7 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new ProvinceConfiguration());
       builder.ApplyConfiguration(new DistrictConfiguration());
       builder.ApplyConfiguration(new WardConfiguration());
+      builder.ApplyConfiguration(new AdoptionFormConfiguration());
     }
 
     public DbSet<User> Users { get; set; }
@@ -34,5 +35,6 @@ namespace Petopia.Data
     public DbSet<Province> Provinces { get; set; }
     public DbSet<District> Districts { get; set; }
     public DbSet<Ward> Wards { get; set; }
+    public DbSet<AdoptionForm> AdoptionForms { get; set; }
   }
 }

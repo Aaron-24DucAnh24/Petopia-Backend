@@ -14,5 +14,7 @@ namespace Petopia.Business.Interfaces
     public Task<bool> ChangePasswordAsync(ChangePasswordRequestModel request);
     public Task<CurrentUserResponseModel> UpdateUserAsync(UpdateUserRequestModel request);
     public Task<string> UpdateUserAvatarAsync(string image);
-	}  
+    public Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street);
+    public Task<string> GetUserNameAsync(Guid userId);
+	}
 }

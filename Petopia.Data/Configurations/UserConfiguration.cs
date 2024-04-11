@@ -14,22 +14,28 @@ namespace Petopia.Data.Configurations
       builder.Property(x => x.Role).HasDefaultValue(UserRole.StandardUser);
       builder.Property(x => x.Image).HasDefaultValue(string.Empty);
       builder.Property(x => x.Address).HasDefaultValue(string.Empty);
-      builder
-        .HasOne<UserConnection>(x => x.UserConnection)
+      //builder.Property(x => x.IsDeactivated).HasDefaultValue(false);
+			builder
+        .HasOne(x => x.UserConnection)
         .WithOne(x => x.User)
         .HasForeignKey<UserConnection>(x => x.Id);
       builder
-        .HasOne<UserIndividualAttributes>(x => x.UserIndividualAttributes)
+        .HasOne(x => x.UserIndividualAttributes)
         .WithOne(x => x.User)
         .HasForeignKey<UserIndividualAttributes>(x => x.Id);
       builder
-        .HasOne<UserOrganizationAttributes>(x => x.UserOrganizationAttributes)
+        .HasOne(x => x.UserOrganizationAttributes)
         .WithOne(x => x.User)
         .HasForeignKey<UserOrganizationAttributes>(x => x.Id);
       builder
         .HasMany<Pet>(x => x.Pets)
         .WithOne(x => x.Owner)
         .HasForeignKey(x => x.OwnerId);
-    }
+			builder
+	      .HasMany<AdoptionForm>(x => x.AdoptionForms)
+	      .WithOne(x => x.Adopter)
+	      .HasForeignKey(x => x.AdopterId)
+        .OnDelete(DeleteBehavior.NoAction);
+		}
   }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Petopia.Business.Models.Adoption;
 using Petopia.Business.Models.Location;
 using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
@@ -28,6 +29,8 @@ namespace Petopia.Business.Utils
       CreateMap<Province, LocationResponseModel>();
       CreateMap<District, LocationResponseModel>();
       CreateMap<Ward, LocationResponseModel>();
+
+      CreateMap<AdoptionForm, DetailAdoptionFormResponseModel>();
     }
   }
 }
