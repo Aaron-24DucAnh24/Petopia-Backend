@@ -25,6 +25,13 @@ namespace Petopia.API.Controllers
 			return ResponseUtils.OkResult(await _adoptionFormService.CreateAdoptionFormAsync(request));
 		}
 
+		[HttpGet("PreCheck/{petId}")]
+		[Authorize]
+		public async Task<ActionResult<bool>> PreCheck(Guid petid)
+		{
+			return ResponseUtils.OkResult(await _adoptionFormService.PreCheckAsync(petid));
+		}
+
 		[HttpPut]
 		[Authorize]
 		public async Task<ActionResult<bool>> UpdateAdoption([FromBody] UpdateAdoptionRequestModel request)

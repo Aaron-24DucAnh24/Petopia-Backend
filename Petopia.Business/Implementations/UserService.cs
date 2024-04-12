@@ -191,16 +191,25 @@ namespace Petopia.Business.Implementations
 			return image;
 		}
 
+		public async Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street)
+		{
+			string province = (await UnitOfWork.Provinces.Where(x => x.Code == provinceCode).FirstAsync()).Name;
+			string district = (await UnitOfWork.Districts.Where(x => x.Code == districtCode).FirstAsync()).Name;
+			string ward = (await UnitOfWork.Wards.Where(x => x.Code == wardCode).FirstAsync()).Name;
+			return string.Join(", ", street, ward, district, province);
+		}
+
 		public async Task<string> GetUserNameAsync(Guid userId)
 		{
 			User user = await UnitOfWork.Users
 				.Include(x => x.UserIndividualAttributes)
 				.Include(x => x.UserOrganizationAttributes)
-				.FirstAsync(x => x.Id == UserContext.Id);
-			string userName = user.Role == UserRole.Organization
+				.FirstAsync(x => x.Id == userId);
+
+			string result = user.Role == UserRole.Organization
 				? user.UserOrganizationAttributes.OrganizationName
 				: string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
-			return userName;
+			return result;
 		}
 
 		#region private
@@ -215,7 +224,7 @@ namespace Petopia.Business.Implementations
 				: await GetCurrentIndividualAsync(user);
 			List<Pet> pets = await UnitOfWork.Pets
 				.Include(x => x.Images)
-				.Where(x => x.OwnerId == userId)
+				.Where(x => x.OwnerId == userId && !x.IsDeleted)
 				.ToListAsync();
 			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
 			return result;
@@ -235,14 +244,6 @@ namespace Petopia.Business.Implementations
 			var result = Mapper.Map<CurrentIndividualResponseModel>(user);
 			result.Email = HashUtils.DecryptString(result.Email);
 			return result;
-		}
-
-		private async Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street)
-		{
-			string province = (await UnitOfWork.Provinces.Where(x => x.Code == provinceCode).FirstAsync()).Name;
-			string district = (await UnitOfWork.Districts.Where(x => x.Code == districtCode).FirstAsync()).Name;
-			string ward = (await UnitOfWork.Wards.Where(x => x.Code == wardCode).FirstAsync()).Name;
-			return string.Join(", ", street, ward, district, province);
 		}
 
 		#endregion

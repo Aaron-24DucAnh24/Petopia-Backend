@@ -36,7 +36,17 @@ namespace Petopia.Business.Implementations
 		public async Task<bool> CreateAdoptionFormAsync(CreateAdoptionRequestModel request)
 		{
 			Pet pet = await UnitOfWork.Pets.FirstAsync(x => x.Id == request.PetId);
-			string userName = await _userService.GetUserNameAsync(UserContext.Id);
+
+			User user = await UnitOfWork.Users
+				.AsTracking()
+				.Include(x => x.UserIndividualAttributes)
+				.Include(x => x.UserOrganizationAttributes)
+				.FirstAsync(x => x.Id == UserContext.Id);
+
+			string userName = user.Role == UserRole.Organization
+				? user.UserOrganizationAttributes.OrganizationName
+				: string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
+
 			await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
 			{
 				Id = Guid.NewGuid(),
@@ -44,12 +54,26 @@ namespace Petopia.Business.Implementations
 				PetId = request.PetId,
 				HouseType = request.HouseType,
 				Message = request.Message,
-				DelayDuration = request.DelayDuration,
+				DelayDuration = request.AdoptTime,
 				IsCreatedAt = DateTimeOffset.Now,
 				IsUpdatedAt = DateTimeOffset.Now,
 				Name = string.Join("Đơn nhận nuôi ", pet.Name, " từ ", userName),
 				IsOwnerBefore = request.IsOwnerBefore,
 			});
+
+			user.Phone = request.Phone;
+			user.ProvinceCode = request.ProvinceCode;
+			user.DistrictCode = request.DistrictCode;
+			user.WardCode = request.WardCode;
+			user.Street = request.Street;
+			user.Address = await _userService.GetAddressAsync(
+				user.ProvinceCode,
+				user.DistrictCode,
+				user.WardCode,
+				user.Street
+				);
+
+			UnitOfWork.Users.Update(user);
 			await UnitOfWork.SaveChangesAsync();
 			return true;
 		}
@@ -120,6 +144,23 @@ namespace Petopia.Business.Implementations
 			return result;
 		}
 
+		public async Task<bool> PreCheckAsync(Guid petId)
+		{
+			bool isOwned = await UnitOfWork.Pets.AnyAsync(x => x.Id == petId && x.OwnerId == UserContext.Id);
+			if(isOwned)
+			{
+				throw new OwnedPetException();
+			}
+
+			bool isAdopted = await UnitOfWork.AdoptionForms.AnyAsync(x => x.AdopterId == UserContext.Id && x.PetId == petId);
+			if (isAdopted)
+			{
+				throw new AdoptedPetException();
+			}
+
+			return true;
+		}
+
 		public async Task<bool> UpdateAdoptionFormAsync(UpdateAdoptionRequestModel request)
 		{
 			AdoptionForm form = await UnitOfWork.AdoptionForms
@@ -128,7 +169,7 @@ namespace Petopia.Business.Implementations
 				.FirstAsync();
 
 			form.HouseType = request.HouseType;
-			form.DelayDuration = request.DelayDuration;
+			form.DelayDuration = request.AdoptTime;
 			form.Message = request.Message;
 			form.IsUpdatedAt = DateTimeOffset.Now;
 			form.IsOwnerBefore = request.IsOwnerBefore;

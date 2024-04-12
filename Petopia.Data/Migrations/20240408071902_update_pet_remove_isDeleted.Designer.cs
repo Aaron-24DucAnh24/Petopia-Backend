@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petopia.Data;
 
@@ -11,9 +12,11 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240408071902_update_pet_remove_isDeleted")]
+    partial class update_pet_remove_isDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,69 +24,6 @@ namespace Petopia.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Petopia.Data.Entities.AdoptionForm", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AdopterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("DelayDuration")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(2);
-
-                    b.Property<int>("HouseType")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
-
-                    b.Property<DateTimeOffset>("IsCreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsOwnerBefore")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("IsSeen")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("IsSeenByAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset>("IsUpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdopterId");
-
-                    b.HasIndex("PetId");
-
-                    b.ToTable("AdoptionForm", (string)null);
-                });
 
             modelBuilder.Entity("Petopia.Data.Entities.District", b =>
                 {
@@ -391,25 +331,6 @@ namespace Petopia.Data.Migrations
                     b.ToTable("Ward", (string)null);
                 });
 
-            modelBuilder.Entity("Petopia.Data.Entities.AdoptionForm", b =>
-                {
-                    b.HasOne("Petopia.Data.Entities.User", "Adopter")
-                        .WithMany("AdoptionForms")
-                        .HasForeignKey("AdopterId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Petopia.Data.Entities.Pet", "Pet")
-                        .WithMany("AdoptionForms")
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Adopter");
-
-                    b.Navigation("Pet");
-                });
-
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
                 {
                     b.HasOne("Petopia.Data.Entities.Pet", "Pet")
@@ -467,15 +388,11 @@ namespace Petopia.Data.Migrations
 
             modelBuilder.Entity("Petopia.Data.Entities.Pet", b =>
                 {
-                    b.Navigation("AdoptionForms");
-
                     b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.User", b =>
                 {
-                    b.Navigation("AdoptionForms");
-
                     b.Navigation("Pets");
 
                     b.Navigation("UserConnection");

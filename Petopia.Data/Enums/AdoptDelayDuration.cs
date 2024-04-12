@@ -5,6 +5,6 @@
 		Immediately,
 		FewDays,
 		OneWeek,
+		Other,
 	}
 }
-

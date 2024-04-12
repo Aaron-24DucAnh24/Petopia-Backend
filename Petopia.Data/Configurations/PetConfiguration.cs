@@ -17,7 +17,8 @@ namespace Petopia.Data.Configurations
       builder
         .HasMany<AdoptionForm>(x => x.AdoptionForms)
         .WithOne(x => x.Pet)
-        .HasForeignKey(x => x.PetId);
-    }
+        .HasForeignKey(x => x.PetId)
+        .OnDelete(DeleteBehavior.NoAction);
+		}
   }
 }
