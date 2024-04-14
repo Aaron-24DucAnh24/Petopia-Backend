@@ -29,14 +29,14 @@ namespace Petopia.API.Controllers
 
 		[HttpGet("CurrentUser")]
 		[Authorize]
-		public async Task<ActionResult<CurrentUserResponseModel>> GetCurrentUser()
+		public async Task<ActionResult<GetUserDetailsResponseModel>> GetCurrentUser()
 		{
 			return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
 		}
 
 		[HttpGet("OtherUser")]
 		[AllowAnonymous]
-		public async Task<ActionResult<CurrentUserResponseModel>> GetOtherUser([FromQuery] string userId)
+		public async Task<ActionResult<GetUserDetailsResponseModel>> GetOtherUser([FromQuery] string userId)
 		{
 			return ResponseUtils.OkResult(await _userService.GetOtherUserAsync(userId));
 		}
@@ -73,7 +73,7 @@ namespace Petopia.API.Controllers
 
 		[HttpPut]
 		[Authorize]
-		public async Task<ActionResult<CurrentUserResponseModel>> Update([FromBody] UpdateUserRequestModel request)
+		public async Task<ActionResult<GetUserDetailsResponseModel>> Update([FromBody] UpdateUserRequestModel request)
 		{
 			return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
 		}

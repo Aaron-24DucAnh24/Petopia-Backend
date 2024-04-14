@@ -41,7 +41,14 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _petService.GetPetDetailsAsync(petId));
     }
 
-    [HttpPut("")]
+    [HttpPost("User")]
+		[AllowAnonymous]
+		public async Task<ActionResult<PaginationResponseModel<PetResponseModel>>> GetPetsByUserId([FromBody] PaginationRequestModel<Guid> request)
+		{
+			return ResponseUtils.OkResult(await _petService.GetPetsByUserId(request));
+		}
+
+		[HttpPut("")]
     [Authorize]
     public async Task<ActionResult<UpdatePetResponseModel>> UpdatePet([FromBody] UpdatePetRequestModel request)
     {

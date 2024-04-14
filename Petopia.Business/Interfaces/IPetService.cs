@@ -7,7 +7,8 @@ namespace Petopia.Business.Interfaces
   {
     public Task<CreatePetResponseModel> CreatePetAsync(CreatePetRequestModel model);
     public Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model);
-    public Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId);
+		public Task<PaginationResponseModel<PetResponseModel>> GetPetsByUserId(PaginationRequestModel<Guid> model);
+		public Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId);
     public Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model);
     public Task<bool> DeletePetAsync(Guid petId);
   }

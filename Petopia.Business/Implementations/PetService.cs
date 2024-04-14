@@ -173,7 +173,19 @@ namespace Petopia.Business.Implementations
       return result;
     }
 
-    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
+		public async Task<PaginationResponseModel<PetResponseModel>> GetPetsByUserId(PaginationRequestModel<Guid> model)
+		{
+			IQueryable<Pet> query = UnitOfWork.Pets
+	      .Include(x => x.Images)
+	      .Where(x => !x.IsDeleted)
+        .Where(x => x.OwnerId == model.Filter)
+	      .AsQueryable();
+			return await PagingAsync<PetResponseModel, Pet, Guid>(query, model);
+		}
+
+		#region private
+
+		private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
     {
       return query;
     }
@@ -217,5 +229,7 @@ namespace Petopia.Business.Implementations
       }
       return query;
     }
-  }
+
+		#endregion
+	}
 }

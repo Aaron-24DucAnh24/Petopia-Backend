@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.Exceptions;
-using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
@@ -20,12 +19,12 @@ namespace Petopia.Business.Implementations
 		{
 		}
 
-		public async Task<CurrentUserResponseModel> GetCurrentUserAsync()
+		public async Task<GetUserDetailsResponseModel> GetCurrentUserAsync()
 		{
 			return await GetUserInfoAsync(UserContext.Id);
 		}
 
-		public async Task<CurrentUserResponseModel> GetOtherUserAsync(string userId)
+		public async Task<GetUserDetailsResponseModel> GetOtherUserAsync(string userId)
 		{
 			if (Guid.TryParse(userId, out Guid id))
 			{
@@ -146,7 +145,7 @@ namespace Petopia.Business.Implementations
 			return true;
 		}
 
-		public async Task<CurrentUserResponseModel> UpdateUserAsync(UpdateUserRequestModel request)
+		public async Task<GetUserDetailsResponseModel> UpdateUserAsync(UpdateUserRequestModel request)
 		{
 			User user = await UnitOfWork.Users
 				.AsTracking()
@@ -214,19 +213,14 @@ namespace Petopia.Business.Implementations
 
 		#region private
 
-		private async Task<CurrentUserResponseModel> GetUserInfoAsync(Guid userId)
+		private async Task<GetUserDetailsResponseModel> GetUserInfoAsync(Guid userId)
 		{
 			User user = await UnitOfWork.Users
 				.FirstOrDefaultAsync(x => x.Id == userId)
 				?? throw new UserNotFoundException();
-			CurrentUserResponseModel result = user.Role == UserRole.Organization
+			GetUserDetailsResponseModel result = user.Role == UserRole.Organization
 				? await GetCurrentOrganizationAsync(user)
 				: await GetCurrentIndividualAsync(user);
-			List<Pet> pets = await UnitOfWork.Pets
-				.Include(x => x.Images)
-				.Where(x => x.OwnerId == userId && !x.IsDeleted)
-				.ToListAsync();
-			result.Pets = Mapper.Map<List<PetResponseModel>>(pets);
 			return result;
 		}
 
