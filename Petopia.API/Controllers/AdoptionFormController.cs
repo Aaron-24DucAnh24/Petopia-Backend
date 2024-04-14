@@ -32,13 +32,6 @@ namespace Petopia.API.Controllers
 			return ResponseUtils.OkResult(await _adoptionFormService.PreCheckAsync(petid));
 		}
 
-		[HttpPut]
-		[Authorize]
-		public async Task<ActionResult<bool>> UpdateAdoption([FromBody] UpdateAdoptionRequestModel request)
-		{
-			return ResponseUtils.OkResult(await _adoptionFormService.UpdateAdoptionFormAsync(request));
-		}
-
 		[HttpGet("{id}")]
 		[Authorize]
 		public async Task<ActionResult<DetailAdoptionFormResponseModel>> GetAdoptionForm(Guid id)
@@ -46,14 +39,14 @@ namespace Petopia.API.Controllers
 			return ResponseUtils.OkResult(await _adoptionFormService.GetAdoptionFormAsync(id));
 		}
 
-		[HttpGet("Pet/{petId}")]
+		[HttpGet("Incoming")]
 		[Authorize]
-		public async Task<ActionResult<List<AdoptionFormResponseModel>>> GetAdoptionFormsByPetId(Guid petId)
+		public async Task<ActionResult<List<AdoptionFormResponseModel>>> GetAdoptionFormsByPetId()
 		{
-			return ResponseUtils.OkResult(await _adoptionFormService.GetAdoptionFormsByPetIdAsync(petId));
+			return ResponseUtils.OkResult(await _adoptionFormService.GetAdoptionFormsIncomingAsync());
 		}
 
-		[HttpGet("User")]
+		[HttpGet("Sent")]
 		[Authorize]
 		public async Task<ActionResult<List<AdoptionFormResponseModel>>> GetAdoptionFormsByUserId()
 		{

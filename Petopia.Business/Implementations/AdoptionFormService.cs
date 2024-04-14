@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Adoption;
+using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Exceptions;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
@@ -12,6 +13,7 @@ namespace Petopia.Business.Implementations
 	public class AdoptionFormService : BaseService, IAdoptionFormService
 	{
 		private readonly IUserService _userService;
+		private readonly INotificationService _notificationService;
 
 		public AdoptionFormService(
 			IServiceProvider provider,
@@ -19,6 +21,7 @@ namespace Petopia.Business.Implementations
 		) : base(provider, logger)
 		{
 			_userService = provider.GetRequiredService<IUserService>();
+			_notificationService = provider.GetRequiredService<INotificationService>();
 		}
 
 		public async Task<bool> ActOnAdoptionFormAsync(Guid formId, AdoptStatus status)
@@ -47,7 +50,7 @@ namespace Petopia.Business.Implementations
 				? user.UserOrganizationAttributes.OrganizationName
 				: string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
 
-			await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
+			AdoptionForm form = await UnitOfWork.AdoptionForms.CreateAsync(new AdoptionForm()
 			{
 				Id = Guid.NewGuid(),
 				AdopterId = UserContext.Id,
@@ -57,7 +60,7 @@ namespace Petopia.Business.Implementations
 				DelayDuration = request.AdoptTime,
 				IsCreatedAt = DateTimeOffset.Now,
 				IsUpdatedAt = DateTimeOffset.Now,
-				Name = string.Join("Đơn nhận nuôi ", pet.Name, " từ ", userName),
+				Name = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
 				IsOwnerBefore = request.IsOwnerBefore,
 			});
 
@@ -75,6 +78,16 @@ namespace Petopia.Business.Implementations
 
 			UnitOfWork.Users.Update(user);
 			await UnitOfWork.SaveChangesAsync();
+
+			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
+			{
+				GoalId = form.Id,
+				UserId = pet.OwnerId,
+				Title = string.Join(" ", "Có người muốn nhận nuôi", pet.Name, "nè!"),
+				Content = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
+				Type = NotificationType.Adoption,
+			});
+
 			return true;
 		}
 
@@ -102,10 +115,11 @@ namespace Petopia.Business.Implementations
 			return Mapper.Map<DetailAdoptionFormResponseModel>(form);
 		}
 
-		public async Task<List<AdoptionFormResponseModel>> GetAdoptionFormsByPetIdAsync(Guid petId)
+		public async Task<List<AdoptionFormResponseModel>> GetAdoptionFormsIncomingAsync()
 		{
 			List<AdoptionForm> forms = await UnitOfWork.AdoptionForms
-				.Where(x => x.PetId == petId)
+				.Include(x => x.Pet)
+				.Where(x => x.Pet.OwnerId == UserContext.Id)
 				.ToListAsync();
 			List<AdoptionFormResponseModel> result = new();
 			foreach(var form in forms)
@@ -117,6 +131,7 @@ namespace Petopia.Business.Implementations
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
 					IsSeen = UserContext.Role == UserRole.SystemAdmin ? form.IsSeenByAdmin : form.IsSeen,
 					Name = userName,
+					Status = form.Status,
 				});
 			}
 			result.OrderByDescending(x => x.LastUpdatedAt);
@@ -131,13 +146,13 @@ namespace Petopia.Business.Implementations
 			List<AdoptionFormResponseModel> result = new();
 			foreach (var form in forms)
 			{
-				string userName = await _userService.GetUserNameAsync(form.AdopterId);
-				result.Append(new AdoptionFormResponseModel()
+				result.Add(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
 					IsSeen = UserContext.Role == UserRole.SystemAdmin ? form.IsSeenByAdmin : form.IsSeen,
-					Name = userName,
+					Name = form.Name,
+					Status = form.Status,
 				});
 			}
 			result.OrderByDescending(x => x.LastUpdatedAt);
@@ -158,24 +173,6 @@ namespace Petopia.Business.Implementations
 				throw new AdoptedPetException();
 			}
 
-			return true;
-		}
-
-		public async Task<bool> UpdateAdoptionFormAsync(UpdateAdoptionRequestModel request)
-		{
-			AdoptionForm form = await UnitOfWork.AdoptionForms
-				.AsTracking()
-				.Where(x => x.Id == request.AdoptionFormId)
-				.FirstAsync();
-
-			form.HouseType = request.HouseType;
-			form.DelayDuration = request.AdoptTime;
-			form.Message = request.Message;
-			form.IsUpdatedAt = DateTimeOffset.Now;
-			form.IsOwnerBefore = request.IsOwnerBefore;
-			form.IsSeen = false;
-			form.IsSeenByAdmin = false;
-			await UnitOfWork.SaveChangesAsync();
 			return true;
 		}
 	}

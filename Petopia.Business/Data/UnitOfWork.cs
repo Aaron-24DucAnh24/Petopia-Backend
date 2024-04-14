@@ -37,5 +37,6 @@ namespace Petopia.Business.Data
     public IDistrictDataLayer Districts => _serviceProvider.GetRequiredService<IDistrictDataLayer>();
     public IWardDataLayer Wards => _serviceProvider.GetRequiredService<IWardDataLayer>();
 		public IAdoptionFormDataLayer AdoptionForms => _serviceProvider.GetRequiredService<IAdoptionFormDataLayer>();
+    public INotificationDataLayer Notifications => _serviceProvider.GetRequiredService<INotificationDataLayer>();
 	}
 }

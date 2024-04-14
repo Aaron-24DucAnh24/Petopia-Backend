@@ -18,5 +18,6 @@ namespace Petopia.Business.Data
     IDistrictDataLayer Districts { get; }
     IWardDataLayer Wards { get; }
 		IAdoptionFormDataLayer AdoptionForms { get; }
+    INotificationDataLayer Notifications { get; }
 	}
 }

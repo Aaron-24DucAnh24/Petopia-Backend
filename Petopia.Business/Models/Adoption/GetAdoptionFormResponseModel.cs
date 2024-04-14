@@ -21,6 +21,7 @@ namespace Petopia.Business.Models.Adoption
 		public Guid Id { get; set; }
 		public DateTimeOffset LastUpdatedAt { get; set; }
 		public bool IsSeen { get; set; }
+		public AdoptStatus Status { get; set; }
 		public string Name { get; set; } = null!;
 	}
 }

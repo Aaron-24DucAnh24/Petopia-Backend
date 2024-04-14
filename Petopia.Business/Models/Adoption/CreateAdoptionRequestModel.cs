@@ -12,11 +12,6 @@ namespace Petopia.Business.Models.Adoption
 		public string Street { get; set; } = null!;
 	}
 
-	public class UpdateAdoptionRequestModel : BaseAdoptionRequestModel
-	{
-		public Guid AdoptionFormId { get; set; }
-	}
-
 	public class BaseAdoptionRequestModel
 	{
 		public AdoptHouseType HouseType { get; set; }

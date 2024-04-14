@@ -87,4 +87,11 @@ namespace Petopia.DataLayer.Implementations
 		{
 		}
 	}
+
+	public class NotificationFormDataLayer : BaseDataLayer<Notification>, INotificationDataLayer
+	{
+		public NotificationFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+		{
+		}
+	}
 }

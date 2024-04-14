@@ -14,8 +14,7 @@ namespace Petopia.Data.Configurations
       builder.Property(x => x.Role).HasDefaultValue(UserRole.StandardUser);
       builder.Property(x => x.Image).HasDefaultValue(string.Empty);
       builder.Property(x => x.Address).HasDefaultValue(string.Empty);
-      //builder.Property(x => x.IsDeactivated).HasDefaultValue(false);
-			builder
+      builder
         .HasOne(x => x.UserConnection)
         .WithOne(x => x.User)
         .HasForeignKey<UserConnection>(x => x.Id);
@@ -36,6 +35,10 @@ namespace Petopia.Data.Configurations
 	      .WithOne(x => x.Adopter)
 	      .HasForeignKey(x => x.AdopterId)
         .OnDelete(DeleteBehavior.NoAction);
+      builder
+        .HasMany<Notification>(x => x.Notifications)
+        .WithOne(x => x.User)
+        .HasForeignKey(x => x.UserId);
 		}
   }
 }

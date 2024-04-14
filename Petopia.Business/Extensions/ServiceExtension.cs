@@ -45,7 +45,8 @@ namespace Petopia.Business.Extensions
       services.AddScoped<IAzureService, AzureService>();
       services.AddScoped<ILocationService, LocationService>();
       services.AddScoped<IAdoptionFormService, AdoptionFormService>();
-    }
+      services.AddScoped<INotificationService, NotificationService>();
+		}
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
