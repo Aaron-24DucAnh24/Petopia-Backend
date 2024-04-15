@@ -60,7 +60,6 @@ namespace Petopia.Business.Implementations
 				DelayDuration = request.AdoptTime,
 				IsCreatedAt = DateTimeOffset.Now,
 				IsUpdatedAt = DateTimeOffset.Now,
-				Name = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
 				IsOwnerBefore = request.IsOwnerBefore,
 			});
 
@@ -103,13 +102,14 @@ namespace Petopia.Business.Implementations
 		{
 			AdoptionForm form = await UnitOfWork.AdoptionForms
 				.AsTracking()
+				.Include(x => x.Pet)
+				.Include(x => x.Adopter)
 				.FirstOrDefaultAsync(x => x.Id == formId)
 				?? throw new FormNotFoundException();
-			if(UserContext.Role == UserRole.SystemAdmin)
+			if(UserContext.Id == form.Pet.OwnerId)
 			{
-				form.IsSeenByAdmin = true;
+				form.IsSeen = true;
 			}
-			form.IsSeen = true;
 			UnitOfWork.AdoptionForms.Update(form);
 			await UnitOfWork.SaveChangesAsync();
 			return Mapper.Map<DetailAdoptionFormResponseModel>(form);
@@ -124,14 +124,15 @@ namespace Petopia.Business.Implementations
 			List<AdoptionFormResponseModel> result = new();
 			foreach(var form in forms)
 			{
-				string userName = await _userService.GetUserNameAsync(form.AdopterId);
+				string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
 				result.Append(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
 					IsSeen = UserContext.Role == UserRole.SystemAdmin ? form.IsSeenByAdmin : form.IsSeen,
-					Name = userName,
 					Status = form.Status,
+					PetName = form.Pet.Name,
+					AdopterName = adopterName,
 				});
 			}
 			result.OrderByDescending(x => x.LastUpdatedAt);
@@ -141,18 +142,21 @@ namespace Petopia.Business.Implementations
 		public async Task<List<AdoptionFormResponseModel>> GetAdoptionFormsByUserIdAsync()
 		{
 			List<AdoptionForm> forms = await UnitOfWork.AdoptionForms
+				.Include(x => x.Pet)
 				.Where(x => x.AdopterId == UserContext.Id)
 				.ToListAsync();
 			List<AdoptionFormResponseModel> result = new();
 			foreach (var form in forms)
 			{
+				string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
 				result.Add(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
 					IsSeen = UserContext.Role == UserRole.SystemAdmin ? form.IsSeenByAdmin : form.IsSeen,
-					Name = form.Name,
 					Status = form.Status,
+					PetName = form.Pet.Name,
+					AdopterName = adopterName,
 				});
 			}
 			result.OrderByDescending(x => x.LastUpdatedAt);

@@ -13,7 +13,7 @@ namespace Petopia.Business.Models.Adoption
 		public AdoptHouseType HouseType { get; set; }
 		public AdoptDelayDuration DelayDuration { get; set; }
 		public string Message { get; set; } = null!;
-		public string Name { get; set; } = null!;
+		public string Address { get; set; } = null!;
 	}
 
 	public class AdoptionFormResponseModel
@@ -22,7 +22,8 @@ namespace Petopia.Business.Models.Adoption
 		public DateTimeOffset LastUpdatedAt { get; set; }
 		public bool IsSeen { get; set; }
 		public AdoptStatus Status { get; set; }
-		public string Name { get; set; } = null!;
+		public string PetName { get; set; } = null!;
+		public string AdopterName { get; set; } = null!;
 	}
 }
 

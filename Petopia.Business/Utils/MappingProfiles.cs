@@ -30,7 +30,8 @@ namespace Petopia.Business.Utils
       CreateMap<District, LocationResponseModel>();
       CreateMap<Ward, LocationResponseModel>();
 
-      CreateMap<AdoptionForm, DetailAdoptionFormResponseModel>();
+      CreateMap<AdoptionForm, DetailAdoptionFormResponseModel>()
+        .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Adopter.Address));
     }
   }
 }
