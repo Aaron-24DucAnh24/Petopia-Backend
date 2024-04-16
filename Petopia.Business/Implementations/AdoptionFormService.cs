@@ -3,8 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Adoption;
-using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Models.Notification;
+using Petopia.Business.Utils;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
 
@@ -27,9 +28,20 @@ namespace Petopia.Business.Implementations
 		public async Task<bool> ActOnAdoptionFormAsync(Guid formId, AdoptStatus status)
 		{
 			AdoptionForm form = await UnitOfWork.AdoptionForms
+				.Include(x => x.Pet)
 				.AsTracking()
 				.FirstOrDefaultAsync(x => x.Id == formId)
 				?? throw new FormNotFoundException();
+
+			//await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
+			//{
+			//	GoalId = form.Id,
+			//	UserId = form.Pet.OwnerId,
+			//	Title = string.Join(" ", "Có người muốn nhận nuôi", pet.Name, "nè!"),
+			//	Content = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
+			//	Type = NotificationType.Adoption,
+			//});
+
 			form.Status = status;
 			UnitOfWork.AdoptionForms.Update(form);
 			await UnitOfWork.SaveChangesAsync();
@@ -92,7 +104,20 @@ namespace Petopia.Business.Implementations
 
 		public async Task<bool> DeleteAdoptionFormAsync(Guid formId)
 		{
-			AdoptionForm form = await UnitOfWork.AdoptionForms.FirstAsync(x => x.Id == formId);
+			AdoptionForm form = await UnitOfWork.AdoptionForms
+				.Include(x => x.Pet)
+				.FirstAsync(x => x.Id == formId);
+
+			string userName = await _userService.GetUserNameAsync(form.AdopterId);
+
+			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
+			{
+				UserId = form.Pet.OwnerId,
+				Title = string.Join(" ", "Đơn nhận nuôi", form.Pet.Name, "đã bị huỷ!"),
+				Content = string.Join(" ", "Đơn nhận nuôi", form.Pet.Name, "từ", userName, "đã bị huỷ"),
+				Type = NotificationType.Adoption,
+			});
+
 			UnitOfWork.AdoptionForms.Delete(form);
 			await UnitOfWork.SaveChangesAsync();
 			return true;
@@ -103,16 +128,32 @@ namespace Petopia.Business.Implementations
 			AdoptionForm form = await UnitOfWork.AdoptionForms
 				.AsTracking()
 				.Include(x => x.Pet)
-				.Include(x => x.Adopter)
 				.FirstOrDefaultAsync(x => x.Id == formId)
 				?? throw new FormNotFoundException();
-			if(UserContext.Id == form.Pet.OwnerId)
+
+			User adopter = await UnitOfWork.Users
+				.Include(x => x.UserIndividualAttributes)
+				.Include(x => x.UserOrganizationAttributes)
+				.FirstAsync(x => x.Id == form.AdopterId);
+
+			string adopterName = adopter.Role == UserRole.Organization
+				? adopter.UserOrganizationAttributes.OrganizationName
+				: string.Join(" ", adopter.UserIndividualAttributes.FirstName, adopter.UserIndividualAttributes.LastName);
+
+			if (UserContext.Id == form.Pet.OwnerId)
 			{
 				form.IsSeen = true;
 			}
 			UnitOfWork.AdoptionForms.Update(form);
 			await UnitOfWork.SaveChangesAsync();
-			return Mapper.Map<DetailAdoptionFormResponseModel>(form);
+
+			var result = Mapper.Map<DetailAdoptionFormResponseModel>(form);
+			result.AdopterEmail = HashUtils.DecryptString(adopter.Email);
+			result.AdopterPhone = adopter.Phone;
+			result.AdopterRole = adopter.Role;
+			result.AdopterName = adopterName;
+			result.Address = adopter.Address;
+			return result;
 		}
 
 		public async Task<List<AdoptionFormResponseModel>> GetAdoptionFormsIncomingAsync()
@@ -122,10 +163,10 @@ namespace Petopia.Business.Implementations
 				.Where(x => x.Pet.OwnerId == UserContext.Id)
 				.ToListAsync();
 			List<AdoptionFormResponseModel> result = new();
-			foreach(var form in forms)
+			foreach (var form in forms)
 			{
 				string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
-				result.Append(new AdoptionFormResponseModel()
+				result.Add(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
@@ -166,12 +207,15 @@ namespace Petopia.Business.Implementations
 		public async Task<bool> PreCheckAsync(Guid petId)
 		{
 			bool isOwned = await UnitOfWork.Pets.AnyAsync(x => x.Id == petId && x.OwnerId == UserContext.Id);
-			if(isOwned)
+			if (isOwned)
 			{
 				throw new OwnedPetException();
 			}
 
-			bool isAdopted = await UnitOfWork.AdoptionForms.AnyAsync(x => x.AdopterId == UserContext.Id && x.PetId == petId);
+			bool isAdopted = await UnitOfWork.AdoptionForms.AnyAsync(
+				x => x.AdopterId == UserContext.Id
+				&& x.PetId == petId
+			);
 			if (isAdopted)
 			{
 				throw new AdoptedPetException();

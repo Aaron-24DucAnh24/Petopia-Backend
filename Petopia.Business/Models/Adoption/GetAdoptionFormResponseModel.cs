@@ -8,12 +8,17 @@ namespace Petopia.Business.Models.Adoption
 		public Guid PetId { get; set; }
 		public Guid AdopterId { get; set; }
 		public DateTimeOffset IsCreatedAt { get; set; }
-		public DateTimeOffset IsUpdatedAt { get; set; }
 		public AdoptStatus Status { get; set; }
 		public AdoptHouseType HouseType { get; set; }
 		public AdoptDelayDuration DelayDuration { get; set; }
 		public string Message { get; set; } = null!;
 		public string Address { get; set; } = null!;
+		public bool IsOwnerBefore { get; set; }
+
+		public string AdopterName { get; set; } = null!;
+		public string AdopterPhone { get; set; } = null!;
+		public string AdopterEmail { get; set; } = null!;
+		public UserRole AdopterRole { get; set; }
 	}
 
 	public class AdoptionFormResponseModel

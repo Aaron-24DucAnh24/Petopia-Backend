@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
-using Petopia.Business.Models.Common;
+using Petopia.Business.Models.Notification;
 using Petopia.Data.Entities;
 
 namespace Petopia.Business.Implementations
@@ -37,6 +37,7 @@ namespace Petopia.Business.Implementations
 				UserId = model.UserId,
 				GoalId = model.GoalId,
 				Type = model.Type,
+				IsCreatedAt = DateTimeOffset.Now,
 			});
 			await UnitOfWork.SaveChangesAsync();
 			return;
@@ -47,7 +48,7 @@ namespace Petopia.Business.Implementations
 			List<Notification> notes = await UnitOfWork.Notifications
 				.Where(x => x.UserId == UserContext.Id)
 				.ToListAsync();
-			foreach(var note in notes)
+			foreach (var note in notes)
 			{
 				UnitOfWork.Notifications.Delete(note);
 			}
@@ -55,11 +56,27 @@ namespace Petopia.Business.Implementations
 			return true;
 		}
 
-		public async Task<List<Notification>> GetNotificationsAsync()
+		public async Task<List<NotificationResponseModel>> GetNotificationsAsync()
 		{
-			return await UnitOfWork.Notifications
-			.Where(x => x.UserId == UserContext.Id)
-			.ToListAsync();
+			List<Notification> note = await UnitOfWork.Notifications
+				.Where(x => x.UserId == UserContext.Id)
+				.ToListAsync();
+			return Mapper.Map<List<NotificationResponseModel>>(note);
+		}
+
+		public async Task<bool> MarkAsSeenAsync()
+		{
+			List<Notification> notes = await UnitOfWork.Notifications
+				.AsTracking()
+				.Where(x => x.UserId == UserContext.Id)
+				.ToListAsync();
+			foreach (var note in notes)
+			{
+				note.IsChecked = true;
+				UnitOfWork.Notifications.Update(note);
+			}
+			await UnitOfWork.SaveChangesAsync();
+			return true;
 		}
 	}
 }

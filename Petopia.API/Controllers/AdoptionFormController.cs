@@ -71,7 +71,7 @@ namespace Petopia.API.Controllers
 		[Authorize]
 		public async Task<ActionResult<bool>> CancelAdoptionForm(Guid id)
 		{
-			return ResponseUtils.OkResult(await _adoptionFormService.ActOnAdoptionFormAsync(id, AdoptStatus.Cancelled));
+			return ResponseUtils.OkResult(await _adoptionFormService.DeleteAdoptionFormAsync(id));
 		}
 
 		[HttpPut("{id}/Confirm")]
@@ -79,13 +79,6 @@ namespace Petopia.API.Controllers
 		public async Task<ActionResult<bool>> ConfirmAdoptionForm(Guid id)
 		{
 			return ResponseUtils.OkResult(await _adoptionFormService.ActOnAdoptionFormAsync(id, AdoptStatus.Adopted));
-		}
-
-		[HttpDelete("{id}")]
-		[Authorize]
-		public async Task<ActionResult<bool>> DeleteAdoptionForm(Guid id)
-		{
-			return ResponseUtils.OkResult(await _adoptionFormService.DeleteAdoptionFormAsync(id));
 		}
 	}
 } 

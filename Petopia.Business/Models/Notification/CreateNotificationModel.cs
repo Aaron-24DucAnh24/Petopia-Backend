@@ -1,6 +1,6 @@
 ﻿using Petopia.Data.Enums;
 
-namespace Petopia.Business.Models.Common
+namespace Petopia.Business.Models.Notification
 {
 	public class CreateNotificationModel
 	{

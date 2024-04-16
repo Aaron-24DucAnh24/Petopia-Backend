@@ -26,9 +26,11 @@
 
   <ItemGroup>
     <None Remove="Models\Adoption\" />
+    <None Remove="Models\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Adoption\" />
+    <Folder Include="Models\Notification\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>

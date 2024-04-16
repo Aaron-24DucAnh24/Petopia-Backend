@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Notification;
 using Petopia.Business.Utils;
-using Petopia.Data.Entities;
 
 namespace Petopia.API.Controllers
 {
 	[ApiController]
 	[Route("api/Notification")]
-	public class NoticationController : ControllerBase
+	public class NotificationController : ControllerBase
 	{
 		private readonly INotificationService _noticationService;
 
-		public NoticationController(
+		public NotificationController(
 			INotificationService notificationService
 		)
 		{
@@ -21,7 +21,7 @@ namespace Petopia.API.Controllers
 
 		[HttpGet]
 		[Authorize]
-		public async Task<ActionResult<List<Notification>>> GetNotications()
+		public async Task<ActionResult<List<NotificationResponseModel>>> GetNotications()
 		{
 			return ResponseUtils.OkResult(await _noticationService.GetNotificationsAsync());
 		}
@@ -38,6 +38,13 @@ namespace Petopia.API.Controllers
 		public async Task<ActionResult<bool>> DeleteNotifications()
 		{
 			return ResponseUtils.OkResult(await _noticationService.DeleteNotificationsAsync());
+		}
+
+		[HttpGet("MarkAsSeen")]
+		[Authorize]
+		public async Task<ActionResult<bool>> MarkAsSeen()
+		{
+			return ResponseUtils.OkResult(await _noticationService.MarkAsSeenAsync());
 		}
 	}
 }

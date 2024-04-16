@@ -1,6 +1,7 @@
 using AutoMapper;
 using Petopia.Business.Models.Adoption;
 using Petopia.Business.Models.Location;
+using Petopia.Business.Models.Notification;
 using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
 using Petopia.Data.Entities;
@@ -32,6 +33,8 @@ namespace Petopia.Business.Utils
 
       CreateMap<AdoptionForm, DetailAdoptionFormResponseModel>()
         .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Adopter.Address));
-    }
+
+      CreateMap<Notification, NotificationResponseModel>();
+		}
   }
 }
