@@ -5,6 +5,7 @@ using Petopia.Business.Models.Notification;
 using Petopia.Business.Models.Pet;
 using Petopia.Business.Models.User;
 using Petopia.Data.Entities;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Utils
 {
@@ -23,7 +24,8 @@ namespace Petopia.Business.Utils
       CreateMap<CreatePetRequestModel, CreatePetResponseModel>();
       CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
       CreateMap<Pet, PetResponseModel>()
-        .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url));
+        .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url))
+				.ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser));
       CreateMap<Pet, PetDetailsResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
 

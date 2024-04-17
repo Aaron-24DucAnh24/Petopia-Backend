@@ -92,6 +92,7 @@ namespace Petopia.Business.Implementations
 
       List<Pet> seeMore = await UnitOfWork.Pets
         .Include(x => x.Images)
+        .Include(x => x.Owner)
         .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
         .ToListAsync();
       if(seeMore.Count == 0)
@@ -114,6 +115,7 @@ namespace Petopia.Business.Implementations
     {
       IQueryable<Pet> query = UnitOfWork.Pets
         .Include(x => x.Images)
+        .Include(x => x.Owner)
         .Where(x => !x.IsDeleted)
         .AsQueryable();
       query = GetPetsFromFilter(query, model);
@@ -177,6 +179,7 @@ namespace Petopia.Business.Implementations
 		{
 			IQueryable<Pet> query = UnitOfWork.Pets
 	      .Include(x => x.Images)
+        .Include(x => x.Owner)
 	      .Where(x => !x.IsDeleted)
         .Where(x => x.OwnerId == model.Filter)
 	      .AsQueryable();

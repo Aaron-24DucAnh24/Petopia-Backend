@@ -12,5 +12,6 @@ namespace Petopia.Business.Models.Pet
     public PetSex Sex { get; set; }
     public PetAge Age { get; set; }
     public string Image { get; set; }
+    public bool IsOrgOwned { get; set; }
   }
 }
