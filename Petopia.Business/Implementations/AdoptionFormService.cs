@@ -223,5 +223,17 @@ namespace Petopia.Business.Implementations
 
 			return true;
 		}
+
+		public async Task<int> CountUnreadRequestByUserAsync()
+		{
+			List<AdoptionForm> forms = await UnitOfWork.AdoptionForms
+				.Include(x => x.Pet)
+				.Where(x => x.Pet.OwnerId == UserContext.Id && !x.IsSeen)
+				.ToListAsync();
+
+			int result = forms.Where(x => !x.IsSeen).Count();
+
+			return result;
+		}
 	}
 }
