@@ -39,6 +39,10 @@ namespace Petopia.Data.Configurations
         .HasMany<Notification>(x => x.Notifications)
         .WithOne(x => x.User)
         .HasForeignKey(x => x.UserId);
+      builder
+        .HasOne(x => x.UpgradeForm)
+        .WithOne(x => x.User)
+        .HasForeignKey<UpgradeForm>(x => x.Id);
 		}
   }
 }

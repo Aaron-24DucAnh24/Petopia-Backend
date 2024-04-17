@@ -23,6 +23,7 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new WardConfiguration());
       builder.ApplyConfiguration(new AdoptionFormConfiguration());
       builder.ApplyConfiguration(new NotificationConfiguration());
+      builder.ApplyConfiguration(new UpgradeFormConfiguration());
 		}
 
     public DbSet<User> Users { get; set; }
@@ -38,5 +39,6 @@ namespace Petopia.Data
     public DbSet<Ward> Wards { get; set; }
     public DbSet<AdoptionForm> AdoptionForms { get; set; }
     public DbSet<Notification> Notifications { get; set; }
+    public DbSet<UpgradeForm> UpgradeForms { get; set; }
   }
 }
