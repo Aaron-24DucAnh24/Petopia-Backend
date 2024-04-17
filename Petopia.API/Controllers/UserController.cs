@@ -84,5 +84,12 @@ namespace Petopia.API.Controllers
 		{
 			return ResponseUtils.OkResult(await _userService.UpdateUserAvatarAsync(image));
 		}
+
+		[HttpPost("UpgradeAccount")]
+		[Authorize]
+		public async Task<ActionResult<bool>> UpgradeAccount([FromBody] UpgradeAccountRequestModel request)
+		{
+			return ResponseUtils.OkResult(await _userService.UpgradeAccountAsync(request));
+		}
 	}
 }

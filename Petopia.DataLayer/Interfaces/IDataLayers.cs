@@ -15,4 +15,5 @@ namespace Petopia.DataLayer.Interfaces
   public interface IWardDataLayer : IBaseDataLayer<Ward> { }
 	public interface IAdoptionFormDataLayer : IBaseDataLayer<AdoptionForm> { }
 	public interface INotificationDataLayer : IBaseDataLayer<Notification> { }
+	public interface IUpgradeFormDataLayer : IBaseDataLayer<UpgradeForm> { }
 }

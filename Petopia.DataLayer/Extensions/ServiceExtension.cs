@@ -36,6 +36,7 @@ namespace Petopia.DataLayer.Extensions
       services.AddScoped<IWardDataLayer, WardDataLayer>();
 			services.AddScoped<IAdoptionFormDataLayer, AdoptionFormDataLayer>();
 			services.AddScoped<INotificationDataLayer, NotificationFormDataLayer>();
+			services.AddScoped<IUpgradeFormDataLayer, UpgradeFormDataLayer>();
 		}
   }
 }

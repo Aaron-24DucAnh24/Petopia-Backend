@@ -94,4 +94,11 @@ namespace Petopia.DataLayer.Implementations
 		{
 		}
 	}
+
+	public class UpgradeFormDataLayer : BaseDataLayer<UpgradeForm>, IUpgradeFormDataLayer
+	{
+		public UpgradeFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+		{
+		}
+	}
 }

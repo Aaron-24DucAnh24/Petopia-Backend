@@ -211,6 +211,32 @@ namespace Petopia.Business.Implementations
 			return result;
 		}
 
+    public async Task<bool> UpgradeAccountAsync(UpgradeAccountRequestModel request)
+		{
+			bool isDuplicated = await UnitOfWork.UpgradeForms.AnyAsync(x => x.Id == UserContext.Id && x.Status != UpgradeStatus.Pending);
+			if(isDuplicated)
+			{
+				return false;
+			}
+			await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()
+			{
+				Id = Guid.NewGuid(),
+				EntityName = request.EntityName,
+				OrganizationName = request.OrganizationName,
+				Phone = request.Phone,
+				PrivinceCode = request.PrivinceCode,
+				DistrictCode = request.DistrictCode,
+				WardCode = request.WardCode,
+				Street = request.Street,
+				Website = request.Website,
+				TaxCode = request.TaxCode,
+				Type = request.Type,
+				Description = request.Description,
+				IsCreatedAt = DateTimeOffset.Now,
+			});
+			return true;
+		}
+
 		#region private
 
 		private async Task<GetUserDetailsResponseModel> GetUserInfoAsync(Guid userId)
