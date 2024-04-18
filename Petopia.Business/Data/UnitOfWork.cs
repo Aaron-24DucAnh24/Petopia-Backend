@@ -39,5 +39,6 @@ namespace Petopia.Business.Data
 		public IAdoptionFormDataLayer AdoptionForms => _serviceProvider.GetRequiredService<IAdoptionFormDataLayer>();
     public INotificationDataLayer Notifications => _serviceProvider.GetRequiredService<INotificationDataLayer>();
     public IUpgradeFormDataLayer UpgradeForms => _serviceProvider.GetRequiredService<IUpgradeFormDataLayer>();
+    public IBlogDataLayer Blogs => _serviceProvider.GetRequiredService<IBlogDataLayer>();
 	}
 }

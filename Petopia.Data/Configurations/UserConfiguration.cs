@@ -43,6 +43,10 @@ namespace Petopia.Data.Configurations
         .HasOne(x => x.UpgradeForm)
         .WithOne(x => x.User)
         .HasForeignKey<UpgradeForm>(x => x.Id);
+			builder
+	      .HasMany<Blog>(x => x.Blogs)
+	      .WithOne(x => x.User)
+	      .HasForeignKey(x => x.UserId);
 		}
   }
 }

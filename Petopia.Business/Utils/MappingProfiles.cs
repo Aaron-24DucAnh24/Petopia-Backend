@@ -1,5 +1,6 @@
 using AutoMapper;
 using Petopia.Business.Models.Adoption;
+using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Location;
 using Petopia.Business.Models.Notification;
 using Petopia.Business.Models.Pet;
@@ -37,6 +38,9 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Adopter.Address));
 
       CreateMap<Notification, NotificationResponseModel>();
+
+      CreateMap<Blog, BlogDetailResponseModel>();
+      CreateMap<Blog, BlogResponseModel>();
 		}
   }
 }

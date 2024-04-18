@@ -40,5 +40,6 @@ namespace Petopia.Data
     public DbSet<AdoptionForm> AdoptionForms { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<UpgradeForm> UpgradeForms { get; set; }
+    public DbSet<Blog> Blogs { get; set; }
   }
 }
