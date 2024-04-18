@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Notification;
 using Petopia.Data.Entities;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Implementations
 {
@@ -28,11 +29,40 @@ namespace Petopia.Business.Implementations
 
 		public async Task CreateNoticationAsync(CreateNotificationModel model)
 		{
+			string content, title;
+			switch (model.Status)
+			{
+				case AdoptStatus.Pending:
+					title = string.Join(" ", "Có người muốn nhận nuôi", model.PetName, "nè!");
+					content = string.Join(" ", "Đơn nhận nuôi", model.PetName, "từ", model.AdopterName);
+					break;
+
+				case AdoptStatus.Cancel:
+					title = string.Join(" ", "Một yêu cầu nhận nuôi", model.PetName, "đã bị huỷ");
+					content = string.Join(" ", "Đơn nhận nuôi", model.PetName, "từ", model.AdopterName, "đã bị huỷ");
+					break;
+
+				case AdoptStatus.Accepted:
+					title = "Yêu cầu nhận nuôi của bạn được chấp nhận!";
+					content = string.Join(" ", "Đơn nhận nuôi", model.PetName, "đã được chấp nhận");
+					break;
+
+				case AdoptStatus.Rejected:
+					title = "Yêu cầu nhận nuôi của bạn bị từ chối!";
+					content = string.Join(" ", "Đơn nhận nuôi", model.PetName, "đã bị từ chối");
+					break;
+
+				default:
+					title = "Quá trình nhận nuôi hoàn tất!";
+					content = string.Join(" ", model.AdopterName, "đã nhận nuôi thành công", model.PetName);
+					break;
+			}
+
 			await UnitOfWork.Notifications.CreateAsync(new Notification()
 			{
 				Id = Guid.NewGuid(),
-				Content = model.Content,
-				Title = model.Title,
+				Content = content,
+				Title = title,
 				IsChecked = false,
 				UserId = model.UserId,
 				GoalId = model.GoalId,
@@ -61,6 +91,7 @@ namespace Petopia.Business.Implementations
 			List<Notification> note = await UnitOfWork.Notifications
 				.Where(x => x.UserId == UserContext.Id)
 				.ToListAsync();
+			note.OrderByDescending(x => x.IsCreatedAt);
 			return Mapper.Map<List<NotificationResponseModel>>(note);
 		}
 

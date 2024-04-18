@@ -33,14 +33,30 @@ namespace Petopia.Business.Implementations
 				.FirstOrDefaultAsync(x => x.Id == formId)
 				?? throw new FormNotFoundException();
 
-			//await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
-			//{
-			//	GoalId = form.Id,
-			//	UserId = form.Pet.OwnerId,
-			//	Title = string.Join(" ", "Có người muốn nhận nuôi", pet.Name, "nè!"),
-			//	Content = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
-			//	Type = NotificationType.Adoption,
-			//});
+			string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
+
+			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
+			{
+				GoalId = form.Id,
+				UserId = form.AdopterId,
+				AdopterName = adopterName,
+				PetName = form.Pet.Name,
+				Type = NotificationType.Adoption,
+				Status = status,
+			});
+
+			if(status == AdoptStatus.Adopted)
+			{
+				await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
+				{
+					GoalId = form.Id,
+					UserId = form.Pet.OwnerId,
+					AdopterName = adopterName,
+					PetName = form.Pet.Name,
+					Type = NotificationType.Adoption,
+					Status = status,
+				});
+			}
 
 			form.Status = status;
 			UnitOfWork.AdoptionForms.Update(form);
@@ -94,9 +110,10 @@ namespace Petopia.Business.Implementations
 			{
 				GoalId = form.Id,
 				UserId = pet.OwnerId,
-				Title = string.Join(" ", "Có người muốn nhận nuôi", pet.Name, "nè!"),
-				Content = string.Join(" ", "Đơn nhận nuôi", pet.Name, "từ", userName),
+				PetName = pet.Name,
+				AdopterName = userName,
 				Type = NotificationType.Adoption,
+				Status = AdoptStatus.Pending,
 			});
 
 			return true;
@@ -113,9 +130,10 @@ namespace Petopia.Business.Implementations
 			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
 			{
 				UserId = form.Pet.OwnerId,
-				Title = string.Join(" ", "Đơn nhận nuôi", form.Pet.Name, "đã bị huỷ!"),
-				Content = string.Join(" ", "Đơn nhận nuôi", form.Pet.Name, "từ", userName, "đã bị huỷ"),
+				AdopterName = userName,
+				PetName = form.Pet.Name,
 				Type = NotificationType.Adoption,
+				Status = AdoptStatus.Cancel,
 			});
 
 			UnitOfWork.AdoptionForms.Delete(form);
@@ -194,7 +212,7 @@ namespace Petopia.Business.Implementations
 				{
 					Id = form.Id,
 					LastUpdatedAt = form.IsCreatedAt.CompareTo(form.IsUpdatedAt) > 0 ? form.IsCreatedAt : form.IsUpdatedAt,
-					IsSeen = UserContext.Role == UserRole.SystemAdmin ? form.IsSeenByAdmin : form.IsSeen,
+					IsSeen = true,
 					Status = form.Status,
 					PetName = form.Pet.Name,
 					AdopterName = adopterName,
@@ -215,6 +233,7 @@ namespace Petopia.Business.Implementations
 			bool isAdopted = await UnitOfWork.AdoptionForms.AnyAsync(
 				x => x.AdopterId == UserContext.Id
 				&& x.PetId == petId
+				&& x.Status != AdoptStatus.Rejected
 			);
 			if (isAdopted)
 			{

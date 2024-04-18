@@ -42,7 +42,6 @@ namespace Petopia.Business.Extensions
       services.AddScoped<IUserService, UserService>();
       services.AddTransient<IHttpService, Implementations.HttpService>();
       services.AddScoped<IPetService, PetService>();
-      services.AddScoped<IAzureService, AzureService>();
       services.AddScoped<ILocationService, LocationService>();
       services.AddScoped<IAdoptionFormService, AdoptionFormService>();
       services.AddScoped<INotificationService, NotificationService>();
