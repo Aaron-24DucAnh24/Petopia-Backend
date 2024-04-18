@@ -2,8 +2,9 @@ namespace Petopia.Data.Enums
 {
   public enum OrganizationType
   {
+    Rescue,
     Business,
-    Shelter,
-    RescueStation
+    Vet,
+    Other,
   }
 }

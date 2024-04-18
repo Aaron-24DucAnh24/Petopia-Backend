@@ -55,7 +55,7 @@ namespace Petopia.Business.Implementations
     }
 
     protected async Task<PaginationResponseModel<TResult>>
-    PagingAsync<TResult, TQuery, TFilter>(IQueryable<TQuery> query, PaginationRequestModel<TFilter> model)
+    PagingAsync<TResult, TQuery>(IQueryable<TQuery> query, PaginationRequestModel model)
     {
       var result = new PaginationResponseModel<TResult>();
       result.TotalNumber = await query.CountAsync();

@@ -92,6 +92,7 @@ namespace Petopia.Business.Implementations
 
       List<Pet> seeMore = await UnitOfWork.Pets
         .Include(x => x.Images)
+        .Include(x => x.Owner)
         .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
         .ToListAsync();
       if(seeMore.Count == 0)
@@ -114,11 +115,20 @@ namespace Petopia.Business.Implementations
     {
       IQueryable<Pet> query = UnitOfWork.Pets
         .Include(x => x.Images)
+        .Include(x => x.Owner)
         .Where(x => !x.IsDeleted)
         .AsQueryable();
-      query = GetPetsFromFilter(query, model);
+
+      query = GetPetsFromFilter(query, model.Filter);
       query = GetPetsFromText(query, model.Filter.Text);
-      return await PagingAsync<PetResponseModel, Pet, PetFilterModel>(query, model);
+      
+			if (!string.IsNullOrEmpty(model.OrderBy))
+			{
+				query = model.OrderBy == OrderKey.NEWEST
+				? query.OrderByDescending(x => x.IsCreatedAt)
+				: query.OrderByDescending(x => x.View);
+			}
+			return await PagingAsync<PetResponseModel, Pet>(query, model);
     }
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
@@ -177,10 +187,11 @@ namespace Petopia.Business.Implementations
 		{
 			IQueryable<Pet> query = UnitOfWork.Pets
 	      .Include(x => x.Images)
+        .Include(x => x.Owner)
 	      .Where(x => !x.IsDeleted)
         .Where(x => x.OwnerId == model.Filter)
 	      .AsQueryable();
-			return await PagingAsync<PetResponseModel, Pet, Guid>(query, model);
+			return await PagingAsync<PetResponseModel, Pet>(query, model);
 		}
 
 		#region private
@@ -190,9 +201,8 @@ namespace Petopia.Business.Implementations
       return query;
     }
 
-    private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PaginationRequestModel<PetFilterModel> model)
+    private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PetFilterModel filter)
     {
-      PetFilterModel filter = model.Filter;
       if (filter.Age != null && filter.Age.Any())
       {
         query = query.Where(x => filter.Age.Contains(x.Age));
@@ -220,12 +230,6 @@ namespace Petopia.Business.Implementations
       if (filter.Species != null && filter.Species.Any())
       {
         query = query.Where(x => filter.Species.Contains(x.Species));
-      }
-      if (string.IsNullOrEmpty(model.OrderBy))
-      {
-        query = model.OrderBy == OrderKey.NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
       }
       return query;
     }

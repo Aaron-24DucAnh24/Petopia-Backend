@@ -1,6 +1,7 @@
 ﻿namespace Petopia.Business.Interfaces
 {
-  public interface IAzureService
-  {
-  }
+	public interface IUpgradeFormService
+	{
+	}
 }
+

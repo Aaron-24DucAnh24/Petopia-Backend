@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petopia.Data;
 
@@ -11,9 +12,11 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417041745_add_upgradeForm")]
+    partial class add_upgradeForm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,52 +86,6 @@ namespace Petopia.Data.Migrations
                     b.HasIndex("PetId");
 
                     b.ToTable("AdoptionForm", (string)null);
-                });
-
-            modelBuilder.Entity("Petopia.Data.Entities.Blog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("AdvertisingDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Excerpt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("IsCreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsHidden")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("IsUpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("View")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.District", b =>
@@ -343,9 +300,6 @@ namespace Petopia.Data.Migrations
                     b.Property<string>("DistrictCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("EntityName")
                         .HasColumnType("nvarchar(max)");
 
@@ -494,9 +448,6 @@ namespace Petopia.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("EntityName")
                         .HasColumnType("nvarchar(max)");
 
@@ -508,6 +459,9 @@ namespace Petopia.Data.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
@@ -554,17 +508,6 @@ namespace Petopia.Data.Migrations
                     b.Navigation("Adopter");
 
                     b.Navigation("Pet");
-                });
-
-            modelBuilder.Entity("Petopia.Data.Entities.Blog", b =>
-                {
-                    b.HasOne("Petopia.Data.Entities.User", "User")
-                        .WithMany("Blogs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
@@ -654,8 +597,6 @@ namespace Petopia.Data.Migrations
             modelBuilder.Entity("Petopia.Data.Entities.User", b =>
                 {
                     b.Navigation("AdoptionForms");
-
-                    b.Navigation("Blogs");
 
                     b.Navigation("Notifications");
 

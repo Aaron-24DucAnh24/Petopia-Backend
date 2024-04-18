@@ -28,5 +28,7 @@ namespace Petopia.Data.Entities
 		public List<Pet> Pets { get; set; }
 		public List<AdoptionForm> AdoptionForms { get; set; }
 		public List<Notification> Notifications { get; set; }
+		public UpgradeForm UpgradeForm { get; set; }
+		public List<Blog> Blogs { get; set; }
 	}
 }

@@ -21,5 +21,8 @@ namespace Petopia.Business.Constants
     public const int NOT_FOUND_FORM = 12001;
     public const int ADOPT_OWNED_PET = 12002;
     public const int READOPT_PET = 12003;
+
+    // BLOG
+    public const int NOT_FOUND_BLOG = 13001;
 	}
 }

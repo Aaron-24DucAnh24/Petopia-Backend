@@ -46,6 +46,13 @@ namespace Petopia.API.Controllers
 			return ResponseUtils.OkResult(await _adoptionFormService.GetAdoptionFormsIncomingAsync());
 		}
 
+		[HttpGet("CountUnreadIncoming")]
+		[Authorize]
+		public async Task<ActionResult<int>> CountUnreadIncommingRequest()
+		{
+			return ResponseUtils.OkResult(await _adoptionFormService.CountUnreadRequestByUserAsync());
+		}
+
 		[HttpGet("Sent")]
 		[Authorize]
 		public async Task<ActionResult<List<AdoptionFormResponseModel>>> GetAdoptionFormsByUserId()

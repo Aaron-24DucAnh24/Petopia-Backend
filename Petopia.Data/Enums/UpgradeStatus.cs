@@ -1,12 +1,10 @@
 ﻿namespace Petopia.Data.Enums
 {
-	public enum AdoptStatus
+	public enum UpgradeStatus
 	{
 		Pending,
-		Accepted,
 		Rejected,
-		Adopted,
-		Cancel,
+		Accepted,
 	}
 }
 
