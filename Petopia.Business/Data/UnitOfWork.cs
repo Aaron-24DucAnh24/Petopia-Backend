@@ -43,5 +43,6 @@ namespace Petopia.Business.Data
     public IPostDataLayer Posts => _serviceProvider.GetRequiredService<IPostDataLayer>();
     public ICommentDataLayer Comments => _serviceProvider.GetRequiredService<ICommentDataLayer>();
     public ILikeDataLayer Likes => _serviceProvider.GetRequiredService<ILikeDataLayer>();
+    public IPetBreedDataLayer PetBreeds => _serviceProvider.GetRequiredService<IPetBreedDataLayer>();
 	}
 }

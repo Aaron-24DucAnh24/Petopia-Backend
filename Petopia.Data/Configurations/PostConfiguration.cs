@@ -14,8 +14,7 @@ namespace Petopia.Data.Configurations
 			builder
 				.HasMany<Media>(x => x.Images)
 				.WithOne(x => x.Post)
-				.HasForeignKey(x => x.PostId)
-				.OnDelete(DeleteBehavior.SetNull);
+				.HasForeignKey(x => x.PostId);
 			builder
 				.HasMany<Comment>(x => x.Comments)
 				.WithOne(x => x.Post)

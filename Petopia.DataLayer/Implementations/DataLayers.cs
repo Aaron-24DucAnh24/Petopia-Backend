@@ -129,4 +129,11 @@ namespace Petopia.DataLayer.Implementations
 		{
 		}
 	}
+
+	public class PetBreedDataLayer : BaseDataLayer<PetBreed>, IPetBreedDataLayer
+	{
+		public PetBreedDataLayer(ApplicationDbContext context) : base(context)
+		{
+		}
+	}
 }

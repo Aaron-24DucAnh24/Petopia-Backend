@@ -3,6 +3,7 @@ using Petopia.Data;
 using Petopia.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Petopia.Data.Enums;
 
 DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
 string settingFileDir = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ?
@@ -82,6 +83,44 @@ if (wards != null)
 		a.Id = Guid.NewGuid();
 	}
 	await db.Wards.AddRangeAsync(wards);
+}
+
+List<string>? dogBreedNames = JsonSerializer.Deserialize<List<string>>(
+	new StreamReader("DogBreeds.json").ReadToEnd()
+);
+if (dogBreedNames != null)
+{
+	List<PetBreed> dogBreeds = new();
+	for(int i = 0; i < dogBreedNames.Count; i+=1)
+	{
+		dogBreeds.Add(new PetBreed()
+		{
+			Id = Guid.NewGuid(),
+			Name = dogBreedNames[i],
+			Code = i,
+			Species = PetSpecies.Dog,
+		});
+	}
+	await db.PetBreed.AddRangeAsync(dogBreeds);
+}
+
+List<string>? catBreedNames = JsonSerializer.Deserialize<List<string>>(
+	new StreamReader("CatBreeds.json").ReadToEnd()
+);
+if (catBreedNames != null)
+{
+	List<PetBreed> catBreeds = new();
+	for (int i = 0; i < catBreedNames.Count; i += 1)
+	{
+		catBreeds.Add(new PetBreed()
+		{
+			Id = Guid.NewGuid(),
+			Name = catBreedNames[i],
+			Code = i,
+			Species = PetSpecies.Cat,
+		});
+	}
+	await db.PetBreed.AddRangeAsync(catBreeds);
 }
 
 db.SaveChanges();

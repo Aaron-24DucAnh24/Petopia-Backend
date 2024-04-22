@@ -4,6 +4,7 @@ using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Pet;
 using Petopia.Business.Utils;
+using Petopia.Data.Enums;
 
 namespace Petopia.API.Controllers
 {
@@ -20,7 +21,7 @@ namespace Petopia.API.Controllers
       _petService = petService;
     }
 
-    [HttpPost("")]
+    [HttpPost]
     [Authorize]
     public async Task<ActionResult<CreatePetResponseModel>> CreatePet([FromBody] CreatePetRequestModel request)
     {
@@ -62,5 +63,19 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _petService.DeletePetAsync(petId));
     }
-  }
+
+		[HttpGet("Breed")]
+		[Authorize]
+		public async Task<ActionResult<List<string>>> GetBreeds([FromQuery] PetSpecies species)
+		{
+			return ResponseUtils.OkResult(await _petService.GetBreedsAsync(species));
+		}
+
+		[HttpGet("AvailableBreed")]
+		[AllowAnonymous]
+		public async Task<ActionResult<List<string>>> GetAvailableBreeds([FromQuery] PetSpecies species)
+		{
+			return ResponseUtils.OkResult(await _petService.GetAvailableBreedsAsync(species));
+		}
+	}
 }

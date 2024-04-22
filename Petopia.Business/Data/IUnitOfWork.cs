@@ -24,5 +24,6 @@ namespace Petopia.Business.Data
     IPostDataLayer Posts { get; }
     ICommentDataLayer Comments { get; }
     ILikeDataLayer Likes { get; }
+    IPetBreedDataLayer PetBreeds { get; }
 	}
 }
