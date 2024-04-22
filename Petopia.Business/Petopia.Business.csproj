@@ -28,11 +28,15 @@
     <None Remove="Models\Adoption\" />
     <None Remove="Models\Notification\" />
     <None Remove="Models\Blog\" />
+    <None Remove="Models\Comment\" />
+    <None Remove="Models\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Adoption\" />
     <Folder Include="Models\Notification\" />
     <Folder Include="Models\Blog\" />
+    <Folder Include="Models\Comment\" />
+    <Folder Include="Models\Post\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>

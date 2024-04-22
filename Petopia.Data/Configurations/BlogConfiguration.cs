@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Petopia.Data.Entities;
-using Petopia.Data.Enums;
 
 namespace Petopia.Data.Configurations
 {
@@ -11,6 +10,12 @@ namespace Petopia.Data.Configurations
 		{
 			builder.HasKey(x => x.Id);
 			builder.ToTable("Blog");
+			builder.Property(x => x.View).HasDefaultValue(0);
+			builder.Property(x => x.Like).HasDefaultValue(0);
+			builder
+				.HasMany<Comment>(x => x.Comments)
+				.WithOne(x => x.Blog)
+				.HasForeignKey(x => x.BlogId);
 		}
 	}
 }

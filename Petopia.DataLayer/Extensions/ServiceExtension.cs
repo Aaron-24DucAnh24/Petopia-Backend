@@ -10,11 +10,11 @@ namespace Petopia.DataLayer.Extensions
   public static class ServiceExtension
   {
     public static void AddApplicationDbContext(
-      this IServiceCollection services, 
-      IConfiguration configuration, 
-      string ConnectionStringName )
+      this IServiceCollection services,
+      IConfiguration configuration,
+      string ConnectionStringName)
     {
-      services.AddDbContext<ApplicationDbContext>(options => 
+      services.AddDbContext<ApplicationDbContext>(options =>
       {
         options.UseSqlServer(configuration.GetConnectionString(ConnectionStringName));
         options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -34,10 +34,13 @@ namespace Petopia.DataLayer.Extensions
       services.AddScoped<IProvinceDataLayer, ProvinceDataLayer>();
       services.AddScoped<IDistrictDataLayer, DistrictDataLayer>();
       services.AddScoped<IWardDataLayer, WardDataLayer>();
-	    services.AddScoped<IAdoptionFormDataLayer, AdoptionFormDataLayer>();
+      services.AddScoped<IAdoptionFormDataLayer, AdoptionFormDataLayer>();
       services.AddScoped<INotificationDataLayer, NotificationFormDataLayer>();
       services.AddScoped<IUpgradeFormDataLayer, UpgradeFormDataLayer>();
       services.AddScoped<IBlogDataLayer, BlogDataLayer>();
-	}
+      services.AddScoped<IPostDataLayer, PostDataLayer>();
+      services.AddScoped<ICommentDataLayer, CommentDataLayer>();
+      services.AddScoped<ILikeDataLayer, LikeDataLayer>();
+		}
   }
 }

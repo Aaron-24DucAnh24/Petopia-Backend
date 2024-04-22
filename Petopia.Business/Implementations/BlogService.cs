@@ -28,7 +28,6 @@ namespace Petopia.Business.Implementations
 				Excerpt = request.Excerpt,
 				Category = request.Category,
 				Image = request.Image,
-				View = 0,
 				IsCreatedAt = DateTimeOffset.Now,
 			});
 			await UnitOfWork.SaveChangesAsync();

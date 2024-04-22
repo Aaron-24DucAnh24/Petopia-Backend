@@ -198,19 +198,6 @@ namespace Petopia.Business.Implementations
 			return string.Join(", ", street, ward, district, province);
 		}
 
-		public async Task<string> GetUserNameAsync(Guid userId)
-		{
-			User user = await UnitOfWork.Users
-				.Include(x => x.UserIndividualAttributes)
-				.Include(x => x.UserOrganizationAttributes)
-				.FirstAsync(x => x.Id == userId);
-
-			string result = user.Role == UserRole.Organization
-				? user.UserOrganizationAttributes.OrganizationName
-				: string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
-			return result;
-		}
-
     public async Task<bool> UpgradeAccountAsync(UpgradeAccountRequestModel request)
 		{
 			await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()

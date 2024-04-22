@@ -11,7 +11,10 @@ using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Setting;
+using Petopia.Business.Models.User;
+using Petopia.Business.Utils;
 using Petopia.Data.Entities;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Implementations
 {
@@ -46,21 +49,33 @@ namespace Petopia.Business.Implementations
         ?? throw new ConfigurationErrorsException();
     }
 
-    protected async Task<User> GetUserAttributesAsync()
+    protected async Task<UserContextModel> GetUserContextAsync(Guid userId)
     {
-      return await UnitOfWork.Users
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
-        .FirstAsync(x => x.Id == UserContext.Id);
+      UserContextModel result = new();
+			User user =  await UnitOfWork.Users
+	      .Include(x => x.UserIndividualAttributes)
+	      .Include(x => x.UserOrganizationAttributes)
+	      .FirstAsync(x => x.Id == userId);
+      string userName = user.Role == UserRole.Organization
+        ? user.UserOrganizationAttributes.OrganizationName
+        : string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
+      result.Image = user.Image;
+      result.Role = user.Role;
+      result.Email = HashUtils.DecryptString(user.Email);
+      result.Name = userName;
+      result.Id = userId;
+      return result;
     }
 
-    protected async Task<PaginationResponseModel<TResult>>
+		protected async Task<PaginationResponseModel<TResult>>
     PagingAsync<TResult, TQuery>(IQueryable<TQuery> query, PaginationRequestModel model)
     {
-      var result = new PaginationResponseModel<TResult>();
-      result.TotalNumber = await query.CountAsync();
-      result.PageIndex = model.PageIndex;
-      result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
+			PaginationResponseModel<TResult> result = new()
+			{
+				TotalNumber = await query.CountAsync(),
+				PageIndex = model.PageIndex
+			};
+			result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
       result.PageNumber = model.PageSize == 0 ? 0 : (int)Math.Ceiling((double)result.TotalNumber / result.PageSize);
 
       if (result.PageNumber < 1)

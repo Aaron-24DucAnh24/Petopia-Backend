@@ -40,5 +40,8 @@ namespace Petopia.Business.Data
     public INotificationDataLayer Notifications => _serviceProvider.GetRequiredService<INotificationDataLayer>();
     public IUpgradeFormDataLayer UpgradeForms => _serviceProvider.GetRequiredService<IUpgradeFormDataLayer>();
     public IBlogDataLayer Blogs => _serviceProvider.GetRequiredService<IBlogDataLayer>();
+    public IPostDataLayer Posts => _serviceProvider.GetRequiredService<IPostDataLayer>();
+    public ICommentDataLayer Comments => _serviceProvider.GetRequiredService<ICommentDataLayer>();
+    public ILikeDataLayer Likes => _serviceProvider.GetRequiredService<ILikeDataLayer>();
 	}
 }

@@ -108,4 +108,25 @@ namespace Petopia.DataLayer.Implementations
 		{
 		}
 	}
+
+	public class PostDataLayer : BaseDataLayer<Post>, IPostDataLayer
+	{
+		public PostDataLayer(ApplicationDbContext context) : base(context)
+		{
+		}
+	}
+
+	public class CommentDataLayer : BaseDataLayer<Comment>, ICommentDataLayer
+	{
+		public CommentDataLayer(ApplicationDbContext context) : base(context)
+		{
+		}
+	}
+
+	public class LikeDataLayer : BaseDataLayer<Like>, ILikeDataLayer
+	{
+		public LikeDataLayer(ApplicationDbContext context) : base(context)
+		{
+		}
+	}
 }
