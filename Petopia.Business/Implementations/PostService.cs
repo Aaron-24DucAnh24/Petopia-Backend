@@ -68,7 +68,7 @@ namespace Petopia.Business.Implementations
 				UserContextModel userContext = await GetUserContextAsync(post.CreatorId);
 				post.UserImage = userContext.Image;
 				post.UserName = userContext.Name;
-				post.IsLiked = await UnitOfWork.Likes.AnyAsync(x => x.PostId == post.Id && x.UserId == post.CreatorId);
+				post.IsLiked = await UnitOfWork.Likes.AnyAsync(x => x.PostId == post.Id && x.UserId == UserContext.Id);
 				post.CommentCount = await UnitOfWork.Comments.CountAsync(x => x.PostId == post.Id);
 			};
 			return result;

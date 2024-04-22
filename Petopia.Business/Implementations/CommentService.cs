@@ -19,15 +19,16 @@ namespace Petopia.Business.Implementations
 		public async Task<CommentResponseModel> CreateCommentAsync(CreateCommentRequestModel request)
 		{
 			Comment comment = await UnitOfWork.Comments.CreateAsync(new Comment()
-				{
-					Id = Guid.NewGuid(),
-					Content = request.Content,
-					UserId = UserContext.Id,
-					PostId = request.PostId,
-					BlogId = request.BlogId,
-					IsCreatedAt = DateTimeOffset.Now,
-				});
+			{
+				Id = Guid.NewGuid(),
+				Content = request.Content,
+				UserId = UserContext.Id,
+				PostId = request.PostId,
+				BlogId = request.BlogId,
+				IsCreatedAt = DateTimeOffset.Now,
+			});
 			UserContextModel userContext = await GetUserContextAsync(UserContext.Id);
+			await UnitOfWork.SaveChangesAsync();
 			return new CommentResponseModel()
 			{
 				Id = comment.Id,
@@ -41,9 +42,16 @@ namespace Petopia.Business.Implementations
 
 		public async Task<bool> DeleteCommentAsync(Guid id)
 		{
-			await UnitOfWork.Comments.DeleteAllAsync(x => x.Id == id);
-			await UnitOfWork.SaveChangesAsync();
-			return true;
+			Comment comment = await UnitOfWork.Comments
+				.Include(x => x.Post)
+				.FirstAsync(x => x.Id == id);
+			if (comment.UserId == UserContext.Id || comment.UserId == comment.Post.CreatorId)
+			{
+				UnitOfWork.Comments.Delete(comment);
+				await UnitOfWork.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 
 		public async Task<List<CommentResponseModel>> GetCommentsByBlogIdAsync(Guid blogId)
@@ -66,10 +74,11 @@ namespace Petopia.Business.Implementations
 		{
 			List<Comment> comments = await UnitOfWork.Comments
 				.Where(x => x.PostId == postId)
+				.OrderByDescending(x => x.IsCreatedAt)
 				.ToListAsync();
 
 			var result = Mapper.Map<List<CommentResponseModel>>(comments);
-			foreach(var comment in result)
+			foreach (var comment in result)
 			{
 				UserContextModel userContext = await GetUserContextAsync(comment.UserId);
 				comment.UserName = userContext.Name;
