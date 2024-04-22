@@ -21,5 +21,8 @@ namespace Petopia.Business.Data
     INotificationDataLayer Notifications { get; }
     IUpgradeFormDataLayer UpgradeForms { get; }
     IBlogDataLayer Blogs { get; }
-  }
+    IPostDataLayer Posts { get; }
+    ICommentDataLayer Comments { get; }
+    ILikeDataLayer Likes { get; }
+	}
 }

@@ -17,4 +17,7 @@ namespace Petopia.DataLayer.Interfaces
 	public interface INotificationDataLayer : IBaseDataLayer<Notification> { }
 	public interface IUpgradeFormDataLayer : IBaseDataLayer<UpgradeForm> { }
   public interface IBlogDataLayer: IBaseDataLayer<Blog> { }
+  public interface IPostDataLayer: IBaseDataLayer<Post> { }
+  public interface ICommentDataLayer : IBaseDataLayer<Comment> { }
+  public interface ILikeDataLayer : IBaseDataLayer<Like> { }
 }

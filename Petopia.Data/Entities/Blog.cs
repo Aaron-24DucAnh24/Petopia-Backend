@@ -13,6 +13,7 @@ namespace Petopia.Data.Entities
 		public string Image { get; set; }
 		public string Content { get; set; }
 		public int View { get; set; }
+		public int Like { get; set; }
 		public bool IsHidden { get; set; }
 		public BlogCategory Category { get; set; }
 		public DateTimeOffset AdvertisingDate { get; set; }
@@ -20,5 +21,6 @@ namespace Petopia.Data.Entities
 		public DateTimeOffset IsUpdatedAt { get; set; }
 
 		public User User { get; set; }
+		public List<Comment> Comments { get; set; }
 	}
 }

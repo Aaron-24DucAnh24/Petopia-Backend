@@ -24,6 +24,10 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new AdoptionFormConfiguration());
       builder.ApplyConfiguration(new NotificationConfiguration());
       builder.ApplyConfiguration(new UpgradeFormConfiguration());
+      builder.ApplyConfiguration(new PostConfiguration());
+      builder.ApplyConfiguration(new BlogConfiguration());
+      builder.ApplyConfiguration(new CommentConfiguration());
+      builder.ApplyConfiguration(new LikeConfiguration());
 		}
 
     public DbSet<User> Users { get; set; }
@@ -41,5 +45,8 @@ namespace Petopia.Data
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<UpgradeForm> UpgradeForms { get; set; }
     public DbSet<Blog> Blogs { get; set; }
-  }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Comment> Likes { get; set; }
+	}
 }

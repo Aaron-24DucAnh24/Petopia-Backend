@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petopia.Data;
 
@@ -11,9 +12,11 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420033539_add_post_blog_comment")]
+    partial class add_post_blog_comment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +147,7 @@ namespace Petopia.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BlogId")
+                    b.Property<Guid>("BlogId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
@@ -153,15 +156,17 @@ namespace Petopia.Data.Migrations
                     b.Property<DateTimeOffset>("IsCreatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BlogId");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PostId");
 
@@ -208,36 +213,16 @@ namespace Petopia.Data.Migrations
                     b.ToTable("EmailTemplates");
                 });
 
-            modelBuilder.Entity("Petopia.Data.Entities.Like", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Like", (string)null);
-                });
-
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PetId")
+                    b.Property<Guid>("PetId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Type")
@@ -663,13 +648,23 @@ namespace Petopia.Data.Migrations
                 {
                     b.HasOne("Petopia.Data.Entities.Blog", "Blog")
                         .WithMany("Comments")
-                        .HasForeignKey("BlogId");
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Petopia.Data.Entities.Comment", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
 
                     b.HasOne("Petopia.Data.Entities.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Blog");
+
+                    b.Navigation("Parent");
 
                     b.Navigation("Post");
                 });
@@ -678,11 +673,15 @@ namespace Petopia.Data.Migrations
                 {
                     b.HasOne("Petopia.Data.Entities.Pet", "Pet")
                         .WithMany("Images")
-                        .HasForeignKey("PetId");
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petopia.Data.Entities.Post", "Post")
                         .WithMany("Images")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pet");
 

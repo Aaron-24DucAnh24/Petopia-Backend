@@ -33,7 +33,7 @@ namespace Petopia.Business.Implementations
 				.FirstOrDefaultAsync(x => x.Id == formId)
 				?? throw new FormNotFoundException();
 
-			string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
+			string adopterName = (await GetUserContextAsync(form.AdopterId)).Name;
 
 			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
 			{
@@ -59,6 +59,7 @@ namespace Petopia.Business.Implementations
 			}
 
 			form.Status = status;
+			form.IsUpdatedAt = DateTimeOffset.Now;
 			UnitOfWork.AdoptionForms.Update(form);
 			await UnitOfWork.SaveChangesAsync();
 			return true;
@@ -125,7 +126,7 @@ namespace Petopia.Business.Implementations
 				.Include(x => x.Pet)
 				.FirstAsync(x => x.Id == formId);
 
-			string userName = await _userService.GetUserNameAsync(form.AdopterId);
+			string userName = (await GetUserContextAsync(form.AdopterId)).Name;
 
 			await _notificationService.CreateNoticationAsync(new CreateNotificationModel()
 			{
@@ -183,7 +184,7 @@ namespace Petopia.Business.Implementations
 			List<AdoptionFormResponseModel> result = new();
 			foreach (var form in forms)
 			{
-				string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
+				string adopterName = (await GetUserContextAsync(form.AdopterId)).Name;
 				result.Add(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,
@@ -207,7 +208,7 @@ namespace Petopia.Business.Implementations
 			List<AdoptionFormResponseModel> result = new();
 			foreach (var form in forms)
 			{
-				string adopterName = await _userService.GetUserNameAsync(form.AdopterId);
+				string adopterName = (await GetUserContextAsync(form.AdopterId)).Name;
 				result.Add(new AdoptionFormResponseModel()
 				{
 					Id = form.Id,

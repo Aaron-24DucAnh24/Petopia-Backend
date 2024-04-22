@@ -12,8 +12,8 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240418041909_update_blog_add_view_isHidden_dates")]
-    partial class update_blog_add_view_isHidden_dates
+    [Migration("20240420051257_update_comment_add_userId")]
+    partial class update_comment_add_userId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,6 +118,11 @@ namespace Petopia.Data.Migrations
                     b.Property<DateTimeOffset>("IsUpdatedAt")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("Like")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -125,13 +130,45 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("View")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blog", (string)null);
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BlogId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("IsCreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comment", (string)null);
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.District", b =>
@@ -174,6 +211,26 @@ namespace Petopia.Data.Migrations
                     b.ToTable("EmailTemplates");
                 });
 
+            modelBuilder.Entity("Petopia.Data.Entities.Like", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BlogId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Like", (string)null);
+                });
+
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
                 {
                     b.Property<Guid>("Id")
@@ -181,6 +238,9 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Type")
@@ -192,6 +252,8 @@ namespace Petopia.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PetId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Medias");
                 });
@@ -289,6 +351,36 @@ namespace Petopia.Data.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Pet", (string)null);
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Post", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("IsCreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Like")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<Guid>("PetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("Post", (string)null);
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.Province", b =>
@@ -570,6 +662,25 @@ namespace Petopia.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Petopia.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("Petopia.Data.Entities.Blog", "Blog")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Petopia.Data.Entities.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Petopia.Data.Entities.Media", b =>
                 {
                     b.HasOne("Petopia.Data.Entities.Pet", "Pet")
@@ -578,7 +689,15 @@ namespace Petopia.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Petopia.Data.Entities.Post", "Post")
+                        .WithMany("Images")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Pet");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.Notification", b =>
@@ -601,6 +720,17 @@ namespace Petopia.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Post", b =>
+                {
+                    b.HasOne("Petopia.Data.Entities.Pet", "Pet")
+                        .WithMany("Posts")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Pet");
                 });
 
             modelBuilder.Entity("Petopia.Data.Entities.UpgradeForm", b =>
@@ -647,9 +777,23 @@ namespace Petopia.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Petopia.Data.Entities.Blog", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("Petopia.Data.Entities.Pet", b =>
                 {
                     b.Navigation("AdoptionForms");
+
+                    b.Navigation("Images");
+
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("Petopia.Data.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
 
                     b.Navigation("Images");
                 });

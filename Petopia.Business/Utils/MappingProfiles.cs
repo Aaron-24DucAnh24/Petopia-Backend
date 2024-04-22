@@ -1,9 +1,11 @@
 using AutoMapper;
 using Petopia.Business.Models.Adoption;
 using Petopia.Business.Models.Blog;
+using Petopia.Business.Models.Comment;
 using Petopia.Business.Models.Location;
 using Petopia.Business.Models.Notification;
 using Petopia.Business.Models.Pet;
+using Petopia.Business.Models.Post;
 using Petopia.Business.Models.User;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
@@ -41,6 +43,11 @@ namespace Petopia.Business.Utils
 
       CreateMap<Blog, BlogDetailResponseModel>();
       CreateMap<Blog, BlogResponseModel>();
+
+			CreateMap<Post, PostResponseModel>()
+        .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
+
+      CreateMap<Comment, CommentResponseModel>();
 		}
   }
 }
