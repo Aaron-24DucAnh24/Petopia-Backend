@@ -28,6 +28,7 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new BlogConfiguration());
       builder.ApplyConfiguration(new CommentConfiguration());
       builder.ApplyConfiguration(new LikeConfiguration());
+      builder.ApplyConfiguration(new PetBreedConfiguration());
 		}
 
     public DbSet<User> Users { get; set; }
@@ -47,6 +48,7 @@ namespace Petopia.Data
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Comment> Comments { get; set; }
-    public DbSet<Comment> Likes { get; set; }
+    public DbSet<Like> Likes { get; set; }
+    public DbSet<PetBreed> PetBreed { get; set; }
 	}
 }

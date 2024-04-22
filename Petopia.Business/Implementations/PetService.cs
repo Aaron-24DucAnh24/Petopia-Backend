@@ -12,17 +12,10 @@ namespace Petopia.Business.Implementations
 {
   public class PetService : BaseService, IPetService
   {
-    private readonly IElasticsearchService _elasticsearchService;
     private const int SEE_MORE_LENGTH = 4;
 
-    public PetService(
-      IServiceProvider provider,
-      ILogger<PetService> logger,
-      IElasticsearchService elasticsearchService
-    ) : base(provider, logger)
-    {
-      _elasticsearchService = elasticsearchService;
-    }
+    public PetService(IServiceProvider provider, ILogger<PetService> logger) : base(provider, logger)
+    {}
 
     public async Task<bool> DeletePetAsync(Guid petId)
     {
@@ -194,6 +187,25 @@ namespace Petopia.Business.Implementations
 			return await PagingAsync<PetResponseModel, Pet>(query, model);
 		}
 
+    public async Task<List<string>> GetBreedsAsync(PetSpecies species)
+    {
+      List<PetBreed> breeds = await UnitOfWork.PetBreeds
+        .Where(x => x.Species == species)
+        .OrderBy(x => x.Name)
+        .ToListAsync();
+      return breeds.Select(x => x.Name).ToList();
+    }
+
+		public async Task<List<string>> GetAvailableBreedsAsync(PetSpecies species)
+		{
+      List<string> result = await UnitOfWork.Pets
+        .Where(x => !x.IsDeleted && x.Species == species)
+        .Select(x => x.Breed)
+        .Distinct()
+        .ToListAsync();
+      return result;
+		}
+
 		#region private
 
 		private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
@@ -230,6 +242,10 @@ namespace Petopia.Business.Implementations
       if (filter.Species != null && filter.Species.Any())
       {
         query = query.Where(x => filter.Species.Contains(x.Species));
+      }
+      if (filter.Breed != null && filter.Breed.Any())
+      {
+        query = query.Where(x => filter.Breed.Contains(x.Breed));
       }
       return query;
     }

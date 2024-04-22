@@ -32,7 +32,7 @@ namespace Petopia.Business.Utils
 			CreateMap<Pet, PetDetailsResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
 
-      CreateMap<Province, LocationResponseModel>();
+			CreateMap<Province, LocationResponseModel>();
       CreateMap<District, LocationResponseModel>();
       CreateMap<Ward, LocationResponseModel>();
 
