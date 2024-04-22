@@ -24,7 +24,7 @@ namespace Petopia.BackgroundJobs.Implementations
       using (IServiceScope scope = _serviceProvider.CreateScope())
       {
         scope.ServiceProvider.GetRequiredService<ICacheJobService>().InitCacheData();
-        scope.ServiceProvider.GetRequiredService<IElasticsearchJobService>().InitSyncDataCollections();
+        //scope.ServiceProvider.GetRequiredService<IElasticsearchJobService>().InitSyncDataCollections();
       }
       _logger.LogInformation("Start initializing BackgroundJobs");
       return Task.CompletedTask;

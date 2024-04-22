@@ -15,7 +15,7 @@ using Petopia.Business.Utils;
 using Petopia.Business.Contexts;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Filters;
-using Elastic.Clients.Elasticsearch;
+//using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using Braintree;
 using Petopia.Business.Models.Enums;
@@ -34,7 +34,7 @@ namespace Petopia.Business.Extensions
       services.AddModelValidators();
       services.AddCacheService(configuration);
       services.AddEmailService(configuration);
-      services.AddElasticsearchService(configuration);
+      //services.AddElasticsearchService(configuration);
       services.AddPaymentService(configuration);
       services.AddAutoMapper();
       services.AddScoped<IAuthService, AuthService>();
@@ -94,20 +94,20 @@ namespace Petopia.Business.Extensions
       }
     }
 
-    public static void AddElasticsearchService(this IServiceCollection services, IConfiguration configuration)
-    {
-      ElasticsearchSettingModel? elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
-      if (elasticSearchSettings != null)
-      {
-        var settings = new ElasticsearchClientSettings(new Uri(elasticSearchSettings.Url))
-          .Authentication(new BasicAuthentication(
-            elasticSearchSettings.Username,
-            elasticSearchSettings.Password
-          ));
-        services.AddSingleton(settings);
-        services.AddScoped<IElasticsearchService, ElasticsearchService>();
-      }
-    }
+    //public static void AddElasticsearchService(this IServiceCollection services, IConfiguration configuration)
+    //{
+    //  ElasticsearchSettingModel? elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
+    //  if (elasticSearchSettings != null)
+    //  {
+    //    var settings = new ElasticsearchClientSettings(new Uri(elasticSearchSettings.Url))
+    //      .Authentication(new BasicAuthentication(
+    //        elasticSearchSettings.Username,
+    //        elasticSearchSettings.Password
+    //      ));
+    //    services.AddSingleton(settings);
+    //    services.AddScoped<IElasticsearchService, ElasticsearchService>();
+    //  }
+    //}
 
     public static void AddPaymentService(this IServiceCollection services, IConfiguration configuration)
     {

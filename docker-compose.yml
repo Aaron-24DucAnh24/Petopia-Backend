@@ -29,15 +29,3 @@ services:
     env_file:
       - ".env"
     command: --requirepass "${REDIS_PASSWORD}"
-
-  searchEngine:
-    image: elasticsearch:8.8.1
-    container_name: PetopiaSearchEngine
-    ports:
-      - "9200:9200"
-    env_file:
-      - ".env"
-    environment:
-      xpack.security.enabled: ${ELASTIC_SECURITY_ENABLED}
-      discovery.type: ${ELASTIC_DISCOVERY_TYPE}
-      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}

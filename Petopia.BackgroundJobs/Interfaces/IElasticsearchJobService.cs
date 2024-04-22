@@ -1,8 +1,8 @@
-namespace Petopia.BackgroundJobs.Interfaces
-{
-  public interface IElasticsearchJobService
-  {
-    public void SyncData();
-    public void InitSyncDataCollections();
-  }
-}
+//namespace Petopia.BackgroundJobs.Interfaces
+//{
+//  public interface IElasticsearchJobService
+//  {
+//    public void SyncData();
+//    public void InitSyncDataCollections();
+//  }
+//}

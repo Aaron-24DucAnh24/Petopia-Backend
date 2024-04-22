@@ -1,5 +1,7 @@
 # PETOPIA - Pet Adoption Platform Backend
 
+## This is the introduction to run API server locally on your machine
+
 ### Requirements
 
 1. ASP.NET Core 7.0
@@ -42,6 +44,12 @@ dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
 dotnet tool install --global dotnet-ef
 dotnet ef migrations add Init
 dotnet ef database update
+```
+
+> Initing essential data, go to folder "Petopia.SeedingData", run
+
+```bash
+dotnet run
 ```
 
 5. To start the program within the development environment, run by the debugger of VSCode or VS. For another way

@@ -20,7 +20,7 @@ namespace Petopia.BackgroundJobs.Extensions
       services.AddHostedService<InitJobsService>(); // important
       services.AddScoped<ICacheJobService, CacheJobService>();
       services.AddScoped<IEmailJobService, EmailJobService>();
-      services.AddScoped<IElasticsearchJobService, ElasticsearchJobService>();
+      //services.AddScoped<IElasticsearchJobService, ElasticsearchJobService>();
     }
   }
 }
