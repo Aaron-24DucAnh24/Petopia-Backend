@@ -41,14 +41,14 @@ namespace Petopia.Business.Implementations
     public async Task<MailDataModel> CreateForgotPasswordMailDataAsync(string email)
     {
       User user = await CheckCorrectEmailAsync(email);
-      if(string.IsNullOrEmpty(user.Password))
+      if (string.IsNullOrEmpty(user.Password))
       {
         throw new WrongLoginMethodException();
       };
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
       user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
-      
+
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
       string body = emailTemplate.Body
         .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice)
@@ -87,6 +87,25 @@ namespace Petopia.Business.Implementations
       };
     }
 
+    public async Task SendUpgradeMailsAsync()
+    {
+      List<UpgradeForm> forms = await UnitOfWork.UpgradeForms
+        .AsTracking()
+        .Include(x => x.User)
+        .Where(x => x.Status == UpgradeStatus.Accepted || x.Status == UpgradeStatus.Rejected)
+        .ToListAsync();
+
+      foreach (var form in forms)
+      {
+        string email = HashUtils.DecryptString(form.User.Email);
+        bool isSucceed = form.Status == UpgradeStatus.Accepted;
+        MailDataModel mailData = await CreateUpgradeMailDataAsync(email, isSucceed);
+        await SendMailAsync(mailData);
+      }
+    }
+
+    #region private
+
     private async Task<User> CheckCorrectEmailAsync(string email)
     {
       User user = await UnitOfWork.Users
@@ -98,7 +117,7 @@ namespace Petopia.Business.Implementations
       return user;
     }
 
-    private MailMessage CreateMailMessage(MailDataModel data)
+    private static MailMessage CreateMailMessage(MailDataModel data)
     {
       MailMessage res = new()
       {
@@ -113,5 +132,26 @@ namespace Petopia.Business.Implementations
       }
       return res;
     }
+
+    private async Task<MailDataModel> CreateUpgradeMailDataAsync(string email, bool isSucceed)
+    {
+      EmailType type = isSucceed ? EmailType.UpgradeAccountSuccess : EmailType.UpgradeAccountFailure;
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == type);
+      string body = emailTemplate.Body
+        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
+
+      List<string> toAddresses = new() { email };
+
+      return new MailDataModel()
+      {
+        From = _settings.EmailClient,
+        To = toAddresses,
+        Subject = emailTemplate.Subject,
+        Body = body,
+        IsBodyHtml = true
+      };
+    }
+
+    #endregion
   }
 }

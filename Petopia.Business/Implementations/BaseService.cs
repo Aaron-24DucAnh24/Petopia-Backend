@@ -20,6 +20,7 @@ namespace Petopia.Business.Implementations
 {
   public class BaseService
   {
+    protected readonly IServiceProvider ServiceProvider;
     protected readonly IConfiguration Configuration;
     protected readonly IUserContext UserContext;
     protected readonly IHttpContextAccessor HttpContextAccessor;
@@ -35,6 +36,7 @@ namespace Petopia.Business.Implementations
       ILogger logger
     )
     {
+      ServiceProvider = provider;
       UserContext = provider.GetRequiredService<IUserContext>();
       Configuration = provider.GetRequiredService<IConfiguration>();
       HttpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();

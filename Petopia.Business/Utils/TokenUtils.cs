@@ -59,7 +59,7 @@ namespace Petopia.Business.Utils
         ? request.Cookies[CookieName.ACCESS_TOKEN]
         : bearerToken[(JwtBearerDefaults.AuthenticationScheme.Length + 1)..].Trim();
       return jwtToken;
-		}
+    }
 
     public static UserContextModel? GetUserContextInfoFromClaims(IEnumerable<Claim> claims)
     {

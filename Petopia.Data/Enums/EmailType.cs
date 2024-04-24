@@ -4,5 +4,7 @@ namespace Petopia.Data.Enums
   {
     ValidateRegister,
     ForgotPassword,
+    UpgradeAccountSuccess,
+    UpgradeAccountFailure,
   }
 }

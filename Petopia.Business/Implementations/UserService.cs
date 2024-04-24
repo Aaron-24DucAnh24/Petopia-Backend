@@ -203,9 +203,19 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> UpgradeAccountAsync(UpgradeAccountRequestModel request)
     {
+      UpgradeForm? form = await UnitOfWork.UpgradeForms
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == UserContext.Id);
+
+      if (form != null)
+      {
+        form.Status = UpgradeStatus.Pending;
+        UnitOfWork.UpgradeForms.Update(form);
+      }
+
       await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()
       {
-        Id = Guid.NewGuid(),
+        Id = UserContext.Id,
         EntityName = request.EntityName,
         OrganizationName = request.OrganizationName,
         Phone = request.Phone,

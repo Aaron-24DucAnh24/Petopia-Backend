@@ -16,7 +16,7 @@ namespace Petopia.BackgroundJobs.Implementations
 
     public Task InitCacheDataTask()
     {
-      // Call all necessary methods to init cache data here
+      // TODO
       return Task.CompletedTask;
     }
   }
