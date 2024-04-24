@@ -29,7 +29,7 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new CommentConfiguration());
       builder.ApplyConfiguration(new LikeConfiguration());
       builder.ApplyConfiguration(new PetBreedConfiguration());
-		}
+    }
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserConnection> UserConnections { get; set; }
@@ -50,5 +50,5 @@ namespace Petopia.Data
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Like> Likes { get; set; }
     public DbSet<PetBreed> PetBreed { get; set; }
-	}
+  }
 }

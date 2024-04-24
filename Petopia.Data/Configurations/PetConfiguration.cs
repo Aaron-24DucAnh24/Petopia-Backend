@@ -14,16 +14,16 @@ namespace Petopia.Data.Configurations
         .HasMany<Media>(x => x.Images)
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId);
-			builder
+      builder
         .HasMany<AdoptionForm>(x => x.AdoptionForms)
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId)
         .OnDelete(DeleteBehavior.NoAction);
-			builder
-	      .HasMany<Post>(x => x.Posts)
-	      .WithOne(x => x.Pet)
-	      .HasForeignKey(x => x.PetId)
-	      .OnDelete(DeleteBehavior.NoAction);
-		}
+      builder
+        .HasMany<Post>(x => x.Posts)
+        .WithOne(x => x.Pet)
+        .HasForeignKey(x => x.PetId)
+        .OnDelete(DeleteBehavior.NoAction);
+    }
   }
 }

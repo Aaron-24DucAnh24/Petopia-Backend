@@ -28,5 +28,5 @@ namespace Petopia.Data.Entities
     public List<Media> Images { get; set; }
     public List<AdoptionForm> AdoptionForms { get; set; }
     public List<Post> Posts { get; set; }
-	}
+  }
 }

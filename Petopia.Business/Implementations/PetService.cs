@@ -15,7 +15,7 @@ namespace Petopia.Business.Implementations
     private const int SEE_MORE_LENGTH = 4;
 
     public PetService(IServiceProvider provider, ILogger<PetService> logger) : base(provider, logger)
-    {}
+    { }
 
     public async Task<bool> DeletePetAsync(Guid petId)
     {
@@ -88,14 +88,14 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Owner)
         .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
         .ToListAsync();
-      if(seeMore.Count == 0)
+      if (seeMore.Count == 0)
       {
-				seeMore = await UnitOfWork.Pets
-				.Include(x => x.Images)
+        seeMore = await UnitOfWork.Pets
+        .Include(x => x.Images)
         .Where(x => x.Id != pet.Id)
         .Take(SEE_MORE_LENGTH)
-				.ToListAsync();
-			}
+        .ToListAsync();
+      }
 
       var result = Mapper.Map<PetDetailsResponseModel>(pet);
       result.Address = pet.Owner.Address;
@@ -114,14 +114,14 @@ namespace Petopia.Business.Implementations
 
       query = GetPetsFromFilter(query, model.Filter);
       query = GetPetsFromText(query, model.Filter.Text);
-      
-			if (!string.IsNullOrEmpty(model.OrderBy))
-			{
-				query = model.OrderBy == OrderKey.NEWEST
-				? query.OrderByDescending(x => x.IsCreatedAt)
-				: query.OrderByDescending(x => x.View);
-			}
-			return await PagingAsync<PetResponseModel, Pet>(query, model);
+
+      if (!string.IsNullOrEmpty(model.OrderBy))
+      {
+        query = model.OrderBy == OrderKey.NEWEST
+        ? query.OrderByDescending(x => x.IsCreatedAt)
+        : query.OrderByDescending(x => x.View);
+      }
+      return await PagingAsync<PetResponseModel, Pet>(query, model);
     }
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
@@ -150,7 +150,7 @@ namespace Petopia.Business.Implementations
 
       foreach (var image in images)
       {
-        if(!model.Images.Contains(image.Url))
+        if (!model.Images.Contains(image.Url))
         {
           UnitOfWork.Medias.Delete(image);
         }
@@ -158,16 +158,16 @@ namespace Petopia.Business.Implementations
 
       foreach (var image in model.Images)
       {
-        if(!images.Select(x => x.Url).ToList().Contains(image))
+        if (!images.Select(x => x.Url).ToList().Contains(image))
         {
-					UnitOfWork.Medias.Create(new Media()
-					{
-						Id = Guid.NewGuid(),
-						PetId = pet.Id,
-						Url = image,
-						Type = MediaType.Image,
-					});
-				}
+          UnitOfWork.Medias.Create(new Media()
+          {
+            Id = Guid.NewGuid(),
+            PetId = pet.Id,
+            Url = image,
+            Type = MediaType.Image,
+          });
+        }
       }
 
       await UnitOfWork.SaveChangesAsync();
@@ -176,16 +176,16 @@ namespace Petopia.Business.Implementations
       return result;
     }
 
-		public async Task<PaginationResponseModel<PetResponseModel>> GetPetsByUserId(PaginationRequestModel<Guid> model)
-		{
-			IQueryable<Pet> query = UnitOfWork.Pets
-	      .Include(x => x.Images)
+    public async Task<PaginationResponseModel<PetResponseModel>> GetPetsByUserId(PaginationRequestModel<Guid> model)
+    {
+      IQueryable<Pet> query = UnitOfWork.Pets
+        .Include(x => x.Images)
         .Include(x => x.Owner)
-	      .Where(x => !x.IsDeleted)
+        .Where(x => !x.IsDeleted)
         .Where(x => x.OwnerId == model.Filter)
-	      .AsQueryable();
-			return await PagingAsync<PetResponseModel, Pet>(query, model);
-		}
+        .AsQueryable();
+      return await PagingAsync<PetResponseModel, Pet>(query, model);
+    }
 
     public async Task<List<string>> GetBreedsAsync(PetSpecies species)
     {
@@ -196,19 +196,19 @@ namespace Petopia.Business.Implementations
       return breeds.Select(x => x.Name).ToList();
     }
 
-		public async Task<List<string>> GetAvailableBreedsAsync(PetSpecies species)
-		{
+    public async Task<List<string>> GetAvailableBreedsAsync(PetSpecies species)
+    {
       List<string> result = await UnitOfWork.Pets
         .Where(x => !x.IsDeleted && x.Species == species)
         .Select(x => x.Breed)
         .Distinct()
         .ToListAsync();
       return result;
-		}
+    }
 
-		#region private
+    #region private
 
-		private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
+    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
     {
       return query;
     }
@@ -250,6 +250,6 @@ namespace Petopia.Business.Implementations
       return query;
     }
 
-		#endregion
-	}
+    #endregion
+  }
 }

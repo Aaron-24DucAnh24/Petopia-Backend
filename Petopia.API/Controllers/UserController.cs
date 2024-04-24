@@ -8,95 +8,95 @@ using Petopia.Business.Utils;
 
 namespace Petopia.API.Controllers
 {
-	[ApiController]
-	[Route("api/User")]
-	public class UserController : ControllerBase
-	{
-		private readonly IUserService _userService;
-		private readonly IEmailService _emailService;
-		private readonly IEmailJobService _emailJobService;
+  [ApiController]
+  [Route("api/User")]
+  public class UserController : ControllerBase
+  {
+    private readonly IUserService _userService;
+    private readonly IEmailService _emailService;
+    private readonly IEmailJobService _emailJobService;
 
-		public UserController(
-			IUserService userService,
-			IEmailService emailService,
-			IEmailJobService emailJobService
-		)
-		{
-			_userService = userService;
-			_emailService = emailService;
-			_emailJobService = emailJobService;
-		}
+    public UserController(
+      IUserService userService,
+      IEmailService emailService,
+      IEmailJobService emailJobService
+    )
+    {
+      _userService = userService;
+      _emailService = emailService;
+      _emailJobService = emailJobService;
+    }
 
-		[HttpGet("CurrentUser")]
-		[Authorize]
-		public async Task<ActionResult<GetUserDetailsResponseModel>> GetCurrentUser()
-		{
-			return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
-		}
+    [HttpGet("CurrentUser")]
+    [Authorize]
+    public async Task<ActionResult<GetUserDetailsResponseModel>> GetCurrentUser()
+    {
+      return ResponseUtils.OkResult(await _userService.GetCurrentUserAsync());
+    }
 
-		[HttpGet("OtherUser")]
-		[AllowAnonymous]
-		public async Task<ActionResult<GetUserDetailsResponseModel>> GetOtherUser([FromQuery] string userId)
-		{
-			return ResponseUtils.OkResult(await _userService.GetOtherUserAsync(userId));
-		}
+    [HttpGet("OtherUser")]
+    [AllowAnonymous]
+    public async Task<ActionResult<GetUserDetailsResponseModel>> GetOtherUser([FromQuery] string userId)
+    {
+      return ResponseUtils.OkResult(await _userService.GetOtherUserAsync(userId));
+    }
 
-		[HttpGet("CurrentUserCore")]
-		[Authorize]
-		public async Task<ActionResult<CurrentUserCoreResponseModel>> GetCurrentUserCore()
-		{
-			return ResponseUtils.OkResult(await _userService.GetCurrentUserCoreAsync());
-		}
+    [HttpGet("CurrentUserCore")]
+    [Authorize]
+    public async Task<ActionResult<CurrentUserCoreResponseModel>> GetCurrentUserCore()
+    {
+      return ResponseUtils.OkResult(await _userService.GetCurrentUserCoreAsync());
+    }
 
-		[HttpPost("ForgotPassword")]
-		[AllowAnonymous]
-		public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)
-		{
-			MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
-			_emailJobService.SendMail(mailMessage);
-			return ResponseUtils.OkResult(true);
-		}
+    [HttpPost("ForgotPassword")]
+    [AllowAnonymous]
+    public async Task<ActionResult<bool>> SendForgotPasswordMail([FromBody] string email)
+    {
+      MailDataModel mailMessage = await _emailService.CreateForgotPasswordMailDataAsync(email);
+      _emailJobService.SendMail(mailMessage);
+      return ResponseUtils.OkResult(true);
+    }
 
-		[HttpPost("ResetPassword")]
-		[AllowAnonymous]
-		public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
-		{
-			return ResponseUtils.OkResult(await _userService.ResetPasswordAsync(request));
-		}
+    [HttpPost("ResetPassword")]
+    [AllowAnonymous]
+    public async Task<ActionResult<bool>> ResetPassword([FromBody] ResetPasswordRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _userService.ResetPasswordAsync(request));
+    }
 
-		[HttpPost("ChangePassword")]
-		[Authorize]
-		public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
-		{
-			return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
-		}
+    [HttpPost("ChangePassword")]
+    [Authorize]
+    public async Task<ActionResult<bool>> ChangePassword([FromBody] ChangePasswordRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
+    }
 
-		[HttpPut]
-		[Authorize]
-		public async Task<ActionResult<GetUserDetailsResponseModel>> Update([FromBody] UpdateUserRequestModel request)
-		{
-			return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
-		}
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<GetUserDetailsResponseModel>> Update([FromBody] UpdateUserRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
+    }
 
-		[HttpPut("UpdateAvatar")]
-		[Authorize]
-		public async Task<ActionResult<string>> UpdateAvatar([FromBody] string image)
-		{
-			return ResponseUtils.OkResult(await _userService.UpdateUserAvatarAsync(image));
-		}
+    [HttpPut("UpdateAvatar")]
+    [Authorize]
+    public async Task<ActionResult<string>> UpdateAvatar([FromBody] string image)
+    {
+      return ResponseUtils.OkResult(await _userService.UpdateUserAvatarAsync(image));
+    }
 
-		[HttpPost("UpgradeAccount")]
-		[Authorize]
-		public async Task<ActionResult<bool>> UpgradeAccount([FromBody] UpgradeAccountRequestModel request)
-		{
-			return ResponseUtils.OkResult(await _userService.UpgradeAccountAsync(request));
-		}
+    [HttpPost("UpgradeAccount")]
+    [Authorize]
+    public async Task<ActionResult<bool>> UpgradeAccount([FromBody] UpgradeAccountRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _userService.UpgradeAccountAsync(request));
+    }
 
-		[HttpGet("PreUpgrade")]
-		[Authorize]
-		public async Task<ActionResult<bool>> PreUpgradeAccount()
-		{
-			return ResponseUtils.OkResult(await _userService.PreUpgradeAsync());
-		}
-	}
+    [HttpGet("PreUpgrade")]
+    [Authorize]
+    public async Task<ActionResult<bool>> PreUpgradeAccount()
+    {
+      return ResponseUtils.OkResult(await _userService.PreUpgradeAsync());
+    }
+  }
 }

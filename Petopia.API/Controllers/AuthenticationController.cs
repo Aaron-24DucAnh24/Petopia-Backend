@@ -69,8 +69,8 @@ namespace Petopia.API.Controllers
       GoogleUserModel googleUserInfo = await _authService.ValidateGoogleLoginTokenAsync(request.TokenId);
       UserContextModel user = await _userService.CreateUserGoogleRegistrationAsync(googleUserInfo);
       JwtTokensModel result = await _authService.LoginAsync(user);
-			_cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-			return ResponseUtils.OkResult(result);
+      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
     }
 
     [HttpGet("Refresh")]
@@ -79,8 +79,8 @@ namespace Petopia.API.Controllers
     {
       UserContextModel user = _authService.ValidateRefreshToken(refreshToken);
       JwtTokensModel result = await _authService.LoginAsync(user);
-			_cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
-			return ResponseUtils.OkResult(result);
+      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
     }
 
     [HttpGet("Logout")]

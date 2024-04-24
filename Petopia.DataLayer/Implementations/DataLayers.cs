@@ -81,19 +81,19 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-	public class AdoptionFormDataLayer : BaseDataLayer<AdoptionForm>, IAdoptionFormDataLayer
-	{
-		public AdoptionFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
-		{
-		}
-	}
+  public class AdoptionFormDataLayer : BaseDataLayer<AdoptionForm>, IAdoptionFormDataLayer
+  {
+    public AdoptionFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    {
+    }
+  }
 
-	public class NotificationFormDataLayer : BaseDataLayer<Notification>, INotificationDataLayer
-	{
-		public NotificationFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
-		{
-		}
-	}
+  public class NotificationFormDataLayer : BaseDataLayer<Notification>, INotificationDataLayer
+  {
+    public NotificationFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
+    {
+    }
+  }
 
   public class UpgradeFormDataLayer : BaseDataLayer<UpgradeForm>, IUpgradeFormDataLayer
   {
@@ -102,38 +102,38 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-	public class BlogDataLayer : BaseDataLayer<Blog>, IBlogDataLayer
-	{
-		public BlogDataLayer(ApplicationDbContext context) : base(context)
-		{
-		}
-	}
+  public class BlogDataLayer : BaseDataLayer<Blog>, IBlogDataLayer
+  {
+    public BlogDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 
-	public class PostDataLayer : BaseDataLayer<Post>, IPostDataLayer
-	{
-		public PostDataLayer(ApplicationDbContext context) : base(context)
-		{
-		}
-	}
+  public class PostDataLayer : BaseDataLayer<Post>, IPostDataLayer
+  {
+    public PostDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 
-	public class CommentDataLayer : BaseDataLayer<Comment>, ICommentDataLayer
-	{
-		public CommentDataLayer(ApplicationDbContext context) : base(context)
-		{
-		}
-	}
+  public class CommentDataLayer : BaseDataLayer<Comment>, ICommentDataLayer
+  {
+    public CommentDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 
-	public class LikeDataLayer : BaseDataLayer<Like>, ILikeDataLayer
-	{
-		public LikeDataLayer(ApplicationDbContext context) : base(context)
-		{
-		}
-	}
+  public class LikeDataLayer : BaseDataLayer<Like>, ILikeDataLayer
+  {
+    public LikeDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 
-	public class PetBreedDataLayer : BaseDataLayer<PetBreed>, IPetBreedDataLayer
-	{
-		public PetBreedDataLayer(ApplicationDbContext context) : base(context)
-		{
-		}
-	}
+  public class PetBreedDataLayer : BaseDataLayer<PetBreed>, IPetBreedDataLayer
+  {
+    public PetBreedDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 }

@@ -30,10 +30,10 @@ namespace Petopia.Data.Configurations
         .HasMany<Pet>(x => x.Pets)
         .WithOne(x => x.Owner)
         .HasForeignKey(x => x.OwnerId);
-			builder
-	      .HasMany<AdoptionForm>(x => x.AdoptionForms)
-	      .WithOne(x => x.Adopter)
-	      .HasForeignKey(x => x.AdopterId)
+      builder
+        .HasMany<AdoptionForm>(x => x.AdoptionForms)
+        .WithOne(x => x.Adopter)
+        .HasForeignKey(x => x.AdopterId)
         .OnDelete(DeleteBehavior.NoAction);
       builder
         .HasMany<Notification>(x => x.Notifications)
@@ -43,10 +43,10 @@ namespace Petopia.Data.Configurations
         .HasOne(x => x.UpgradeForm)
         .WithOne(x => x.User)
         .HasForeignKey<UpgradeForm>(x => x.Id);
-			builder
-	      .HasMany<Blog>(x => x.Blogs)
-	      .WithOne(x => x.User)
-	      .HasForeignKey(x => x.UserId);
-		}
+      builder
+        .HasMany<Blog>(x => x.Blogs)
+        .WithOne(x => x.User)
+        .HasForeignKey(x => x.UserId);
+    }
   }
 }

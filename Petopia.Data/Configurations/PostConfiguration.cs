@@ -4,23 +4,23 @@ using Petopia.Data.Entities;
 
 namespace Petopia.Data.Configurations
 {
-	public class PostConfiguration : IEntityTypeConfiguration<Post>
-	{
-		public void Configure(EntityTypeBuilder<Post> builder)
-		{
-			builder.HasKey(x => x.Id);
-			builder.ToTable("Post");
-			builder.Property(x => x.Like).HasDefaultValue(0);
-			builder
-				.HasMany<Media>(x => x.Images)
-				.WithOne(x => x.Post)
-				.HasForeignKey(x => x.PostId);
-			builder
-				.HasMany<Comment>(x => x.Comments)
-				.WithOne(x => x.Post)
-				.HasForeignKey(x => x.PostId);
-		}
-	}
+  public class PostConfiguration : IEntityTypeConfiguration<Post>
+  {
+    public void Configure(EntityTypeBuilder<Post> builder)
+    {
+      builder.HasKey(x => x.Id);
+      builder.ToTable("Post");
+      builder.Property(x => x.Like).HasDefaultValue(0);
+      builder
+        .HasMany<Media>(x => x.Images)
+        .WithOne(x => x.Post)
+        .HasForeignKey(x => x.PostId);
+      builder
+        .HasMany<Comment>(x => x.Comments)
+        .WithOne(x => x.Post)
+        .HasForeignKey(x => x.PostId);
+    }
+  }
 }
 
 

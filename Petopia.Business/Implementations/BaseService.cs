@@ -52,10 +52,10 @@ namespace Petopia.Business.Implementations
     protected async Task<UserContextModel> GetUserContextAsync(Guid userId)
     {
       UserContextModel result = new();
-			User user =  await UnitOfWork.Users
-	      .Include(x => x.UserIndividualAttributes)
-	      .Include(x => x.UserOrganizationAttributes)
-	      .FirstAsync(x => x.Id == userId);
+      User user = await UnitOfWork.Users
+        .Include(x => x.UserIndividualAttributes)
+        .Include(x => x.UserOrganizationAttributes)
+        .FirstAsync(x => x.Id == userId);
       string userName = user.Role == UserRole.Organization
         ? user.UserOrganizationAttributes.OrganizationName
         : string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
@@ -67,15 +67,15 @@ namespace Petopia.Business.Implementations
       return result;
     }
 
-		protected async Task<PaginationResponseModel<TResult>>
+    protected async Task<PaginationResponseModel<TResult>>
     PagingAsync<TResult, TQuery>(IQueryable<TQuery> query, PaginationRequestModel model)
     {
-			PaginationResponseModel<TResult> result = new()
-			{
-				TotalNumber = await query.CountAsync(),
-				PageIndex = model.PageIndex
-			};
-			result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
+      PaginationResponseModel<TResult> result = new()
+      {
+        TotalNumber = await query.CountAsync(),
+        PageIndex = model.PageIndex
+      };
+      result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
       result.PageNumber = model.PageSize == 0 ? 0 : (int)Math.Ceiling((double)result.TotalNumber / result.PageSize);
 
       if (result.PageNumber < 1)

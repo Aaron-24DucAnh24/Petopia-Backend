@@ -43,13 +43,13 @@ namespace Petopia.API.Controllers
     }
 
     [HttpPost("User")]
-		[AllowAnonymous]
-		public async Task<ActionResult<PaginationResponseModel<PetResponseModel>>> GetPetsByUserId([FromBody] PaginationRequestModel<Guid> request)
-		{
-			return ResponseUtils.OkResult(await _petService.GetPetsByUserId(request));
-		}
+    [AllowAnonymous]
+    public async Task<ActionResult<PaginationResponseModel<PetResponseModel>>> GetPetsByUserId([FromBody] PaginationRequestModel<Guid> request)
+    {
+      return ResponseUtils.OkResult(await _petService.GetPetsByUserId(request));
+    }
 
-		[HttpPut("")]
+    [HttpPut("")]
     [Authorize]
     public async Task<ActionResult<UpdatePetResponseModel>> UpdatePet([FromBody] UpdatePetRequestModel request)
     {
@@ -64,18 +64,18 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _petService.DeletePetAsync(petId));
     }
 
-		[HttpGet("Breed")]
-		[Authorize]
-		public async Task<ActionResult<List<string>>> GetBreeds([FromQuery] PetSpecies species)
-		{
-			return ResponseUtils.OkResult(await _petService.GetBreedsAsync(species));
-		}
+    [HttpGet("Breed")]
+    [Authorize]
+    public async Task<ActionResult<List<string>>> GetBreeds([FromQuery] PetSpecies species)
+    {
+      return ResponseUtils.OkResult(await _petService.GetBreedsAsync(species));
+    }
 
-		[HttpGet("AvailableBreed")]
-		[AllowAnonymous]
-		public async Task<ActionResult<List<string>>> GetAvailableBreeds([FromQuery] PetSpecies species)
-		{
-			return ResponseUtils.OkResult(await _petService.GetAvailableBreedsAsync(species));
-		}
-	}
+    [HttpGet("AvailableBreed")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<string>>> GetAvailableBreeds([FromQuery] PetSpecies species)
+    {
+      return ResponseUtils.OkResult(await _petService.GetAvailableBreedsAsync(species));
+    }
+  }
 }

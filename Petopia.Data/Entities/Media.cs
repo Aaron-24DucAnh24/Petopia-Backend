@@ -14,5 +14,5 @@ namespace Petopia.Data.Entities
 
     public virtual Pet Pet { get; set; }
     public virtual Post Post { get; set; }
-	}
+  }
 }

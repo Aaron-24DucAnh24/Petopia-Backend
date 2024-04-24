@@ -4,12 +4,12 @@ using Petopia.Data.Entities;
 
 namespace Petopia.Data.Configurations
 {
-	public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
-	{
-		public void Configure(EntityTypeBuilder<Notification> builder)
-		{
-			builder.HasKey(x => x.Id);
-			builder.ToTable("Notification");
-		}
-	}
+  public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
+  {
+    public void Configure(EntityTypeBuilder<Notification> builder)
+    {
+      builder.HasKey(x => x.Id);
+      builder.ToTable("Notification");
+    }
+  }
 }
