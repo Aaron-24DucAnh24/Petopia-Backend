@@ -36,7 +36,7 @@ namespace Petopia.Business.Data
     public IProvinceDataLayer Provinces => _serviceProvider.GetRequiredService<IProvinceDataLayer>();
     public IDistrictDataLayer Districts => _serviceProvider.GetRequiredService<IDistrictDataLayer>();
     public IWardDataLayer Wards => _serviceProvider.GetRequiredService<IWardDataLayer>();
-		public IAdoptionFormDataLayer AdoptionForms => _serviceProvider.GetRequiredService<IAdoptionFormDataLayer>();
+    public IAdoptionFormDataLayer AdoptionForms => _serviceProvider.GetRequiredService<IAdoptionFormDataLayer>();
     public INotificationDataLayer Notifications => _serviceProvider.GetRequiredService<INotificationDataLayer>();
     public IUpgradeFormDataLayer UpgradeForms => _serviceProvider.GetRequiredService<IUpgradeFormDataLayer>();
     public IBlogDataLayer Blogs => _serviceProvider.GetRequiredService<IBlogDataLayer>();
@@ -44,5 +44,6 @@ namespace Petopia.Business.Data
     public ICommentDataLayer Comments => _serviceProvider.GetRequiredService<ICommentDataLayer>();
     public ILikeDataLayer Likes => _serviceProvider.GetRequiredService<ILikeDataLayer>();
     public IPetBreedDataLayer PetBreeds => _serviceProvider.GetRequiredService<IPetBreedDataLayer>();
-	}
+    public IAdminFormDataLayer AdminForms => _serviceProvider.GetRequiredService<IAdminFormDataLayer>();
+  }
 }

@@ -3,9 +3,9 @@
   public enum BlogCategory
   {
     Health,
-    News,
-    Event,
-    Tech,
+    Training,
+    Product,
+    Art,
   }
 }
 

@@ -18,5 +18,15 @@
     "Subject": "XÁC MINH TỔ CHỨC BỊ TỪ CHỐI",
     "Body": "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 8px; font-weight: 500; \"> Yêu cầu nâng câp tài khoản bị từ chối. </div> <div style=\"color: #111111; margin-bottom: 32px; font-style: italic;\"> Liên hệ Admin để biết thêm thông tin chi tiết. Bạn cũng có thể tạo yêu cầu mới. </div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/user\"> Đi đến trang cá nhân </a> <div style=\"color: #9e9ea7; margin-top: 24px;\"> Email được gửi tự động. </div> </div> </body>",
     "Type": 3
+  },
+  {
+    "Subject": "BẠN ĐÃ TRỜ THÀNH ADMIN HỆ THỐNG",
+    "Body": "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \"> Chúc mừng! Bạn đã trở thành quản trị viên của PETOPIA. </div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/user\"> Đi đến trang cá nhân </a> <div style=\"color: #9e9ea7; margin-top: 24px;\"> Email được gửi tự động. </div> </div> </body>",
+    "Type": 4
+  },
+  {
+    "Subject": "LỜI MỜI TRỜ THÀNH ADMIN HỆ THỐNG",
+    "Body": "<body> <div style=\" width: 100%; text-align: center; \"> <div style=\" background-color: #012979; height: 40px; line-height: 40px; font-size: 24px; font-style: italic; width: 100%; text-align: center; font-weight: 600; color: white; \"> Petopia </div> <div style=\" margin-top: 28px; font-size: 22px; margin-bottom: 28px; font-weight: 500; \"> Thân mến! Bạn nhận được lời mời trở thành quản trị viên của PETOPIA. </div> <a style=\" background-color: #1662dd; text-decoration: none; font-size: 16px; color: white; font-weight: 500; padding: 16px; border-radius: 4px; margin-bottom: 16px; \" href=\"{foRoute}/register\"> Tạo tài khoản ngay </a> <div style=\"color: #9e9ea7; margin-top: 24px;\"> Email được gửi tự động. </div> </div> </body>",
+    "Type": 5
   }
 ]

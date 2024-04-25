@@ -136,4 +136,11 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+
+  public class AdminFormDataLayer : BaseDataLayer<AdminForm>, IAdminFormDataLayer
+  {
+    public AdminFormDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 }

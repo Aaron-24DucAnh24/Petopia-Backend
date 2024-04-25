@@ -6,5 +6,7 @@ namespace Petopia.Data.Enums
     ForgotPassword,
     UpgradeAccountSuccess,
     UpgradeAccountFailure,
+    UpgradedToAdmin,
+    InviteToBeAdmin,
   }
 }

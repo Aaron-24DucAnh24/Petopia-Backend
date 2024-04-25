@@ -89,19 +89,37 @@ namespace Petopia.Business.Implementations
 
     public async Task SendUpgradeMailsAsync()
     {
-      List<UpgradeForm> forms = await UnitOfWork.UpgradeForms
+      List<UpgradeForm> upgradeForms = await UnitOfWork.UpgradeForms
         .AsTracking()
         .Include(x => x.User)
         .Where(x => x.Status == UpgradeStatus.Accepted || x.Status == UpgradeStatus.Rejected)
         .ToListAsync();
 
-      foreach (var form in forms)
+      foreach (var form in upgradeForms)
       {
         string email = HashUtils.DecryptString(form.User.Email);
         bool isSucceed = form.Status == UpgradeStatus.Accepted;
         MailDataModel mailData = await CreateUpgradeMailDataAsync(email, isSucceed);
+        form.Status = UpgradeStatus.Done;
+        UnitOfWork.UpgradeForms.Update(form);
         await SendMailAsync(mailData);
       }
+
+      List<AdminForm> adminForms = await UnitOfWork.AdminForms
+        .AsTracking()
+        .Where(x => x.Status == AdminFormStatus.Pending)
+        .ToListAsync();
+
+      foreach (var form in adminForms)
+      {
+        bool isAvailable = await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.EnryptString(form.Email));
+        MailDataModel mailData = await CreateAdminFormMailDataAsync(form.Email, isAvailable);
+        form.Status = AdminFormStatus.Done;
+        UnitOfWork.AdminForms.Update(form);
+        await SendMailAsync(mailData);
+      }
+
+      await UnitOfWork.SaveChangesAsync();
     }
 
     #region private
@@ -136,6 +154,25 @@ namespace Petopia.Business.Implementations
     private async Task<MailDataModel> CreateUpgradeMailDataAsync(string email, bool isSucceed)
     {
       EmailType type = isSucceed ? EmailType.UpgradeAccountSuccess : EmailType.UpgradeAccountFailure;
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == type);
+      string body = emailTemplate.Body
+        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
+
+      List<string> toAddresses = new() { email };
+
+      return new MailDataModel()
+      {
+        From = _settings.EmailClient,
+        To = toAddresses,
+        Subject = emailTemplate.Subject,
+        Body = body,
+        IsBodyHtml = true
+      };
+    }
+
+    private async Task<MailDataModel> CreateAdminFormMailDataAsync(string email, bool isAvailable)
+    {
+      EmailType type = isAvailable ? EmailType.UpgradedToAdmin : EmailType.InviteToBeAdmin;
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == type);
       string body = emailTemplate.Body
         .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);

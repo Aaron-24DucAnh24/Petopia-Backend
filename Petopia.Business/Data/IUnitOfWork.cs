@@ -17,7 +17,7 @@ namespace Petopia.Business.Data
     IProvinceDataLayer Provinces { get; }
     IDistrictDataLayer Districts { get; }
     IWardDataLayer Wards { get; }
-		IAdoptionFormDataLayer AdoptionForms { get; }
+    IAdoptionFormDataLayer AdoptionForms { get; }
     INotificationDataLayer Notifications { get; }
     IUpgradeFormDataLayer UpgradeForms { get; }
     IBlogDataLayer Blogs { get; }
@@ -25,5 +25,6 @@ namespace Petopia.Business.Data
     ICommentDataLayer Comments { get; }
     ILikeDataLayer Likes { get; }
     IPetBreedDataLayer PetBreeds { get; }
-	}
+    IAdminFormDataLayer AdminForms { get; }
+  }
 }
