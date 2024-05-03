@@ -9,6 +9,9 @@ namespace Petopia.Business.Interfaces
     public Task<BlogDetailResponseModel> GetBlogByIdAsync(Guid id);
     public Task<Guid> CreateBlogAsync(CreateBlogRequestModel request);
     public Task<BlogDetailResponseModel> UpdateBlogAsync(UpdateBlogRequestModel request);
+    public Task<PaginationResponseModel<BlogResponseModel>> GetBlogsByUserIdAsync(PaginationRequestModel request);
+    public Task<bool> DeleteBlogAsync(Guid id);
+
   }
 }
 

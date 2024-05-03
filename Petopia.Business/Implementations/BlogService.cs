@@ -28,10 +28,28 @@ namespace Petopia.Business.Implementations
         Excerpt = request.Excerpt,
         Category = request.Category,
         Image = request.Image,
+        UserId = UserContext.Id,
         IsCreatedAt = DateTimeOffset.Now,
+        IsUpdatedAt = DateTimeOffset.Now,
       });
       await UnitOfWork.SaveChangesAsync();
       return blog.Id;
+    }
+
+    public async Task<bool> DeleteBlogAsync(Guid id)
+    {
+      Blog? blog = await UnitOfWork.Blogs
+        .AsTracking()
+        .Where(b => b.Id == id && b.UserId == UserContext.Id)
+        .FirstOrDefaultAsync();
+      if (blog == null)
+      {
+        return false;
+      }
+      blog.IsHidden = true;
+      UnitOfWork.Blogs.Update(blog);
+      await UnitOfWork.SaveChangesAsync();
+      return true;
     }
 
     public async Task<BlogDetailResponseModel> GetBlogByIdAsync(Guid id)
@@ -51,7 +69,26 @@ namespace Petopia.Business.Implementations
     public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsAsync(PaginationRequestModel request)
     {
       IQueryable<Blog> query = UnitOfWork.Blogs
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
         .Where(x => !x.IsHidden)
+        .AsQueryable();
+      if (!string.IsNullOrEmpty(request.OrderBy))
+      {
+        query = request.OrderBy == OrderKey.NEWEST
+        ? query.OrderByDescending(x => x.IsCreatedAt)
+        : query.OrderByDescending(x => x.View);
+      }
+
+      return await PagingAsync<BlogResponseModel, Blog>(query, request);
+    }
+
+    public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsByUserIdAsync(PaginationRequestModel request)
+    {
+      IQueryable<Blog> query = UnitOfWork.Blogs
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
+        .Where(x => !x.IsHidden && x.UserId == UserContext.Id)
         .AsQueryable();
       if (!string.IsNullOrEmpty(request.OrderBy))
       {

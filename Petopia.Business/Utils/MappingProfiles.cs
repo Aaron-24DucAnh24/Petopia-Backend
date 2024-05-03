@@ -12,7 +12,7 @@ using Petopia.Data.Enums;
 
 namespace Petopia.Business.Utils
 {
-	public class MappingProfiles : Profile
+  public class MappingProfiles : Profile
   {
     public MappingProfiles()
     {
@@ -28,11 +28,11 @@ namespace Petopia.Business.Utils
       CreateMap<UpdatePetRequestModel, UpdatePetResponseModel>();
       CreateMap<Pet, PetResponseModel>()
         .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url))
-				.ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser));
-			CreateMap<Pet, PetDetailsResponseModel>()
+        .ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser));
+      CreateMap<Pet, PetDetailsResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
 
-			CreateMap<Province, LocationResponseModel>();
+      CreateMap<Province, LocationResponseModel>();
       CreateMap<District, LocationResponseModel>();
       CreateMap<Ward, LocationResponseModel>();
 
@@ -42,12 +42,13 @@ namespace Petopia.Business.Utils
       CreateMap<Notification, NotificationResponseModel>();
 
       CreateMap<Blog, BlogDetailResponseModel>();
-      CreateMap<Blog, BlogResponseModel>();
+      CreateMap<Blog, BlogResponseModel>()
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
 
-			CreateMap<Post, PostResponseModel>()
+      CreateMap<Post, PostResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
 
       CreateMap<Comment, CommentResponseModel>();
-		}
+    }
   }
 }

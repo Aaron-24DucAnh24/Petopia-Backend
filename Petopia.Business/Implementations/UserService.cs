@@ -40,7 +40,11 @@ namespace Petopia.Business.Implementations
         .Include(x => x.UserOrganizationAttributes)
         .FirstAsync(x => x.Id == UserContext.Id);
       var result = Mapper.Map<CurrentUserCoreResponseModel>(user);
-      result.Email = HashUtils.DecryptString(result.Email);
+      result.Email = HashUtils.DecryptString(
+        user.Role == UserRole.Organization
+        ? user.UserOrganizationAttributes.Email
+        : user.Email
+      );
       result.Name = user.Role == UserRole.Organization
         ? user.UserOrganizationAttributes.OrganizationName
         : string.Join(" ", user.UserIndividualAttributes.FirstName, user.UserIndividualAttributes.LastName);
@@ -167,14 +171,15 @@ namespace Petopia.Business.Implementations
         request.WardCode,
         request.Street
       );
-      if (UserContext.Role == UserRole.Organization)
-      {
-        // do something
-      }
-      else
+      if (UserContext.Role != UserRole.Organization)
       {
         user.UserIndividualAttributes.FirstName = request.FirstName;
         user.UserIndividualAttributes.LastName = request.LastName;
+      }
+      else
+      {
+        user.UserOrganizationAttributes.Description = request.Description;
+        user.UserOrganizationAttributes.Website = request.Website;
       }
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
@@ -256,9 +261,9 @@ namespace Petopia.Business.Implementations
 
     private async Task<CurrentOrganizationResponseModel> GetCurrentOrganizationAsync(User user)
     {
-      user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstOrDefaultAsync(x => x.Id == user.Id);
+      user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstAsync(x => x.Id == user.Id);
       var result = Mapper.Map<CurrentOrganizationResponseModel>(user);
-      result.Email = HashUtils.DecryptString(result.Email);
+      result.Email = HashUtils.DecryptString(user.UserOrganizationAttributes.Email);
       return result;
     }
 
