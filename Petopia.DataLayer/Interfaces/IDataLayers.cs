@@ -22,4 +22,6 @@ namespace Petopia.DataLayer.Interfaces
   public interface ILikeDataLayer : IBaseDataLayer<Like> { }
   public interface IPetBreedDataLayer : IBaseDataLayer<PetBreed> { }
   public interface IAdminFormDataLayer : IBaseDataLayer<AdminForm> { }
+  public interface IPaymentDataLayer : IBaseDataLayer<Payment> { }
+  public interface IAdvertisementDataLayer : IBaseDataLayer<Advertisement> { }
 }

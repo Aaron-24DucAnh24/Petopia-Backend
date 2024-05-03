@@ -26,5 +26,7 @@ namespace Petopia.Business.Data
     ILikeDataLayer Likes { get; }
     IPetBreedDataLayer PetBreeds { get; }
     IAdminFormDataLayer AdminForms { get; }
+    IPaymentDataLayer Payments { get; }
+    IAdvertisementDataLayer Advertisements { get; }
   }
 }

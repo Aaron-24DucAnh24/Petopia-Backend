@@ -11,16 +11,16 @@ namespace Petopia.Data.Configurations
       builder.HasKey(x => x.Id);
       builder.ToTable("Pet");
       builder
-        .HasMany<Media>(x => x.Images)
+        .HasMany(x => x.Images)
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId);
       builder
-        .HasMany<AdoptionForm>(x => x.AdoptionForms)
+        .HasMany(x => x.AdoptionForms)
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId)
         .OnDelete(DeleteBehavior.NoAction);
       builder
-        .HasMany<Post>(x => x.Posts)
+        .HasMany(x => x.Posts)
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId)
         .OnDelete(DeleteBehavior.NoAction);

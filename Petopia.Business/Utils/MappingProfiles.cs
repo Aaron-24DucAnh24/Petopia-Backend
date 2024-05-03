@@ -41,7 +41,10 @@ namespace Petopia.Business.Utils
 
       CreateMap<Notification, NotificationResponseModel>();
 
-      CreateMap<Blog, BlogDetailResponseModel>();
+      CreateMap<Blog, BlogDetailResponseModel>()
+        .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image))
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName))
+        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
       CreateMap<Blog, BlogResponseModel>()
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
 

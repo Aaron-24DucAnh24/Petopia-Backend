@@ -56,6 +56,8 @@ namespace Petopia.Business.Implementations
     {
       Blog blog = await UnitOfWork.Blogs
         .AsTracking()
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
         .FirstOrDefaultAsync(x => x.Id == id && !x.IsHidden)
         ?? throw new BlogNotFoundException();
 
@@ -66,13 +68,17 @@ namespace Petopia.Business.Implementations
       return Mapper.Map<BlogDetailResponseModel>(blog);
     }
 
-    public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsAsync(PaginationRequestModel request)
+    public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsAsync(PaginationRequestModel<BlogFilterModel> request)
     {
       IQueryable<Blog> query = UnitOfWork.Blogs
         .Include(x => x.User)
         .ThenInclude(x => x.UserOrganizationAttributes)
         .Where(x => !x.IsHidden)
         .AsQueryable();
+      if (request.Filter.Category != null)
+      {
+        query = query.Where(x => x.Category == request.Filter.Category);
+      }
       if (!string.IsNullOrEmpty(request.OrderBy))
       {
         query = request.OrderBy == OrderKey.NEWEST

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Xml.Schema;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Petopia.Data.Entities;
 
@@ -13,9 +14,13 @@ namespace Petopia.Data.Configurations
       builder.Property(x => x.View).HasDefaultValue(0);
       builder.Property(x => x.Like).HasDefaultValue(0);
       builder
-        .HasMany<Comment>(x => x.Comments)
+        .HasMany(x => x.Comments)
         .WithOne(x => x.Blog)
         .HasForeignKey(x => x.BlogId);
+      builder
+        .HasOne(x => x.Payment)
+        .WithOne(x => x.Blog)
+        .HasForeignKey<Payment>(x => x.BlogId);
     }
   }
 }

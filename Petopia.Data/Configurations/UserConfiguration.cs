@@ -27,16 +27,16 @@ namespace Petopia.Data.Configurations
         .WithOne(x => x.User)
         .HasForeignKey<UserOrganizationAttributes>(x => x.Id);
       builder
-        .HasMany<Pet>(x => x.Pets)
+        .HasMany(x => x.Pets)
         .WithOne(x => x.Owner)
         .HasForeignKey(x => x.OwnerId);
       builder
-        .HasMany<AdoptionForm>(x => x.AdoptionForms)
+        .HasMany(x => x.AdoptionForms)
         .WithOne(x => x.Adopter)
         .HasForeignKey(x => x.AdopterId)
         .OnDelete(DeleteBehavior.NoAction);
       builder
-        .HasMany<Notification>(x => x.Notifications)
+        .HasMany(x => x.Notifications)
         .WithOne(x => x.User)
         .HasForeignKey(x => x.UserId);
       builder
@@ -44,7 +44,7 @@ namespace Petopia.Data.Configurations
         .WithOne(x => x.User)
         .HasForeignKey<UpgradeForm>(x => x.Id);
       builder
-        .HasMany<Blog>(x => x.Blogs)
+        .HasMany(x => x.Blogs)
         .WithOne(x => x.User)
         .HasForeignKey(x => x.UserId);
     }

@@ -123,5 +123,22 @@ if (catBreedNames != null)
   await db.PetBreed.AddRangeAsync(catBreeds);
 }
 
+List<Advertisement>? advertisements = JsonSerializer.Deserialize<List<Advertisement>>(
+  new StreamReader("Advertisements.json").ReadToEnd()
+);
+if (advertisements != null)
+{
+  foreach (var advertisement in advertisements)
+  {
+    db.Advertisements.Add(new Advertisement()
+    {
+      Id = Guid.NewGuid(),
+      Description = advertisement.Description,
+      MonthDuration = advertisement.MonthDuration,
+      Price = advertisement.Price,
+    });
+  }
+}
+
 db.SaveChanges();
 Console.WriteLine("Done");

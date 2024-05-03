@@ -1,0 +1,22 @@
+[
+  {
+    "Description": "0% Discount",
+    "Price": 1000000,
+    "MonthDuration": 1
+  },
+  {
+    "Description": "10% Discount - 900.000 VND/tháng",
+    "Price": 2700000,
+    "MonthDuration": 3
+  },
+  {
+    "Description": "15% Discount - 850.000 VND/tháng",
+    "Price": 5100000,
+    "MonthDuration": 6
+  },
+  {
+    "Description": "30% Discount - 700.000 VND/tháng",
+    "Price": 8400000,
+    "MonthDuration": 12
+  }
+]

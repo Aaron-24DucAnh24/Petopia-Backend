@@ -143,4 +143,18 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+
+  public class PaymentDataLayer : BaseDataLayer<Payment>, IPaymentDataLayer
+  {
+    public PaymentDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+  public class AdvertisementDataLayer : BaseDataLayer<Advertisement>, IAdvertisementDataLayer
+  {
+    public AdvertisementDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 }

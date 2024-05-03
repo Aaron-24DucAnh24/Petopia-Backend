@@ -35,7 +35,7 @@ namespace Petopia.API.Controllers
     }
 
     [HttpPost("Get")]
-    public async Task<ActionResult<PaginationResponseModel<BlogResponseModel>>> GetBlogs([FromBody] PaginationRequestModel request)
+    public async Task<ActionResult<PaginationResponseModel<BlogResponseModel>>> GetBlogs([FromBody] PaginationRequestModel<BlogFilterModel> request)
     {
       return ResponseUtils.OkResult(await _blogService.GetBlogsAsync(request));
     }

@@ -30,6 +30,8 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new LikeConfiguration());
       builder.ApplyConfiguration(new PetBreedConfiguration());
       builder.ApplyConfiguration(new AdminFormConfiguration());
+      builder.ApplyConfiguration(new AdvertisementConfiguration());
+      builder.ApplyConfiguration(new PaymentConfiguration());
     }
 
     public DbSet<User> Users { get; set; }
@@ -52,5 +54,7 @@ namespace Petopia.Data
     public DbSet<Like> Likes { get; set; }
     public DbSet<PetBreed> PetBreed { get; set; }
     public DbSet<AdminForm> AdminForms { get; set; }
+    public DbSet<Advertisement> Advertisements { get; set; }
+    public DbSet<Payment> Payments { get; set; }
   }
 }

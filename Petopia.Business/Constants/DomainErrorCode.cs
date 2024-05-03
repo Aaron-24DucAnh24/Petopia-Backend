@@ -14,8 +14,8 @@ namespace Petopia.Business.Constants
     public const int NOT_FOUND_USER = 10008;
     public const int INCORRECT_PASSWORD = 10009;
 
-		// PET
-		public const int NOT_FOUND_PET = 11001;
+    // PET
+    public const int NOT_FOUND_PET = 11001;
 
     // ADOPTION FORM
     public const int NOT_FOUND_FORM = 12001;
@@ -24,5 +24,9 @@ namespace Petopia.Business.Constants
 
     // BLOG
     public const int NOT_FOUND_BLOG = 13001;
-	}
+
+    // PAYMENT
+    public const int CANNOT_CREATE_TOKEN = 14001;
+    public const int CANNOT_CREATE_PAYMENT = 14002;
+  }
 }

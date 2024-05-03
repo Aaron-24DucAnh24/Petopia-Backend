@@ -1,7 +1,11 @@
 using Braintree;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Models.Payment;
+using Petopia.Business.Utils;
+using Petopia.Data.Entities;
 
 namespace Petopia.Business.Implementations
 {
@@ -32,6 +36,54 @@ namespace Petopia.Business.Implementations
       {
         throw new PaymentTokenException();
       }
+    }
+
+    public async Task<CreatePaymentResponseModel> CreatePaymentAsync(CreatePaymentRequestModel request)
+    {
+      Advertisement advertisement = await UnitOfWork.Advertisements
+        .FirstAsync(x => x.Id == request.AdvertisementId);
+      Blog blog = await UnitOfWork.Blogs
+        .Include(x => x.User)
+        .FirstAsync(x => x.Id == request.BlogId);
+
+      TransactionRequest transaction = new()
+      {
+        Amount = advertisement.Price,
+        PaymentMethodNonce = request.Nonce,
+        Options = new TransactionOptionsRequest
+        {
+          SubmitForSettlement = true
+        }
+      };
+
+      Result<Transaction> result = await _gateway.Transaction.SaleAsync(transaction);
+      if (!result.IsSuccess())
+      {
+        throw new PaymentFailureException();
+      }
+
+      Payment payment = await UnitOfWork.Payments.CreateAsync(new Payment()
+      {
+        Id = Guid.NewGuid(),
+        BlogId = request.BlogId,
+        AdvertisingDate = DateTimeOffset.Now.AddDays(advertisement.MonthDuration * 12),
+        IsCreatedAt = DateTimeOffset.Now,
+        Amount = advertisement.Price,
+      });
+
+      return new CreatePaymentResponseModel()
+      {
+        PaymentId = payment.Id,
+        Price = payment.Amount,
+        IsCreatedAt = payment.IsCreatedAt,
+        AdvertisingDate = payment.AdvertisingDate,
+        UserEmail = HashUtils.DecryptString(blog.User.Email),
+      };
+    }
+
+    public async Task<List<Advertisement>> GetAdvertisementAsync()
+    {
+      return await UnitOfWork.Advertisements.ToListAsync();
     }
   }
 }
