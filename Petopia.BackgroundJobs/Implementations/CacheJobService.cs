@@ -1,5 +1,9 @@
 using Hangfire;
+using Microsoft.Extensions.DependencyInjection;
 using Petopia.BackgroundJobs.Interfaces;
+using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Location;
+using Petopia.Data.Enums;
 
 namespace Petopia.BackgroundJobs.Implementations
 {
@@ -14,9 +18,16 @@ namespace Petopia.BackgroundJobs.Implementations
       BackgroundJob.Enqueue(() => InitCacheDataTask());
     }
 
-    public Task InitCacheDataTask()
+    public async Task<Task> InitCacheDataTask()
     {
-      // TODO
+      await ServiceProvider.GetRequiredService<IPetService>().GetBreedsAsync(PetSpecies.Cat);
+      await ServiceProvider.GetRequiredService<IPetService>().GetBreedsAsync(PetSpecies.Dog);
+      await ServiceProvider.GetRequiredService<IPetService>().GetAvailableBreedsAsync(PetSpecies.Cat);
+      await ServiceProvider.GetRequiredService<IPetService>().GetAvailableBreedsAsync(PetSpecies.Dog);
+      await ServiceProvider.GetRequiredService<ILocationService>().GetLocation(new LocationRequestModel()
+      {
+        Level = 1,
+      });
       return Task.CompletedTask;
     }
   }

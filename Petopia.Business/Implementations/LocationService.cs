@@ -8,6 +8,8 @@ namespace Petopia.Business.Implementations
 {
   public class LocationService : BaseService, ILocationService
   {
+    private const double LOCATION_CACHING_DAYS = (double)30 / 60 / 24;
+
     public LocationService(
       IServiceProvider provider,
       ILogger<LocationService> logger
@@ -21,7 +23,8 @@ namespace Petopia.Business.Implementations
       switch (request.Level)
       {
         case 1:
-          List<Province> provinces = await UnitOfWork.Provinces.ToListAsync();
+          IQueryable<Province> provinceQuery = UnitOfWork.Provinces.AsQueryable();
+          List<Province>? provinces = await CacheManager.Instance.GetOrSetAsync(provinceQuery, "provinces", LOCATION_CACHING_DAYS);
           result = Mapper.Map<List<LocationResponseModel>>(provinces);
           break;
 

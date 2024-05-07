@@ -21,10 +21,12 @@ namespace Petopia.Business.Implementations
       _logger = logger;
     }
 
-    public T Set<T>(string key, T value, Double expiration)
+    public T Set<T>(string key, T value, double expiration)
     {
-      CacheProviderOptions options = new();
-      options.AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiration);
+      CacheProviderOptions options = new()
+      {
+        AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiration)
+      };
       _cache.Set(key, value, new MemoryCacheEntryOptions()
       {
         AbsoluteExpiration = options.AbsoluteExpiration,
@@ -60,40 +62,17 @@ namespace Petopia.Business.Implementations
       }
     }
 
-    public async ValueTask<IEnumerable<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, TimeSpan? cacheDuration = null)
+    public async ValueTask<List<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, double days)
     {
-      CacheProviderOptions options = new();
-      if (cacheDuration.HasValue)
-      {
-        options.AbsoluteExpiration = DateTimeOffset.Now.Add(cacheDuration.Value);
-      }
+      List<T>? result = Get<List<T>>(key);
 
-      IEnumerable<T>? result = Get<IEnumerable<T>>(key);
       if (result.IsNullOrEmpty())
       {
         result = await query.ToListAsync();
-        Set(key, result, options);
+        Set(key, result, days);
       }
 
       return result;
-    }
-
-    private T? Set<T>(string key, T value, CacheProviderOptions options)
-    {
-      try
-      {
-        _cache.Set(key, value, new MemoryCacheEntryOptions()
-        {
-          AbsoluteExpiration = options.AbsoluteExpiration,
-          AbsoluteExpirationRelativeToNow = options.AbsoluteExpirationRelativeToNow,
-          SlidingExpiration = options.SlidingExpiration
-        });
-        return value;
-      }
-      catch (Exception)
-      {
-        return default;
-      }
     }
   }
 }

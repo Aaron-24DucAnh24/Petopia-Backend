@@ -13,6 +13,7 @@ namespace Petopia.Business.Implementations
   public class PetService : BaseService, IPetService
   {
     private const int SEE_MORE_LENGTH = 4;
+    private const double BREED_CACHING_DAYS = (double)30 / 60 / 24;
 
     public PetService(IServiceProvider provider, ILogger<PetService> logger) : base(provider, logger)
     { }
@@ -62,6 +63,7 @@ namespace Petopia.Business.Implementations
         });
       }
 
+      CacheManager.Instance.Remove(GetBreedCacheKey(model.Species, true));
       await UnitOfWork.SaveChangesAsync();
       var result = Mapper.Map<CreatePetResponseModel>(model);
       result.Images = model.Images;
@@ -170,6 +172,7 @@ namespace Petopia.Business.Implementations
         }
       }
 
+      CacheManager.Instance.Remove(GetBreedCacheKey(model.Species, true));
       await UnitOfWork.SaveChangesAsync();
       var result = Mapper.Map<UpdatePetResponseModel>(model);
       result.Images = model.Images;
@@ -189,21 +192,39 @@ namespace Petopia.Business.Implementations
 
     public async Task<List<string>> GetBreedsAsync(PetSpecies species)
     {
-      List<PetBreed> breeds = await UnitOfWork.PetBreeds
+      var query = UnitOfWork.PetBreeds
         .Where(x => x.Species == species)
-        .OrderBy(x => x.Name)
-        .ToListAsync();
-      return breeds.Select(x => x.Name).ToList();
+        .Select(x => x.Name)
+        .AsQueryable();
+      var result = await CacheManager.Instance.GetOrSetAsync(
+        query,
+        GetBreedCacheKey(species),
+        BREED_CACHING_DAYS
+      );
+      if (result != null)
+      {
+        return result.ToList();
+      }
+      return new List<string>();
     }
 
     public async Task<List<string>> GetAvailableBreedsAsync(PetSpecies species)
     {
-      List<string> result = await UnitOfWork.Pets
+      var query = UnitOfWork.Pets
         .Where(x => !x.IsDeleted && x.Species == species)
         .Select(x => x.Breed)
         .Distinct()
-        .ToListAsync();
-      return result;
+        .AsQueryable();
+      var result = await CacheManager.Instance.GetOrSetAsync(
+        query,
+        GetBreedCacheKey(species, true),
+        BREED_CACHING_DAYS
+      );
+      if (result != null)
+      {
+        return result.ToList();
+      }
+      return new List<string>();
     }
 
     #region private
@@ -248,6 +269,16 @@ namespace Petopia.Business.Implementations
         query = query.Where(x => filter.Breed.Contains(x.Breed));
       }
       return query;
+    }
+
+    private string GetBreedCacheKey(PetSpecies species, bool isAvalable = false)
+    {
+      string result = species == PetSpecies.Dog ? "DogBreeds" : "CatBreeds";
+      if (isAvalable)
+      {
+        return result + "Available";
+      }
+      return result;
     }
 
     #endregion

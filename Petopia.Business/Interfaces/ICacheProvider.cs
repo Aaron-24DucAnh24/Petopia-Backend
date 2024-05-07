@@ -5,6 +5,6 @@ namespace Petopia.Business.Interfaces
     T Set<T>(string key, T value, Double Expiration);
     T? Get<T>(string key);
     bool Remove(string key);
-    ValueTask<IEnumerable<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, TimeSpan? cacheDuration = null);
+    ValueTask<List<T>?> GetOrSetAsync<T>(IQueryable<T> query, string key, double days);
   }
 }
