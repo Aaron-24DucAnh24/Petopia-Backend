@@ -29,8 +29,14 @@ namespace Petopia.BackgroundJobs.Implementations
         ?? throw new ConfigurationErrorsException();
 
       RecurringJob.AddOrUpdate(
-        settings.Id,
+        settings.OrgJobId,
         () => ServiceProvider.GetRequiredService<IEmailService>().SendUpgradeMailsAsync(),
+        settings.Cron
+      );
+
+      RecurringJob.AddOrUpdate(
+        settings.AdminJobId,
+        () => ServiceProvider.GetRequiredService<IEmailService>().SendAdminMailsAsync(),
         settings.Cron
       );
     }

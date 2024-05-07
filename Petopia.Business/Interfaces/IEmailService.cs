@@ -8,5 +8,6 @@ namespace Petopia.Business.Interfaces
     public Task<MailDataModel> CreateForgotPasswordMailDataAsync(string email);
     public Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken);
     public Task SendUpgradeMailsAsync();
+    public Task SendAdminMailsAsync();
   }
 }

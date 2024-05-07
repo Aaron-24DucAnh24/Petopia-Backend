@@ -48,7 +48,7 @@ namespace Petopia.Business.Extensions
       services.AddScoped<IBlogService, BlogService>();
       services.AddScoped<ICommentService, CommentService>();
       services.AddScoped<IPostService, PostService>();
-		}
+    }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
@@ -116,7 +116,7 @@ namespace Petopia.Business.Extensions
       {
         BraintreeGateway gateway = new()
         {
-          Environment = braintreeSettings.IsProduction ? Braintree.Environment.PRODUCTION : Braintree.Environment.SANDBOX,
+          Environment = Braintree.Environment.SANDBOX,
           MerchantId = braintreeSettings.MerchantId,
           PublicKey = braintreeSettings.PublicKey,
           PrivateKey = braintreeSettings.PrivateKey
