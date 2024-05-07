@@ -43,8 +43,14 @@ namespace Petopia.Business.Implementations
       Advertisement advertisement = await UnitOfWork.Advertisements
         .FirstAsync(x => x.Id == request.AdvertisementId);
       Blog blog = await UnitOfWork.Blogs
+        .AsTracking()
         .Include(x => x.User)
         .FirstAsync(x => x.Id == request.BlogId);
+
+      if (blog.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
+      {
+        throw new PaymentFailureException();
+      }
 
       TransactionRequest transaction = new()
       {
@@ -71,6 +77,10 @@ namespace Petopia.Business.Implementations
         Amount = advertisement.Price,
       });
 
+      blog.AdvertisingDate = payment.AdvertisingDate;
+      UnitOfWork.Blogs.Update(blog);
+      await UnitOfWork.SaveChangesAsync();
+
       return new CreatePaymentResponseModel()
       {
         PaymentId = payment.Id,
@@ -83,7 +93,8 @@ namespace Petopia.Business.Implementations
 
     public async Task<List<Advertisement>> GetAdvertisementAsync()
     {
-      return await UnitOfWork.Advertisements.ToListAsync();
+      var result = await UnitOfWork.Advertisements.ToListAsync();
+      return result.OrderBy(x => x.MonthDuration).ToList();
     }
   }
 }
