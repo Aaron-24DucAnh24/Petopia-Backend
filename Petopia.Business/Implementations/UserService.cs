@@ -218,6 +218,13 @@ namespace Petopia.Business.Implementations
         UnitOfWork.UpgradeForms.Update(form);
       }
 
+      string address = await GetAddressAsync(
+        request.ProvinceCode,
+        request.DistrictCode,
+        request.WardCode,
+        request.Street
+      );
+
       await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()
       {
         Id = UserContext.Id,
@@ -228,6 +235,7 @@ namespace Petopia.Business.Implementations
         DistrictCode = request.DistrictCode,
         WardCode = request.WardCode,
         Street = request.Street,
+        Address = address,
         Website = request.Website,
         TaxCode = request.TaxCode,
         Type = request.Type,

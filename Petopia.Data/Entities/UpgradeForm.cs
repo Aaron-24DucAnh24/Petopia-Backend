@@ -15,6 +15,7 @@ namespace Petopia.Data.Entities
     public string DistrictCode { get; set; }
     public string WardCode { get; set; }
     public string Street { get; set; }
+    public string Address { get; set; }
     public string Website { get; set; }
     public string TaxCode { get; set; }
     public OrganizationType Type { get; set; }

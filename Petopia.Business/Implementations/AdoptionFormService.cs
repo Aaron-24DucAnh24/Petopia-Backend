@@ -195,8 +195,7 @@ namespace Petopia.Business.Implementations
           AdopterName = adopterName,
         });
       }
-      result.OrderByDescending(x => x.LastUpdatedAt);
-      return result;
+      return result.OrderByDescending(x => x.LastUpdatedAt).ToList();
     }
 
     public async Task<List<AdoptionFormResponseModel>> GetAdoptionFormsByUserIdAsync()
