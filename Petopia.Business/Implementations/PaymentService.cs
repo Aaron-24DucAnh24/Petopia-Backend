@@ -72,7 +72,7 @@ namespace Petopia.Business.Implementations
       {
         Id = Guid.NewGuid(),
         BlogId = request.BlogId,
-        AdvertisingDate = DateTimeOffset.Now.AddDays(advertisement.MonthDuration * 12),
+        AdvertisingDate = DateTimeOffset.Now.AddDays(advertisement.MonthDuration * 30),
         IsCreatedAt = DateTimeOffset.Now,
         Amount = advertisement.Price,
       });

@@ -11,6 +11,8 @@ namespace Petopia.Business.Implementations
 {
   public class BlogService : BaseService, IBlogService
   {
+    private readonly int ADVERTISEMENT_COUNT = 5;
+
     public BlogService(
       IServiceProvider provider,
       ILogger<BlogService> logger
@@ -50,6 +52,21 @@ namespace Petopia.Business.Implementations
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
       return true;
+    }
+
+    public async Task<List<BlogResponseModel>> GetAdvertisementAsync()
+    {
+      List<Blog> blogs = await UnitOfWork.Blogs
+      .Where(b => b.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
+      .Where(b => !b.IsHidden)
+      .ToListAsync();
+
+      List<Blog> returnBlogs = blogs
+        .OrderBy(x => Guid.NewGuid())
+        .Take(blogs.Count >= ADVERTISEMENT_COUNT ? ADVERTISEMENT_COUNT : blogs.Count)
+        .ToList();
+
+      return Mapper.Map<List<BlogResponseModel>>(returnBlogs);
     }
 
     public async Task<BlogDetailResponseModel> GetBlogByIdAsync(Guid id)

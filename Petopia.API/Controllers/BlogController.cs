@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Petopia.Business.Filters;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
@@ -58,6 +59,13 @@ namespace Petopia.API.Controllers
     public async Task<ActionResult<bool>> DeleteBlog(Guid id)
     {
       return ResponseUtils.OkResult(await _blogService.DeleteBlogAsync(id));
+    }
+
+    [HttpGet("Advertisement")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<BlogResponseModel>>> GetAdvertisement()
+    {
+      return ResponseUtils.OkResult(await _blogService.GetAdvertisementAsync());
     }
   }
 }
