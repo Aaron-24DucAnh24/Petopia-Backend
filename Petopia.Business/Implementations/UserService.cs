@@ -210,7 +210,7 @@ namespace Petopia.Business.Implementations
     {
       UpgradeForm? form = await UnitOfWork.UpgradeForms
         .AsTracking()
-        .FirstOrDefaultAsync(x => x.Id == UserContext.Id);
+        .FirstOrDefaultAsync(x => x.UserId == UserContext.Id);
 
       if (form != null)
       {
@@ -227,7 +227,7 @@ namespace Petopia.Business.Implementations
 
       await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()
       {
-        Id = UserContext.Id,
+        Id = Guid.NewGuid(),
         EntityName = request.EntityName,
         OrganizationName = request.OrganizationName,
         Phone = request.Phone,
@@ -242,6 +242,7 @@ namespace Petopia.Business.Implementations
         Description = request.Description,
         IsCreatedAt = DateTimeOffset.Now,
         Email = request.Email,
+        UserId = UserContext.Id,
       });
 
       await UnitOfWork.SaveChangesAsync();
@@ -250,7 +251,10 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> PreUpgradeAsync()
     {
-      bool invalid = await UnitOfWork.UpgradeForms.AnyAsync(x => x.Id == UserContext.Id && x.Status != UpgradeStatus.Pending);
+      bool invalid = await UnitOfWork.UpgradeForms.AnyAsync(
+        x => x.UserId == UserContext.Id &&
+        x.Status == UpgradeStatus.Pending
+      );
       return !invalid;
     }
 

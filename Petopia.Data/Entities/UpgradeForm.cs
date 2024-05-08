@@ -22,6 +22,7 @@ namespace Petopia.Data.Entities
     public string Description { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
     public UpgradeStatus Status { get; set; }
+    public Guid UserId { get; set; }
 
     public User User { get; set; }
   }

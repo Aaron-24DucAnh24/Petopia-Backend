@@ -92,7 +92,6 @@ namespace Petopia.Business.Implementations
       List<UpgradeForm> upgradeForms = await UnitOfWork.UpgradeForms
         .AsTracking()
         .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
         .Where(x => x.Status == UpgradeStatus.Accepted || x.Status == UpgradeStatus.Rejected)
         .ToListAsync();
 
@@ -190,35 +189,53 @@ namespace Petopia.Business.Implementations
 
     private async Task SendUpgradeMailAsync(UpgradeForm form)
     {
-      bool isSucceed = form.Status == UpgradeStatus.Accepted;
+      bool isAccepted = form.Status == UpgradeStatus.Accepted;
       form.Status = UpgradeStatus.Done;
+
+      await UnitOfWork.UserOrganizationAttributes.CreateAsync(new UserOrganizationAttributes()
+      {
+        Id = form.User.Id,
+        EntityName = form.EntityName,
+        OrganizationName = form.OrganizationName,
+        Email = HashUtils.EnryptString(form.Email),
+        Website = form.Website,
+        TaxCode = form.TaxCode,
+        Type = form.Type,
+        Description = form.Description,
+      });
+
       form.User.Role = UserRole.Organization;
-      form.User.UserOrganizationAttributes.EntityName = form.EntityName;
-      form.User.UserOrganizationAttributes.OrganizationName = form.OrganizationName;
-      form.User.UserOrganizationAttributes.Email = HashUtils.EnryptString(form.Email);
       form.User.Phone = form.Phone;
       form.User.ProvinceCode = form.PrivinceCode;
       form.User.DistrictCode = form.DistrictCode;
       form.User.WardCode = form.WardCode;
       form.User.Street = form.Street;
       form.User.Address = form.Address;
-      form.User.UserOrganizationAttributes.Website = form.Website;
-      form.User.UserOrganizationAttributes.TaxCode = form.TaxCode;
-      form.User.UserOrganizationAttributes.Type = form.Type;
-      form.User.UserOrganizationAttributes.Description = form.Description;
+
       UnitOfWork.UpgradeForms.Update(form);
 
       string email = HashUtils.DecryptString(form.User.Email);
-      MailDataModel mailData = await CreateUpgradeMailDataAsync(email, isSucceed);
+      MailDataModel mailData = await CreateUpgradeMailDataAsync(email, isAccepted);
       await SendMailAsync(mailData);
       return;
     }
 
     private async Task SendAdminMailAsync(AdminForm form)
     {
-      bool isAvailable = await UnitOfWork.Users.AnyAsync(x => x.Email == HashUtils.EnryptString(form.Email));
+      bool isAvailable = false;
       form.Status = AdminFormStatus.Done;
       UnitOfWork.AdminForms.Update(form);
+
+      User? admin = await UnitOfWork.Users
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(form.Email));
+
+      if (admin != null)
+      {
+        admin.Role = UserRole.SystemAdmin;
+        UnitOfWork.Users.Update(admin);
+        isAvailable = true;
+      }
 
       MailDataModel mailData = await CreateAdminFormMailDataAsync(form.Email, isAvailable);
       await SendMailAsync(mailData);

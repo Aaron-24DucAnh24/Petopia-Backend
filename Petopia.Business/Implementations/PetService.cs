@@ -194,6 +194,7 @@ namespace Petopia.Business.Implementations
     {
       var query = UnitOfWork.PetBreeds
         .Where(x => x.Species == species)
+        .OrderBy(x => x.Name)
         .Select(x => x.Name)
         .AsQueryable();
       var result = await CacheManager.Instance.GetOrSetAsync(
@@ -212,8 +213,9 @@ namespace Petopia.Business.Implementations
     {
       var query = UnitOfWork.Pets
         .Where(x => !x.IsDeleted && x.Species == species)
-        .Select(x => x.Breed)
         .Distinct()
+        .OrderBy(x => x.Breed)
+        .Select(x => x.Breed)
         .AsQueryable();
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
