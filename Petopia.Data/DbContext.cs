@@ -32,6 +32,7 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new AdminFormConfiguration());
       builder.ApplyConfiguration(new AdvertisementConfiguration());
       builder.ApplyConfiguration(new PaymentConfiguration());
+      builder.ApplyConfiguration(new ReportConfiguration());
     }
 
     public DbSet<User> Users { get; set; }
@@ -56,5 +57,6 @@ namespace Petopia.Data
     public DbSet<AdminForm> AdminForms { get; set; }
     public DbSet<Advertisement> Advertisements { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<Report> Reports { get; set; }
   }
 }

@@ -1,5 +1,4 @@
-﻿using System.Xml.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Petopia.Data.Entities;
 
@@ -21,6 +20,10 @@ namespace Petopia.Data.Configurations
         .HasOne(x => x.Payment)
         .WithOne(x => x.Blog)
         .HasForeignKey<Payment>(x => x.BlogId);
+      builder
+        .HasMany(x => x.Reports)
+        .WithOne(x => x.Blog)
+        .HasForeignKey(x => x.BlogId);
     }
   }
 }

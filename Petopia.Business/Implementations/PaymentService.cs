@@ -88,6 +88,7 @@ namespace Petopia.Business.Implementations
         IsCreatedAt = payment.IsCreatedAt,
         AdvertisingDate = payment.AdvertisingDate,
         UserEmail = HashUtils.DecryptString(blog.User.Email),
+        Description = advertisement.Description,
       };
     }
 

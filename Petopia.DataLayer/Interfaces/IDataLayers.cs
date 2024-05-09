@@ -24,4 +24,5 @@ namespace Petopia.DataLayer.Interfaces
   public interface IAdminFormDataLayer : IBaseDataLayer<AdminForm> { }
   public interface IPaymentDataLayer : IBaseDataLayer<Payment> { }
   public interface IAdvertisementDataLayer : IBaseDataLayer<Advertisement> { }
+  public interface IReportDataLayer : IBaseDataLayer<Report> { }
 }

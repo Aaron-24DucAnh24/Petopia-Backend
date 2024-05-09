@@ -23,5 +23,6 @@ namespace Petopia.Data.Entities
     public User User { get; set; }
     public List<Comment> Comments { get; set; }
     public Payment Payment { get; set; }
+    public List<Report> Reports { get; set; }
   }
 }

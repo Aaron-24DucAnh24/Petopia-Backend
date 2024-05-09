@@ -47,5 +47,6 @@ namespace Petopia.Business.Data
     public IAdminFormDataLayer AdminForms => _serviceProvider.GetRequiredService<IAdminFormDataLayer>();
     public IPaymentDataLayer Payments => _serviceProvider.GetRequiredService<IPaymentDataLayer>();
     public IAdvertisementDataLayer Advertisements => _serviceProvider.GetRequiredService<IAdvertisementDataLayer>();
+    public IReportDataLayer Reports => _serviceProvider.GetRequiredService<IReportDataLayer>();
   }
 }

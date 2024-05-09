@@ -47,6 +47,10 @@ namespace Petopia.Data.Configurations
         .HasMany(x => x.Blogs)
         .WithOne(x => x.User)
         .HasForeignKey(x => x.UserId);
+      builder
+        .HasMany(x => x.Reports)
+        .WithOne(x => x.User)
+        .HasForeignKey(x => x.UserId);
     }
   }
 }

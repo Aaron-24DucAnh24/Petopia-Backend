@@ -8,5 +8,6 @@ namespace Petopia.Data.Enums
     UpgradeAccountFailure,
     UpgradedToAdmin,
     InviteToBeAdmin,
+    Invoice,
   }
 }

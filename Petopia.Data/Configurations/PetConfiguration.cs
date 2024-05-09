@@ -24,6 +24,10 @@ namespace Petopia.Data.Configurations
         .WithOne(x => x.Pet)
         .HasForeignKey(x => x.PetId)
         .OnDelete(DeleteBehavior.NoAction);
+      builder
+        .HasMany(x => x.Reports)
+        .WithOne(x => x.Pet)
+        .HasForeignKey(x => x.PetId);
     }
   }
 }

@@ -36,12 +36,14 @@ namespace Petopia.API.Controllers
     }
 
     [HttpPost("Get")]
+    [AllowAnonymous]
     public async Task<ActionResult<PaginationResponseModel<BlogResponseModel>>> GetBlogs([FromBody] PaginationRequestModel<BlogFilterModel> request)
     {
       return ResponseUtils.OkResult(await _blogService.GetBlogsAsync(request));
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<ActionResult<BlogDetailResponseModel>> GetBlogs(Guid id)
     {
       return ResponseUtils.OkResult(await _blogService.GetBlogByIdAsync(id));

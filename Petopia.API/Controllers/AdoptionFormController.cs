@@ -27,9 +27,9 @@ namespace Petopia.API.Controllers
 
     [HttpGet("PreCheck/{petId}")]
     [Authorize]
-    public async Task<ActionResult<bool>> PreCheck(Guid petid)
+    public async Task<ActionResult<bool>> PreCheck(Guid petId)
     {
-      return ResponseUtils.OkResult(await _adoptionFormService.PreCheckAsync(petid));
+      return ResponseUtils.OkResult(await _adoptionFormService.PreCheckAsync(petId));
     }
 
     [HttpGet("{id}")]

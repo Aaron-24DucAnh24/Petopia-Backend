@@ -6,6 +6,7 @@ using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Models.Payment;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
@@ -118,6 +119,29 @@ namespace Petopia.Business.Implementations
       }
       await Task.WhenAll(tasks);
       await UnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<MailDataModel> CreateInvoiceMailDataAsync(CreatePaymentResponseModel model)
+    {
+      EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.Invoice);
+      string body = emailTemplate.Body
+        .Replace(EmailKey.EMAIL, model.UserEmail)
+        .Replace(EmailKey.PAYMENT_ID, model.PaymentId.ToString())
+        .Replace(EmailKey.START_DATE, model.IsCreatedAt.ToString())
+        .Replace(EmailKey.END_DATE, model.AdvertisingDate.ToString())
+        .Replace(EmailKey.DESCRIPTION, model.Description)
+        .Replace(EmailKey.PRICE, model.Price.ToString());
+
+      List<string> toAddresses = new() { model.UserEmail };
+
+      return new MailDataModel()
+      {
+        From = _settings.EmailClient,
+        To = toAddresses,
+        Subject = emailTemplate.Subject,
+        Body = body,
+        IsBodyHtml = true
+      };
     }
 
     #region private

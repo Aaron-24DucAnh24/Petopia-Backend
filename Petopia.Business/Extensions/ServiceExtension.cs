@@ -48,6 +48,7 @@ namespace Petopia.Business.Extensions
       services.AddScoped<IBlogService, BlogService>();
       services.AddScoped<ICommentService, CommentService>();
       services.AddScoped<IPostService, PostService>();
+      services.AddScoped<IReportService, ReportService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)

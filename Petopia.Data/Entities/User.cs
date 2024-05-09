@@ -30,5 +30,6 @@ namespace Petopia.Data.Entities
     public List<Notification> Notifications { get; set; }
     public UpgradeForm UpgradeForm { get; set; }
     public List<Blog> Blogs { get; set; }
+    public List<Report> Reports { get; set; }
   }
 }

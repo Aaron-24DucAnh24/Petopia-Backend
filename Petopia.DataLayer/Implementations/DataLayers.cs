@@ -157,4 +157,10 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+  public class ReportDataLayer : BaseDataLayer<Report>, IReportDataLayer
+  {
+    public ReportDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 }

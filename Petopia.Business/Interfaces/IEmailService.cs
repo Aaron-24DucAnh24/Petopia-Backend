@@ -1,4 +1,5 @@
 using Petopia.Business.Models.Email;
+using Petopia.Business.Models.Payment;
 
 namespace Petopia.Business.Interfaces
 {
@@ -9,5 +10,6 @@ namespace Petopia.Business.Interfaces
     public Task<MailDataModel> CreateValidateRegisterMailDataAsync(string email, string registerToken);
     public Task SendUpgradeMailsAsync();
     public Task SendAdminMailsAsync();
+    public Task<MailDataModel> CreateInvoiceMailDataAsync(CreatePaymentResponseModel model);
   }
 }
