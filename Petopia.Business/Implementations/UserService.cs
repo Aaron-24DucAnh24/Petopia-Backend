@@ -160,17 +160,20 @@ namespace Petopia.Business.Implementations
         .Include(x => x.UserOrganizationAttributes)
         .Where(x => x.Id == UserContext.Id)
         .FirstAsync();
+
       user.Phone = request.Phone;
       user.DistrictCode = request.DistrictCode;
       user.ProvinceCode = request.ProvinceCode;
       user.WardCode = request.WardCode;
       user.Street = request.Street;
+
       user.Address = await GetAddressAsync(
         request.ProvinceCode,
         request.DistrictCode,
         request.WardCode,
         request.Street
       );
+
       if (UserContext.Role != UserRole.Organization)
       {
         user.UserIndividualAttributes.FirstName = request.FirstName;
@@ -181,6 +184,7 @@ namespace Petopia.Business.Implementations
         user.UserOrganizationAttributes.Description = request.Description;
         user.UserOrganizationAttributes.Website = request.Website;
       }
+
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
       return await GetCurrentUserAsync();
@@ -188,6 +192,10 @@ namespace Petopia.Business.Implementations
 
     public async Task<string> UpdateUserAvatarAsync(string image)
     {
+      if (string.IsNullOrEmpty(image))
+      {
+        throw new DomainException("Image cannot be empty.");
+      }
       User user = await UnitOfWork.Users
         .AsTracking()
         .Where(x => x.Id == UserContext.Id)
@@ -200,14 +208,31 @@ namespace Petopia.Business.Implementations
 
     public async Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street)
     {
-      string province = (await UnitOfWork.Provinces.Where(x => x.Code == provinceCode).FirstAsync()).Name;
-      string district = (await UnitOfWork.Districts.Where(x => x.Code == districtCode).FirstAsync()).Name;
-      string ward = (await UnitOfWork.Wards.Where(x => x.Code == wardCode).FirstAsync()).Name;
+      string province = (await UnitOfWork.Provinces
+        .Where(x => x.Code == provinceCode)
+        .FirstOrDefaultAsync()
+        ?? throw new WrongLocationCodeException())
+        .Name;
+      string district = (await UnitOfWork.Districts
+        .Where(x => x.Code == districtCode)
+        .FirstOrDefaultAsync()
+        ?? throw new WrongLocationCodeException())
+        .Name;
+      string ward = (await UnitOfWork.Wards
+        .Where(x => x.Code == wardCode)
+        .FirstOrDefaultAsync()
+        ?? throw new WrongLocationCodeException())
+        .Name;
       return string.Join(", ", street, ward, district, province);
     }
 
     public async Task<bool> UpgradeAccountAsync(UpgradeAccountRequestModel request)
     {
+      if (!await PreUpgradeAsync())
+      {
+        return false;
+      }
+
       UpgradeForm? form = await UnitOfWork.UpgradeForms
         .AsTracking()
         .FirstOrDefaultAsync(x => x.UserId == UserContext.Id);

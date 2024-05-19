@@ -75,9 +75,9 @@ namespace Petopia.Business.Implementations
       PaginationResponseModel<TResult> result = new()
       {
         TotalNumber = await query.CountAsync(),
-        PageIndex = model.PageIndex
+        PageIndex = model.PageIndex,
+        PageSize = model.PageSize
       };
-      result.PageSize = model.PageSize != null ? model.PageSize.Value : result.TotalNumber;
       result.PageNumber = model.PageSize == 0 ? 0 : (int)Math.Ceiling((double)result.TotalNumber / result.PageSize);
 
       if (result.PageNumber < 1)

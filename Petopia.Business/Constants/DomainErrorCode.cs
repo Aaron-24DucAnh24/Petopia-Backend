@@ -13,6 +13,7 @@ namespace Petopia.Business.Constants
     public const int INVALID_PASSWORD = 10007;
     public const int NOT_FOUND_USER = 10008;
     public const int INCORRECT_PASSWORD = 10009;
+    public const int WRONG_LOCATION_CODE = 10010;
 
     // PET
     public const int NOT_FOUND_PET = 11001;

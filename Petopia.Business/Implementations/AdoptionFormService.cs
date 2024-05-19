@@ -56,6 +56,13 @@ namespace Petopia.Business.Implementations
           Type = NotificationType.Adoption,
           Status = status,
         });
+
+        Pet pet = await UnitOfWork.Pets
+          .AsTracking()
+          .FirstAsync(x => x.Id == form.PetId);
+        pet.OwnerId = form.AdopterId;
+        pet.IsAvailable = false;
+        UnitOfWork.Pets.Update(pet);
       }
 
       form.Status = status;
@@ -67,7 +74,11 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> CreateAdoptionFormAsync(CreateAdoptionRequestModel request)
     {
-      Pet pet = await UnitOfWork.Pets.FirstAsync(x => x.Id == request.PetId);
+      await PreCheckAsync(request.PetId);
+
+      Pet pet = await UnitOfWork.Pets
+        .FirstOrDefaultAsync(x => x.Id == request.PetId && !x.IsDeleted)
+        ?? throw new PetNotFoundException();
 
       User user = await UnitOfWork.Users
         .AsTracking()
@@ -179,7 +190,7 @@ namespace Petopia.Business.Implementations
     {
       List<AdoptionForm> forms = await UnitOfWork.AdoptionForms
         .Include(x => x.Pet)
-        .Where(x => x.Pet.OwnerId == UserContext.Id)
+        .Where(x => x.Pet.OwnerId == UserContext.Id && x.Status != AdoptStatus.Adopted)
         .ToListAsync();
       List<AdoptionFormResponseModel> result = new();
       foreach (var form in forms)
@@ -218,8 +229,7 @@ namespace Petopia.Business.Implementations
           AdopterName = adopterName,
         });
       }
-      result.OrderByDescending(x => x.LastUpdatedAt);
-      return result;
+      return result.OrderByDescending(x => x.LastUpdatedAt).ToList();
     }
 
     public async Task<bool> PreCheckAsync(Guid petId)

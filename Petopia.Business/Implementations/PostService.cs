@@ -47,9 +47,13 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> DeletePostAsync(Guid id)
     {
+      Post? post = await UnitOfWork.Posts.FirstOrDefaultAsync(x => x.Id == id);
+      if (post == null)
+      {
+        return false;
+      }
       await UnitOfWork.Medias.DeleteAllAsync(x => x.PostId == id);
       await UnitOfWork.Comments.DeleteAllAsync(x => x.PostId == id);
-      Post post = await UnitOfWork.Posts.FirstAsync(x => x.Id == id);
       UnitOfWork.Posts.Delete(post);
       await UnitOfWork.SaveChangesAsync();
       return true;

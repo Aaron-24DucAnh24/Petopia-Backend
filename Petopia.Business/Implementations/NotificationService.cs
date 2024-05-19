@@ -18,9 +18,15 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> CheckNotificationAsync(Guid id)
     {
-      Notification note = await UnitOfWork.Notifications
+      Notification? note = await UnitOfWork.Notifications
         .AsTracking()
-        .FirstAsync(x => x.Id == id);
+        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserContext.Id);
+
+      if (note == null)
+      {
+        return false;
+      }
+
       note.IsChecked = true;
       UnitOfWork.Notifications.Update(note);
       await UnitOfWork.SaveChangesAsync();
@@ -91,8 +97,8 @@ namespace Petopia.Business.Implementations
       List<Notification> note = await UnitOfWork.Notifications
         .Where(x => x.UserId == UserContext.Id)
         .ToListAsync();
-      note.OrderByDescending(x => x.IsCreatedAt);
-      return Mapper.Map<List<NotificationResponseModel>>(note);
+      ;
+      return Mapper.Map<List<NotificationResponseModel>>(note.OrderByDescending(x => x.IsCreatedAt).ToList());
     }
 
     public async Task<bool> MarkAsSeenAsync()

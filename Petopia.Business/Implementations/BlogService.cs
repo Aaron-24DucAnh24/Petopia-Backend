@@ -42,12 +42,9 @@ namespace Petopia.Business.Implementations
     {
       Blog? blog = await UnitOfWork.Blogs
         .AsTracking()
-        .Where(b => b.Id == id && b.UserId == UserContext.Id)
-        .FirstOrDefaultAsync();
-      if (blog == null)
-      {
-        return false;
-      }
+        .Where(b => b.Id == id && b.UserId == UserContext.Id && !b.IsHidden)
+        .FirstOrDefaultAsync()
+        ?? throw new BlogNotFoundException();
       blog.IsHidden = true;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
@@ -127,7 +124,9 @@ namespace Petopia.Business.Implementations
     {
       Blog blog = await UnitOfWork.Blogs
         .AsTracking()
-        .FirstAsync(x => x.Id == request.Id);
+        .FirstOrDefaultAsync(x => x.Id == request.Id)
+        ?? throw new BlogNotFoundException();
+
       blog.Title = request.Title;
       blog.Content = request.Content;
       blog.Excerpt = request.Excerpt;

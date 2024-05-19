@@ -8,7 +8,7 @@
   public class PaginationRequestModel
   {
     public int PageIndex { get; set; } = 1;
-    public int? PageSize { get; set; }
+    public int PageSize { get; set; }
     public string? OrderBy { get; set; }
   }
 }

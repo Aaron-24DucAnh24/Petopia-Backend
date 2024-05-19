@@ -89,7 +89,9 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Images)
         .Include(x => x.Owner)
         .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
+        .Take(SEE_MORE_LENGTH)
         .ToListAsync();
+
       if (seeMore.Count == 0)
       {
         seeMore = await UnitOfWork.Pets
@@ -213,9 +215,8 @@ namespace Petopia.Business.Implementations
     {
       var query = UnitOfWork.Pets
         .Where(x => !x.IsDeleted && x.Species == species)
-        .Distinct()
-        .OrderBy(x => x.Breed)
         .Select(x => x.Breed)
+        .Distinct()
         .AsQueryable();
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
@@ -224,7 +225,7 @@ namespace Petopia.Business.Implementations
       );
       if (result != null)
       {
-        return result.ToList();
+        return result.Order().ToList();
       }
       return new List<string>();
     }
