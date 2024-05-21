@@ -77,5 +77,12 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _petService.GetAvailableBreedsAsync(species));
     }
+
+    [HttpGet("Keywords")]
+    [AllowAnonymous]
+    public async Task<ActionResult<List<string>>> GetKeywords()
+    {
+      return ResponseUtils.OkResult(await _petService.GetKeywordsAsync());
+    }
   }
 }

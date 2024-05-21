@@ -14,6 +14,10 @@ namespace Petopia.Business.Implementations
   {
     private const int SEE_MORE_LENGTH = 4;
     private const double BREED_CACHING_DAYS = (double)30 / 60 / 24;
+    private const string NAMES_CACHE_KEY = "NAMES_CACHE_KEY";
+    private const string BREEDS_CACHE_KEY = "BREEDS_CACHE_KEY";
+    private const string DOG_KEYWORD = "Chó";
+    private const string CAT_KEYWORD = "Mèo";
 
     public PetService(IServiceProvider provider, ILogger<PetService> logger) : base(provider, logger)
     { }
@@ -116,8 +120,13 @@ namespace Petopia.Business.Implementations
         .Where(x => !x.IsDeleted)
         .AsQueryable();
 
-      query = GetPetsFromFilter(query, model.Filter);
-      query = GetPetsFromText(query, model.Filter.Text);
+      if (string.IsNullOrEmpty(model.Filter.Text))
+      {
+        query = GetPetsFromFilter(query, model.Filter);
+      }
+      else {
+        query = GetPetsFromText(query, model.Filter.Text);
+      }
 
       if (!string.IsNullOrEmpty(model.OrderBy))
       {
@@ -230,11 +239,52 @@ namespace Petopia.Business.Implementations
       return new List<string>();
     }
 
+    public async Task<List<string>> GetKeywordsAsync()
+    {
+      var nameQuery = UnitOfWork.Pets
+        .Where(x => !x.IsDeleted)
+        .Select(x => x.Name)
+        .Distinct()
+        .AsQueryable();
+      List<string>? names = await CacheManager.Instance.GetOrSetAsync(
+        nameQuery,
+        NAMES_CACHE_KEY,
+        BREED_CACHING_DAYS
+      );
+
+      var breedQuery = UnitOfWork.Pets
+        .Where(x => !x.IsDeleted)
+        .Select(x => x.Breed)
+        .Distinct()
+        .AsQueryable();
+      List<string>? breeds = await CacheManager.Instance.GetOrSetAsync(
+        breedQuery,
+        BREEDS_CACHE_KEY,
+        BREED_CACHING_DAYS
+      );
+
+      if(names != null && breeds != null)
+      {
+        names.Add(DOG_KEYWORD);
+        names.Add(CAT_KEYWORD);
+        return names.Concat(breeds).ToList();
+      }
+      return new List<string>();
+    }
+
     #region private
 
-    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string? keyword)
+    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string keyword)
     {
-      return query;
+      if(keyword == DOG_KEYWORD)
+      {
+        return query.Where(x => x.Species == PetSpecies.Dog);
+      }
+      if(keyword == CAT_KEYWORD)
+      {
+        return query.Where(x => x.Species == PetSpecies.Cat);
+      }
+      return query.Where(x => x.Name == keyword || x.Breed == keyword);
     }
 
     private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PetFilterModel filter)

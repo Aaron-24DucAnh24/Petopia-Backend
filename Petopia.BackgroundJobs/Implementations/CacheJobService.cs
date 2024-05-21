@@ -28,6 +28,7 @@ namespace Petopia.BackgroundJobs.Implementations
       {
         Level = 1,
       });
+      await ServiceProvider.GetRequiredService<IPetService>().GetKeywordsAsync();
       return Task.CompletedTask;
     }
   }

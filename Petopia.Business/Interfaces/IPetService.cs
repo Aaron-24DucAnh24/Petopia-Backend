@@ -14,5 +14,6 @@ namespace Petopia.Business.Interfaces
     public Task<bool> DeletePetAsync(Guid petId);
     public Task<List<string>> GetBreedsAsync(PetSpecies species);
     public Task<List<string>> GetAvailableBreedsAsync(PetSpecies species);
+    public Task<List<string>> GetKeywordsAsync();
 	}
 }
