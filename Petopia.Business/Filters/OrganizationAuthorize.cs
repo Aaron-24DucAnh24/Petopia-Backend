@@ -12,7 +12,7 @@ namespace Petopia.Business.Filters
     public void OnAuthorization(AuthorizationFilterContext context)
     {
       IUserContext userContext = context.HttpContext.RequestServices.GetRequiredService<IUserContext>();
-      if (userContext.Role != UserRole.Organization)
+      if (userContext.Role == UserRole.StandardUser)
       {
         throw new ForbiddenAccessException();
       }
