@@ -14,13 +14,13 @@
 
 1. Install Docker, Docker-compose on Linux, MacOS or WSL on Windows
 
-2. Setup database, storage and cache servers for the first time
+2. Setup database and cache servers for the first time
 
 ```bash
 docker-compose up
 ```
 
-> Database, storage and cache are running now. To start those servers later, run
+> Database and cache are running now. To start those servers later, run
 
 ```bash
 docker-compose start
@@ -69,7 +69,5 @@ dotnet run
 - Docker
 
 - SQL Server database
-
-- Azure storage
 
 - Redis cache

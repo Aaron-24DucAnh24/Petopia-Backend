@@ -5,12 +5,14 @@
 /certificate
 /README.md
 /Dockerfile
+/.config
 
 /Petopia.API/bin
 /Petopia.API/obj
 /Petopia.API/.vs
 /Petopia.API/.vscode
 /Petopia.API/Properties
+/Petopia.API/appsettings.Development.json
 
 /Petopia.Business/bin
 /Petopia.Business/obj
@@ -19,7 +21,6 @@
 
 /Petopia.Data/bin
 /Petopia.Data/obj
-/Petopia.Data/Migrations
 /Petopia.Data/.vs
 /Petopia.Data/.vscode
 
@@ -32,3 +33,8 @@
 /Petopia.BackgroundJobs/obj
 /Petopia.BackgroundJobs/.vs
 /Petopia.BackgroundJobs/.vscode
+
+/Petopia.SeedingData/bin
+/Petopia.SeedingData/obj
+/Petopia.SeedingData/.vs
+/Petopia.SeedingData/.vscode

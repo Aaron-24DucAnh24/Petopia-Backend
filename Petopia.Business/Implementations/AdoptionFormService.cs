@@ -190,7 +190,7 @@ namespace Petopia.Business.Implementations
     {
       List<AdoptionForm> forms = await UnitOfWork.AdoptionForms
         .Include(x => x.Pet)
-        .Where(x => x.Pet.OwnerId == UserContext.Id && x.Status != AdoptStatus.Adopted)
+        .Where(x => x.Pet.OwnerId == UserContext.Id && x.Status != AdoptStatus.Adopted && !x.Pet.IsDeleted)
         .ToListAsync();
       List<AdoptionFormResponseModel> result = new();
       foreach (var form in forms)

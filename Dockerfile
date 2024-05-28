@@ -30,8 +30,8 @@ WORKDIR /app
 
 COPY --from=build /app ./
 
-EXPOSE 4000
+EXPOSE 8888
 
-EXPOSE 5000
+EXPOSE 9999
 
 CMD ["dotnet", "Petopia.API.dll"]

@@ -92,7 +92,7 @@ namespace Petopia.Business.Implementations
       List<Pet> seeMore = await UnitOfWork.Pets
         .Include(x => x.Images)
         .Include(x => x.Owner)
-        .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id)
+        .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id && !x.IsDeleted)
         .Take(SEE_MORE_LENGTH)
         .ToListAsync();
 
