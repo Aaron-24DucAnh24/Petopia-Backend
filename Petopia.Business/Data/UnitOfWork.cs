@@ -48,5 +48,7 @@ namespace Petopia.Business.Data
     public IPaymentDataLayer Payments => _serviceProvider.GetRequiredService<IPaymentDataLayer>();
     public IAdvertisementDataLayer Advertisements => _serviceProvider.GetRequiredService<IAdvertisementDataLayer>();
     public IReportDataLayer Reports => _serviceProvider.GetRequiredService<IReportDataLayer>();
+    public IVaccineDataLayer Vaccines => _serviceProvider.GetRequiredService<IVaccineDataLayer>();
+    public IPetVaccineDataLayer PetVaccines => _serviceProvider.GetRequiredService<IPetVaccineDataLayer>();
   }
 }

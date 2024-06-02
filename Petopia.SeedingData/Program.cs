@@ -140,5 +140,21 @@ if (advertisements != null)
   }
 }
 
+List<string>? vaccines = JsonSerializer.Deserialize<List<string>>(
+  new StreamReader("Vaccines.json").ReadToEnd()
+);
+
+if (vaccines != null)
+{
+  foreach (var vaccine in vaccines)
+  {
+    db.Vaccines.Add(new Vaccine()
+    {
+      Id = Guid.NewGuid(),
+      Name = vaccine,
+    });
+  }
+}
+
 db.SaveChanges();
 Console.WriteLine("Done");

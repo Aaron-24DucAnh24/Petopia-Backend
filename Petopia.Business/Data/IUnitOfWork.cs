@@ -29,5 +29,7 @@ namespace Petopia.Business.Data
     IPaymentDataLayer Payments { get; }
     IAdvertisementDataLayer Advertisements { get; }
     IReportDataLayer Reports { get; }
+    IVaccineDataLayer Vaccines { get; }
+    IPetVaccineDataLayer PetVaccines { get; }
   }
 }

@@ -25,4 +25,6 @@ namespace Petopia.DataLayer.Interfaces
   public interface IPaymentDataLayer : IBaseDataLayer<Payment> { }
   public interface IAdvertisementDataLayer : IBaseDataLayer<Advertisement> { }
   public interface IReportDataLayer : IBaseDataLayer<Report> { }
+  public interface IVaccineDataLayer : IBaseDataLayer<Vaccine> { }
+  public interface IPetVaccineDataLayer : IBaseDataLayer<PetVaccine> { }
 }

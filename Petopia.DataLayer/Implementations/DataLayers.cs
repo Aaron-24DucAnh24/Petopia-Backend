@@ -163,4 +163,17 @@ namespace Petopia.DataLayer.Implementations
     {
     }
   }
+  public class VaccineDataLayer : BaseDataLayer<Vaccine>, IVaccineDataLayer
+  {
+    public VaccineDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
+
+    public class PetVaccineDataLayer : BaseDataLayer<PetVaccine>, IPetVaccineDataLayer
+  {
+    public PetVaccineDataLayer(ApplicationDbContext context) : base(context)
+    {
+    }
+  }
 }

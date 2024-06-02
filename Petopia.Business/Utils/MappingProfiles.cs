@@ -31,6 +31,7 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser));
       CreateMap<Pet, PetDetailsResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
+      CreateMap<Vaccine, VaccineResponseModel>();
 
       CreateMap<Province, LocationResponseModel>();
       CreateMap<District, LocationResponseModel>();

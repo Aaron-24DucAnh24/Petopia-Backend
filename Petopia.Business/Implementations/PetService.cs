@@ -67,6 +67,15 @@ namespace Petopia.Business.Implementations
         });
       }
 
+      foreach (var vaccineId in model.VaccineIds)
+      {
+        UnitOfWork.PetVaccines.Create(new PetVaccine()
+        {
+          PetId = pet.Id,
+          VaccineId = vaccineId,
+        });
+      }
+
       CacheManager.Instance.Remove(GetBreedCacheKey(model.Species, true));
       await UnitOfWork.SaveChangesAsync();
       var result = Mapper.Map<CreatePetResponseModel>(model);
@@ -81,6 +90,8 @@ namespace Petopia.Business.Implementations
         .AsTracking()
         .Include(x => x.Images)
         .Include(x => x.Owner)
+        .Include(x => x.PetVaccines)
+        .ThenInclude(x => x.Vaccine)
         .Where(x => x.Id == petId)
         .FirstOrDefaultAsync()
         ?? throw new PetNotFoundException();
@@ -108,6 +119,11 @@ namespace Petopia.Business.Implementations
       var result = Mapper.Map<PetDetailsResponseModel>(pet);
       result.Address = pet.Owner.Address;
       result.SeeMore = Mapper.Map<List<PetResponseModel>>(seeMore);
+      result.Vaccines = pet.PetVaccines.Select(x => new VaccineResponseModel()
+      {
+        Name = x.Vaccine.Name,
+        Id = x.Vaccine.Id
+      }).ToList();
 
       return result;
     }
@@ -124,7 +140,8 @@ namespace Petopia.Business.Implementations
       {
         query = GetPetsFromFilter(query, model.Filter);
       }
-      else {
+      else
+      {
         query = GetPetsFromText(query, model.Filter.Text);
       }
 
@@ -141,6 +158,7 @@ namespace Petopia.Business.Implementations
     {
       Pet pet = await UnitOfWork.Pets
         .AsTracking()
+        .Include(x => x.PetVaccines)
         .FirstAsync(x => x.Id == model.Id);
 
       pet.Name = model.Name;
@@ -180,6 +198,26 @@ namespace Petopia.Business.Implementations
             Url = image,
             Type = MediaType.Image,
           });
+        }
+      }
+
+      foreach (var vaccineId in model.VaccineIds)
+      {
+        if (!pet.PetVaccines.Any(x => x.VaccineId == vaccineId))
+        {
+          UnitOfWork.PetVaccines.Create(new PetVaccine()
+          {
+            PetId = pet.Id,
+            VaccineId = vaccineId,
+          });
+        }
+      }
+
+      foreach (var petVaccine in pet.PetVaccines)
+      {
+        if (!model.VaccineIds.Contains(petVaccine.VaccineId))
+        {
+          UnitOfWork.PetVaccines.Delete(petVaccine);
         }
       }
 
@@ -263,7 +301,7 @@ namespace Petopia.Business.Implementations
         BREED_CACHING_DAYS
       );
 
-      if(names != null && breeds != null)
+      if (names != null && breeds != null)
       {
         names.Add(DOG_KEYWORD);
         names.Add(CAT_KEYWORD);
@@ -272,15 +310,21 @@ namespace Petopia.Business.Implementations
       return new List<string>();
     }
 
+    public async Task<List<VaccineResponseModel>> GetVaccinesAsync()
+    {
+      List<Vaccine> vaccines = await UnitOfWork.Vaccines.ToListAsync();
+      return Mapper.Map<List<VaccineResponseModel>>(vaccines);
+    }
+
     #region private
 
     private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string keyword)
     {
-      if(keyword == DOG_KEYWORD)
+      if (keyword == DOG_KEYWORD)
       {
         return query.Where(x => x.Species == PetSpecies.Dog);
       }
-      if(keyword == CAT_KEYWORD)
+      if (keyword == CAT_KEYWORD)
       {
         return query.Where(x => x.Species == PetSpecies.Cat);
       }

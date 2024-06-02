@@ -15,5 +15,6 @@ namespace Petopia.Business.Interfaces
     public Task<List<string>> GetBreedsAsync(PetSpecies species);
     public Task<List<string>> GetAvailableBreedsAsync(PetSpecies species);
     public Task<List<string>> GetKeywordsAsync();
+    public Task<List<VaccineResponseModel>> GetVaccinesAsync();
 	}
 }

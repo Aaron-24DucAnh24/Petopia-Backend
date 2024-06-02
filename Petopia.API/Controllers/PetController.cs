@@ -84,5 +84,12 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _petService.GetKeywordsAsync());
     }
+
+    [HttpGet("Vaccines")]
+    [Authorize]
+    public async Task<ActionResult<List<VaccineResponseModel>>> GetVaccines()
+    {
+      return ResponseUtils.OkResult(await _petService.GetVaccinesAsync());
+    }
   }
 }

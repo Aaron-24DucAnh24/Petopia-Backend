@@ -33,6 +33,8 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new AdvertisementConfiguration());
       builder.ApplyConfiguration(new PaymentConfiguration());
       builder.ApplyConfiguration(new ReportConfiguration());
+      builder.ApplyConfiguration(new VaccineConfiguration());
+      builder.ApplyConfiguration(new PetVaccineConfiguration());
     }
 
     public DbSet<User> Users { get; set; }
@@ -58,5 +60,7 @@ namespace Petopia.Data
     public DbSet<Advertisement> Advertisements { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Report> Reports { get; set; }
+    public DbSet<Vaccine> Vaccines { get; set; }
+    public DbSet<PetVaccine> PetVaccines { get; set; }
   }
 }
