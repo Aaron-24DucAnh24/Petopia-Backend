@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.ML;
+using Petopia.Business.Classification;
 using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
@@ -19,8 +23,22 @@ namespace Petopia.Business.Implementations
     private const string DOG_KEYWORD = "Chó";
     private const string CAT_KEYWORD = "Mèo";
 
-    public PetService(IServiceProvider provider, ILogger<PetService> logger) : base(provider, logger)
-    { }
+    private readonly PredictionEnginePool<Catvsdog.ModelInput, Catvsdog.ModelOutput> _catvsdogPool;
+    private readonly PredictionEnginePool<dog_breed.ModelInput, dog_breed.ModelOutput> _dogPool;
+    private readonly PredictionEnginePool<cat_breed.ModelInput, cat_breed.ModelOutput> _catPool;
+
+    public PetService(
+      IServiceProvider provider,
+      ILogger<PetService> logger,
+      PredictionEnginePool<Catvsdog.ModelInput, Catvsdog.ModelOutput> catvsdogPool,
+      PredictionEnginePool<dog_breed.ModelInput, dog_breed.ModelOutput> dogPool,
+      PredictionEnginePool<cat_breed.ModelInput, cat_breed.ModelOutput> catPool
+    ) : base(provider, logger)
+    {
+      _catvsdogPool = catvsdogPool;
+      _dogPool = dogPool;
+      _catPool = catPool;
+    }
 
     public async Task<bool> DeletePetAsync(Guid petId)
     {
@@ -314,6 +332,51 @@ namespace Petopia.Business.Implementations
     {
       List<Vaccine> vaccines = await UnitOfWork.Vaccines.ToListAsync();
       return Mapper.Map<List<VaccineResponseModel>>(vaccines);
+    }
+
+    public async Task<PetPredictResponseModel> PredictAsync(IFormFile file)
+    {
+      using var memoryStream = new MemoryStream();
+      await file.CopyToAsync(memoryStream);
+      byte[] imageBytes = memoryStream.ToArray();
+      string animalType = string.Empty;
+      string breed = string.Empty;
+
+
+      Catvsdog.ModelInput catVsDogInput = new()
+      {
+        ImageSource = imageBytes
+      };
+      Catvsdog.ModelOutput catVsDogPrediction = _catvsdogPool.Predict(catVsDogInput);
+      animalType = catVsDogPrediction.PredictedLabel;
+
+      if (animalType == "Dog")
+      {
+        dog_breed.ModelInput dogBreedInput = new()
+        {
+          ImageSource = imageBytes
+        };
+        dog_breed.ModelOutput dogBreedPrediction = _dogPool.Predict(dogBreedInput);
+        breed = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+          dogBreedPrediction.PredictedLabel.Split('-').Last().Replace('_', ' '));
+      }
+
+      if (animalType == "Cat")
+      {
+        cat_breed.ModelInput catBreedInput = new()
+        {
+          ImageSource = imageBytes
+        };
+        cat_breed.ModelOutput catBreedPrediction = _catPool.Predict(catBreedInput);
+        breed = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+          catBreedPrediction.PredictedLabel.Split('-').Last().Replace('_', ' '));
+      }
+
+      return new PetPredictResponseModel()
+      {
+        AnimalType = animalType,
+        Breed = breed,
+      };
     }
 
     #region private

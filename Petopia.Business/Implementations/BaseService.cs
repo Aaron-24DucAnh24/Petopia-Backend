@@ -101,5 +101,38 @@ namespace Petopia.Business.Implementations
       }
       return result;
     }
+
+    protected PaginationResponseModel<TResult>
+    ListPaging<TResult, TQuery>(List<TQuery> list, PaginationRequestModel model)
+    {
+      PaginationResponseModel<TResult> result = new()
+      {
+        TotalNumber = list.Count,
+        PageIndex = model.PageIndex,
+        PageSize = model.PageSize
+      };
+      result.PageNumber = model.PageSize == 0 ? 0 : (int)Math.Ceiling((double)result.TotalNumber / result.PageSize);
+
+      if (result.PageNumber < 1)
+      {
+        result.PageNumber = 1;
+      }
+      if (result.PageIndex < 1)
+      {
+        result.PageIndex = 1;
+      }
+      if (result.PageIndex > result.PageNumber)
+      {
+        result.PageIndex = result.PageNumber;
+      }
+
+      if (result.PageNumber > 0)
+      {
+        var skipCount = (result.PageIndex - 1) * result.PageSize;
+        var domains = list.Skip(skipCount).Take(result.PageSize);
+        result.Data = Mapper.Map<List<TResult>>(domains);
+      }
+      return result;
+    }
   }
 }

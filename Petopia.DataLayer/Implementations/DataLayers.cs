@@ -137,13 +137,6 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-  public class AdminFormDataLayer : BaseDataLayer<AdminForm>, IAdminFormDataLayer
-  {
-    public AdminFormDataLayer(ApplicationDbContext context) : base(context)
-    {
-    }
-  }
-
   public class PaymentDataLayer : BaseDataLayer<Payment>, IPaymentDataLayer
   {
     public PaymentDataLayer(ApplicationDbContext context) : base(context)
@@ -170,7 +163,7 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-    public class PetVaccineDataLayer : BaseDataLayer<PetVaccine>, IPetVaccineDataLayer
+  public class PetVaccineDataLayer : BaseDataLayer<PetVaccine>, IPetVaccineDataLayer
   {
     public PetVaccineDataLayer(ApplicationDbContext context) : base(context)
     {

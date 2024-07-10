@@ -22,4 +22,4 @@ COPY --from=build /app ./
 
 EXPOSE 80
 
-CMD dotnet Petopia.API.dll --urls https://0.0.0.0:80
+CMD dotnet Petopia.API.dll --urls http://0.0.0.0:80

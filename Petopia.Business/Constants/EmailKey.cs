@@ -11,5 +11,6 @@ namespace Petopia.Business.Constants
     public const string END_DATE = "{endDate}";
     public const string DESCRIPTION = "{description}";
     public const string PRICE = "{price}";
+    public const string PASSWORD = "{password}";
   }
 }

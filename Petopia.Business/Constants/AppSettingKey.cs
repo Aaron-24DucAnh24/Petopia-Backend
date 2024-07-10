@@ -14,6 +14,5 @@ namespace Petopia.Business.Constants
     public const string ELASTICSEARCH = "Elasticsearch";
     public const string BRAINTREE = "Braintree";
     public const string APP_URLS = "AppUrls";
-    public const string RECURRING_JOB = "RecurringJob";
   }
 }

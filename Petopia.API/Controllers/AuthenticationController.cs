@@ -62,6 +62,15 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(result);
     }
 
+    [HttpPost("AdminLogin")]
+    [AllowAnonymous]
+    public async Task<ActionResult<JwtTokensModel>> AdminLogin([FromBody] LoginRequestModel request)
+    {
+      JwtTokensModel result = await _authService.AdminLoginAsync(request);
+      _cookieService.SetJwtTokens(result.AccessToken, result.RefreshToken);
+      return ResponseUtils.OkResult(result);
+    }
+
     [HttpPost("GoogleLogin")]
     [AllowAnonymous]
     public async Task<ActionResult<JwtTokensModel>> GoogleLogin([FromBody] GoogleLoginRequestModel request)

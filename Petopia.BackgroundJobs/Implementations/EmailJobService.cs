@@ -20,25 +20,5 @@ namespace Petopia.BackgroundJobs.Implementations
     {
       BackgroundJob.Enqueue(() => ServiceProvider.GetRequiredService<IEmailService>().SendMailAsync(data));
     }
-
-    public void SendUpgradeMails()
-    {
-      RecurringJobSettingModel settings = Configuration
-        .GetSection(AppSettingKey.RECURRING_JOB)
-        .Get<RecurringJobSettingModel>()
-        ?? throw new ConfigurationErrorsException();
-
-      RecurringJob.AddOrUpdate(
-        settings.OrgJobId,
-        () => ServiceProvider.GetRequiredService<IEmailService>().SendUpgradeMailsAsync(),
-        settings.Cron
-      );
-
-      RecurringJob.AddOrUpdate(
-        settings.AdminJobId,
-        () => ServiceProvider.GetRequiredService<IEmailService>().SendAdminMailsAsync(),
-        settings.Cron
-      );
-    }
   }
 }

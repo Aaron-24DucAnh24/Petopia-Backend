@@ -63,7 +63,6 @@ namespace Petopia.Business.Implementations
         IsCreatedAt = DateTimeOffset.Now,
       });
       await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
-
       {
         Id = user.Id,
         FirstName = cacheData.FirstName,

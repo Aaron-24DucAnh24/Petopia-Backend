@@ -15,8 +15,7 @@ using Petopia.Business.Utils;
 using Petopia.Business.Contexts;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Filters;
-//using Elastic.Clients.Elasticsearch;
-using Elastic.Transport;
+// using Elastic.Transport;
 using Braintree;
 using Petopia.Business.Models.Enums;
 using Petopia.Business.Validators;
@@ -24,6 +23,8 @@ using AutoMapper;
 using Petopia.Business.Data;
 using System.Security.Claims;
 using Petopia.Business.Models.User;
+using Microsoft.Extensions.ML;
+using Petopia.Business.Classification;
 
 namespace Petopia.Business.Extensions
 {
@@ -34,7 +35,6 @@ namespace Petopia.Business.Extensions
       services.AddModelValidators();
       services.AddCacheService(configuration);
       services.AddEmailService(configuration);
-      //services.AddElasticsearchService(configuration);
       services.AddPaymentService(configuration);
       services.AddAutoMapper();
       services.AddScoped<IAuthService, AuthService>();
@@ -49,6 +49,13 @@ namespace Petopia.Business.Extensions
       services.AddScoped<ICommentService, CommentService>();
       services.AddScoped<IPostService, PostService>();
       services.AddScoped<IReportService, ReportService>();
+      services.AddPredictionEnginePool<Catvsdog.ModelInput, Catvsdog.ModelOutput>()
+        .FromFile("../Petopia.Business/Classification/catvsdog.mlnet");
+      services.AddPredictionEnginePool<dog_breed.ModelInput, dog_breed.ModelOutput>()
+        .FromFile("../Petopia.Business/Classification/dog_breed.mlnet");
+      services.AddPredictionEnginePool<cat_breed.ModelInput, cat_breed.ModelOutput>()
+        .FromFile("../Petopia.Business/Classification/cat_breed.mlnet");
+      services.AddScoped<IAdminService, AdminService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)

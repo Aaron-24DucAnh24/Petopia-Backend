@@ -10,6 +10,8 @@
 
 3. Docker
 
+4. Tensorflow
+
 ### Run
 
 1. Install Docker, Docker-compose on Linux, MacOS or WSL on Windows
@@ -58,13 +60,15 @@ dotnet run
   dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 ```
 
-> Now program is running at <<<https://127.0.0.1:8888>>> on your local machine.
+> Now program is running at <<<https://127.0.0.1:8888>>> and <<<http://127.0.0.1:9999>>> on your local machine.
 
 ### Tech stack
 
 - ASP.NET Core 7.0
 
 - Entity Framework Core 7.0
+
+- ML.NET
 
 - Docker
 

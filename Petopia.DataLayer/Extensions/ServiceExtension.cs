@@ -43,7 +43,6 @@ namespace Petopia.DataLayer.Extensions
       services.AddScoped<ICommentDataLayer, CommentDataLayer>();
       services.AddScoped<ILikeDataLayer, LikeDataLayer>();
       services.AddScoped<IPetBreedDataLayer, PetBreedDataLayer>();
-      services.AddScoped<IAdminFormDataLayer, AdminFormDataLayer>();
       services.AddScoped<IPaymentDataLayer, PaymentDataLayer>();
       services.AddScoped<IAdvertisementDataLayer, AdvertisementDataLayer>();
       services.AddScoped<IReportDataLayer, ReportDataLayer>();

@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -79,6 +80,18 @@ namespace Petopia.Business.Utils
         Role = (UserRole)Enum.Parse(typeof(UserRole), roleClaim.Value),
         Id = new Guid(idClaim.Value)
       };
+    }
+
+    public static string GetRandomPassword()
+    {
+      string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      string result = "";
+      Random r = new();
+      for (int i = 0; i < 8; i++)
+      {
+        result += chars[r.Next(chars.Length)];
+      }
+      return result;
     }
 
     private static string CreateJwtToken(TokenType type, UserContextModel user, IConfiguration configuration)

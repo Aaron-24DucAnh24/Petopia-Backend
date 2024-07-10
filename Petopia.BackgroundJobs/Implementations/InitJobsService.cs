@@ -26,7 +26,6 @@ namespace Petopia.BackgroundJobs.Implementations
       {
         //scope.ServiceProvider.GetRequiredService<IElasticsearchJobService>().InitSyncDataCollections();
         scope.ServiceProvider.GetRequiredService<ICacheJobService>().InitCacheData();
-        scope.ServiceProvider.GetRequiredService<IEmailJobService>().SendUpgradeMails();
       }
       _logger.LogInformation("Initializing BackgroundJobs successfully");
 

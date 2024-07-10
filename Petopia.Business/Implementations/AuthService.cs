@@ -13,6 +13,8 @@ using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Exceptions;
 using Petopia.Data.Entities;
 using Petopia.Business.Models.Enums;
+using StackExchange.Redis;
+using Petopia.Data.Enums;
 
 namespace Petopia.Business.Implementations
 {
@@ -215,6 +217,30 @@ namespace Petopia.Business.Implementations
         .Get<GoogleAuthSettingModel>()
         ?? throw new ConfigurationErrorsException();
       return googleAuthSetting.ClientId;
+    }
+
+    public async Task<JwtTokensModel> AdminLoginAsync(LoginRequestModel request)
+    {
+      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.EnryptString(request.Email))
+        ?? throw new InvalidCredentialException();
+      if (user.Role != UserRole.SystemAdmin)
+      {
+        throw new InvalidCredentialException();
+      }
+      if (string.IsNullOrEmpty(user.Password))
+      {
+        throw new InvalidCredentialException();
+      }
+      if (!HashUtils.VerifyHashedPassword(user.Password, request.Password))
+      {
+        throw new InvalidCredentialException();
+      }
+      return await LoginAsync(new UserContextModel()
+      {
+        Id = user.Id,
+        Email = request.Email,
+        Role = user.Role
+      });
     }
   }
 }
