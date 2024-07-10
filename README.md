@@ -62,6 +62,10 @@ dotnet run
 
 > Now program is running at <<<https://127.0.0.1:8888>>> and <<<http://127.0.0.1:9999>>> on your local machine.
 
+### Protential improvements
+
+- At the momment, the recognition feature only works on Window machines.
+
 ### Tech stack
 
 - ASP.NET Core 7.0
@@ -75,3 +79,9 @@ dotnet run
 - SQL Server database
 
 - Redis cache
+
+### Other projects
+
+- Frontoffice: https://github.com/Aaron-24DucAnh24/Petopia-Frontend.git
+
+- Backoffice: https://github.com/Aaron-24DucAnh24/Petopia-Backoffice.git
