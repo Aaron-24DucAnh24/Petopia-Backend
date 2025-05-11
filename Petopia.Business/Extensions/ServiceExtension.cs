@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Implementations;
 using Petopia.DataLayer.Extensions;
@@ -15,7 +14,6 @@ using Petopia.Business.Utils;
 using Petopia.Business.Contexts;
 using Petopia.Business.Models.Setting;
 using Petopia.Business.Filters;
-// using Elastic.Transport;
 using Braintree;
 using Petopia.Business.Models.Enums;
 using Petopia.Business.Validators;
@@ -23,8 +21,6 @@ using AutoMapper;
 using Petopia.Business.Data;
 using System.Security.Claims;
 using Petopia.Business.Models.User;
-using Microsoft.Extensions.ML;
-using Petopia.Business.Classification;
 
 namespace Petopia.Business.Extensions
 {
@@ -36,6 +32,7 @@ namespace Petopia.Business.Extensions
       services.AddCacheService(configuration);
       services.AddEmailService(configuration);
       services.AddPaymentService(configuration);
+      services.AddStorageService(configuration);
       services.AddAutoMapper();
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
@@ -49,18 +46,12 @@ namespace Petopia.Business.Extensions
       services.AddScoped<ICommentService, CommentService>();
       services.AddScoped<IPostService, PostService>();
       services.AddScoped<IReportService, ReportService>();
-      services.AddPredictionEnginePool<Catvsdog.ModelInput, Catvsdog.ModelOutput>()
-        .FromFile("../Petopia.Business/Classification/catvsdog.mlnet");
-      services.AddPredictionEnginePool<dog_breed.ModelInput, dog_breed.ModelOutput>()
-        .FromFile("../Petopia.Business/Classification/dog_breed.mlnet");
-      services.AddPredictionEnginePool<cat_breed.ModelInput, cat_breed.ModelOutput>()
-        .FromFile("../Petopia.Business/Classification/cat_breed.mlnet");
       services.AddScoped<IAdminService, AdminService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
-      services.AddApplicationDbContext(configuration, AppSettingKey.DB_CONNECTION_STRING);
+      services.AddApplicationDbContext(configuration, Constants.APP_SETTING_KEY_DB_CONNECTION_STRING);
       services.AddScoped<IUserContext, UserContext>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddHttpContextAccessor();
@@ -73,7 +64,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddCacheService(this IServiceCollection services, IConfiguration configuration)
     {
-      RedisCacheSettingModel? redisCacheSettings = configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>();
+      RedisCacheSettingModel? redisCacheSettings = configuration.GetSection(Constants.APP_SETTING_KEY_REDIS_CACHE).Get<RedisCacheSettingModel>();
       if (redisCacheSettings != null && !string.IsNullOrEmpty(redisCacheSettings.ConnectionString))
       {
         services.AddStackExchangeRedisCache(options =>
@@ -94,7 +85,7 @@ namespace Petopia.Business.Extensions
 
     public static void AddEmailService(this IServiceCollection services, IConfiguration configuration)
     {
-      EmailSettingModel? emailSettings = configuration.GetSection(AppSettingKey.EMAIL).Get<EmailSettingModel>();
+      EmailSettingModel? emailSettings = configuration.GetSection(Constants.APP_SETTING_KEY_EMAIL).Get<EmailSettingModel>();
       if (emailSettings != null)
       {
         services.AddSingleton(emailSettings);
@@ -102,24 +93,9 @@ namespace Petopia.Business.Extensions
       }
     }
 
-    //public static void AddElasticsearchService(this IServiceCollection services, IConfiguration configuration)
-    //{
-    //  ElasticsearchSettingModel? elasticSearchSettings = configuration.GetSection(AppSettingKey.ELASTICSEARCH).Get<ElasticsearchSettingModel>();
-    //  if (elasticSearchSettings != null)
-    //  {
-    //    var settings = new ElasticsearchClientSettings(new Uri(elasticSearchSettings.Url))
-    //      .Authentication(new BasicAuthentication(
-    //        elasticSearchSettings.Username,
-    //        elasticSearchSettings.Password
-    //      ));
-    //    services.AddSingleton(settings);
-    //    services.AddScoped<IElasticsearchService, ElasticsearchService>();
-    //  }
-    //}
-
     public static void AddPaymentService(this IServiceCollection services, IConfiguration configuration)
     {
-      BraintreeSettingModel? braintreeSettings = configuration.GetSection(AppSettingKey.BRAINTREE).Get<BraintreeSettingModel>();
+      BraintreeSettingModel? braintreeSettings = configuration.GetSection(Constants.APP_SETTING_KEY_BRAINTREE).Get<BraintreeSettingModel>();
       if (braintreeSettings != null)
       {
         BraintreeGateway gateway = new()
@@ -192,7 +168,7 @@ namespace Petopia.Business.Extensions
     {
       services.AddCors(options => options.AddDefaultPolicy(policy =>
       {
-        string? originConfig = configuration.GetSection(AppSettingKey.CORS_ORIGIN).Get<string>();
+        string? originConfig = configuration.GetSection(Constants.APP_SETTING_KEY_CORS_ORIGIN).Get<string>();
         if (string.IsNullOrEmpty(originConfig) || originConfig.Equals("*"))
         {
           policy
@@ -231,6 +207,16 @@ namespace Petopia.Business.Extensions
         options.OperationFilter<RequiredAuthenticationFilter>();
         options.OperationFilter<AccessRoleFilter>();
       });
+    }
+
+    public static void AddStorageService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var minioSettingModel = configuration.GetSection(Constants.APP_SETTING_KEY_MINIO).Get<MinioSettingModel>();
+      if (minioSettingModel != null)
+      {
+        services.AddSingleton(minioSettingModel);
+        services.AddScoped<IStorageService, StorageService>();
+      }
     }
   }
 }

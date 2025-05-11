@@ -1,12 +1,10 @@
-﻿using Petopia.Business.Constants;
-
-namespace Petopia.Business.Models.Exceptions
+﻿namespace Petopia.Business.Models.Exceptions
 {
-	public class BlogNotFoundException : DomainException
-	{
-		public BlogNotFoundException() : base("The blog is not found")
-		{
-			ErrorCode = DomainErrorCode.NOT_FOUND_BLOG;
-		}
-	}
+  public class BlogNotFoundException : DomainException
+  {
+    public BlogNotFoundException() : base("The blog is not found")
+    {
+      ErrorCode = DomainErrorCode.NOT_FOUND_BLOG;
+    }
+  }
 }

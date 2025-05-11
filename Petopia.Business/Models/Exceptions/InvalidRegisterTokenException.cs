@@ -1,5 +1,3 @@
-using Petopia.Business.Constants;
-
 namespace Petopia.Business.Models.Exceptions
 {
   public class InvalidRegisterTokenException : DomainException

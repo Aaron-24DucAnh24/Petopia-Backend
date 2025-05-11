@@ -9,9 +9,47 @@ namespace Petopia.Business.Validators
     {
       RuleFor(x => x.Phone).NotEmpty();
       RuleFor(x => x.Street).NotEmpty();
+      RuleFor(x => x.ProvinceCode).NotEmpty();
+      RuleFor(x => x.DistrictCode).NotEmpty();
+      RuleFor(x => x.WardCode).NotEmpty();
+
       RuleFor(x => x.FirstName).NotEmpty();
       RuleFor(x => x.LastName).NotEmpty();
+    }
+  }
+
+  public class UpdateOrganizationValidator : AbstractValidator<UpdateOrganizationRequestModel>
+  {
+    public UpdateOrganizationValidator()
+    {
+      RuleFor(x => x.Phone).NotEmpty();
+      RuleFor(x => x.Street).NotEmpty();
+      RuleFor(x => x.ProvinceCode).NotEmpty();
+      RuleFor(x => x.DistrictCode).NotEmpty();
+      RuleFor(x => x.WardCode).NotEmpty();
+
+      RuleFor(x => x.Website).NotEmpty();
+      RuleFor(x => x.OrganizationName).NotEmpty();
       RuleFor(x => x.Description).NotEmpty();
+
+    }
+  }
+
+  public class UpgradeAccountValidator : AbstractValidator<UpgradeAccountRequestModel>
+  {
+    public UpgradeAccountValidator()
+    {
+      RuleFor(x => x.EntityName).NotEmpty();
+      RuleFor(x => x.OrganizationName).NotEmpty();
+      RuleFor(x => x.Phone).NotEmpty();
+      RuleFor(x => x.Street).NotEmpty();
+      RuleFor(x => x.Website).NotEmpty();
+      RuleFor(x => x.Description).NotEmpty();
+      RuleFor(x => x.TaxCode).NotEmpty();
+      RuleFor(x => x.ProvinceCode).NotEmpty();
+      RuleFor(x => x.DistrictCode).NotEmpty();
+      RuleFor(x => x.WardCode).NotEmpty();
+      RuleFor(x => x.Type).NotEmpty();
     }
   }
 
@@ -21,9 +59,7 @@ namespace Petopia.Business.Validators
     {
       RuleFor(x => x.NewPassword)
         .NotEmpty()
-        .WithMessage("Password is required")
-        .MinimumLength(8)
-        .WithMessage("Minimum length of password is 8");
+        .MinimumLength(8);
     }
   }
 
@@ -33,9 +69,7 @@ namespace Petopia.Business.Validators
     {
       RuleFor(x => x.Password)
         .NotEmpty()
-        .WithMessage("Password is required")
-        .MinimumLength(8)
-        .WithMessage("Minimum length of password is 8");
+        .MinimumLength(8);
     }
   }
 }

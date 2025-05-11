@@ -91,12 +91,5 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _petService.GetVaccinesAsync());
     }
-
-    [HttpPost("Predict")]
-    [AllowAnonymous]
-    public async Task<ActionResult<PetPredictResponseModel>> Predict([FromForm] IFormFile file)
-    {
-      return ResponseUtils.OkResult(await _petService.PredictAsync(file));
-    }
   }
 }

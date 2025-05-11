@@ -19,3 +19,16 @@ services:
     env_file:
       - ".env"
     command: --requirepass "${REDIS_PASSWORD}"
+
+  storage:
+    image: minio/minio
+    container_name: PetopiaStorage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file:
+      - ".env"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    command: server --console-address ":9001" /data

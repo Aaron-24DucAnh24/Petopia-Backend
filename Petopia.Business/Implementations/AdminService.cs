@@ -189,7 +189,7 @@ namespace Petopia.Business.Implementations
 
       if (!accepted)
       {
-        form.Status = UpgradeStatus.Done;
+        form.Status = UpgradeStatus.Rejected;
         UnitOfWork.UpgradeForms.Update(form);
         await UnitOfWork.SaveChangesAsync();
         return HashUtils.DecryptString(form.User.Email);
@@ -214,7 +214,7 @@ namespace Petopia.Business.Implementations
       form.User.WardCode = form.WardCode;
       form.User.Street = form.Street;
       form.User.Address = form.Address;
-      form.Status = UpgradeStatus.Done;
+      form.Status = UpgradeStatus.Accepted;
 
       UnitOfWork.UpgradeForms.Update(form);
       await UnitOfWork.SaveChangesAsync();

@@ -612,6 +612,9 @@ namespace Petopia.Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("");
 
+                    b.Property<DateTimeOffset>("BirthDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("DistrictCode")
                         .HasColumnType("nvarchar(max)");
 

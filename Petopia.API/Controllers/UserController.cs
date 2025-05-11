@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Petopia.BackgroundJobs.Interfaces;
+using Petopia.Business.Filters;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.User;
@@ -71,16 +72,23 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _userService.ChangePasswordAsync(request));
     }
 
-    [HttpPut]
+    [HttpPut("User")]
     [Authorize]
     public async Task<ActionResult<GetUserDetailsResponseModel>> Update([FromBody] UpdateUserRequestModel request)
     {
       return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
     }
 
+    [HttpPut("Organization")]
+    [OrganizationAuthorize]
+    public async Task<ActionResult<GetUserDetailsResponseModel>> Update([FromBody] UpdateOrganizationRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _userService.UpdateUserAsync(request));
+    }
+
     [HttpPut("UpdateAvatar")]
     [Authorize]
-    public async Task<ActionResult<string>> UpdateAvatar([FromBody] string image)
+    public async Task<ActionResult<string>> UpdateAvatar([FromForm] IFormFile image)
     {
       return ResponseUtils.OkResult(await _userService.UpdateUserAvatarAsync(image));
     }

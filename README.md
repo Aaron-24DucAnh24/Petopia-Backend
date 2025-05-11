@@ -10,19 +10,17 @@
 
 3. Docker
 
-4. Tensorflow
-
 ### Run
 
 1. Install Docker, Docker-compose on Linux, MacOS or WSL on Windows
 
-2. Setup database and cache servers for the first time
+2. Setup database, cache and file storage for the first time
 
 ```bash
 docker-compose up
 ```
 
-> Database and cache are running now. To start those servers later, run
+> Database, cache and file storage are running now. To start those servers later, run
 
 ```bash
 docker-compose start
@@ -62,23 +60,19 @@ dotnet run
 
 > Now program is running at <<<https://127.0.0.1:8888>>> and <<<http://127.0.0.1:9999>>> on your local machine.
 
-### Protential improvements
-
-- At the momment, the recognition feature only works on Window machines.
-
 ### Tech stack
 
 - ASP.NET Core 7.0
 
 - Entity Framework Core 7.0
 
-- ML.NET
-
 - Docker
 
 - SQL Server database
 
 - Redis cache
+
+- Minio file storage
 
 ### Other projects
 

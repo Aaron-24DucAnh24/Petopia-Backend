@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Petopia.Business.Models.Common;
+﻿using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Pet;
 using Petopia.Data.Enums;
 
@@ -17,6 +16,5 @@ namespace Petopia.Business.Interfaces
     public Task<List<string>> GetAvailableBreedsAsync(PetSpecies species);
     public Task<List<string>> GetKeywordsAsync();
     public Task<List<VaccineResponseModel>> GetVaccinesAsync();
-    public Task<PetPredictResponseModel> PredictAsync(IFormFile file);
   }
 }

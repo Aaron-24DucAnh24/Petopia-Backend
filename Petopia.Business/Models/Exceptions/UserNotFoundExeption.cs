@@ -1,6 +1,4 @@
-﻿using Petopia.Business.Constants;
-
-namespace Petopia.Business.Models.Exceptions
+﻿namespace Petopia.Business.Models.Exceptions
 {
   public class UserNotFoundException : DomainException
   {

@@ -9,15 +9,24 @@ namespace Petopia.Business.Validators
     {
       RuleFor(x => x.Email)
         .NotEmpty()
-        .WithMessage("Mail is required")
-        .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")
-        .WithMessage("Invalid mail format");
+        .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
       RuleFor(x => x.Password)
         .NotEmpty()
-        .WithMessage("Password is required")
         .MinimumLength(8)
-        .WithMessage("Minimum length of password is 8");
+        .MaximumLength(128);
+
+      RuleFor(x => x.FirstName)
+        .NotEmpty()
+        .MaximumLength(128);
+
+      RuleFor(x => x.LastName)
+        .NotEmpty()
+        .MaximumLength(128);
+
+      RuleFor(x => x.BirthDate)
+        .NotEmpty()
+        .Must(x => DateTimeOffset.TryParse(x, out DateTimeOffset dateTime));
     }
   }
 }

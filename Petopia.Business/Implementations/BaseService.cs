@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Petopia.Business.Constants;
 using Petopia.Business.Contexts;
 using Petopia.Business.Data;
 using Petopia.Business.Interfaces;
@@ -46,7 +45,7 @@ namespace Petopia.Business.Implementations
       HttpService = provider.GetRequiredService<IHttpService>();
       Logger = logger;
       AppUrls = Configuration
-        .GetSection(AppSettingKey.APP_URLS)
+        .GetSection(Constants.APP_SETTING_KEY_APP_URLS)
         .Get<AppUrlsSettingModel>()
         ?? throw new ConfigurationErrorsException();
     }

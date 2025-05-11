@@ -27,7 +27,7 @@ app.UseCors();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 

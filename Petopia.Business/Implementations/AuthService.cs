@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Utils;
 using Microsoft.Extensions.Logging;
@@ -13,7 +12,6 @@ using Petopia.Business.Models.Setting;
 using Petopia.Business.Models.Exceptions;
 using Petopia.Data.Entities;
 using Petopia.Business.Models.Enums;
-using StackExchange.Redis;
 using Petopia.Data.Enums;
 
 namespace Petopia.Business.Implementations
@@ -58,8 +56,8 @@ namespace Petopia.Business.Implementations
         .FirstOrDefaultAsync(x => x.Id == model.Id);
       string accessToken = TokenUtils.CreateAccessToken(model, Configuration);
       string refreshToken = TokenUtils.CreateRefreshToken(model, Configuration);
-      DateTimeOffset accessTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.ACCESS_TOKEN_EXPIRATION_DAYS);
-      DateTimeOffset refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.REFRESH_TOKEN_EXPIRATION_DAYS);
+      DateTimeOffset accessTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS);
+      DateTimeOffset refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS);
       if (userConnection == null)
       {
         userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
@@ -106,7 +104,7 @@ namespace Petopia.Business.Implementations
         throw new UsedEmailException();
       }
       string cacheKey = TokenUtils.CreateSecurityToken();
-      CacheManager.Instance.Set(cacheKey, request, TokenSettingConstants.REGISTER_TOKEN_EXPIRATION_DAYS);
+      CacheManager.Instance.Set(cacheKey, request, Constants.TOKEN_SETTING_REGISTER_TOKEN_EXPIRATION_DAYS);
       return cacheKey;
     }
 
@@ -140,7 +138,7 @@ namespace Petopia.Business.Implementations
     {
       if (string.IsNullOrEmpty(token))
       {
-        token = HttpContextAccessor.HttpContext?.Request.Cookies[CookieName.REFRESH_TOKEN]
+        token = HttpContextAccessor.HttpContext?.Request.Cookies[Constants.COOKIES_NAME_REFRESH_TOKEN]
           ?? throw new SecurityTokenValidationException();
       }
       JwtSecurityTokenHandler tokenHandler = new();
@@ -170,7 +168,7 @@ namespace Petopia.Business.Implementations
     public async Task<GoogleUserModel> ValidateGoogleLoginTokenAsync(string token)
     {
       GoogleAuthSettingModel configs = Configuration
-        .GetSection(AppSettingKey.GG_AUTH)
+        .GetSection(Constants.APP_SETTING_KEY_GG_AUTH)
         .Get<GoogleAuthSettingModel>()
         ?? throw new ConfigurationErrorsException();
       GoogleUserModel? result = await HttpService.GetAsync<GoogleUserModel>(configs.Endpoint, new Dictionary<string, string?>()
@@ -187,7 +185,7 @@ namespace Petopia.Business.Implementations
     public async Task ValidateGoogleRecaptchaTokenAsync(string token)
     {
       GoogleRecaptchaSettingModel googleRecaptchaSetting = Configuration
-        .GetSection(AppSettingKey.GG_RECAPTCHA)
+        .GetSection(Constants.APP_SETTING_KEY_GG_RECAPTCHA)
         .Get<GoogleRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
       GoogleRecaptchaValidationModel? result = await HttpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
@@ -204,7 +202,7 @@ namespace Petopia.Business.Implementations
     public string GetGoogleRecaptchaSiteKey()
     {
       GoogleRecaptchaSettingModel googleRecaptchaSetting = Configuration
-        .GetSection(AppSettingKey.GG_RECAPTCHA)
+        .GetSection(Constants.APP_SETTING_KEY_GG_RECAPTCHA)
         .Get<GoogleRecaptchaSettingModel>()
         ?? throw new ConfigurationErrorsException();
       return googleRecaptchaSetting.SiteKey;
@@ -213,7 +211,7 @@ namespace Petopia.Business.Implementations
     public string GetGoogleAuthClientId()
     {
       GoogleAuthSettingModel googleAuthSetting = Configuration
-        .GetSection(AppSettingKey.GG_AUTH)
+        .GetSection(Constants.APP_SETTING_KEY_GG_AUTH)
         .Get<GoogleAuthSettingModel>()
         ?? throw new ConfigurationErrorsException();
       return googleAuthSetting.ClientId;

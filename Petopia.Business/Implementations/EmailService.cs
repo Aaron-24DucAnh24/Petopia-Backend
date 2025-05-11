@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Mail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.Exceptions;
@@ -45,16 +44,17 @@ namespace Petopia.Business.Implementations
       if (string.IsNullOrEmpty(user.Password))
       {
         throw new WrongLoginMethodException();
-      };
+      }
+      ;
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
-      user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(TokenSettingConstants.PASSWORD_TOKEN_EXPIRATION_DAYS);
+      user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
 
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
       string body = emailTemplate.Body
-        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice)
-        .Replace(EmailKey.PASSWORD_TOKEN, user.ResetPasswordToken)
-        .Replace(EmailKey.EMAIL, email);
+        .Replace(Constants.EMAIL_KEY_FO_ROUTE, AppUrls.FrontOffice)
+        .Replace(Constants.EMAIL_KEY_PASSWORD_TOKEN, user.ResetPasswordToken)
+        .Replace(Constants.EMAIL_KEY_EMAIL, email);
 
       List<string> toAddresses = new() { email };
 
@@ -72,9 +72,9 @@ namespace Petopia.Business.Implementations
     {
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ValidateRegister);
       string body = emailTemplate.Body
-        .Replace(EmailKey.EMAIL, email)
-        .Replace(EmailKey.REGISTER_TOKEN, registerToken)
-        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
+        .Replace(Constants.EMAIL_KEY_EMAIL, email)
+        .Replace(Constants.EMAIL_KEY_REGISTER_TOKEN, registerToken)
+        .Replace(Constants.EMAIL_KEY_FO_ROUTE, AppUrls.FrontOffice);
 
       List<string> toAddresses = new() { email };
 
@@ -92,12 +92,12 @@ namespace Petopia.Business.Implementations
     {
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.Invoice);
       string body = emailTemplate.Body
-        .Replace(EmailKey.EMAIL, model.UserEmail)
-        .Replace(EmailKey.PAYMENT_ID, model.PaymentId.ToString())
-        .Replace(EmailKey.START_DATE, model.IsCreatedAt.ToString())
-        .Replace(EmailKey.END_DATE, model.AdvertisingDate.ToString())
-        .Replace(EmailKey.DESCRIPTION, model.Description)
-        .Replace(EmailKey.PRICE, model.Price.ToString());
+        .Replace(Constants.EMAIL_KEY_EMAIL, model.UserEmail)
+        .Replace(Constants.EMAIL_KEY_PAYMENT_ID, model.PaymentId.ToString())
+        .Replace(Constants.EMAIL_KEY_START_DATE, model.IsCreatedAt.ToString())
+        .Replace(Constants.EMAIL_KEY_END_DATE, model.AdvertisingDate.ToString())
+        .Replace(Constants.EMAIL_KEY_DESCRIPTION, model.Description)
+        .Replace(Constants.EMAIL_KEY_PRICE, model.Price.ToString());
 
       List<string> toAddresses = new() { model.UserEmail };
 
@@ -120,9 +120,9 @@ namespace Petopia.Business.Implementations
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == type);
 
       string body = emailTemplate.Body
-        .Replace(EmailKey.PASSWORD, password)
-        .Replace(EmailKey.EMAIL, email)
-        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
+        .Replace(Constants.EMAIL_KEY_PASSWORD, password)
+        .Replace(Constants.EMAIL_KEY_EMAIL, email)
+        .Replace(Constants.EMAIL_KEY_FO_ROUTE, AppUrls.FrontOffice);
 
       List<string> toAddresses = new() { email };
 
@@ -170,7 +170,7 @@ namespace Petopia.Business.Implementations
       EmailType type = isSucceed ? EmailType.UpgradeAccountSuccess : EmailType.UpgradeAccountFailure;
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == type);
       string body = emailTemplate.Body
-        .Replace(EmailKey.FO_ROUTE, AppUrls.FrontOffice);
+        .Replace(Constants.EMAIL_KEY_FO_ROUTE, AppUrls.FrontOffice);
 
       List<string> toAddresses = new() { email };
 

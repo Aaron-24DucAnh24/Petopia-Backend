@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
@@ -53,14 +55,16 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request)
     {
-      RegisterRequestModel cacheData = CacheManager.Instance.Get<RegisterRequestModel>(request.ValidateRegisterToken)
+      var cacheData = CacheManager.Instance
+        .Get<RegisterRequestModel>(request.ValidateRegisterToken)
         ?? throw new InvalidRegisterTokenException();
-      User user = await UnitOfWork.Users.CreateAsync(new User()
+      var user = await UnitOfWork.Users.CreateAsync(new User()
       {
         Id = Guid.NewGuid(),
         Email = HashUtils.EnryptString(cacheData.Email),
         Password = HashUtils.HashPassword(cacheData.Password),
         IsCreatedAt = DateTimeOffset.Now,
+        BirthDate = DateTimeOffset.Parse(cacheData.BirthDate),
       });
       await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
       {
@@ -165,6 +169,7 @@ namespace Petopia.Business.Implementations
       user.ProvinceCode = request.ProvinceCode;
       user.WardCode = request.WardCode;
       user.Street = request.Street;
+      user.BirthDate = request.BirthDate;
 
       user.Address = await GetAddressAsync(
         request.ProvinceCode,
@@ -182,6 +187,8 @@ namespace Petopia.Business.Implementations
       {
         user.UserOrganizationAttributes.Description = request.Description;
         user.UserOrganizationAttributes.Website = request.Website;
+        user.UserOrganizationAttributes.OrganizationName = request.OrganizationName;
+        user.UserOrganizationAttributes.Type = request.Type;
       }
 
       UnitOfWork.Users.Update(user);
@@ -189,20 +196,29 @@ namespace Petopia.Business.Implementations
       return await GetCurrentUserAsync();
     }
 
-    public async Task<string> UpdateUserAvatarAsync(string image)
+    public async Task<string> UpdateUserAvatarAsync(IFormFile image)
     {
-      if (string.IsNullOrEmpty(image))
-      {
-        throw new DomainException("Image cannot be empty.");
-      }
-      User user = await UnitOfWork.Users
+      var storageService = ServiceProvider.GetRequiredService<IStorageService>();
+      var imageUrl = await storageService.UploadFileAsync(Constants.STORAGE_CONTAINER_IMAGE, image);
+
+      // Upload new image
+      if (string.IsNullOrEmpty(imageUrl)) throw new DomainException("");
+
+      var user = await UnitOfWork.Users
         .AsTracking()
         .Where(x => x.Id == UserContext.Id)
         .FirstAsync();
-      user.Image = image;
+
+      // Remove old image
+      if (!string.IsNullOrEmpty(user.Image)
+        && !await storageService.RemoveFileAsync(user.Image)) throw new DomainException("");
+
+      // Update user image
+      user.Image = imageUrl;
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
-      return image;
+
+      return imageUrl;
     }
 
     public async Task<string> GetAddressAsync(string provinceCode, string districtCode, string wardCode, string street)
@@ -275,9 +291,10 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> PreUpgradeAsync()
     {
-      bool invalid = await UnitOfWork.UpgradeForms.AnyAsync(
-        x => x.UserId == UserContext.Id &&
-        x.Status == UpgradeStatus.Pending
+      bool invalid = await UnitOfWork.UpgradeForms.AnyAsync(x =>
+        x.UserId == UserContext.Id
+        && ((x.Status == UpgradeStatus.Pending)
+          || (x.Status == UpgradeStatus.Accepted))
       );
       return !invalid;
     }
@@ -286,7 +303,7 @@ namespace Petopia.Business.Implementations
 
     private async Task<GetUserDetailsResponseModel> GetUserInfoAsync(Guid userId)
     {
-      User user = await UnitOfWork.Users
+      var user = await UnitOfWork.Users
         .FirstOrDefaultAsync(x => x.Id == userId)
         ?? throw new UserNotFoundException();
       GetUserDetailsResponseModel result = user.Role == UserRole.Organization

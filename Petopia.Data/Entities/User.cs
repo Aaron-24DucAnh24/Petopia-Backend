@@ -21,6 +21,7 @@ namespace Petopia.Data.Entities
     public DateTimeOffset ResetPasswordTokenExpirationDate { get; set; }
     public bool IsDeactivated { get; set; }
     public string Phone { get; set; }
+    public DateTimeOffset BirthDate { get; set; }
 
     public UserConnection UserConnection { get; set; }
     public UserIndividualAttributes UserIndividualAttributes { get; set; }

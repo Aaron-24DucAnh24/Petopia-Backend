@@ -3,7 +3,6 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Setting;
 using StackExchange.Redis;
@@ -80,7 +79,7 @@ namespace Petopia.Business.Implementations
       _serviceProvider = serviceProvider;
       CheckDistributedCacheEnable(
         serviceProvider.GetService<IDistributedCache>(),
-        configuration.GetSection(AppSettingKey.REDIS_CACHE).Get<RedisCacheSettingModel>()
+        configuration.GetSection(Constants.APP_SETTING_KEY_REDIS_CACHE).Get<RedisCacheSettingModel>()
       );
     }
 

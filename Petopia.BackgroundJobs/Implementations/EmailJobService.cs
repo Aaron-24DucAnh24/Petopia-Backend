@@ -1,12 +1,8 @@
-using System.Configuration;
 using Hangfire;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Petopia.BackgroundJobs.Interfaces;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
-using Petopia.Business.Models.Setting;
 
 namespace Petopia.BackgroundJobs.Implementations
 {

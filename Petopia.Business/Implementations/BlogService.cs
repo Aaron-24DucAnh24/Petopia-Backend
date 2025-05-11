@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Petopia.Business.Constants;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Common;
@@ -95,7 +94,7 @@ namespace Petopia.Business.Implementations
       }
       if (!string.IsNullOrEmpty(request.OrderBy))
       {
-        query = request.OrderBy == OrderKey.NEWEST
+        query = request.OrderBy == Constants.SORT_KEY_NEWEST
         ? query.OrderByDescending(x => x.IsCreatedAt)
         : query.OrderByDescending(x => x.View);
       }
@@ -112,7 +111,7 @@ namespace Petopia.Business.Implementations
         .AsQueryable();
       if (!string.IsNullOrEmpty(request.OrderBy))
       {
-        query = request.OrderBy == OrderKey.NEWEST
+        query = request.OrderBy == Constants.SORT_KEY_NEWEST
         ? query.OrderByDescending(x => x.IsCreatedAt)
         : query.OrderByDescending(x => x.View);
       }
