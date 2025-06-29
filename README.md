@@ -42,7 +42,6 @@ dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
 
 ```bash
 dotnet tool install --global dotnet-ef
-dotnet ef migrations add Init
 dotnet ef database update
 ```
 
@@ -73,6 +72,8 @@ dotnet run
 - Redis cache
 
 - Minio file storage
+
+- Meili search
 
 ### Other projects
 

@@ -26,8 +26,6 @@ namespace Petopia.Data.Entities
 
     public User Owner { get; set; }
     public List<Media> Images { get; set; }
-    public List<AdoptionForm> AdoptionForms { get; set; }
-    public List<Post> Posts { get; set; }
     public List<Report> Reports { get; set; }
     public List<PetVaccine> PetVaccines { get; set; }
   }

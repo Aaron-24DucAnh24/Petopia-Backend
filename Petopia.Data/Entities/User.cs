@@ -27,10 +27,10 @@ namespace Petopia.Data.Entities
     public UserIndividualAttributes UserIndividualAttributes { get; set; }
     public UserOrganizationAttributes UserOrganizationAttributes { get; set; }
     public List<Pet> Pets { get; set; }
-    public List<AdoptionForm> AdoptionForms { get; set; }
     public List<Notification> Notifications { get; set; }
     public UpgradeForm UpgradeForm { get; set; }
     public List<Blog> Blogs { get; set; }
     public List<Report> Reports { get; set; }
+    public List<Post> Posts { get; set; }
   }
 }

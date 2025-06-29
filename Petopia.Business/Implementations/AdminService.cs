@@ -115,7 +115,7 @@ namespace Petopia.Business.Implementations
 
       for (int day = 1; day <= finalDay; day++)
       {
-        await GetChartDataAsync(petData, blogData, adoptionData, time, day);
+        await GetChartDataAsync(petData, blogData, time, day);
       }
 
       return new DashboardReponseModel()
@@ -323,7 +323,6 @@ namespace Petopia.Business.Implementations
     private async Task GetChartDataAsync(
       List<int> petData,
       List<int> blogData,
-      List<int> adoptionData,
       DashboardRequestModel time,
       int day
     )
@@ -336,11 +335,6 @@ namespace Petopia.Business.Implementations
         await UnitOfWork.Blogs.CountAsync(x => x.IsCreatedAt.Day == day
           && x.IsCreatedAt.Month == time.Month
           && x.IsUpdatedAt.Year == time.Year));
-      adoptionData.Add(
-        await UnitOfWork.AdoptionForms.CountAsync(x => x.IsCreatedAt.Day == day
-          && x.IsCreatedAt.Month == time.Month
-          && x.IsUpdatedAt.Year == time.Year
-          && x.Status == AdoptStatus.Adopted));
     }
   }
 }

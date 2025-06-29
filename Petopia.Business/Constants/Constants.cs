@@ -19,6 +19,7 @@ namespace Petopia.Business
     public const string APP_SETTING_KEY_BRAINTREE = "Braintree";
     public const string APP_SETTING_KEY_APP_URLS = "AppUrls";
     public const string APP_SETTING_KEY_MINIO = "Minio";
+    public const string APP_SETTING_KEY_MEILI = "MeiliSearch";
 
     // Claim type
     public const string CLAIM_TYPE_FIRST_NAME = "First name";
@@ -52,5 +53,11 @@ namespace Petopia.Business
     public const double TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS = 7;
     public const double TOKEN_SETTING_PASSWORD_TOKEN_EXPIRATION_DAYS = (double)1 / 24;
     public const double TOKEN_SETTING_REGISTER_TOKEN_EXPIRATION_DAYS = (double)30 / 60 / 24;
+
+    // Meili search index
+    public const string MEILISEARCH_INDEX_PET = "pet";
+    public const string MEILISEARCH_INDEX_POST = "post";
+    public const string MEILISEARCH_INDEX_USER = "user";
+    public const string MEILISEARCH_INDEX_BLOG = "blog";
   }
 }

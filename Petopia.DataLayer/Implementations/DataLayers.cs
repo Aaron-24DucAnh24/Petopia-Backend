@@ -81,13 +81,6 @@ namespace Petopia.DataLayer.Implementations
     }
   }
 
-  public class AdoptionFormDataLayer : BaseDataLayer<AdoptionForm>, IAdoptionFormDataLayer
-  {
-    public AdoptionFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)
-    {
-    }
-  }
-
   public class NotificationFormDataLayer : BaseDataLayer<Notification>, INotificationDataLayer
   {
     public NotificationFormDataLayer(ApplicationDbContext dbContext) : base(dbContext)

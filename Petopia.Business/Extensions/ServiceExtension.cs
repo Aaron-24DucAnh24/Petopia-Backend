@@ -33,14 +33,15 @@ namespace Petopia.Business.Extensions
       services.AddEmailService(configuration);
       services.AddPaymentService(configuration);
       services.AddStorageService(configuration);
+      services.AddSearchEngineService(configuration);
       services.AddAutoMapper();
+
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<ICookieService, CookieService>();
       services.AddScoped<IUserService, UserService>();
       services.AddTransient<IHttpService, Implementations.HttpService>();
       services.AddScoped<IPetService, PetService>();
       services.AddScoped<ILocationService, LocationService>();
-      services.AddScoped<IAdoptionFormService, AdoptionFormService>();
       services.AddScoped<INotificationService, NotificationService>();
       services.AddScoped<IBlogService, BlogService>();
       services.AddScoped<ICommentService, CommentService>();
@@ -216,6 +217,16 @@ namespace Petopia.Business.Extensions
       {
         services.AddSingleton(minioSettingModel);
         services.AddScoped<IStorageService, StorageService>();
+      }
+    }
+
+    public static void AddSearchEngineService(this IServiceCollection services, IConfiguration configuration)
+    {
+      var meiliSearchSettingModel = configuration.GetSection(Constants.APP_SETTING_KEY_MEILI).Get<MeiliSettingModel>();
+      if (meiliSearchSettingModel != null)
+      {
+        services.AddSingleton(meiliSearchSettingModel);
+        services.AddScoped<ISearchEngineService, SearchEngineService>();
       }
     }
   }

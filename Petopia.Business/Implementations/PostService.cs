@@ -20,7 +20,6 @@ namespace Petopia.Business.Implementations
       {
         Id = Guid.NewGuid(),
         CreatorId = UserContext.Id,
-        PetId = request.PetId,
         Content = request.Content,
         IsCreatedAt = DateTimeOffset.Now,
       });
@@ -63,7 +62,6 @@ namespace Petopia.Business.Implementations
     {
       List<Post> posts = await UnitOfWork.Posts
         .Include(x => x.Images)
-        .Where(x => x.PetId == petId)
         .ToListAsync();
 
       var result = Mapper.Map<List<PostResponseModel>>(posts);
@@ -74,7 +72,8 @@ namespace Petopia.Business.Implementations
         post.UserName = userContext.Name;
         post.IsLiked = await UnitOfWork.Likes.AnyAsync(x => x.PostId == post.Id && x.UserId == UserContext.Id);
         post.CommentCount = await UnitOfWork.Comments.CountAsync(x => x.PostId == post.Id);
-      };
+      }
+      ;
       return result;
     }
 

@@ -32,3 +32,12 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     command: server --console-address ":9001" /data
+
+  searchEngine:
+    image: getmeili/meilisearch:nightly
+    ports:
+      - "7700:7700"
+    env_file:
+      - ".env"
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}

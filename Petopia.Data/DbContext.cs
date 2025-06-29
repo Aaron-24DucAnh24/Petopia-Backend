@@ -21,7 +21,6 @@ namespace Petopia.Data
       builder.ApplyConfiguration(new ProvinceConfiguration());
       builder.ApplyConfiguration(new DistrictConfiguration());
       builder.ApplyConfiguration(new WardConfiguration());
-      builder.ApplyConfiguration(new AdoptionFormConfiguration());
       builder.ApplyConfiguration(new NotificationConfiguration());
       builder.ApplyConfiguration(new UpgradeFormConfiguration());
       builder.ApplyConfiguration(new PostConfiguration());
@@ -47,7 +46,6 @@ namespace Petopia.Data
     public DbSet<Province> Provinces { get; set; }
     public DbSet<District> Districts { get; set; }
     public DbSet<Ward> Wards { get; set; }
-    public DbSet<AdoptionForm> AdoptionForms { get; set; }
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<UpgradeForm> UpgradeForms { get; set; }
     public DbSet<Blog> Blogs { get; set; }
