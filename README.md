@@ -3,80 +3,44 @@
 ## This is the introduction to run API server locally on your machine
 
 ### Requirements
-
 1. ASP.NET Core 7.0
-
 2. Entity Framework Core 7.0
-
 3. Docker
 
 ### Run
 
-1. Install Docker, Docker-compose on Linux, MacOS or WSL on Windows
-
-2. Setup database, cache and file storage for the first time
-
 ```bash
+# Build and run docker containers
 docker-compose up
-```
-
-> Database, cache and file storage are running now. To start those servers later, run
-
-```bash
 docker-compose start
-```
 
-> To stop
-
-```bash
-docker-compose stop
-```
-
-3. Create a development HTTPs certificate on your local machine
-
-```bash
+# Create a dev https certificate
 dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
-```
 
-4. Go to folder "Petopia.Data", run
-
-```bash
+# Initialize database
 dotnet tool install --global dotnet-ef
+# // cd Petopia.Data
 dotnet ef database update
+
+# Run web API
+# // cd ../Petopia.API
+dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 ```
 
-> Initing essential data, go to folder "Petopia.SeedingData", run
-
-```bash
-dotnet run
-```
-
-5. To start the program within the development environment, run by the debugger of VSCode or VS. For another way
-
-```bash
-  dotnet run -e ASPNETCORE_ENVIRONMENT=Development
-```
-
-> Now program is running at <<<https://127.0.0.1:8888>>> and <<<http://127.0.0.1:9999>>> on your local machine.
+### Management views
+1. Web API: https://127.0.0.1:8888/swagger/index.html
+2. File storage: http://127.0.0.1:9001/browser
+3. Search engine: http://127.0.0.1:7700
 
 ### Tech stack
-
-- ASP.NET Core 7.0
-
-- Entity Framework Core 7.0
-
-- Docker
-
-- SQL Server database
-
-- Redis cache
-
-- Minio file storage
-
-- Meili search
+1. ASP.NET Core 7.0
+2. Entity Framework Core 7.0
+3. Docker
+4. SQL Server database
+5. Redis cache
+6. Minio file storage
+7. Meili search
 
 ### Other projects
-
-- Frontoffice: https://github.com/Aaron-24DucAnh24/Petopia-Frontend.git
-
-- Backoffice: https://github.com/Aaron-24DucAnh24/Petopia-Backoffice.git
+1. Frontoffice: https://github.com/Aaron-24DucAnh24/Petopia-Frontend.git
+2. Backoffice: https://github.com/Aaron-24DucAnh24/Petopia-Backoffice.git
