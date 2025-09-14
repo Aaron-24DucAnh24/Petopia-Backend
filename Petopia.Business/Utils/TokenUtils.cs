@@ -1,4 +1,3 @@
-using System;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -116,7 +115,7 @@ namespace Petopia.Business.Utils
         expires: DateTime.Now.AddDays(expirationDays),
         notBefore: DateTime.Now
       );
-      return (new JwtSecurityTokenHandler()).WriteToken(token);
+      return new JwtSecurityTokenHandler().WriteToken(token);
     }
   }
 }

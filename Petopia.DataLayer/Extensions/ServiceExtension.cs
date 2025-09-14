@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Petopia.Data;
-using Petopia.Data.Entities;
 using Petopia.DataLayer.Implementations;
 using Petopia.DataLayer.Interfaces;
 

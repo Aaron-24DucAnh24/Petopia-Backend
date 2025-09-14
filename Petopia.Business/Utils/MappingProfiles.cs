@@ -1,6 +1,5 @@
 using AutoMapper;
 using Petopia.Business.Models.Admin;
-using Petopia.Business.Models.Adoption;
 using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Comment;
 using Petopia.Business.Models.Location;
