@@ -66,7 +66,7 @@ namespace Petopia.Business.Implementations
     {
       List<T>? result = Get<List<T>>(key);
 
-      if (result.IsNullOrEmpty())
+      if (result is null)
       {
         result = await query.ToListAsync();
         Set(key, result, days);

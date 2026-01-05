@@ -21,13 +21,18 @@ namespace Petopia.BackgroundJobs.Implementations
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-      _logger.LogInformation("Start initializing BackgroundJobs");
+
       using (IServiceScope scope = _serviceProvider.CreateScope())
       {
+        _logger.LogInformation("Clearing old BackgroundJobs");
+        scope.ServiceProvider.GetRequiredService<IClearOldJobsService>().Clear();
+        _logger.LogInformation("Old BackgroundJobs cleared successfully");
+
+        _logger.LogInformation("Start initializing BackgroundJobs");
         scope.ServiceProvider.GetRequiredService<ISearchEngineJobService>().InitSearchData();
         scope.ServiceProvider.GetRequiredService<ICacheJobService>().InitCacheData();
+        _logger.LogInformation("Initializing BackgroundJobs successfully");
       }
-      _logger.LogInformation("Initializing BackgroundJobs successfully");
 
       return Task.CompletedTask;
     }

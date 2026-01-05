@@ -2,7 +2,10 @@ using Meilisearch;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Common;
+using Petopia.Business.Models.Pet;
+using Petopia.Business.Models.Post;
 using Petopia.Business.Models.Setting;
 
 namespace Petopia.Business.Implementations
@@ -27,12 +30,20 @@ namespace Petopia.Business.Implementations
       return entity;
     }
 
-    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TRequest>(string index, PaginationRequestModel<TRequest> request)
+    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TRequest>(
+      string index,
+      PaginationRequestModel<TRequest> request)
     {
       var indexInstance = _meilisearchClient.Index(index);
-
-      var totalNumber = 0;
-
+      var sortString = CreateSortString(request.OrderBy);
+      var filterString = CreateFilterString(request.Filter);
+      var totalNumber = (await indexInstance.SearchAsync<TResult>(
+        string.Empty,
+        new SearchQuery
+        {
+          Limit = 0,
+          Filter = filterString,
+        })).Hits.Count;
 
       var result = new PaginationResponseModel<TResult>
       {
@@ -46,8 +57,8 @@ namespace Petopia.Business.Implementations
           {
             Limit = request.PageSize,
             Offset = request.PageIndex - 1,
-            Sort = CreateSortString(request.OrderBy),
-            Filter = CreateFilterString(request.Filter),
+            Sort = sortString,
+            Filter = filterString,
           })).Hits.ToList()
       };
 
@@ -61,8 +72,9 @@ namespace Petopia.Business.Implementations
         Constants.MEILISEARCH_INDEX_PET,
         Constants.MEILISEARCH_INDEX_POST,
         Constants.MEILISEARCH_INDEX_BLOG,
-        Constants.MEILISEARCH_INDEX_USER,
       };
+
+      await DeleteUnusedIndexesAsync(indexes);
 
       foreach (var index in indexes)
       {
@@ -77,30 +89,29 @@ namespace Petopia.Business.Implementations
         {
           case Constants.MEILISEARCH_INDEX_PET:
             var pets = await UnitOfWork.Pets
+              .Include(x => x.Images)
+              .Include(x => x.Owner)
               .Where(pet => !pet.IsDeleted)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(pets);
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PetResponseModel>>(pets));
             break;
 
           case Constants.MEILISEARCH_INDEX_POST:
             var posts = await UnitOfWork.Posts
+              .Include(x => x.Images)
               .Where(post => !post.IsDeleted)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(posts);
-            break;
-
-          case Constants.MEILISEARCH_INDEX_USER:
-            var users = await UnitOfWork.Users
-              .Where(user => !user.IsDeactivated)
-              .ToListAsync();
-            await indexInstance.AddDocumentsAsync(users);
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PostResponseModel>>(posts));
             break;
 
           case Constants.MEILISEARCH_INDEX_BLOG:
             var blogs = await UnitOfWork.Blogs
               .Where(blog => !blog.IsHidden)
+              .Include(x => x.User)
+              .ThenInclude(x => x.UserOrganizationAttributes)
+              .Where(x => !x.IsHidden)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(blogs);
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<BlogResponseModel>>(blogs));
             break;
         }
       }
@@ -122,5 +133,19 @@ namespace Petopia.Business.Implementations
     {
       return new string[0];
     }
+
+    private async Task DeleteUnusedIndexesAsync(string[] allowedIndexes)
+    {
+      var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
+
+      foreach (var index in allIndexes.Results)
+      {
+        if (!allowedIndexes.Contains(index.Uid))
+        {
+          await _meilisearchClient.DeleteIndexAsync(index.Uid);
+        }
+      }
+    }
+
   }
 }
