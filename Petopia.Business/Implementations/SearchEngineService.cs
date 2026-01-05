@@ -2,6 +2,7 @@ using Meilisearch;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Setting;
 
 namespace Petopia.Business.Implementations
@@ -26,11 +27,31 @@ namespace Petopia.Business.Implementations
       return entity;
     }
 
-    public async ValueTask<T[]> SearchAsync<T>(string index, string query)
+    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TRequest>(string index, PaginationRequestModel<TRequest> request)
     {
       var indexInstance = _meilisearchClient.Index(index);
-      var result = await indexInstance.SearchAsync<T>(query);
-      return result.Hits.ToArray();
+
+      var totalNumber = 0;
+
+
+      var result = new PaginationResponseModel<TResult>
+      {
+        TotalNumber = 0,
+        PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
+        PageIndex = request.PageIndex,
+        PageSize = request.PageSize,
+        Data = (await indexInstance.SearchAsync<TResult>(
+          string.Empty,
+          new SearchQuery
+          {
+            Limit = request.PageSize,
+            Offset = request.PageIndex - 1,
+            Sort = CreateSortString(request.OrderBy),
+            Filter = CreateFilterString(request.Filter),
+          })).Hits.ToList()
+      };
+
+      return result;
     }
 
     public async ValueTask SyncDataAsync(bool isClean = false)
@@ -90,6 +111,16 @@ namespace Petopia.Business.Implementations
       var indexInstance = _meilisearchClient.Index(index);
       var result = await indexInstance.DeleteDocumentsAsync(entityIds);
       return result.Type == TaskInfoType.DocumentDeletion;
+    }
+
+    private string CreateFilterString<T>(T filter)
+    {
+      return string.Empty;
+    }
+
+    private string[] CreateSortString(string? sort)
+    {
+      return new string[0];
     }
   }
 }

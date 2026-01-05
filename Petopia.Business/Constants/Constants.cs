@@ -59,5 +59,11 @@ namespace Petopia.Business
     public const string MEILISEARCH_INDEX_POST = "post";
     public const string MEILISEARCH_INDEX_USER = "user";
     public const string MEILISEARCH_INDEX_BLOG = "blog";
+
+    // Cache key
+    public const string CACHE_KEY_PROVINCES = "provinces";
+
+    // Cache time
+    public const double CACHE_TIME_LOCATION = (double)30 / 60 / 24;
   }
 }
