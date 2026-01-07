@@ -73,7 +73,7 @@ namespace Petopia.Business.Implementations
         post.IsLiked = await UnitOfWork.Likes.AnyAsync(x => x.PostId == post.Id && x.UserId == UserContext.Id);
         post.CommentCount = await UnitOfWork.Comments.CountAsync(x => x.PostId == post.Id);
       }
-      ;
+
       return result;
     }
 

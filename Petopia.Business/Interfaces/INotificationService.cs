@@ -7,7 +7,6 @@ namespace Petopia.Business.Interfaces
     public Task<List<NotificationResponseModel>> GetNotificationsAsync();
     public Task<bool> CheckNotificationAsync(Guid id);
     public Task<bool> DeleteNotificationsAsync();
-    public Task CreateNoticationAsync(CreateNotificationModel model);
     public Task<bool> MarkAsSeenAsync();
   }
 }

@@ -2,7 +2,6 @@
 {
   public enum NotificationType
   {
-    Adoption,
     UpdateAccount,
   }
 }
