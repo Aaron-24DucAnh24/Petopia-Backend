@@ -45,13 +45,7 @@ namespace Petopia.Business.Implementations
           Filter = filterString,
         })).Hits.Count;
 
-      var result = new PaginationResponseModel<TResult>
-      {
-        TotalNumber = 0,
-        PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
-        PageIndex = request.PageIndex,
-        PageSize = request.PageSize,
-        Data = (await indexInstance.SearchAsync<TResult>(
+      var data = (await indexInstance.SearchAsync<TResult>(
           string.Empty,
           new SearchQuery
           {
@@ -59,7 +53,16 @@ namespace Petopia.Business.Implementations
             Offset = request.PageIndex - 1,
             Sort = sortString,
             Filter = filterString,
-          })).Hits.ToList()
+            Q = (request.Filter as dynamic).Text,
+          })).Hits.ToList();
+
+      var result = new PaginationResponseModel<TResult>
+      {
+        TotalNumber = 0,
+        PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
+        PageIndex = request.PageIndex,
+        PageSize = request.PageSize,
+        Data = Mapper.Map<List<TResult>>(data),
       };
 
       return result;
@@ -93,7 +96,7 @@ namespace Petopia.Business.Implementations
               .Include(x => x.Owner)
               .Where(pet => !pet.IsDeleted)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PetResponseModel>>(pets));
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PetSearchModel>>(pets));
             break;
 
           case Constants.MEILISEARCH_INDEX_POST:
@@ -124,16 +127,6 @@ namespace Petopia.Business.Implementations
       return result.Type == TaskInfoType.DocumentDeletion;
     }
 
-    private string CreateFilterString<T>(T filter)
-    {
-      return string.Empty;
-    }
-
-    private string[] CreateSortString(string? sort)
-    {
-      return new string[0];
-    }
-
     private async Task DeleteUnusedIndexesAsync(string[] allowedIndexes)
     {
       var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
@@ -145,6 +138,65 @@ namespace Petopia.Business.Implementations
           await _meilisearchClient.DeleteIndexAsync(index.Uid);
         }
       }
+    }
+
+    private static string CreateFilterString<T>(T filter)
+    {
+      var filters = new List<string>();
+      var type = typeof(T);
+      foreach (var prop in type.GetProperties())
+      {
+        if (prop.Name == "Text") continue;
+
+        var value = prop.GetValue(filter);
+        if (value == null) continue;
+
+        if (value is System.Collections.IEnumerable list)
+        {
+          var terms = new List<string>();
+          foreach (var item in list)
+          {
+            if (item == null) continue;
+
+            if (item is string s)
+            {
+              terms.Add($"{prop.Name} = \"{Escape(s)}\"");
+            }
+            else
+            {
+              terms.Add($"{prop.Name} = {item}");
+            }
+          }
+
+          if (terms.Count > 0)
+          {
+            filters.Add($"({string.Join(" OR ", terms)})");
+          }
+        }
+      }
+
+      var result = string.Join(" AND ", filters);
+      return result;
+    }
+
+    private static string Escape(string value)
+    {
+      return value.Replace("\"", "\\\"");
+    }
+
+    private static string[]? CreateSortString(string? sort)
+    {
+      if (string.IsNullOrWhiteSpace(sort))
+      {
+        return null;
+      }
+
+      return sort.ToLower() switch
+      {
+        Constants.SORT_KEY_NEWEST => new[] { "IsCreatedAt:desc" },
+        Constants.SORT_KEY_POPULAR => new[] { "View:desc" },
+        _ => null
+      };
     }
   }
 }
