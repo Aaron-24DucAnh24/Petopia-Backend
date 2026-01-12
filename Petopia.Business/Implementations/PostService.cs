@@ -58,25 +58,6 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public async Task<List<PostResponseModel>> GetPostsByPetIdAsync(Guid petId)
-    {
-      List<Post> posts = await UnitOfWork.Posts
-        .Include(x => x.Images)
-        .ToListAsync();
-
-      var result = Mapper.Map<List<PostResponseModel>>(posts);
-      foreach (var post in result)
-      {
-        UserContextModel userContext = await GetUserContextAsync(post.CreatorId);
-        post.UserImage = userContext.Image;
-        post.UserName = userContext.Name;
-        post.IsLiked = await UnitOfWork.Likes.AnyAsync(x => x.PostId == post.Id && x.UserId == UserContext.Id);
-        post.CommentCount = await UnitOfWork.Comments.CountAsync(x => x.PostId == post.Id);
-      }
-
-      return result;
-    }
-
     public async Task<int> LikePostAsync(Guid postId)
     {
       Post post = await UnitOfWork.Posts

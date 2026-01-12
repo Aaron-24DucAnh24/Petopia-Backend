@@ -32,13 +32,6 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _postService.DeletePostAsync(id));
     }
 
-    [HttpGet("Pet/{petId}")]
-    [AllowAnonymous]
-    public async Task<ActionResult<List<PostResponseModel>>> GetPostsByPetId(Guid petId)
-    {
-      return ResponseUtils.OkResult(await _postService.GetPostsByPetIdAsync(petId));
-    }
-
     [HttpPut("Like/{postId}")]
     [Authorize]
     public async Task<ActionResult<int>> LikePost(Guid postId)

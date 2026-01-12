@@ -60,6 +60,9 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
       CreateMap<Blog, ManagementBlogResponseModel>()
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image));
+      CreateMap<Blog, BlogSearchModel>()
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
+      CreateMap<BlogSearchModel, BlogResponseModel>();
 
       CreateMap<Post, PostResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));

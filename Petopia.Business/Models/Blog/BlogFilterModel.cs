@@ -4,6 +4,7 @@ namespace Petopia.Business.Models.Blog
 {
   public class BlogFilterModel
   {
-    public BlogCategory? Category { get; set; }
+    public List<BlogCategory>? Category { get; set; }
+    public List<Guid>? UserId { get; set; }
   }
 }

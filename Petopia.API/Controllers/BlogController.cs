@@ -49,13 +49,6 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _blogService.GetBlogByIdAsync(id));
     }
 
-    [HttpPost("User")]
-    [OrganizationAuthorize]
-    public async Task<ActionResult<PaginationResponseModel<BlogResponseModel>>> GetBlogsByUser([FromBody] PaginationRequestModel request)
-    {
-      return ResponseUtils.OkResult(await _blogService.GetBlogsByUserIdAsync(request));
-    }
-
     [HttpDelete("{id}")]
     [OrganizationAuthorize]
     public async Task<ActionResult<bool>> DeleteBlog(Guid id)

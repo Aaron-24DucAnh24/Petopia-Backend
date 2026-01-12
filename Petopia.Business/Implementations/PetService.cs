@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
@@ -18,11 +19,14 @@ namespace Petopia.Business.Implementations
     private const string DOG_KEYWORD = "Chó";
     private const string CAT_KEYWORD = "Mèo";
 
+    private readonly ISearchEngineService _searchEngineService;
+
     public PetService(
       IServiceProvider provider,
       ILogger<PetService> logger
     ) : base(provider, logger)
     {
+      _searchEngineService = provider.GetRequiredService<ISearchEngineService>();
     }
 
     public async Task<bool> DeletePetAsync(Guid petId)
@@ -133,28 +137,8 @@ namespace Petopia.Business.Implementations
 
     public async Task<PaginationResponseModel<PetResponseModel>> GetPetsAsync(PaginationRequestModel<PetFilterModel> model)
     {
-      IQueryable<Pet> query = UnitOfWork.Pets
-        .Include(x => x.Images)
-        .Include(x => x.Owner)
-        .Where(x => !x.IsDeleted)
-        .AsQueryable();
-
-      if (string.IsNullOrEmpty(model.Filter.Text))
-      {
-        query = GetPetsFromFilter(query, model.Filter);
-      }
-      else
-      {
-        query = GetPetsFromText(query, model.Filter.Text);
-      }
-
-      if (!string.IsNullOrEmpty(model.OrderBy))
-      {
-        query = model.OrderBy == Constants.SORT_KEY_NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
-      }
-      return await PagingAsync<PetResponseModel, Pet>(query, model);
+      var result = await _searchEngineService.SearchAsync<PetResponseModel, PetFilterModel, PetSearchModel>(Constants.MEILISEARCH_INDEX_PET, model);
+      return result;
     }
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
@@ -320,57 +304,6 @@ namespace Petopia.Business.Implementations
     }
 
     #region private
-
-    private IQueryable<Pet> GetPetsFromText(IQueryable<Pet> query, string keyword)
-    {
-      if (keyword == DOG_KEYWORD)
-      {
-        return query.Where(x => x.Species == PetSpecies.Dog);
-      }
-      if (keyword == CAT_KEYWORD)
-      {
-        return query.Where(x => x.Species == PetSpecies.Cat);
-      }
-      return query.Where(x => x.Name == keyword || x.Breed == keyword);
-    }
-
-    private IQueryable<Pet> GetPetsFromFilter(IQueryable<Pet> query, PetFilterModel filter)
-    {
-      if (filter.Age != null && filter.Age.Any())
-      {
-        query = query.Where(x => filter.Age.Contains(x.Age));
-      }
-      if (filter.Color != null && filter.Color.Any())
-      {
-        query = query.Where(x => filter.Color.Contains(x.Color));
-      }
-      if (filter.IsSterillized != null && filter.IsSterillized.Any())
-      {
-        query = query.Where(x => filter.IsSterillized.Contains(x.IsSterillized));
-      }
-      if (filter.IsVaccinated != null && filter.IsVaccinated.Any())
-      {
-        query = query.Where(x => filter.IsVaccinated.Contains(x.IsVaccinated));
-      }
-      if (filter.Sex != null && filter.Sex.Any())
-      {
-        query = query.Where(x => filter.Sex.Contains(x.Sex));
-      }
-      if (filter.Size != null && filter.Size.Any())
-      {
-        query = query.Where(x => filter.Size.Contains(x.Size));
-      }
-      if (filter.Species != null && filter.Species.Any())
-      {
-        query = query.Where(x => filter.Species.Contains(x.Species));
-      }
-      if (filter.Breed != null && filter.Breed.Any())
-      {
-        query = query.Where(x => filter.Breed.Contains(x.Breed));
-      }
-      return query;
-    }
-
     private string GetBreedCacheKey(PetSpecies species, bool isAvalable = false)
     {
       string result = species == PetSpecies.Dog ? "DogBreeds" : "CatBreeds";
@@ -380,7 +313,6 @@ namespace Petopia.Business.Implementations
       }
       return result;
     }
-
     #endregion
   }
 }

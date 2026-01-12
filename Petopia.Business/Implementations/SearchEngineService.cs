@@ -30,14 +30,14 @@ namespace Petopia.Business.Implementations
       return entity;
     }
 
-    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TRequest>(
+    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TRequest, TSearch>(
       string index,
       PaginationRequestModel<TRequest> request)
     {
       var indexInstance = _meilisearchClient.Index(index);
       var sortString = CreateSortString(request.OrderBy);
       var filterString = CreateFilterString(request.Filter);
-      var totalNumber = (await indexInstance.SearchAsync<TResult>(
+      var totalNumber = (await indexInstance.SearchAsync<TSearch>(
         string.Empty,
         new SearchQuery
         {
@@ -45,16 +45,16 @@ namespace Petopia.Business.Implementations
           Filter = filterString,
         })).Hits.Count;
 
-      var data = (await indexInstance.SearchAsync<TResult>(
-          string.Empty,
-          new SearchQuery
-          {
-            Limit = request.PageSize,
-            Offset = request.PageIndex - 1,
-            Sort = sortString,
-            Filter = filterString,
-            Q = (request.Filter as dynamic).Text,
-          })).Hits.ToList();
+      var data = (await indexInstance.SearchAsync<TSearch>(
+        string.Empty,
+        new SearchQuery
+        {
+          Limit = request.PageSize,
+          Offset = request.PageIndex - 1,
+          Sort = sortString,
+          Filter = filterString,
+          Q = (request.Filter as dynamic).Text,
+        })).Hits.ToList();
 
       var result = new PaginationResponseModel<TResult>
       {
@@ -114,7 +114,7 @@ namespace Petopia.Business.Implementations
               .ThenInclude(x => x.UserOrganizationAttributes)
               .Where(x => !x.IsHidden)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(Mapper.Map<List<BlogResponseModel>>(blogs));
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<BlogSearchModel>>(blogs));
             break;
         }
       }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
@@ -12,11 +13,14 @@ namespace Petopia.Business.Implementations
   {
     private readonly int ADVERTISEMENT_COUNT = 5;
 
+    private readonly ISearchEngineService _searchEngineService;
+
     public BlogService(
       IServiceProvider provider,
       ILogger<BlogService> logger
     ) : base(provider, logger)
     {
+      _searchEngineService = provider.GetRequiredService<ISearchEngineService>();
     }
 
     public async Task<Guid> CreateBlogAsync(CreateBlogRequestModel request)
@@ -83,40 +87,8 @@ namespace Petopia.Business.Implementations
 
     public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsAsync(PaginationRequestModel<BlogFilterModel> request)
     {
-      IQueryable<Blog> query = UnitOfWork.Blogs
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Where(x => !x.IsHidden)
-        .AsQueryable();
-      if (request.Filter.Category != null)
-      {
-        query = query.Where(x => x.Category == request.Filter.Category);
-      }
-      if (!string.IsNullOrEmpty(request.OrderBy))
-      {
-        query = request.OrderBy == Constants.SORT_KEY_NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
-      }
-
-      return await PagingAsync<BlogResponseModel, Blog>(query, request);
-    }
-
-    public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsByUserIdAsync(PaginationRequestModel request)
-    {
-      IQueryable<Blog> query = UnitOfWork.Blogs
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Where(x => !x.IsHidden && x.UserId == UserContext.Id)
-        .AsQueryable();
-      if (!string.IsNullOrEmpty(request.OrderBy))
-      {
-        query = request.OrderBy == Constants.SORT_KEY_NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
-      }
-
-      return await PagingAsync<BlogResponseModel, Blog>(query, request);
+      var result = await _searchEngineService.SearchAsync<BlogResponseModel, BlogFilterModel, BlogSearchModel>(Constants.MEILISEARCH_INDEX_BLOG, request);
+      return result;
     }
 
     public async Task<BlogDetailResponseModel> UpdateBlogAsync(UpdateBlogRequestModel request)
