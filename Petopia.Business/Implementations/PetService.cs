@@ -31,7 +31,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> DeletePetAsync(Guid petId)
     {
-      Pet pet = await UnitOfWork.Pets
+      var pet = await UnitOfWork.Pets
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Id == petId && x.OwnerId == UserContext.Id)
         ?? throw new PetNotFoundException();
@@ -40,12 +40,14 @@ namespace Petopia.Business.Implementations
       UnitOfWork.Pets.Update(pet);
       await UnitOfWork.SaveChangesAsync();
 
+      await _searchEngineService.DeleteAsync(Constants.MEILISEARCH_INDEX_PET, pet.Id.ToString());
+
       return true;
     }
 
     public async Task<CreatePetResponseModel> CreatePetAsync(CreatePetRequestModel model)
     {
-      Pet pet = await UnitOfWork.Pets.CreateAsync(new Pet()
+      var pet = await UnitOfWork.Pets.CreateAsync(new Pet()
       {
         Id = Guid.NewGuid(),
         Name = model.Name,
@@ -83,17 +85,32 @@ namespace Petopia.Business.Implementations
         });
       }
 
-      CacheManager.Instance.Remove(GetBreedCacheKey(model.Species, true));
       await UnitOfWork.SaveChangesAsync();
+
+      var cacheKey = GetBreedCacheKey(model.Species, isAvalable: true);
+      CacheManager.Instance.Remove(cacheKey);
+
+      var createdPet = UnitOfWork.Pets
+        .Include(x => x.Images)
+        .Include(x => x.Owner)
+        .FirstOrDefaultAsync(x => x.Id == pet.Id);
+      if (createdPet is not null)
+      {
+        await _searchEngineService.InsertUpdateAsync(
+          Constants.MEILISEARCH_INDEX_PET,
+          Mapper.Map<PetSearchModel>(createdPet));
+      }
+
       var result = Mapper.Map<CreatePetResponseModel>(model);
       result.Images = model.Images;
       result.Id = pet.Id;
+
       return result;
     }
 
     public async Task<PetDetailsResponseModel> GetPetDetailsAsync(Guid petId)
     {
-      Pet pet = await UnitOfWork.Pets
+      var pet = await UnitOfWork.Pets
         .AsTracking()
         .Include(x => x.Images)
         .Include(x => x.Owner)
@@ -107,10 +124,13 @@ namespace Petopia.Business.Implementations
       UnitOfWork.Pets.Update(pet);
       await UnitOfWork.SaveChangesAsync();
 
-      List<Pet> seeMore = await UnitOfWork.Pets
+      var seeMore = await UnitOfWork.Pets
         .Include(x => x.Images)
         .Include(x => x.Owner)
-        .Where(x => x.Species == pet.Species && x.Color == pet.Color && x.Id != pet.Id && !x.IsDeleted)
+        .Where(x => (x.Species == pet.Species)
+          && (x.Color == pet.Color)
+          && (x.Id != pet.Id)
+          && (!x.IsDeleted))
         .Take(SEE_MORE_LENGTH)
         .ToListAsync();
 
@@ -143,9 +163,11 @@ namespace Petopia.Business.Implementations
 
     public async Task<UpdatePetResponseModel> UpdatePetAsync(UpdatePetRequestModel model)
     {
-      Pet pet = await UnitOfWork.Pets
+      var pet = await UnitOfWork.Pets
         .AsTracking()
         .Include(x => x.PetVaccines)
+        .Include(x => x.Images)
+        .Include(x => x.Owner)
         .FirstAsync(x => x.Id == model.Id);
 
       pet.Name = model.Name;
@@ -161,7 +183,7 @@ namespace Petopia.Business.Implementations
       pet.IsAvailable = model.IsAvailable;
       pet.IsUpdatedAt = DateTimeOffset.Now;
 
-      List<Media> images = await UnitOfWork.Medias
+      var images = await UnitOfWork.Medias
         .AsTracking()
         .Where(x => x.PetId == model.Id)
         .ToListAsync();
@@ -208,22 +230,32 @@ namespace Petopia.Business.Implementations
         }
       }
 
-      CacheManager.Instance.Remove(GetBreedCacheKey(model.Species, true));
       await UnitOfWork.SaveChangesAsync();
+
+      var cacheKey = GetBreedCacheKey(model.Species, isAvalable: true);
+      CacheManager.Instance.Remove(cacheKey);
+
+      await _searchEngineService.InsertUpdateAsync(
+        Constants.MEILISEARCH_INDEX_PET,
+        Mapper.Map<PetSearchModel>(pet));
+
       var result = Mapper.Map<UpdatePetResponseModel>(model);
       result.Images = model.Images;
+
       return result;
     }
 
     public async Task<PaginationResponseModel<PetResponseModel>> GetPetsByUserId(PaginationRequestModel<Guid> model)
     {
-      IQueryable<Pet> query = UnitOfWork.Pets
+      var query = UnitOfWork.Pets
         .Include(x => x.Images)
         .Include(x => x.Owner)
         .Where(x => !x.IsDeleted)
         .Where(x => x.OwnerId == model.Filter)
         .AsQueryable();
-      return await PagingAsync<PetResponseModel, Pet>(query, model);
+      var result = await PagingAsync<PetResponseModel, Pet>(query, model);
+
+      return result;
     }
 
     public async Task<List<string>> GetBreedsAsync(PetSpecies species)
@@ -236,13 +268,9 @@ namespace Petopia.Business.Implementations
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
         GetBreedCacheKey(species),
-        BREED_CACHING_DAYS
-      );
-      if (result != null)
-      {
-        return result.ToList();
-      }
-      return new List<string>();
+        BREED_CACHING_DAYS) ?? new List<string>();
+
+      return result;
     }
 
     public async Task<List<string>> GetAvailableBreedsAsync(PetSpecies species)
@@ -255,13 +283,10 @@ namespace Petopia.Business.Implementations
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
         GetBreedCacheKey(species, true),
-        BREED_CACHING_DAYS
-      );
-      if (result != null)
-      {
-        return result.Order().ToList();
-      }
-      return new List<string>();
+        BREED_CACHING_DAYS) ?? new List<string>();
+      result = result.Order().ToList();
+
+      return result;
     }
 
     public async Task<List<string>> GetKeywordsAsync()
@@ -271,46 +296,48 @@ namespace Petopia.Business.Implementations
         .Select(x => x.Name)
         .Distinct()
         .AsQueryable();
-      List<string>? names = await CacheManager.Instance.GetOrSetAsync(
+      var names = await CacheManager.Instance.GetOrSetAsync(
         nameQuery,
         NAMES_CACHE_KEY,
-        BREED_CACHING_DAYS
-      );
-
+        BREED_CACHING_DAYS);
       var breedQuery = UnitOfWork.Pets
         .Where(x => !x.IsDeleted)
         .Select(x => x.Breed)
         .Distinct()
         .AsQueryable();
-      List<string>? breeds = await CacheManager.Instance.GetOrSetAsync(
+      var breeds = await CacheManager.Instance.GetOrSetAsync(
         breedQuery,
         BREEDS_CACHE_KEY,
-        BREED_CACHING_DAYS
-      );
+        BREED_CACHING_DAYS);
+      var result = new List<string>();
 
-      if (names != null && breeds != null)
+      if (names is not null && breeds is not null)
       {
         names.Add(DOG_KEYWORD);
         names.Add(CAT_KEYWORD);
-        return names.Concat(breeds).ToList();
+        result.AddRange(names.Concat(breeds));
       }
-      return new List<string>();
+
+      return result;
     }
 
     public async Task<List<VaccineResponseModel>> GetVaccinesAsync()
     {
-      List<Vaccine> vaccines = await UnitOfWork.Vaccines.ToListAsync();
-      return Mapper.Map<List<VaccineResponseModel>>(vaccines);
+      var vaccines = await UnitOfWork.Vaccines.ToListAsync();
+      var result = Mapper.Map<List<VaccineResponseModel>>(vaccines);
+
+      return result;
     }
 
     #region private
-    private string GetBreedCacheKey(PetSpecies species, bool isAvalable = false)
+    private static string GetBreedCacheKey(PetSpecies species, bool isAvalable = false)
     {
-      string result = species == PetSpecies.Dog ? "DogBreeds" : "CatBreeds";
+      var result = species == PetSpecies.Dog ? "DogBreeds" : "CatBreeds";
       if (isAvalable)
       {
         return result + "Available";
       }
+
       return result;
     }
     #endregion

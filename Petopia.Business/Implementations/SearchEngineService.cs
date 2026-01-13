@@ -120,7 +120,7 @@ namespace Petopia.Business.Implementations
       }
     }
 
-    public async ValueTask<bool> DeleteAsync(string index, string[] entityIds)
+    public async ValueTask<bool> DeleteAsync(string index, params string[] entityIds)
     {
       var indexInstance = _meilisearchClient.Index(index);
       var result = await indexInstance.DeleteDocumentsAsync(entityIds);
