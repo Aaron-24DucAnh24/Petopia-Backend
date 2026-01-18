@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Common;
+using Petopia.Business.Models.Exceptions;
 using Petopia.Business.Models.Post;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
@@ -95,7 +97,32 @@ namespace Petopia.Business.Implementations
 
       await UnitOfWork.SaveChangesAsync();
 
+      // do something here
+
       return post.Like;
+    }
+
+    public async Task<PaginationResponseModel<PostResponseModel>> GetPostsAsync(PaginationRequestModel request)
+    {
+      var result = await _searchEngineService.SearchAsync<PostResponseModel, PostResponseModel>(Constants.MEILISEARCH_INDEX_POST, request);
+      // Do something here
+
+      return result;
+    }
+
+    public async Task<bool> ViewPostAsync(Guid postId)
+    {
+      var post = await UnitOfWork.Posts
+        .AsTracking()
+        .Where(post => (post.Id == postId) && !post.IsDeleted)
+        .FirstOrDefaultAsync()
+        ?? throw new DomainException(message: string.Empty);
+      post.View += 1;
+      UnitOfWork.SaveChange();
+
+      // do something here
+
+      return true;
     }
   }
 }

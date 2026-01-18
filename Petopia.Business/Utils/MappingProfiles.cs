@@ -65,7 +65,12 @@ namespace Petopia.Business.Utils
       CreateMap<BlogSearchModel, BlogResponseModel>();
 
       CreateMap<Post, PostResponseModel>()
-        .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()));
+        .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()))
+        .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image))
+        .ForMember(
+          dest => dest.UserName,
+          opt => opt.MapFrom(src => $"{src.User.UserIndividualAttributes.FirstName} {src.User.UserIndividualAttributes.LastName}"))
+        .ForMember(dest => dest.CommentCount, opt => opt.MapFrom(src => src.Comments.Count));
 
       CreateMap<Comment, CommentResponseModel>();
 

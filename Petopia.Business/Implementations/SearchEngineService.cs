@@ -67,6 +67,39 @@ namespace Petopia.Business.Implementations
 
       return result;
     }
+    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TSearch>(
+      string index,
+      PaginationRequestModel request)
+    {
+      var indexInstance = _meilisearchClient.Index(index);
+      var sortString = CreateSortString(request.OrderBy);
+      var totalNumber = (await indexInstance.SearchAsync<TSearch>(
+        string.Empty,
+        new SearchQuery
+        {
+          Limit = 0,
+        })).Hits.Count;
+
+      var data = (await indexInstance.SearchAsync<TSearch>(
+        string.Empty,
+        new SearchQuery
+        {
+          Limit = request.PageSize,
+          Offset = request.PageIndex - 1,
+          Sort = sortString,
+        })).Hits.ToList();
+
+      var result = new PaginationResponseModel<TResult>
+      {
+        TotalNumber = 0,
+        PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
+        PageIndex = request.PageIndex,
+        PageSize = request.PageSize,
+        Data = Mapper.Map<List<TResult>>(data),
+      };
+
+      return result;
+    }
 
     public async ValueTask SyncDataAsync(bool isClean = false)
     {
@@ -102,8 +135,13 @@ namespace Petopia.Business.Implementations
           case Constants.MEILISEARCH_INDEX_POST:
             var posts = await UnitOfWork.Posts
               .Include(x => x.Images)
+              .Include(x => x.User)
+              .ThenInclude(x => x.UserOrganizationAttributes)
+              .Include(x => x.Comments)
               .Where(post => !post.IsDeleted)
               .ToListAsync();
+            // Do something here
+
             await indexInstance.AddDocumentsAsync(Mapper.Map<List<PostResponseModel>>(posts));
             break;
 
