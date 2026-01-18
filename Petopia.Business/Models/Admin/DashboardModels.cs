@@ -9,7 +9,6 @@ namespace Petopia.Business.Models.Admin
     public int BlogNumber { get; set; }
     public int ActiveRate { get; set; }
     public List<int> PetData { get; set; } = null!;
-    public List<int> AdoptionData { get; set; } = null!;
     public List<int> BlogData { get; set; } = null!;
   }
 

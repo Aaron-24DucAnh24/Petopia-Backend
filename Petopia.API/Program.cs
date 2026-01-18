@@ -17,28 +17,28 @@ builder.Services.AddBackgroundServices(builder.Configuration);
 
 builder.Logging.ClearProviders();
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    .Enrich.FromLogContext()
-    .WriteTo.File(
-        path: Petopia.Business.Constants.LOG_PATH_INFO,
-        rollingInterval: RollingInterval.Day,
-        restrictedToMinimumLevel: LogEventLevel.Information,
-        outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
-    )
-    .WriteTo.File(
-        path: Petopia.Business.Constants.LOG_PATH_WARNING,
-        rollingInterval: RollingInterval.Day,
-        restrictedToMinimumLevel: LogEventLevel.Warning,
-        outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
-    )
-    .WriteTo.File(
-        path: Petopia.Business.Constants.LOG_PATH_ERROR,
-        rollingInterval: RollingInterval.Day,
-        restrictedToMinimumLevel: LogEventLevel.Error,
-        outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
-    )
-    .CreateLogger();
+  .MinimumLevel.Information()
+  .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+  .Enrich.FromLogContext()
+  .WriteTo.File(
+    path: Petopia.Business.Constants.LOG_PATH_INFO,
+    rollingInterval: RollingInterval.Day,
+    restrictedToMinimumLevel: LogEventLevel.Information,
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+  )
+  .WriteTo.File(
+    path: Petopia.Business.Constants.LOG_PATH_WARNING,
+    rollingInterval: RollingInterval.Day,
+    restrictedToMinimumLevel: LogEventLevel.Warning,
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+  )
+  .WriteTo.File(
+    path: Petopia.Business.Constants.LOG_PATH_ERROR,
+    rollingInterval: RollingInterval.Day,
+    restrictedToMinimumLevel: LogEventLevel.Error,
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+  )
+  .CreateLogger();
 builder.Host.UseSerilog();
 
 WebApplication app = builder.Build();

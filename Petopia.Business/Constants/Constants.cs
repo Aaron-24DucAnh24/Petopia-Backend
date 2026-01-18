@@ -57,7 +57,6 @@ namespace Petopia.Business
     // Meili search index
     public const string MEILISEARCH_INDEX_PET = "pet";
     public const string MEILISEARCH_INDEX_POST = "post";
-    public const string MEILISEARCH_INDEX_USER = "user";
     public const string MEILISEARCH_INDEX_BLOG = "blog";
 
     // Log configuration
@@ -65,5 +64,11 @@ namespace Petopia.Business
     public const string LOG_PATH_WARNING = "Logs/Warning.log";
     public const string LOG_PATH_ERROR = "Logs/Error.log";
     public const string LOG_OUTPUT_TEMPLATE = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}";
+
+    // Cache key
+    public const string CACHE_KEY_PROVINCES = "provinces";
+
+    // Cache time
+    public const double CACHE_TIME_LOCATION = (double)30 / 60 / 24;
   }
 }

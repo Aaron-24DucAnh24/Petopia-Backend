@@ -34,7 +34,6 @@
     <None Remove="Models\Post\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Adoption\" />
     <Folder Include="Models\Notification\" />
     <Folder Include="Models\Blog\" />
     <Folder Include="Models\Comment\" />

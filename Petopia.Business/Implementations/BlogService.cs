@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
@@ -12,16 +13,19 @@ namespace Petopia.Business.Implementations
   {
     private readonly int ADVERTISEMENT_COUNT = 5;
 
+    private readonly ISearchEngineService _searchEngineService;
+
     public BlogService(
       IServiceProvider provider,
       ILogger<BlogService> logger
     ) : base(provider, logger)
     {
+      _searchEngineService = provider.GetRequiredService<ISearchEngineService>();
     }
 
     public async Task<Guid> CreateBlogAsync(CreateBlogRequestModel request)
     {
-      Blog blog = await UnitOfWork.Blogs.CreateAsync(new Blog()
+      var blog = await UnitOfWork.Blogs.CreateAsync(new Blog()
       {
         Id = Guid.NewGuid(),
         Title = request.Title,
@@ -34,12 +38,23 @@ namespace Petopia.Business.Implementations
         IsUpdatedAt = DateTimeOffset.Now,
       });
       await UnitOfWork.SaveChangesAsync();
+
+      var createdBlog = await UnitOfWork.Blogs
+        .Where(x => x.Id == blog.Id)
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
+        .FirstOrDefaultAsync();
+      if (createdBlog is not null)
+      {
+        await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_BLOG, Mapper.Map<BlogSearchModel>(createdBlog));
+      }
+
       return blog.Id;
     }
 
     public async Task<bool> DeleteBlogAsync(Guid id)
     {
-      Blog? blog = await UnitOfWork.Blogs
+      var blog = await UnitOfWork.Blogs
         .AsTracking()
         .Where(b => b.Id == id && b.UserId == UserContext.Id && !b.IsHidden)
         .FirstOrDefaultAsync()
@@ -47,27 +62,30 @@ namespace Petopia.Business.Implementations
       blog.IsHidden = true;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
+
+      await _searchEngineService.DeleteAsync(Constants.MEILISEARCH_INDEX_BLOG, blog.Id.ToString());
+
       return true;
     }
 
     public async Task<List<BlogResponseModel>> GetAdvertisementAsync()
     {
-      List<Blog> blogs = await UnitOfWork.Blogs
-      .Where(b => b.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
-      .Where(b => !b.IsHidden)
-      .ToListAsync();
-
-      List<Blog> returnBlogs = blogs
+      var blogs = await UnitOfWork.Blogs
+        .Where(b => b.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
+        .Where(b => !b.IsHidden)
+        .ToListAsync();
+      var returnBlogs = blogs
         .OrderBy(x => Guid.NewGuid())
         .Take(blogs.Count >= ADVERTISEMENT_COUNT ? ADVERTISEMENT_COUNT : blogs.Count)
         .ToList();
+      var result = Mapper.Map<List<BlogResponseModel>>(returnBlogs);
 
-      return Mapper.Map<List<BlogResponseModel>>(returnBlogs);
+      return result;
     }
 
     public async Task<BlogDetailResponseModel> GetBlogByIdAsync(Guid id)
     {
-      Blog blog = await UnitOfWork.Blogs
+      var blog = await UnitOfWork.Blogs
         .AsTracking()
         .Include(x => x.User)
         .ThenInclude(x => x.UserOrganizationAttributes)
@@ -78,50 +96,20 @@ namespace Petopia.Business.Implementations
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
 
-      return Mapper.Map<BlogDetailResponseModel>(blog);
+      var result = Mapper.Map<BlogDetailResponseModel>(blog);
+
+      return result;
     }
 
     public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsAsync(PaginationRequestModel<BlogFilterModel> request)
     {
-      IQueryable<Blog> query = UnitOfWork.Blogs
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Where(x => !x.IsHidden)
-        .AsQueryable();
-      if (request.Filter.Category != null)
-      {
-        query = query.Where(x => x.Category == request.Filter.Category);
-      }
-      if (!string.IsNullOrEmpty(request.OrderBy))
-      {
-        query = request.OrderBy == Constants.SORT_KEY_NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
-      }
-
-      return await PagingAsync<BlogResponseModel, Blog>(query, request);
-    }
-
-    public async Task<PaginationResponseModel<BlogResponseModel>> GetBlogsByUserIdAsync(PaginationRequestModel request)
-    {
-      IQueryable<Blog> query = UnitOfWork.Blogs
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Where(x => !x.IsHidden && x.UserId == UserContext.Id)
-        .AsQueryable();
-      if (!string.IsNullOrEmpty(request.OrderBy))
-      {
-        query = request.OrderBy == Constants.SORT_KEY_NEWEST
-        ? query.OrderByDescending(x => x.IsCreatedAt)
-        : query.OrderByDescending(x => x.View);
-      }
-
-      return await PagingAsync<BlogResponseModel, Blog>(query, request);
+      var result = await _searchEngineService.SearchAsync<BlogResponseModel, BlogFilterModel, BlogSearchModel>(Constants.MEILISEARCH_INDEX_BLOG, request);
+      return result;
     }
 
     public async Task<BlogDetailResponseModel> UpdateBlogAsync(UpdateBlogRequestModel request)
     {
-      Blog blog = await UnitOfWork.Blogs
+      var blog = await UnitOfWork.Blogs
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Id == request.Id)
         ?? throw new BlogNotFoundException();
@@ -134,7 +122,10 @@ namespace Petopia.Business.Implementations
       blog.IsUpdatedAt = DateTimeOffset.Now;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
-      return Mapper.Map<BlogDetailResponseModel>(blog);
+
+      var result = Mapper.Map<BlogDetailResponseModel>(blog);
+
+      return result;
     }
   }
 }

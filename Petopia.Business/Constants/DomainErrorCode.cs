@@ -18,11 +18,6 @@ namespace Petopia.Business
     // Pet
     public const int NOT_FOUND_PET = 11001;
 
-    // Adoption form
-    public const int NOT_FOUND_FORM = 12001;
-    public const int ADOPT_OWNED_PET = 12002;
-    public const int READOPT_PET = 12003;
-
     // Blog
     public const int NOT_FOUND_BLOG = 13001;
 

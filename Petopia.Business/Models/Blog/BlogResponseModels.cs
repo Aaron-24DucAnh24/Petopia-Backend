@@ -27,5 +27,11 @@ namespace Petopia.Business.Models.Blog
     public BlogCategory Category { get; set; }
     public string UserName { get; set; } = null!;
   }
+
+  public class BlogSearchModel : BlogResponseModel
+  {
+    public int View { get; set; }
+    public DateTimeOffset IsCreatedAt { get; set; }
+  }
 }
 

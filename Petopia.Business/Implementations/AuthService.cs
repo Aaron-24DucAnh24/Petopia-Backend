@@ -175,7 +175,7 @@ namespace Petopia.Business.Implementations
       {
         [ACCESS_TOKEN] = token,
       });
-      if (result == null || !result.Error.IsNullOrEmpty())
+      if ((result == null) || (result.Error is not null))
       {
         throw new InvalidGoogleTokenException();
       }

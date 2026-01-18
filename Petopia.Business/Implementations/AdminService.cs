@@ -107,7 +107,6 @@ namespace Petopia.Business.Implementations
 
       List<int> petData = new();
       List<int> blogData = new();
-      List<int> adoptionData = new();
       List<Task> tasks = new();
       int finalDay = time.Month == DateTime.Today.Month
         ? DateTime.Today.Day
@@ -128,7 +127,6 @@ namespace Petopia.Business.Implementations
         ActiveRate = (int)(activeUserNumber / (float)(individualNumber + organizationNumber) * 100),
         PetData = petData,
         BlogData = blogData,
-        AdoptionData = adoptionData,
       };
     }
 
