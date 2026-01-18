@@ -22,7 +22,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<PostResponseModel> CreatePostAsync(CreatePostRequestModel request)
     {
-      var post = await UnitOfWork.Posts.CreateAsync(new Post()
+      var post = await UnitOfWork.Posts.CreateAsync(new Post
       {
         Id = Guid.NewGuid(),
         CreatorId = UserContext.Id,
@@ -32,7 +32,7 @@ namespace Petopia.Business.Implementations
 
       foreach (var image in request.Images)
       {
-        await UnitOfWork.Medias.CreateAsync(new Media()
+        await UnitOfWork.Medias.CreateAsync(new Media
         {
           Id = Guid.NewGuid(),
           PostId = post.Id,
@@ -49,9 +49,7 @@ namespace Petopia.Business.Implementations
       result.UserName = userContext.Name;
       result.UserImage = userContext.Image;
 
-      await _searchEngineService.InsertUpdateAsync(
-        Constants.MEILISEARCH_INDEX_POST,
-        result);
+      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_POST, result);
 
       return result;
     }
@@ -87,7 +85,7 @@ namespace Petopia.Business.Implementations
       else
       {
         post.Like += 1;
-        await UnitOfWork.Likes.CreateAsync(new Like()
+        await UnitOfWork.Likes.CreateAsync(new Like
         {
           Id = Guid.NewGuid(),
           PostId = postId,
@@ -101,4 +99,3 @@ namespace Petopia.Business.Implementations
     }
   }
 }
-

@@ -47,7 +47,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<CreatePetResponseModel> CreatePetAsync(CreatePetRequestModel model)
     {
-      var pet = await UnitOfWork.Pets.CreateAsync(new Pet()
+      var pet = await UnitOfWork.Pets.CreateAsync(new Pet
       {
         Id = Guid.NewGuid(),
         Name = model.Name,
@@ -67,7 +67,7 @@ namespace Petopia.Business.Implementations
 
       foreach (var image in model.Images)
       {
-        UnitOfWork.Medias.Create(new Media()
+        UnitOfWork.Medias.Create(new Media
         {
           Id = Guid.NewGuid(),
           PetId = pet.Id,
@@ -78,7 +78,7 @@ namespace Petopia.Business.Implementations
 
       foreach (var vaccineId in model.VaccineIds)
       {
-        UnitOfWork.PetVaccines.Create(new PetVaccine()
+        UnitOfWork.PetVaccines.Create(new PetVaccine
         {
           PetId = pet.Id,
           VaccineId = vaccineId,
@@ -146,7 +146,7 @@ namespace Petopia.Business.Implementations
       var result = Mapper.Map<PetDetailsResponseModel>(pet);
       result.Address = pet.Owner.Address;
       result.SeeMore = Mapper.Map<List<PetResponseModel>>(seeMore);
-      result.Vaccines = pet.PetVaccines.Select(x => new VaccineResponseModel()
+      result.Vaccines = pet.PetVaccines.Select(x => new VaccineResponseModel
       {
         Name = x.Vaccine.Name,
         Id = x.Vaccine.Id
@@ -200,7 +200,7 @@ namespace Petopia.Business.Implementations
       {
         if (!images.Select(x => x.Url).ToList().Contains(image))
         {
-          UnitOfWork.Medias.Create(new Media()
+          UnitOfWork.Medias.Create(new Media
           {
             Id = Guid.NewGuid(),
             PetId = pet.Id,
@@ -214,7 +214,7 @@ namespace Petopia.Business.Implementations
       {
         if (!pet.PetVaccines.Any(x => x.VaccineId == vaccineId))
         {
-          UnitOfWork.PetVaccines.Create(new PetVaccine()
+          UnitOfWork.PetVaccines.Create(new PetVaccine
           {
             PetId = pet.Id,
             VaccineId = vaccineId,
@@ -235,9 +235,7 @@ namespace Petopia.Business.Implementations
       var cacheKey = GetBreedCacheKey(model.Species, isAvalable: true);
       CacheManager.Instance.Remove(cacheKey);
 
-      await _searchEngineService.InsertUpdateAsync(
-        Constants.MEILISEARCH_INDEX_PET,
-        Mapper.Map<PetSearchModel>(pet));
+      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_PET, Mapper.Map<PetSearchModel>(pet));
 
       var result = Mapper.Map<UpdatePetResponseModel>(model);
       result.Images = model.Images;

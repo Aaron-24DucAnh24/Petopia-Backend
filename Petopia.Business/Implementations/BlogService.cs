@@ -46,9 +46,7 @@ namespace Petopia.Business.Implementations
         .FirstOrDefaultAsync();
       if (createdBlog is not null)
       {
-        await _searchEngineService.InsertUpdateAsync(
-          Constants.MEILISEARCH_INDEX_BLOG,
-          Mapper.Map<BlogSearchModel>(createdBlog));
+        await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_BLOG, Mapper.Map<BlogSearchModel>(createdBlog));
       }
 
       return blog.Id;
