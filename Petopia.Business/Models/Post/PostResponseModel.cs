@@ -12,7 +12,6 @@
     public bool IsLiked { get; set; }
     public DateTimeOffset IsCreatedAt { set; get; }
     public List<string> Images { get; set; } = null!;
-    public int DisplayIndex { get; set; }
   }
 }
 
