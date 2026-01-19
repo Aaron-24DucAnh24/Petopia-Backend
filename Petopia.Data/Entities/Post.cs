@@ -11,7 +11,7 @@ namespace Petopia.Data.Entities
     public int Like { get; set; }
     public DateTimeOffset IsCreatedAt { set; get; }
     public bool IsDeleted { set; get; }
-    public int DisplayIndex { get; set; }
+    public DateTimeOffset LastInteractingDate { get; set; }
 
     public User User { get; set; }
     public List<Media> Images { get; set; }

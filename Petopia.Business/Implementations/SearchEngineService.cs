@@ -5,7 +5,6 @@ using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Pet;
-using Petopia.Business.Models.Post;
 using Petopia.Business.Models.Setting;
 
 namespace Petopia.Business.Implementations
@@ -67,46 +66,12 @@ namespace Petopia.Business.Implementations
 
       return result;
     }
-    public async ValueTask<PaginationResponseModel<TResult>> SearchAsync<TResult, TSearch>(
-      string index,
-      PaginationRequestModel request)
-    {
-      var indexInstance = _meilisearchClient.Index(index);
-      var sortString = CreateSortString(request.OrderBy);
-      var totalNumber = (await indexInstance.SearchAsync<TSearch>(
-        string.Empty,
-        new SearchQuery
-        {
-          Limit = 0,
-        })).Hits.Count;
-
-      var data = (await indexInstance.SearchAsync<TSearch>(
-        string.Empty,
-        new SearchQuery
-        {
-          Limit = request.PageSize,
-          Offset = request.PageIndex - 1,
-          Sort = sortString,
-        })).Hits.ToList();
-
-      var result = new PaginationResponseModel<TResult>
-      {
-        TotalNumber = 0,
-        PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
-        PageIndex = request.PageIndex,
-        PageSize = request.PageSize,
-        Data = Mapper.Map<List<TResult>>(data),
-      };
-
-      return result;
-    }
 
     public async ValueTask SyncDataAsync(bool isClean = false)
     {
       var indexes = new string[]
       {
         Constants.MEILISEARCH_INDEX_PET,
-        Constants.MEILISEARCH_INDEX_POST,
         Constants.MEILISEARCH_INDEX_BLOG,
       };
 
@@ -132,17 +97,6 @@ namespace Petopia.Business.Implementations
             await indexInstance.AddDocumentsAsync(Mapper.Map<List<PetSearchModel>>(pets));
             break;
 
-          case Constants.MEILISEARCH_INDEX_POST:
-            var posts = await UnitOfWork.Posts
-              .Include(x => x.Images)
-              .Include(x => x.User)
-              .ThenInclude(x => x.UserOrganizationAttributes)
-              .Include(x => x.Comments)
-              .Where(post => !post.IsDeleted)
-              .ToListAsync();
-            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PostResponseModel>>(posts));
-            break;
-
           case Constants.MEILISEARCH_INDEX_BLOG:
             var blogs = await UnitOfWork.Blogs
               .Where(blog => !blog.IsHidden)
@@ -163,6 +117,7 @@ namespace Petopia.Business.Implementations
       return result.Type == TaskInfoType.DocumentDeletion;
     }
 
+    #region private
     private async Task DeleteUnusedIndexesAsync(string[] allowedIndexes)
     {
       var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
@@ -234,5 +189,6 @@ namespace Petopia.Business.Implementations
         _ => null
       };
     }
+    #endregion
   }
 }

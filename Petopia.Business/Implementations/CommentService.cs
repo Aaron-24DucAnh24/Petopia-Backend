@@ -24,7 +24,7 @@ namespace Petopia.Business.Implementations
           .FirstOrDefault(p => p.Id == request.PostId);
         if (post is not null)
         {
-          post.DisplayIndex = PostService.CreatePostDisplayIndex(post);
+          post.LastInteractingDate = DateTimeOffset.Now;
         }
       }
 

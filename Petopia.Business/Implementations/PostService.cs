@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
@@ -12,14 +11,11 @@ namespace Petopia.Business.Implementations
 {
   public class PostService : BaseService, IPostService
   {
-    private readonly ISearchEngineService _searchEngineService;
-
     public PostService(
       IServiceProvider provider,
       ILogger<PostService> logger)
     : base(provider, logger)
     {
-      _searchEngineService = provider.GetRequiredService<ISearchEngineService>();
     }
 
     public async Task<PostResponseModel> CreatePostAsync(CreatePostRequestModel request)
@@ -51,8 +47,6 @@ namespace Petopia.Business.Implementations
       result.UserName = userContext.Name;
       result.UserImage = userContext.Image;
 
-      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_POST, result);
-
       return result;
     }
 
@@ -65,8 +59,6 @@ namespace Petopia.Business.Implementations
       await UnitOfWork.Comments.DeleteAllAsync(x => x.PostId == id);
       UnitOfWork.Posts.Delete(post);
       await UnitOfWork.SaveChangesAsync();
-
-      await _searchEngineService.DeleteAsync(Constants.MEILISEARCH_INDEX_POST, post.Id.ToString());
 
       return true;
     }
@@ -95,7 +87,7 @@ namespace Petopia.Business.Implementations
         });
       }
 
-      post.DisplayIndex = CreatePostDisplayIndex(post);
+      post.LastInteractingDate = DateTimeOffset.Now;
       await UnitOfWork.SaveChangesAsync();
 
       return post.Like;
@@ -108,7 +100,8 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Comments)
         .Include(x => x.User)
         .ThenInclude(x => x.UserOrganizationAttributes)
-        .Where(post => !post.IsDeleted)
+        .Where(x => !x.IsDeleted)
+        .OrderByDescending(x => x.LastInteractingDate)
         .AsQueryable();
       var result = await PagingAsync<PostResponseModel, Post>(posts, request);
       var userContext = await GetUserContextAsync(UserContext.Id);
@@ -128,18 +121,10 @@ namespace Petopia.Business.Implementations
         .Where(post => (post.Id == postId) && !post.IsDeleted)
         .FirstOrDefaultAsync()
         ?? throw new DomainException(message: string.Empty);
-      post.DisplayIndex = CreatePostDisplayIndex(post);
+      post.LastInteractingDate = DateTimeOffset.Now;
       UnitOfWork.SaveChange();
 
       return true;
     }
-
-    #region
-    internal static int CreatePostDisplayIndex(Post post)
-    {
-      // TO DO
-      return 0;
-    }
-    #endregion
   }
 }
