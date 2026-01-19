@@ -1,4 +1,4 @@
-﻿#nullable disable 
+﻿#nullable disable
 
 namespace Petopia.Data.Entities
 {
@@ -11,6 +11,7 @@ namespace Petopia.Data.Entities
     public int Like { get; set; }
     public DateTimeOffset IsCreatedAt { set; get; }
     public bool IsDeleted { set; get; }
+    public DateTimeOffset LastInteractingDate { get; set; }
 
     public User User { get; set; }
     public List<Media> Images { get; set; }

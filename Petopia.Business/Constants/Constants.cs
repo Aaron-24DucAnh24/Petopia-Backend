@@ -56,7 +56,6 @@ namespace Petopia.Business
 
     // Meili search index
     public const string MEILISEARCH_INDEX_PET = "pet";
-    public const string MEILISEARCH_INDEX_POST = "post";
     public const string MEILISEARCH_INDEX_BLOG = "blog";
 
     // Log configuration

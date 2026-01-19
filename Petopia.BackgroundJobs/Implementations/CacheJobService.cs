@@ -24,7 +24,7 @@ namespace Petopia.BackgroundJobs.Implementations
       await ServiceProvider.GetRequiredService<IPetService>().GetBreedsAsync(PetSpecies.Dog);
       await ServiceProvider.GetRequiredService<IPetService>().GetAvailableBreedsAsync(PetSpecies.Cat);
       await ServiceProvider.GetRequiredService<IPetService>().GetAvailableBreedsAsync(PetSpecies.Dog);
-      await ServiceProvider.GetRequiredService<ILocationService>().GetLocation(new LocationRequestModel()
+      await ServiceProvider.GetRequiredService<ILocationService>().GetLocation(new LocationRequestModel
       {
         Level = 1,
       });

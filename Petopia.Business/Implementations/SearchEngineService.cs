@@ -5,7 +5,6 @@ using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Pet;
-using Petopia.Business.Models.Post;
 using Petopia.Business.Models.Setting;
 
 namespace Petopia.Business.Implementations
@@ -73,7 +72,6 @@ namespace Petopia.Business.Implementations
       var indexes = new string[]
       {
         Constants.MEILISEARCH_INDEX_PET,
-        Constants.MEILISEARCH_INDEX_POST,
         Constants.MEILISEARCH_INDEX_BLOG,
       };
 
@@ -99,14 +97,6 @@ namespace Petopia.Business.Implementations
             await indexInstance.AddDocumentsAsync(Mapper.Map<List<PetSearchModel>>(pets));
             break;
 
-          case Constants.MEILISEARCH_INDEX_POST:
-            var posts = await UnitOfWork.Posts
-              .Include(x => x.Images)
-              .Where(post => !post.IsDeleted)
-              .ToListAsync();
-            await indexInstance.AddDocumentsAsync(Mapper.Map<List<PostResponseModel>>(posts));
-            break;
-
           case Constants.MEILISEARCH_INDEX_BLOG:
             var blogs = await UnitOfWork.Blogs
               .Where(blog => !blog.IsHidden)
@@ -127,6 +117,7 @@ namespace Petopia.Business.Implementations
       return result.Type == TaskInfoType.DocumentDeletion;
     }
 
+    #region private
     private async Task DeleteUnusedIndexesAsync(string[] allowedIndexes)
     {
       var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
@@ -198,5 +189,6 @@ namespace Petopia.Business.Implementations
         _ => null
       };
     }
+    #endregion
   }
 }
