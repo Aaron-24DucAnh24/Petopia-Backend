@@ -95,17 +95,28 @@ namespace Petopia.Business.Implementations
         });
       }
 
+      post.DisplayIndex = CreatePostDisplayIndex(post);
       await UnitOfWork.SaveChangesAsync();
-
-      // do something here
 
       return post.Like;
     }
 
     public async Task<PaginationResponseModel<PostResponseModel>> GetPostsAsync(PaginationRequestModel request)
     {
-      var result = await _searchEngineService.SearchAsync<PostResponseModel, PostResponseModel>(Constants.MEILISEARCH_INDEX_POST, request);
-      // Do something here
+      var posts = UnitOfWork.Posts
+        .Include(x => x.Images)
+        .Include(x => x.Comments)
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
+        .Where(post => !post.IsDeleted)
+        .AsQueryable();
+      var result = await PagingAsync<PostResponseModel, Post>(posts, request);
+      var userContext = await GetUserContextAsync(UserContext.Id);
+      foreach(var post in result.Data)
+      {
+        post.IsLiked = UnitOfWork.Likes.Any(like => (like.UserId == userContext.Id) && (like.PostId == post.Id));
+        post.CommentCount = UnitOfWork.Comments.Count(x => x.PostId == post.Id);
+      }
 
       return result;
     }
@@ -117,12 +128,18 @@ namespace Petopia.Business.Implementations
         .Where(post => (post.Id == postId) && !post.IsDeleted)
         .FirstOrDefaultAsync()
         ?? throw new DomainException(message: string.Empty);
-      post.View += 1;
+      post.DisplayIndex = CreatePostDisplayIndex(post);
       UnitOfWork.SaveChange();
-
-      // do something here
 
       return true;
     }
+
+    #region
+    internal static int CreatePostDisplayIndex(Post post)
+    {
+      // TO DO
+      return 0;
+    }
+    #endregion
   }
 }

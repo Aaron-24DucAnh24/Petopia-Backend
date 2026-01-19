@@ -140,8 +140,6 @@ namespace Petopia.Business.Implementations
               .Include(x => x.Comments)
               .Where(post => !post.IsDeleted)
               .ToListAsync();
-            // Do something here
-
             await indexInstance.AddDocumentsAsync(Mapper.Map<List<PostResponseModel>>(posts));
             break;
 
