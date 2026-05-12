@@ -49,7 +49,7 @@ namespace Petopia.Data.Configurations
       builder
         .HasMany(x => x.Posts)
         .WithOne(x => x.User)
-        .HasForeignKey(x => x.UserId); ;
+        .HasForeignKey(x => x.UserId);
     }
   }
 }

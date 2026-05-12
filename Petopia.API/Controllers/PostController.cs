@@ -19,11 +19,18 @@ namespace Petopia.API.Controllers
       _postService = postService;
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<PaginationResponseModel<PostResponseModel>>> GetPosts([FromBody] PaginationRequestModel request)
+    [HttpPost("Get")]
+    [AllowAnonymous]
+    public async Task<ActionResult<PaginationResponseModel<PostResponseModel>>> GetPosts([FromBody] PaginationRequestModel<GetPostsFilterModel> request)
     {
       return ResponseUtils.OkResult(await _postService.GetPostsAsync(request));
+    }
+
+    [HttpGet("{postId}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<PostResponseModel>> GetPost(Guid postId)
+    {
+      return ResponseUtils.OkResult(await _postService.GetPostAsync(postId));
     }
 
     [HttpPut("Like/{postId}")]

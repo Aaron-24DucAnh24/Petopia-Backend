@@ -3,7 +3,7 @@
   public class PostResponseModel
   {
     public Guid Id { get; set; }
-    public Guid CreatorId { get; set; }
+    public Guid UserId { get; set; }
     public string Content { set; get; } = null!;
     public string UserImage { set; get; } = null!;
     public string UserName { set; get; } = null!;

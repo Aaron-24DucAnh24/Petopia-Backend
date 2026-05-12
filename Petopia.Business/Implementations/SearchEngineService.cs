@@ -74,12 +74,17 @@ namespace Petopia.Business.Implementations
         Constants.MEILISEARCH_INDEX_PET,
         Constants.MEILISEARCH_INDEX_BLOG,
       };
-
-      await DeleteUnusedIndexesAsync(indexes);
+      var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
+      foreach (var index in allIndexes.Results)
+      {
+        await _meilisearchClient.DeleteIndexAsync(index.Uid);
+      }
 
       foreach (var index in indexes)
       {
         var indexInstance = _meilisearchClient.Index(index);
+        await indexInstance.UpdateSortableAttributesAsync(new[] { "IsCreatedAt", "View" });
+
         if (isClean)
         {
           await indexInstance.DeleteAllDocumentsAsync();
@@ -118,19 +123,6 @@ namespace Petopia.Business.Implementations
     }
 
     #region private
-    private async Task DeleteUnusedIndexesAsync(string[] allowedIndexes)
-    {
-      var allIndexes = await _meilisearchClient.GetAllIndexesAsync();
-
-      foreach (var index in allIndexes.Results)
-      {
-        if (!allowedIndexes.Contains(index.Uid))
-        {
-          await _meilisearchClient.DeleteIndexAsync(index.Uid);
-        }
-      }
-    }
-
     private static string CreateFilterString<T>(T filter)
     {
       var filters = new List<string>();
