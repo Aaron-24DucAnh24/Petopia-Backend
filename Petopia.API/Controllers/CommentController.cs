@@ -38,6 +38,13 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _commentService.CreateCommentAsync(request));
     }
 
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<CommentResponseModel>> UpdateComment([FromBody] UpdateCommentRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _commentService.UpdateCommentAsync(request));
+    }
+
     [HttpDelete("{id}")]
     [Authorize]
     public async Task<ActionResult<bool>> DeleteComment(Guid id)

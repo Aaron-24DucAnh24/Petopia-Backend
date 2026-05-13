@@ -21,6 +21,10 @@ namespace Petopia.Business
     // Blog
     public const int NOT_FOUND_BLOG = 13001;
 
+    // Comment
+    public const int NOT_FOUND_COMMENT = 15001;
+    public const int UNAUTHORIZED_COMMENT = 15002;
+
     // Payment
     public const int CANNOT_CREATE_TOKEN = 14001;
     public const int CANNOT_CREATE_PAYMENT = 14002;

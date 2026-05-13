@@ -36,3 +36,4 @@
 
 certificate.pfx
 Petopia.API/Logs
+.claude/settings.local.json
