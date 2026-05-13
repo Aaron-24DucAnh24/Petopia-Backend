@@ -57,7 +57,6 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Comments)
         .Include(x => x.User)
         .ThenInclude(x => x.UserIndividualAttributes)
-        .OrderByDescending(x => x.LastInteractingDate)
         .FirstOrDefaultAsync(x => (x.Id == postId) && !x.IsDeleted)
         ?? throw new DomainException("No post found.");
       var result = Mapper.Map<PostResponseModel>(post);
@@ -101,19 +100,6 @@ namespace Petopia.Business.Implementations
       return post.Like;
     }
 
-    public async Task<bool> ViewPostAsync(Guid postId)
-    {
-      var post = await UnitOfWork.Posts
-        .AsTracking()
-        .Where(post => (post.Id == postId) && !post.IsDeleted)
-        .FirstOrDefaultAsync()
-        ?? throw new DomainException(message: string.Empty);
-      post.LastInteractingDate = DateTimeOffset.Now;
-      UnitOfWork.SaveChange();
-
-      return true;
-    }
-
     public async Task<PostResponseModel> CreatePostAsync(CreatePostRequestModel request)
     {
       var post = await UnitOfWork.Posts.CreateAsync(new Post
@@ -122,6 +108,7 @@ namespace Petopia.Business.Implementations
         UserId = UserContext.Id,
         Content = request.Content,
         IsCreatedAt = DateTimeOffset.Now,
+        LastInteractingDate = DateTimeOffset.Now,
       });
 
       foreach (var image in request.Images)

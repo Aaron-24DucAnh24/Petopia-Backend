@@ -40,13 +40,6 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _postService.LikePostAsync(postId));
     }
 
-    [HttpPut("View/{postId}")]
-    [Authorize]
-    public async Task<ActionResult<bool>> ViewPost(Guid postId)
-    {
-      return ResponseUtils.OkResult(await _postService.ViewPostAsync(postId));
-    }
-
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<PostResponseModel>> CreatePost([FromBody] CreatePostRequestModel request)
