@@ -135,12 +135,13 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> DeletePostAsync(Guid id)
     {
-      var post = await UnitOfWork.Posts.FirstOrDefaultAsync(x => x.Id == id);
-      if (post is null) return false;
+      var post = await UnitOfWork.Posts
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserContext.Id && !x.IsDeleted)
+        ?? throw new PostNotFoundException();
 
-      await UnitOfWork.Medias.DeleteAllAsync(x => x.PostId == id);
-      await UnitOfWork.Comments.DeleteAllAsync(x => x.PostId == id);
-      UnitOfWork.Posts.Delete(post);
+      post.IsDeleted = true;
+      UnitOfWork.Posts.Update(post);
       await UnitOfWork.SaveChangesAsync();
 
       return true;

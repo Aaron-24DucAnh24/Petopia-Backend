@@ -18,6 +18,9 @@ namespace Petopia.Business
     // Pet
     public const int NOT_FOUND_PET = 11001;
 
+    // Post
+    public const int NOT_FOUND_POST = 12001;
+
     // Blog
     public const int NOT_FOUND_BLOG = 13001;
 
