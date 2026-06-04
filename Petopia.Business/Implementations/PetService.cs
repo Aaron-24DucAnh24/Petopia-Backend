@@ -90,7 +90,7 @@ namespace Petopia.Business.Implementations
       var cacheKey = GetBreedCacheKey(model.Species, isAvalable: true);
       CacheManager.Instance.Remove(cacheKey);
 
-      var createdPet = UnitOfWork.Pets
+      var createdPet = await UnitOfWork.Pets
         .Include(x => x.Images)
         .Include(x => x.Owner)
         .FirstOrDefaultAsync(x => x.Id == pet.Id);

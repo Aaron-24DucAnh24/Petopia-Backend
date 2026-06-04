@@ -29,9 +29,9 @@ namespace Petopia.Business.Implementations
         .Where(x => !x.IsDeleted)
         .OrderByDescending(x => x.LastInteractingDate)
         .AsQueryable();
-      if (request.Filter.UserId != null)
+      if (request.Filter.UserId is Guid userId)
       {
-        posts = posts.Where(x => x.UserId == request.Filter.UserId);
+        posts = posts.Where(x => x.UserId == userId);
       }
 
       var result = await PagingAsync<PostResponseModel, Post>(posts, request);
