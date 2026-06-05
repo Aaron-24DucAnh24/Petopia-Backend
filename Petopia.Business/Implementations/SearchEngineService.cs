@@ -83,7 +83,7 @@ namespace Petopia.Business.Implementations
       foreach (var index in indexes)
       {
         var indexInstance = _meilisearchClient.Index(index);
-        await indexInstance.UpdateSortableAttributesAsync(new[] { "IsCreatedAt", "View" });
+        await indexInstance.UpdateSortableAttributesAsync(new[] { "isCreatedAt", "view" });
 
         if (isClean)
         {
@@ -94,6 +94,11 @@ namespace Petopia.Business.Implementations
         switch (indexInstance.Uid)
         {
           case Constants.MEILISEARCH_INDEX_PET:
+            await indexInstance.UpdateFilterableAttributesAsync(new[]
+            {
+              "color", "species", "size", "isVaccinated",
+              "isSterillized", "breed", "sex", "age"
+            });
             var pets = await UnitOfWork.Pets
               .Include(x => x.Images)
               .Include(x => x.Owner)
@@ -103,6 +108,10 @@ namespace Petopia.Business.Implementations
             break;
 
           case Constants.MEILISEARCH_INDEX_BLOG:
+            await indexInstance.UpdateFilterableAttributesAsync(new[]
+            {
+              "category", "userId"
+            });
             var blogs = await UnitOfWork.Blogs
               .Where(blog => !blog.IsHidden)
               .Include(x => x.User)
@@ -136,6 +145,7 @@ namespace Petopia.Business.Implementations
 
         if (value is System.Collections.IEnumerable list)
         {
+          var fieldName = char.ToLower(prop.Name[0]) + prop.Name[1..];
           var terms = new List<string>();
           foreach (var item in list)
           {
@@ -143,11 +153,12 @@ namespace Petopia.Business.Implementations
 
             if (item is string s)
             {
-              terms.Add($"{prop.Name} = \"{Escape(s)}\"");
+              terms.Add($"{fieldName} = \"{Escape(s)}\"");
             }
             else
             {
-              terms.Add($"{prop.Name} = {item}");
+              var val = item.GetType().IsEnum ? Convert.ToInt32(item) : item;
+              terms.Add($"{fieldName} = {val}");
             }
           }
 
@@ -176,8 +187,8 @@ namespace Petopia.Business.Implementations
 
       return sort.ToLower() switch
       {
-        Constants.SORT_KEY_NEWEST => new[] { "IsCreatedAt:desc" },
-        Constants.SORT_KEY_POPULAR => new[] { "View:desc" },
+        Constants.SORT_KEY_NEWEST => new[] { "isCreatedAt:desc" },
+        Constants.SORT_KEY_POPULAR => new[] { "view:desc" },
         _ => null
       };
     }

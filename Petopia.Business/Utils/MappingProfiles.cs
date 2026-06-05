@@ -41,9 +41,7 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.OwnerImage, opt => opt.MapFrom(src => src.Owner.Image));
       CreateMap<Pet, PetSearchModel>()
         .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Images[0].Url))
-        .ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser))
-        .ForMember(dest => dest.IsVaccinated, opt => opt.MapFrom(src => src.IsVaccinated == PetDedicalStatus.Yes))
-        .ForMember(dest => dest.IsSterillized, opt => opt.MapFrom(src => src.IsSterillized == PetDedicalStatus.Yes));
+        .ForMember(dest => dest.IsOrgOwned, opt => opt.MapFrom(src => src.Owner.Role != UserRole.StandardUser));
       CreateMap<PetSearchModel, PetResponseModel>();
 
       CreateMap<Vaccine, VaccineResponseModel>();
