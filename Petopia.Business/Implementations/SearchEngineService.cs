@@ -36,20 +36,21 @@ namespace Petopia.Business.Implementations
       var indexInstance = _meilisearchClient.Index(index);
       var sortString = CreateSortString(request.OrderBy);
       var filterString = CreateFilterString(request.Filter);
-      var totalNumber = (await indexInstance.SearchAsync<TSearch>(
+      var countResult = (SearchResult<TSearch>)await indexInstance.SearchAsync<TSearch>(
         string.Empty,
         new SearchQuery
         {
           Limit = 0,
           Filter = filterString,
-        })).Hits.Count;
+        });
+      var totalNumber = countResult.EstimatedTotalHits;
 
       var data = (await indexInstance.SearchAsync<TSearch>(
         string.Empty,
         new SearchQuery
         {
           Limit = request.PageSize,
-          Offset = request.PageIndex - 1,
+          Offset = (request.PageIndex - 1) * request.PageSize,
           Sort = sortString,
           Filter = filterString,
           Q = (request.Filter as dynamic).Text,
@@ -57,7 +58,7 @@ namespace Petopia.Business.Implementations
 
       var result = new PaginationResponseModel<TResult>
       {
-        TotalNumber = 0,
+        TotalNumber = totalNumber,
         PageNumber = (int)Math.Ceiling((double)totalNumber / request.PageSize),
         PageIndex = request.PageIndex,
         PageSize = request.PageSize,
