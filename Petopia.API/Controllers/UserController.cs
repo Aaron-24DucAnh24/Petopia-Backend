@@ -100,11 +100,25 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _userService.UpgradeAccountAsync(request));
     }
 
-    [HttpGet("PreUpgrade")]
+    [HttpGet("Upgrade/Get")]
     [Authorize]
-    public async Task<ActionResult<bool>> PreUpgradeAccount()
+    public async Task<ActionResult<UserUpgradeResponseModel[]>> GetUpgradeRequests()
     {
-      return ResponseUtils.OkResult(await _userService.PreUpgradeAsync());
+      return ResponseUtils.OkResult(await _userService.GetUpgradeRequestsAsync());
+    }
+
+    [HttpGet("Upgrade/{id}")]
+    [Authorize]
+    public async Task<ActionResult<UserUpgradeResponseModel>> GetUpgradeRequest(Guid id)
+    {
+      return ResponseUtils.OkResult(await _userService.GetUpgradeRequestAsync(id));
+    }
+
+    [HttpPut("Upgrade/{id}/Cancel")]
+    [Authorize]
+    public async Task<ActionResult<bool>> CancelUpgradeRequest(Guid id)
+    {
+      return ResponseUtils.OkResult(await _userService.CancelUpgradeRequestAsync(id));
     }
   }
 }

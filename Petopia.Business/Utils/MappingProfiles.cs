@@ -76,6 +76,8 @@ namespace Petopia.Business.Utils
 
       CreateMap<UpgradeForm, ManagementUpgradeResponseModel>()
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image));
+
+      CreateMap<UpgradeForm, UserUpgradeResponseModel>();
     }
   }
 }

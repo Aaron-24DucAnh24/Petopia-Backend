@@ -243,21 +243,6 @@ namespace Petopia.Business.Implementations
 
     public async Task<bool> UpgradeAccountAsync(UpgradeAccountRequestModel request)
     {
-      if (!await PreUpgradeAsync())
-      {
-        return false;
-      }
-
-      UpgradeForm? form = await UnitOfWork.UpgradeForms
-        .AsTracking()
-        .FirstOrDefaultAsync(x => x.UserId == UserContext.Id);
-
-      if (form != null)
-      {
-        form.Status = UpgradeStatus.Pending;
-        UnitOfWork.UpgradeForms.Update(form);
-      }
-
       string address = await GetAddressAsync(
         request.ProvinceCode,
         request.DistrictCode,
@@ -270,6 +255,7 @@ namespace Petopia.Business.Implementations
         Id = Guid.NewGuid(),
         EntityName = request.EntityName,
         OrganizationName = request.OrganizationName,
+        Email = request.Email,
         Phone = request.Phone,
         PrivinceCode = request.ProvinceCode,
         DistrictCode = request.DistrictCode,
@@ -281,7 +267,6 @@ namespace Petopia.Business.Implementations
         Type = request.Type,
         Description = request.Description,
         IsCreatedAt = DateTimeOffset.Now,
-        Email = request.Email,
         UserId = UserContext.Id,
       });
 
@@ -289,14 +274,37 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
-    public async Task<bool> PreUpgradeAsync()
+    public async Task<UserUpgradeResponseModel[]> GetUpgradeRequestsAsync()
     {
-      bool invalid = await UnitOfWork.UpgradeForms.AnyAsync(x =>
-        x.UserId == UserContext.Id
-        && ((x.Status == UpgradeStatus.Pending)
-          || (x.Status == UpgradeStatus.Accepted))
-      );
-      return !invalid;
+      var requests = await UnitOfWork.UpgradeForms
+        .Where(x => x.UserId == UserContext.Id)
+        .OrderByDescending(x => x.IsCreatedAt)
+        .ToArrayAsync();
+      return requests.Select(x => Mapper.Map<UserUpgradeResponseModel>(x)).ToArray();
+    }
+
+    public async Task<UserUpgradeResponseModel> GetUpgradeRequestAsync(Guid id)
+    {
+      UpgradeForm form = await UnitOfWork.UpgradeForms
+        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserContext.Id)
+        ?? throw new UpgradeRequestNotFoundException();
+      return Mapper.Map<UserUpgradeResponseModel>(form);
+    }
+
+    public async Task<bool> CancelUpgradeRequestAsync(Guid id)
+    {
+      UpgradeForm form = await UnitOfWork.UpgradeForms
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserContext.Id)
+        ?? throw new UpgradeRequestNotFoundException();
+      if (form.Status != UpgradeStatus.Pending)
+      {
+        throw new UpgradeRequestNotPendingException();
+      }
+      form.Status = UpgradeStatus.Cancelled;
+      UnitOfWork.UpgradeForms.Update(form);
+      await UnitOfWork.SaveChangesAsync();
+      return true;
     }
 
     #region private

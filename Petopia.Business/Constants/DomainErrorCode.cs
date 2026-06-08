@@ -14,6 +14,8 @@ namespace Petopia.Business
     public const int NOT_FOUND_USER = 10008;
     public const int INCORRECT_PASSWORD = 10009;
     public const int WRONG_LOCATION_CODE = 10010;
+    public const int NOT_FOUND_UPGRADE_REQUEST = 10011;
+    public const int UPGRADE_REQUEST_NOT_PENDING = 10012;
 
     // Pet
     public const int NOT_FOUND_PET = 11001;
