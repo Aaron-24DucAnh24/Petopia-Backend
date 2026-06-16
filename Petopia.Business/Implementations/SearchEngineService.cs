@@ -25,7 +25,7 @@ namespace Petopia.Business.Implementations
     public async ValueTask<T> InsertUpdateAsync<T>(string index, T entity)
     {
       var indexInstance = _meilisearchClient.Index(index);
-      await indexInstance.AddDocumentsAsync(new[] { entity });
+      await indexInstance.AddDocumentsAsync(new[] { entity }, "id");
       return entity;
     }
 
@@ -117,9 +117,10 @@ namespace Petopia.Business.Implementations
               .Where(blog => !blog.IsHidden)
               .Include(x => x.User)
               .ThenInclude(x => x.UserOrganizationAttributes)
-              .Where(x => !x.IsHidden)
+              .Include(x => x.User)
+              .ThenInclude(x => x.UserIndividualAttributes)
               .ToListAsync();
-            await indexInstance.AddDocumentsAsync(Mapper.Map<List<BlogSearchModel>>(blogs));
+            await indexInstance.AddDocumentsAsync(Mapper.Map<List<BlogSearchModel>>(blogs), "id");
             break;
         }
       }
@@ -144,17 +145,22 @@ namespace Petopia.Business.Implementations
         var value = prop.GetValue(filter);
         if (value == null) continue;
 
-        if (value is System.Collections.IEnumerable list)
+        var fieldName = char.ToLower(prop.Name[0]) + prop.Name[1..];
+
+        if (value is string or Guid)
         {
-          var fieldName = char.ToLower(prop.Name[0]) + prop.Name[1..];
+          filters.Add($"{fieldName} = \"{Escape(value.ToString()!)}\"");
+        }
+        else if (value is System.Collections.IEnumerable list)
+        {
           var terms = new List<string>();
           foreach (var item in list)
           {
             if (item == null) continue;
 
-            if (item is string s)
+            if (item is string or Guid)
             {
-              terms.Add($"{fieldName} = \"{Escape(s)}\"");
+              terms.Add($"{fieldName} = \"{Escape(item.ToString()!)}\"");
             }
             else
             {
@@ -167,6 +173,11 @@ namespace Petopia.Business.Implementations
           {
             filters.Add($"({string.Join(" OR ", terms)})");
           }
+        }
+        else
+        {
+          var val = value.GetType().IsEnum ? Convert.ToInt32(value) : value;
+          filters.Add($"{fieldName} = {val}");
         }
       }
 

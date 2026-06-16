@@ -32,6 +32,7 @@ namespace Petopia.Business.Models.Blog
   {
     public int View { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
+    public Guid UserId { get; set; }
   }
 }
 

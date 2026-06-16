@@ -54,14 +54,14 @@ namespace Petopia.Business.Utils
 
       CreateMap<Blog, BlogDetailResponseModel>()
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image))
-        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName))
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)))
         .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
       CreateMap<Blog, BlogResponseModel>()
-        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)));
       CreateMap<Blog, ManagementBlogResponseModel>()
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image));
       CreateMap<Blog, BlogSearchModel>()
-        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserOrganizationAttributes.OrganizationName));
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)));
       CreateMap<BlogSearchModel, BlogResponseModel>();
 
       CreateMap<Post, PostResponseModel>()
@@ -78,6 +78,21 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image));
 
       CreateMap<UpgradeForm, UserUpgradeResponseModel>();
+    }
+
+    private static string GetBlogAuthorName(Blog blog)
+    {
+      if (blog.User.UserOrganizationAttributes != null)
+      {
+        return blog.User.UserOrganizationAttributes.OrganizationName;
+      }
+
+      if (blog.User.UserIndividualAttributes != null)
+      {
+        return $"{blog.User.UserIndividualAttributes.FirstName} {blog.User.UserIndividualAttributes.LastName}";
+      }
+
+      return HashUtils.DecryptString(blog.User.Email);
     }
   }
 }

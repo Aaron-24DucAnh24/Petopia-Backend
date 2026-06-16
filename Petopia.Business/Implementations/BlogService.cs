@@ -43,6 +43,8 @@ namespace Petopia.Business.Implementations
         .Where(x => x.Id == blog.Id)
         .Include(x => x.User)
         .ThenInclude(x => x.UserOrganizationAttributes)
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserIndividualAttributes)
         .FirstOrDefaultAsync();
       if (createdBlog is not null)
       {
@@ -89,12 +91,16 @@ namespace Petopia.Business.Implementations
         .AsTracking()
         .Include(x => x.User)
         .ThenInclude(x => x.UserOrganizationAttributes)
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserIndividualAttributes)
         .FirstOrDefaultAsync(x => x.Id == id && !x.IsHidden)
         ?? throw new BlogNotFoundException();
 
       blog.View += 1;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
+
+      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_BLOG, Mapper.Map<BlogSearchModel>(blog));
 
       var result = Mapper.Map<BlogDetailResponseModel>(blog);
 
@@ -111,6 +117,10 @@ namespace Petopia.Business.Implementations
     {
       var blog = await UnitOfWork.Blogs
         .AsTracking()
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserOrganizationAttributes)
+        .Include(x => x.User)
+        .ThenInclude(x => x.UserIndividualAttributes)
         .FirstOrDefaultAsync(x => x.Id == request.Id)
         ?? throw new BlogNotFoundException();
 
@@ -122,6 +132,8 @@ namespace Petopia.Business.Implementations
       blog.IsUpdatedAt = DateTimeOffset.Now;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
+
+      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_BLOG, Mapper.Map<BlogSearchModel>(blog));
 
       var result = Mapper.Map<BlogDetailResponseModel>(blog);
 
