@@ -104,6 +104,13 @@ namespace Petopia.Business.Implementations
 
       var result = Mapper.Map<BlogDetailResponseModel>(blog);
 
+      bool isOwner = UserContext.Id == blog.UserId;
+      bool isActiveAd = blog.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0;
+      if (!isOwner || !isActiveAd)
+      {
+        result.AdvertisingDate = null;
+      }
+
       return result;
     }
 

@@ -44,7 +44,7 @@ namespace Petopia.API.Controllers
 
     [HttpGet("{id}")]
     [AllowAnonymous]
-    public async Task<ActionResult<BlogDetailResponseModel>> GetBlogs(Guid id)
+    public async Task<ActionResult<BlogDetailResponseModel>> GetBlog(Guid id)
     {
       return ResponseUtils.OkResult(await _blogService.GetBlogByIdAsync(id));
     }
