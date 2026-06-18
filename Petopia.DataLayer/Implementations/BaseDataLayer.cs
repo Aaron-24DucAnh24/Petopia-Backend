@@ -56,28 +56,9 @@ namespace Petopia.DataLayer.Implementations
       return (await DbSet.AddAsync(entity)).Entity;
     }
 
-    public async ValueTask CreateRangeAsync(T[] entity)
-    {
-      await DbSet.AddRangeAsync(entity);
-    }
-
     public void Delete(T entity)
     {
       DbSet.Remove(entity);
-    }
-
-    public async ValueTask DeleteAllAsync(Expression<Func<T, bool>> exp)
-    {
-      List<T> objects = await DbSet.AsTracking().Where(exp).ToListAsync();
-      foreach (var obj in objects)
-      {
-        DbSet.Remove(obj);
-      }
-    }
-
-    public void DeleteRange(params T[] entities)
-    {
-      DbSet.RemoveRange(entities);
     }
 
     public T? FirstOrDefault(Expression<Func<T, bool>> exp)
@@ -103,11 +84,6 @@ namespace Petopia.DataLayer.Implementations
     public T Update(T entity)
     {
       return DbSet.Update(entity).Entity;
-    }
-
-    public void UpdateRange(T[] entities)
-    {
-      DbSet.UpdateRange(entities);
     }
 
     public IQueryable<T> Where(Expression<Func<T, bool>> exp)

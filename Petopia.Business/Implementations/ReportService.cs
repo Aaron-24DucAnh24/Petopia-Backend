@@ -53,46 +53,29 @@ namespace Petopia.Business.Implementations
       }
 
       if (request.Entity == ReportEntity.Blog)
-      {
-        foreach (var type in request.ReportTypes)
-        {
-          UnitOfWork.Reports.Create(new Report()
-          {
-            Id = Guid.NewGuid(),
-            Type = type,
-            BlogId = request.Id,
-            ReporterId = UserContext.Id,
-          });
-        }
-      }
+        CreateReports(request, r => r.BlogId = request.Id);
       if (request.Entity == ReportEntity.User)
-      {
-        foreach (var type in request.ReportTypes)
-        {
-          UnitOfWork.Reports.Create(new Report()
-          {
-            Id = Guid.NewGuid(),
-            Type = type,
-            UserId = request.Id,
-            ReporterId = UserContext.Id,
-          });
-        }
-      }
+        CreateReports(request, r => r.UserId = request.Id);
       if (request.Entity == ReportEntity.Pet)
-      {
-        foreach (var type in request.ReportTypes)
-        {
-          UnitOfWork.Reports.Create(new Report()
-          {
-            Id = Guid.NewGuid(),
-            Type = type,
-            PetId = request.Id,
-            ReporterId = UserContext.Id,
-          });
-        }
-      }
+        CreateReports(request, r => r.PetId = request.Id);
+
       await UnitOfWork.SaveChangesAsync();
       return true;
+    }
+
+    private void CreateReports(ReportRequestModel request, Action<Report> setTarget)
+    {
+      foreach (var type in request.ReportTypes)
+      {
+        var report = new Report()
+        {
+          Id = Guid.NewGuid(),
+          Type = type,
+          ReporterId = UserContext.Id,
+        };
+        setTarget(report);
+        UnitOfWork.Reports.Create(report);
+      }
     }
   }
 }

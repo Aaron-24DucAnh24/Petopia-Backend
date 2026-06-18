@@ -99,16 +99,10 @@ namespace Petopia.Business.Implementations
     public async Task<List<CommentResponseModel>> GetCommentsByBlogIdAsync(Guid blogId)
     {
       var comments = await UnitOfWork.Comments
-        .Where(x => x.PostId == blogId)
+        .Where(x => x.BlogId == blogId)
         .ToListAsync();
       var result = Mapper.Map<List<CommentResponseModel>>(comments);
-      foreach (var comment in result)
-      {
-        var userContext = await GetUserContextAsync(comment.UserId);
-        comment.UserName = userContext.Name;
-        comment.UserImage = userContext.Image;
-      }
-
+      await EnrichWithUserContextAsync(result);
       return result;
     }
 
@@ -119,14 +113,18 @@ namespace Petopia.Business.Implementations
         .OrderByDescending(x => x.IsCreatedAt)
         .ToListAsync();
       var result = Mapper.Map<List<CommentResponseModel>>(comments);
-      foreach (var comment in result)
+      await EnrichWithUserContextAsync(result);
+      return result;
+    }
+
+    private async Task EnrichWithUserContextAsync(List<CommentResponseModel> comments)
+    {
+      foreach (var comment in comments)
       {
         var userContext = await GetUserContextAsync(comment.UserId);
         comment.UserName = userContext.Name;
         comment.UserImage = userContext.Image;
       }
-
-      return result;
     }
   }
 }

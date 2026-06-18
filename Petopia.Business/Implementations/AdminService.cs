@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
@@ -223,97 +224,13 @@ namespace Petopia.Business.Implementations
     public async Task<PaginationResponseModel<ManagementReportResponseModel>> GetReportsAsync(PaginationRequestModel<ManagementReportFilter> request)
     {
       List<ManagementReportResponseModel> result = new();
-      int scam = 0;
-      int spam = 0;
-      int other = 0;
-      int unappropriate = 0;
 
       if (request.Filter.ReportEntity == ReportEntity.User)
-      {
-        List<Guid?> ids = await UnitOfWork.Reports
-          .AsQueryable()
-          .Select(x => x.UserId)
-          .Distinct()
-          .ToListAsync();
-        ids.Sort();
-
-        foreach (var id in ids)
-        {
-          if (id != null)
-          {
-            scam = await UnitOfWork.Reports.CountAsync(x => x.UserId == id && x.Type == ReportType.Scam);
-            spam = await UnitOfWork.Reports.CountAsync(x => x.UserId == id && x.Type == ReportType.Spam);
-            other = await UnitOfWork.Reports.CountAsync(x => x.UserId == id && x.Type == ReportType.Other);
-            unappropriate = await UnitOfWork.Reports.CountAsync(x => x.UserId == id && x.Type == ReportType.InappropriateContent);
-            result.Add(new ManagementReportResponseModel()
-            {
-              Id = id,
-              Spam = spam,
-              Scam = scam,
-              Other = other,
-              InappropriateContent = unappropriate,
-            });
-          }
-        }
-      }
-
+        result = await AggregateReportsAsync(x => x.UserId, (id, type) => x => x.UserId == id && x.Type == type);
       if (request.Filter.ReportEntity == ReportEntity.Pet)
-      {
-        List<Guid?> ids = await UnitOfWork.Reports
-          .AsQueryable()
-          .Select(x => x.PetId)
-          .Distinct()
-          .ToListAsync();
-        ids.Sort();
-
-        foreach (var id in ids)
-        {
-          if (id != null)
-          {
-            scam = await UnitOfWork.Reports.CountAsync(x => x.PetId == id && x.Type == ReportType.Scam);
-            spam = await UnitOfWork.Reports.CountAsync(x => x.PetId == id && x.Type == ReportType.Spam);
-            other = await UnitOfWork.Reports.CountAsync(x => x.PetId == id && x.Type == ReportType.Other);
-            unappropriate = await UnitOfWork.Reports.CountAsync(x => x.PetId == id && x.Type == ReportType.InappropriateContent);
-            result.Add(new ManagementReportResponseModel()
-            {
-              Id = id,
-              Spam = spam,
-              Scam = scam,
-              Other = other,
-              InappropriateContent = unappropriate,
-            });
-          }
-        }
-      }
-
+        result = await AggregateReportsAsync(x => x.PetId, (id, type) => x => x.PetId == id && x.Type == type);
       if (request.Filter.ReportEntity == ReportEntity.Blog)
-      {
-        List<Guid?> ids = await UnitOfWork.Reports
-          .AsQueryable()
-          .Select(x => x.BlogId)
-          .Distinct()
-          .ToListAsync();
-        ids.Sort();
-
-        foreach (var id in ids)
-        {
-          if (id != null)
-          {
-            scam = await UnitOfWork.Reports.CountAsync(x => x.BlogId == id && x.Type == ReportType.Scam);
-            spam = await UnitOfWork.Reports.CountAsync(x => x.BlogId == id && x.Type == ReportType.Spam);
-            other = await UnitOfWork.Reports.CountAsync(x => x.BlogId == id && x.Type == ReportType.Other);
-            unappropriate = await UnitOfWork.Reports.CountAsync(x => x.BlogId == id && x.Type == ReportType.InappropriateContent);
-            result.Add(new ManagementReportResponseModel()
-            {
-              Id = id,
-              Spam = spam,
-              Scam = scam,
-              Other = other,
-              InappropriateContent = unappropriate,
-            });
-          }
-        }
-      }
+        result = await AggregateReportsAsync(x => x.BlogId, (id, type) => x => x.BlogId == id && x.Type == type);
 
       return ListPaging<ManagementReportResponseModel, ManagementReportResponseModel>(result, request);
     }
@@ -333,6 +250,28 @@ namespace Petopia.Business.Implementations
         await UnitOfWork.Blogs.CountAsync(x => x.IsCreatedAt.Day == day
           && x.IsCreatedAt.Month == time.Month
           && x.IsUpdatedAt.Year == time.Year));
+    }
+
+    private async Task<List<ManagementReportResponseModel>> AggregateReportsAsync(
+      Expression<Func<Report, Guid?>> idSelector,
+      Func<Guid, ReportType, Expression<Func<Report, bool>>> typeFilter)
+    {
+      var result = new List<ManagementReportResponseModel>();
+      var ids = await UnitOfWork.Reports.AsQueryable().Select(idSelector).Distinct().ToListAsync();
+      ids.Sort();
+      foreach (var id in ids)
+      {
+        if (id == null) continue;
+        result.Add(new ManagementReportResponseModel()
+        {
+          Id = id,
+          Scam = await UnitOfWork.Reports.CountAsync(typeFilter(id.Value, ReportType.Scam)),
+          Spam = await UnitOfWork.Reports.CountAsync(typeFilter(id.Value, ReportType.Spam)),
+          Other = await UnitOfWork.Reports.CountAsync(typeFilter(id.Value, ReportType.Other)),
+          InappropriateContent = await UnitOfWork.Reports.CountAsync(typeFilter(id.Value, ReportType.InappropriateContent)),
+        });
+      }
+      return result;
     }
   }
 }

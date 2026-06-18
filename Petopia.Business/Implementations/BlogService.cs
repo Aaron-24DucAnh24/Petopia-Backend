@@ -39,12 +39,7 @@ namespace Petopia.Business.Implementations
       });
       await UnitOfWork.SaveChangesAsync();
 
-      var createdBlog = await UnitOfWork.Blogs
-        .Where(x => x.Id == blog.Id)
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserIndividualAttributes)
+      var createdBlog = await IncludeUserAttributes(UnitOfWork.Blogs.Where(x => x.Id == blog.Id))
         .FirstOrDefaultAsync();
       if (createdBlog is not null)
       {
@@ -87,12 +82,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<BlogDetailResponseModel> GetBlogByIdAsync(Guid id)
     {
-      var blog = await UnitOfWork.Blogs
-        .AsTracking()
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserIndividualAttributes)
+      var blog = await IncludeUserAttributes(UnitOfWork.Blogs.AsTracking())
         .FirstOrDefaultAsync(x => x.Id == id && !x.IsHidden)
         ?? throw new BlogNotFoundException();
 
@@ -122,12 +112,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<BlogDetailResponseModel> UpdateBlogAsync(UpdateBlogRequestModel request)
     {
-      var blog = await UnitOfWork.Blogs
-        .AsTracking()
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserOrganizationAttributes)
-        .Include(x => x.User)
-        .ThenInclude(x => x.UserIndividualAttributes)
+      var blog = await IncludeUserAttributes(UnitOfWork.Blogs.AsTracking())
         .FirstOrDefaultAsync(x => x.Id == request.Id)
         ?? throw new BlogNotFoundException();
 
@@ -146,6 +131,11 @@ namespace Petopia.Business.Implementations
 
       return result;
     }
+
+    private static IQueryable<Blog> IncludeUserAttributes(IQueryable<Blog> query)
+      => query
+        .Include(x => x.User).ThenInclude(x => x.UserOrganizationAttributes)
+        .Include(x => x.User).ThenInclude(x => x.UserIndividualAttributes);
   }
 }
 
