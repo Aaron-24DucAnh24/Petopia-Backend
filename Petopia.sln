@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		docker-compose.yml = docker-compose.yml
-		Dockerfile = Dockerfile
 		.env = .env
 	EndProjectSection
 EndProject
@@ -27,9 +26,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{878E6B3B-00CC-40CC-A138-36DF2AA98AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -56,5 +52,8 @@ Global
 		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFF541A3-8130-4A5D-B141-1CA829A9481A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

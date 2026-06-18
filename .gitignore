@@ -37,3 +37,7 @@
 certificate.pfx
 Petopia.API/Logs
 .claude/settings.local.json
+Petopia.API/appsettings.Development.json
+Petopia.API/appsettings.Production.json
+.env
+.env.production
