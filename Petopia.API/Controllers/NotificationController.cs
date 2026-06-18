@@ -10,41 +10,41 @@ namespace Petopia.API.Controllers
   [Route("api/Notification")]
   public class NotificationController : ControllerBase
   {
-    private readonly INotificationService _noticationService;
+    private readonly INotificationService _notificationService;
 
     public NotificationController(
       INotificationService notificationService
     )
     {
-      _noticationService = notificationService;
+      _notificationService = notificationService;
     }
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<List<NotificationResponseModel>>> GetNotications()
+    public async Task<ActionResult<List<NotificationResponseModel>>> GetNotifications()
     {
-      return ResponseUtils.OkResult(await _noticationService.GetNotificationsAsync());
+      return ResponseUtils.OkResult(await _notificationService.GetNotificationsAsync());
     }
 
     [HttpPut("{id}")]
     [Authorize]
     public async Task<ActionResult<bool>> CheckNotification(Guid id)
     {
-      return ResponseUtils.OkResult(await _noticationService.CheckNotificationAsync(id));
+      return ResponseUtils.OkResult(await _notificationService.CheckNotificationAsync(id));
     }
 
     [HttpDelete]
     [Authorize]
     public async Task<ActionResult<bool>> DeleteNotifications()
     {
-      return ResponseUtils.OkResult(await _noticationService.DeleteNotificationsAsync());
+      return ResponseUtils.OkResult(await _notificationService.DeleteNotificationsAsync());
     }
 
     [HttpGet("MarkAsSeen")]
     [Authorize]
     public async Task<ActionResult<bool>> MarkAsSeen()
     {
-      return ResponseUtils.OkResult(await _noticationService.MarkAsSeenAsync());
+      return ResponseUtils.OkResult(await _notificationService.MarkAsSeenAsync());
     }
   }
 }

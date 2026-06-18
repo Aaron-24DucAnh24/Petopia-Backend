@@ -75,7 +75,6 @@ dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 
 ## Related Projects
 
-| Project      | Repository                                             |
-| ------------ | ------------------------------------------------------ |
-| Front Office | https://github.com/Aaron-24DucAnh24/Petopia-Frontend   |
-| Back Office  | https://github.com/Aaron-24DucAnh24/Petopia-Backoffice |
+| Project      | Repository                                           |
+| ------------ | ---------------------------------------------------- |
+| Front Office | https://github.com/Aaron-24DucAnh24/Petopia-Frontend |

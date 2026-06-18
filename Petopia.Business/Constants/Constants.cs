@@ -49,7 +49,7 @@ namespace Petopia.Business
     public const string SORT_KEY_NEWEST = "newest";
 
     // Token setting
-    public const double TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS = 7;
+    public const double TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS = (double)15 / 60 / 24;
     public const double TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS = 7;
     public const double TOKEN_SETTING_PASSWORD_TOKEN_EXPIRATION_DAYS = (double)1 / 24;
     public const double TOKEN_SETTING_REGISTER_TOKEN_EXPIRATION_DAYS = (double)30 / 60 / 24;
