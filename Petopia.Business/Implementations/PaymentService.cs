@@ -25,7 +25,7 @@ namespace Petopia.Business.Implementations
     {
       try
       {
-        ClientTokenRequest clientTokenRequest = new();
+        var clientTokenRequest = new ClientTokenRequest();
         if (!string.IsNullOrEmpty(customerId))
         {
           clientTokenRequest.CustomerId = customerId;
@@ -40,9 +40,9 @@ namespace Petopia.Business.Implementations
 
     public async Task<CreatePaymentResponseModel> CreatePaymentAsync(CreatePaymentRequestModel request)
     {
-      Advertisement advertisement = await UnitOfWork.Advertisements
+      var advertisement = await UnitOfWork.Advertisements
         .FirstAsync(x => x.Id == request.AdvertisementId);
-      Blog blog = await UnitOfWork.Blogs
+      var blog = await UnitOfWork.Blogs
         .AsTracking()
         .Include(x => x.User)
         .FirstAsync(x => x.Id == request.BlogId);
@@ -52,7 +52,7 @@ namespace Petopia.Business.Implementations
         throw new PaymentFailureException();
       }
 
-      TransactionRequest transaction = new()
+      var transaction = new TransactionRequest()
       {
         Amount = advertisement.Price,
         PaymentMethodNonce = request.Nonce,
@@ -62,19 +62,20 @@ namespace Petopia.Business.Implementations
         }
       };
 
-      Result<Transaction> result = await _gateway.Transaction.SaleAsync(transaction);
+      var result = await _gateway.Transaction.SaleAsync(transaction);
       if (!result.IsSuccess())
       {
         throw new PaymentFailureException();
       }
 
-      Payment payment = await UnitOfWork.Payments.CreateAsync(new Payment()
+      var payment = await UnitOfWork.Payments.CreateAsync(new Payment()
       {
         Id = Guid.NewGuid(),
         BlogId = request.BlogId,
         AdvertisingDate = DateTimeOffset.Now.AddDays(advertisement.MonthDuration * 30),
         IsCreatedAt = DateTimeOffset.Now,
         Amount = advertisement.Price,
+        LinkedPaymentId = result.Target.Id,
       });
 
       blog.AdvertisingDate = payment.AdvertisingDate;
