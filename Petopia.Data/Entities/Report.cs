@@ -12,6 +12,8 @@ namespace Petopia.Data.Entities
     public Guid? BlogId { get; set; }
     public Guid? UserId { get; set; }
     public Guid? PetId { get; set; }
+    public bool IsResolved { get; set; }
+    public DateTimeOffset IsCreatedAt { get; set; }
 
     public virtual Blog Blog { get; set; }
     public virtual User User { get; set; }

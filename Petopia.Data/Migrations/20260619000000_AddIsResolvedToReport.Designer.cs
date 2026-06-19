@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petopia.Data;
 
@@ -11,9 +12,10 @@ using Petopia.Data;
 namespace Petopia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260619000000_AddIsResolvedToReport")]
+    partial class AddIsResolvedToReport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -432,9 +434,6 @@ namespace Petopia.Data.Migrations
 
                     b.Property<Guid?>("BlogId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("IsCreatedAt")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsResolved")
                         .HasColumnType("bit");

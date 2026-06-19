@@ -72,6 +72,7 @@ namespace Petopia.Business.Implementations
           Id = Guid.NewGuid(),
           Type = type,
           ReporterId = UserContext.Id,
+          IsCreatedAt = DateTimeOffset.UtcNow,
         };
         setTarget(report);
         UnitOfWork.Reports.Create(report);

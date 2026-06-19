@@ -1,20 +1,28 @@
 namespace Petopia.Business.Models.Admin
 {
-  public class DashboardReponseModel
+  public class AdminStatisticsResponseModel
   {
-    public int Income { get; set; }
-    public int PetNumber { get; set; }
-    public int IndividualNumber { get; set; }
-    public int OrganizationNumber { get; set; }
-    public int BlogNumber { get; set; }
-    public int ActiveRate { get; set; }
-    public List<int> PetData { get; set; } = null!;
-    public List<int> BlogData { get; set; } = null!;
+    public int TotalUsers { get; set; }
+    public int ActiveUsers { get; set; }
+    public int TotalOrganizations { get; set; }
+    public int TotalPets { get; set; }
+    public int AvailablePets { get; set; }
+    public int AdoptedPets { get; set; }
+    public int TotalPosts { get; set; }
+    public int TotalBlogs { get; set; }
+    public int TotalPayments { get; set; }
+    public long TotalRevenue { get; set; }
+    public int PendingReports { get; set; }
+    public int ResolvedReports { get; set; }
+    public List<AdminMonthlyStatsModel> MonthlyStats { get; set; } = new();
   }
 
-  public class DashboardRequestModel
+  public class AdminMonthlyStatsModel
   {
-    public int Month { get; set; }
-    public int Year { get; set; }
+    public required string Month { get; set; }
+    public int Users { get; set; }
+    public int Pets { get; set; }
+    public int Posts { get; set; }
+    public int Payments { get; set; }
   }
 }
