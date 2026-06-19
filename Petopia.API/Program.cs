@@ -24,19 +24,22 @@ Log.Logger = new LoggerConfiguration()
     path: Petopia.Business.Constants.LOG_PATH_INFO,
     rollingInterval: RollingInterval.Day,
     restrictedToMinimumLevel: LogEventLevel.Information,
-    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE,
+    shared: true
   )
   .WriteTo.File(
     path: Petopia.Business.Constants.LOG_PATH_WARNING,
     rollingInterval: RollingInterval.Day,
     restrictedToMinimumLevel: LogEventLevel.Warning,
-    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE,
+    shared: true
   )
   .WriteTo.File(
     path: Petopia.Business.Constants.LOG_PATH_ERROR,
     rollingInterval: RollingInterval.Day,
     restrictedToMinimumLevel: LogEventLevel.Error,
-    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE
+    outputTemplate: Petopia.Business.Constants.LOG_OUTPUT_TEMPLATE,
+    shared: true
   )
   .CreateLogger();
 builder.Host.UseSerilog();

@@ -42,7 +42,7 @@ namespace Petopia.Business.Utils
       {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = true,
+        ValidateLifetime = type == TokenType.AccessToken,
         ValidateIssuerSigningKey = true,
         ValidIssuer = tokenSetting.Issuer,
         ValidAudience = tokenSetting.Issuer,
@@ -67,7 +67,6 @@ namespace Petopia.Business.Utils
       Claim? idClaim = claims.FirstOrDefault(c => c.Type == Constants.CLAIM_TYPE_ID);
       if (emailClaim == null
       || roleClaim == null
-      || emailClaim == null
       || idClaim == null)
       {
         return null;
