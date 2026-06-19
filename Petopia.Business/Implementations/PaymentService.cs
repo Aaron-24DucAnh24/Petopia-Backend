@@ -1,7 +1,9 @@
 using Braintree;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
+using Petopia.Business.Models.Blog;
 using Petopia.Business.Models.Exceptions;
 using Petopia.Business.Models.Payment;
 using Petopia.Business.Utils;
@@ -12,6 +14,8 @@ namespace Petopia.Business.Implementations
   public class PaymentService : BaseService, IPaymentService
   {
     private readonly IBraintreeGateway _gateway;
+    private readonly ISearchEngineService _searchEngineService;
+
     public PaymentService(
       IServiceProvider provider,
       ILogger<PaymentService> logger,
@@ -19,6 +23,7 @@ namespace Petopia.Business.Implementations
     ) : base(provider, logger)
     {
       _gateway = gateway;
+      _searchEngineService = provider.GetRequiredService<ISearchEngineService>();
     }
 
     public async Task<string> GenerateTokenAsync(string customerId = "")
@@ -44,7 +49,8 @@ namespace Petopia.Business.Implementations
         .FirstAsync(x => x.Id == request.AdvertisementId);
       var blog = await UnitOfWork.Blogs
         .AsTracking()
-        .Include(x => x.User)
+        .Include(x => x.User).ThenInclude(x => x.UserOrganizationAttributes)
+        .Include(x => x.User).ThenInclude(x => x.UserIndividualAttributes)
         .FirstAsync(x => x.Id == request.BlogId);
 
       if (blog.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
@@ -81,6 +87,7 @@ namespace Petopia.Business.Implementations
       blog.AdvertisingDate = payment.AdvertisingDate;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
+      await _searchEngineService.InsertUpdateAsync(Constants.MEILISEARCH_INDEX_BLOG, Mapper.Map<BlogSearchModel>(blog));
 
       return new CreatePaymentResponseModel()
       {

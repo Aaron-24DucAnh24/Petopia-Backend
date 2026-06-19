@@ -48,6 +48,7 @@ namespace Petopia.Business.Models.Admin
     public BlogCategory Category { get; set; }
     public int View { get; set; }
     public bool IsActive { get; set; }
+    public DateTimeOffset? AdvertisingDate { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
   }
 
@@ -80,6 +81,7 @@ namespace Petopia.Business.Models.Admin
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public required string UserImage { get; set; }
+    public required string UserName { get; set; }
     public required string Phone { get; set; }
     public required string Address { get; set; }
     public required string OrganizationName { get; set; }
@@ -89,6 +91,7 @@ namespace Petopia.Business.Models.Admin
     public required string TaxCode { get; set; }
     public OrganizationType Type { get; set; }
     public required string Description { get; set; }
+    public UpgradeStatus Status { get; set; }
     public DateTimeOffset IsCreatedAt { get; set; }
   }
 
@@ -96,6 +99,7 @@ namespace Petopia.Business.Models.Admin
   {
     public string? Keyword { get; set; }
     public bool? IsActive { get; set; }
+    public UpgradeStatus? UpgradeStatus { get; set; }
   }
 
   public class ResolveReportRequestModel

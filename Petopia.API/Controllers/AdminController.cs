@@ -120,5 +120,24 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _adminService.ResolveReportAsync(request));
     }
+
+    [HttpPost("Upgrade/Search")]
+    public async Task<ActionResult<PaginationResponseModel<ManagementUpgradeResponseModel>>> SearchUpgradeRequests(
+      [FromBody] PaginationRequestModel<AdminSearchFilterModel> request)
+    {
+      return ResponseUtils.OkResult(await _adminService.GetUpgradeRequestsAsync(request));
+    }
+
+    [HttpPut("Upgrade/{id}/Approve")]
+    public async Task<ActionResult<bool>> ApproveUpgradeRequest(Guid id)
+    {
+      return ResponseUtils.OkResult(await _adminService.ApproveUpgradeRequestAsync(id));
+    }
+
+    [HttpPut("Upgrade/{id}/Reject")]
+    public async Task<ActionResult<bool>> RejectUpgradeRequest(Guid id)
+    {
+      return ResponseUtils.OkResult(await _adminService.RejectUpgradeRequestAsync(id));
+    }
   }
 }

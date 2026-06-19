@@ -49,7 +49,8 @@ namespace Petopia.Business.Utils
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)))
         .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
       CreateMap<Blog, BlogResponseModel>()
-        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)));
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)))
+        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
       CreateMap<Blog, BlogSearchModel>()
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)));
       CreateMap<BlogSearchModel, BlogResponseModel>()

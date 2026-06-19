@@ -33,5 +33,10 @@ namespace Petopia.Business.Interfaces
     Task<PaginationResponseModel<ManagementReportResponseModel>> GetReportsAsync(
       PaginationRequestModel<AdminSearchFilterModel> request);
     Task<bool> ResolveReportAsync(ResolveReportRequestModel request);
+
+    Task<PaginationResponseModel<ManagementUpgradeResponseModel>> GetUpgradeRequestsAsync(
+      PaginationRequestModel<AdminSearchFilterModel> request);
+    Task<bool> ApproveUpgradeRequestAsync(Guid id);
+    Task<bool> RejectUpgradeRequestAsync(Guid id);
   }
 }

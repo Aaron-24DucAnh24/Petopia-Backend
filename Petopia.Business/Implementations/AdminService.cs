@@ -299,6 +299,7 @@ namespace Petopia.Business.Implementations
         Category = x.Category,
         View = x.View,
         IsActive = !x.IsHidden,
+        AdvertisingDate = x.AdvertisingDate == default(DateTimeOffset) ? null : (DateTimeOffset?)x.AdvertisingDate,
         IsCreatedAt = x.IsCreatedAt,
       });
     }
@@ -452,6 +453,124 @@ namespace Petopia.Business.Implementations
         UnitOfWork.Reports.Update(report);
       }
 
+      await UnitOfWork.SaveChangesAsync();
+      return true;
+    }
+
+    public async Task<PaginationResponseModel<ManagementUpgradeResponseModel>> GetUpgradeRequestsAsync(
+      PaginationRequestModel<AdminSearchFilterModel> request)
+    {
+      var keyword = request.Filter.Keyword?.ToLower();
+      var upgradeStatus = request.Filter.UpgradeStatus;
+
+      var query = UnitOfWork.UpgradeForms
+        .Include(x => x.User)
+        .ThenInclude(u => u.UserIndividualAttributes)
+        .Include(x => x.User)
+        .ThenInclude(u => u.UserOrganizationAttributes)
+        .AsQueryable()
+        .AsSplitQuery();
+
+      if (!string.IsNullOrEmpty(keyword))
+        query = query.Where(x =>
+          x.OrganizationName.ToLower().Contains(keyword) ||
+          x.EntityName.ToLower().Contains(keyword) ||
+          x.Email.ToLower().Contains(keyword));
+
+      if (upgradeStatus.HasValue)
+        query = query.Where(x => x.Status == upgradeStatus.Value);
+
+      query = query.OrderByDescending(x => x.IsCreatedAt);
+
+      return await BuildPagedResponse(query, request, x => new ManagementUpgradeResponseModel
+      {
+        Id = x.Id,
+        UserId = x.UserId,
+        UserImage = x.User.Image ?? string.Empty,
+        UserName = x.User.Role == UserRole.Organization
+          ? (x.User.UserOrganizationAttributes?.OrganizationName ?? string.Empty)
+          : string.Join(" ", x.User.UserIndividualAttributes?.FirstName ?? string.Empty, x.User.UserIndividualAttributes?.LastName ?? string.Empty).Trim(),
+        Phone = x.Phone,
+        Address = x.Address,
+        OrganizationName = x.OrganizationName,
+        EntityName = x.EntityName,
+        Email = x.Email,
+        Website = x.Website ?? string.Empty,
+        TaxCode = x.TaxCode ?? string.Empty,
+        Type = x.Type,
+        Description = x.Description ?? string.Empty,
+        Status = x.Status,
+        IsCreatedAt = x.IsCreatedAt,
+      });
+    }
+
+    public async Task<bool> ApproveUpgradeRequestAsync(Guid id)
+    {
+      var form = await UnitOfWork.UpgradeForms
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == id)
+        ?? throw new UpgradeRequestNotFoundException();
+
+      if (form.Status != UpgradeStatus.Pending)
+        throw new UpgradeRequestNotPendingException();
+
+      form.Status = UpgradeStatus.Accepted;
+      UnitOfWork.UpgradeForms.Update(form);
+
+      var user = await UnitOfWork.Users
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == form.UserId)
+        ?? throw new UserNotFoundException();
+
+      user.Role = UserRole.Organization;
+      UnitOfWork.Users.Update(user);
+
+      var existingAttrs = await UnitOfWork.UserOrganizationAttributes
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == form.UserId);
+
+      if (existingAttrs == null)
+      {
+        await UnitOfWork.UserOrganizationAttributes.CreateAsync(new UserOrganizationAttributes
+        {
+          Id = form.UserId,
+          EntityName = form.EntityName,
+          OrganizationName = form.OrganizationName,
+          Website = form.Website ?? string.Empty,
+          TaxCode = form.TaxCode ?? string.Empty,
+          Type = form.Type,
+          Description = form.Description ?? string.Empty,
+          Email = form.Email,
+        });
+      }
+      else
+      {
+        existingAttrs.EntityName = form.EntityName;
+        existingAttrs.OrganizationName = form.OrganizationName;
+        existingAttrs.Website = form.Website ?? string.Empty;
+        existingAttrs.TaxCode = form.TaxCode ?? string.Empty;
+        existingAttrs.Type = form.Type;
+        existingAttrs.Description = form.Description ?? string.Empty;
+        existingAttrs.Email = form.Email;
+        UnitOfWork.UserOrganizationAttributes.Update(existingAttrs);
+      }
+
+      await UnitOfWork.SaveChangesAsync();
+      return true;
+    }
+
+    public async Task<bool> RejectUpgradeRequestAsync(Guid id)
+    {
+      var form = await UnitOfWork.UpgradeForms
+        .AsTracking()
+        .FirstOrDefaultAsync(x => x.Id == id)
+        ?? throw new UpgradeRequestNotFoundException();
+
+      if (form.Status != UpgradeStatus.Pending)
+        throw new UpgradeRequestNotPendingException();
+
+      form.Status = UpgradeStatus.Rejected;
+      UnitOfWork.UpgradeForms.Update(form);
       await UnitOfWork.SaveChangesAsync();
       return true;
     }
