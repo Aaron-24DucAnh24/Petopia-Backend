@@ -96,7 +96,7 @@ namespace Petopia.Business.Implementations
       await UnitOfWork.SaveChangesAsync();
 
       var response = Mapper.Map<NotificationResponseModel>(notification);
-      await _realTimeService.SendToUserAsync(model.UserId, "ReceiveNotification", response);
+      await _realTimeService.SendToUserAsync(model.UserId, Constants.SIGNALR_EVENT_RECEIVE_NOTIFICATION, response);
     }
 
     public async Task CreateForAdminsAsync(CreateNotificationModel model)
@@ -131,7 +131,7 @@ namespace Petopia.Business.Implementations
       foreach (var notification in notifications)
       {
         var response = Mapper.Map<NotificationResponseModel>(notification);
-        await _realTimeService.SendToUserAsync(notification.UserId, "ReceiveNotification", response);
+        await _realTimeService.SendToUserAsync(notification.UserId, Constants.SIGNALR_EVENT_RECEIVE_NOTIFICATION, response);
       }
     }
   }

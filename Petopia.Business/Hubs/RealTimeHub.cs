@@ -11,7 +11,7 @@ namespace Petopia.Business.Hubs
       var userId = Context.User?.FindFirst(Constants.CLAIM_TYPE_ID)?.Value;
       if (userId != null)
       {
-        await Groups.AddToGroupAsync(Context.ConnectionId, $"user_{userId}");
+        await Groups.AddToGroupAsync(Context.ConnectionId, $"{Constants.SIGNALR_USER_GROUP_PREFIX}{userId}");
       }
       await base.OnConnectedAsync();
     }

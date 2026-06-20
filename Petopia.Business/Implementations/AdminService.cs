@@ -102,18 +102,7 @@ namespace Petopia.Business.Implementations
 
       query = query.OrderByDescending(x => x.IsCreatedAt);
 
-      var total = await query.CountAsync();
-      var pageSize = request.PageSize > 0 ? request.PageSize : 10;
-      var pageNumber = (int)Math.Ceiling((double)total / pageSize);
-      pageNumber = Math.Max(1, pageNumber);
-      var pageIndex = Math.Clamp(request.PageIndex, 1, pageNumber);
-
-      var users = await query
-        .Skip((pageIndex - 1) * pageSize)
-        .Take(pageSize)
-        .ToListAsync();
-
-      var data = users.Select(x => new ManagementUserResponseModel
+      return await BuildPagedResponse(query, request, x => new ManagementUserResponseModel
       {
         Id = x.Id,
         Image = x.Image ?? string.Empty,
@@ -125,16 +114,7 @@ namespace Petopia.Business.Implementations
         Role = x.Role,
         IsCreatedAt = x.IsCreatedAt,
         IsActive = !x.IsDeactivated,
-      }).ToList();
-
-      return new PaginationResponseModel<ManagementUserResponseModel>
-      {
-        Data = data,
-        TotalNumber = total,
-        PageIndex = pageIndex,
-        PageSize = pageSize,
-        PageNumber = pageNumber,
-      };
+      });
     }
 
     public async Task<bool> DeactivateUserAsync(Guid id)
@@ -149,8 +129,8 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.User,
-        Title = "Tài khoản bị vô hiệu hóa",
-        Content = "Tài khoản của bạn đã bị quản trị viên vô hiệu hóa.",
+        Title = Constants.NOTIFICATION_TITLE_ACCOUNT_DEACTIVATED,
+        Content = Constants.NOTIFICATION_CONTENT_ACCOUNT_DEACTIVATED,
         Type = NotificationType.ContentDeactivated,
         UserId = id,
       });
@@ -218,7 +198,7 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.Pet,
-        Title = "Thú cưng bị vô hiệu hóa",
+        Title = Constants.NOTIFICATION_TITLE_PET_DEACTIVATED,
         Content = $"Thú cưng \"{pet.Name}\" của bạn đã bị quản trị viên vô hiệu hóa.",
         Type = NotificationType.ContentDeactivated,
         UserId = pet.OwnerId,
@@ -285,8 +265,8 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.Post,
-        Title = "Bài đăng bị vô hiệu hóa",
-        Content = "Bài đăng của bạn đã bị quản trị viên vô hiệu hóa.",
+        Title = Constants.NOTIFICATION_TITLE_POST_DEACTIVATED,
+        Content = Constants.NOTIFICATION_CONTENT_POST_DEACTIVATED,
         Type = NotificationType.ContentDeactivated,
         UserId = post.UserId,
       });
@@ -354,7 +334,7 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.Blog,
-        Title = "Blog bị ẩn",
+        Title = Constants.NOTIFICATION_TITLE_BLOG_HIDDEN,
         Content = $"Blog \"{blog.Title}\" của bạn đã bị quản trị viên ẩn.",
         Type = NotificationType.ContentDeactivated,
         UserId = blog.UserId,
@@ -472,7 +452,7 @@ namespace Petopia.Business.Implementations
         combined = combined.Where(r => r.IsResolved == !isActive.Value).ToList();
 
       var total = combined.Count;
-      var pageSize = request.PageSize > 0 ? request.PageSize : 10;
+      var pageSize = request.PageSize > 0 ? request.PageSize : Constants.DEFAULT_PAGE_SIZE;
       var pageNumber = Math.Max(1, (int)Math.Ceiling((double)total / pageSize));
       var pageIndex = Math.Clamp(request.PageIndex, 1, pageNumber);
 
@@ -517,8 +497,8 @@ namespace Petopia.Business.Implementations
             ReportEntity.Pet => ReferenceType.Pet,
             _ => ReferenceType.Report,
           },
-          Title = "Báo cáo đã được xử lý",
-          Content = "Báo cáo của bạn đã được quản trị viên xem xét và xử lý.",
+          Title = Constants.NOTIFICATION_TITLE_REPORT_RESOLVED,
+          Content = Constants.NOTIFICATION_CONTENT_REPORT_RESOLVED,
           Type = NotificationType.ReportResolved,
           UserId = reporterId,
         });
@@ -631,8 +611,8 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.UpgradeForm,
-        Title = "Yêu cầu nâng cấp được chấp nhận",
-        Content = "Yêu cầu nâng cấp tài khoản của bạn đã được chấp nhận. Tài khoản của bạn đã được nâng cấp thành tổ chức.",
+        Title = Constants.NOTIFICATION_TITLE_UPGRADE_APPROVED,
+        Content = Constants.NOTIFICATION_CONTENT_UPGRADE_APPROVED,
         Type = NotificationType.UpgradeRequestApproved,
         UserId = form.UserId,
       });
@@ -658,8 +638,8 @@ namespace Petopia.Business.Implementations
       {
         ReferenceId = id,
         ReferenceType = ReferenceType.UpgradeForm,
-        Title = "Yêu cầu nâng cấp bị từ chối",
-        Content = "Yêu cầu nâng cấp tài khoản của bạn đã bị từ chối.",
+        Title = Constants.NOTIFICATION_TITLE_UPGRADE_REJECTED,
+        Content = Constants.NOTIFICATION_CONTENT_UPGRADE_REJECTED,
         Type = NotificationType.UpgradeRequestRejected,
         UserId = form.UserId,
       });
@@ -673,7 +653,7 @@ namespace Petopia.Business.Implementations
       Func<TEntity, TResult> selector)
     {
       var total = await query.CountAsync();
-      var pageSize = request.PageSize > 0 ? request.PageSize : 10;
+      var pageSize = request.PageSize > 0 ? request.PageSize : Constants.DEFAULT_PAGE_SIZE;
       var pageNumber = Math.Max(1, (int)Math.Ceiling((double)total / pageSize));
       var pageIndex = Math.Clamp(request.PageIndex, 1, pageNumber);
 

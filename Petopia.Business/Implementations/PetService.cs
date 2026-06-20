@@ -13,7 +13,7 @@ namespace Petopia.Business.Implementations
   public class PetService : BaseService, IPetService
   {
     private const int SEE_MORE_LENGTH = 4;
-    private const double BREED_CACHING_DAYS = (double)30 / 60 / 24;
+    private const double BREED_CACHING_DAYS = Constants.CACHE_TIME_LOCATION;
     private const string NAMES_CACHE_KEY = "NAMES_CACHE_KEY";
     private const string BREEDS_CACHE_KEY = "BREEDS_CACHE_KEY";
     private const string DOG_KEYWORD = "Chó";

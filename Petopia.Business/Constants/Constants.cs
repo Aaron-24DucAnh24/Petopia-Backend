@@ -69,5 +69,29 @@ namespace Petopia.Business
 
     // Cache time
     public const double CACHE_TIME_LOCATION = (double)30 / 60 / 24;
+
+    // Pagination
+    public const int DEFAULT_PAGE_SIZE = 10;
+
+    // SignalR
+    public const string SIGNALR_USER_GROUP_PREFIX = "user_";
+    public const string SIGNALR_EVENT_RECEIVE_NOTIFICATION = "ReceiveNotification";
+
+    // Storage
+    public const string STORAGE_URL_PROTOCOL = "http";
+
+    // Notification messages
+    public const string NOTIFICATION_TITLE_ACCOUNT_DEACTIVATED = "Tài khoản bị vô hiệu hóa";
+    public const string NOTIFICATION_CONTENT_ACCOUNT_DEACTIVATED = "Tài khoản của bạn đã bị quản trị viên vô hiệu hóa.";
+    public const string NOTIFICATION_TITLE_POST_DEACTIVATED = "Bài đăng bị vô hiệu hóa";
+    public const string NOTIFICATION_CONTENT_POST_DEACTIVATED = "Bài đăng của bạn đã bị quản trị viên vô hiệu hóa.";
+    public const string NOTIFICATION_TITLE_PET_DEACTIVATED = "Thú cưng bị vô hiệu hóa";
+    public const string NOTIFICATION_TITLE_BLOG_HIDDEN = "Blog bị ẩn";
+    public const string NOTIFICATION_TITLE_REPORT_RESOLVED = "Báo cáo đã được xử lý";
+    public const string NOTIFICATION_CONTENT_REPORT_RESOLVED = "Báo cáo của bạn đã được quản trị viên xem xét và xử lý.";
+    public const string NOTIFICATION_TITLE_UPGRADE_APPROVED = "Yêu cầu nâng cấp được chấp nhận";
+    public const string NOTIFICATION_CONTENT_UPGRADE_APPROVED = "Yêu cầu nâng cấp tài khoản của bạn đã được chấp nhận. Tài khoản của bạn đã được nâng cấp thành tổ chức.";
+    public const string NOTIFICATION_TITLE_UPGRADE_REJECTED = "Yêu cầu nâng cấp bị từ chối";
+    public const string NOTIFICATION_CONTENT_UPGRADE_REJECTED = "Yêu cầu nâng cấp tài khoản của bạn đã bị từ chối.";
   }
 }

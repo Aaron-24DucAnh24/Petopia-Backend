@@ -54,26 +54,8 @@ namespace Petopia.Business.Implementations
 
     public async Task<string> UploadFileAsync(string container, IFormFile file)
     {
-      var fileName = $"{Guid.NewGuid()}_{file.FileName}";
-      var result = string.Empty;
-      try
-      {
-        using var stream = file.OpenReadStream();
-        var putObjectArgs = new PutObjectArgs()
-            .WithBucket(container)
-            .WithObject(fileName)
-            .WithStreamData(stream)
-            .WithObjectSize(file.Length)
-            .WithContentType(file.ContentType);
-
-        await _minioClient.PutObjectAsync(putObjectArgs);
-        result = $"http://{_minioSettings.Endpoint}/{container}/{fileName}";
-      }
-      catch (Exception ex)
-      {
-        Logger.LogError(ex.Message);
-      }
-      return result;
+      var results = await UploadFilesAsync(container, new List<IFormFile> { file });
+      return results.FirstOrDefault() ?? string.Empty;
     }
 
     public async Task<List<string>> UploadFilesAsync(string container, List<IFormFile> files)
@@ -99,7 +81,7 @@ namespace Petopia.Business.Implementations
 
           await _minioClient.PutObjectAsync(putObjectArgs);
 
-          var fileUrl = $"http://{_minioSettings.Endpoint}/{container}/{fileName}";
+          var fileUrl = $"{Constants.STORAGE_URL_PROTOCOL}://{_minioSettings.Endpoint}/{container}/{fileName}";
           results.Add(fileUrl);
         }
         catch (Exception ex)
