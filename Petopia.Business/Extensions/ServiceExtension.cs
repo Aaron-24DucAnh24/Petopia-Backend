@@ -48,6 +48,7 @@ namespace Petopia.Business.Extensions
       services.AddScoped<IPostService, PostService>();
       services.AddScoped<IReportService, ReportService>();
       services.AddScoped<IAdminService, AdminService>();
+      services.AddSingleton<IRealTimeService, RealTimeService>();
     }
 
     public static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
@@ -59,6 +60,7 @@ namespace Petopia.Business.Extensions
       services.AddDataLayerServices();
       services.AddSwaggerService();
       services.AddHttpClient();
+      services.AddSignalR();
       services.AddJwtAuthentication(configuration);
       services.AddCorsPolicies(configuration);
     }
@@ -137,6 +139,17 @@ namespace Petopia.Business.Extensions
           {
             OnMessageReceived = context =>
             {
+              var accessTokenQuery = context.Request.Query["access_token"].FirstOrDefault();
+              var path = context.HttpContext.Request.Path;
+              if (!string.IsNullOrEmpty(accessTokenQuery) && path.StartsWithSegments("/hubs"))
+              {
+                context.HttpContext.RequestServices
+                  .GetRequiredService<IAuthService>()
+                  .ValidateAccessToken(accessTokenQuery);
+                context.Token = accessTokenQuery;
+                return Task.CompletedTask;
+              }
+
               Endpoint? endpoint = context.HttpContext.GetEndpoint();
               bool authorized = endpoint?.Metadata?.GetMetadata<IAllowAnonymous>() == null;
               if (authorized)

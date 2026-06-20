@@ -1,13 +1,14 @@
-﻿using Petopia.Business.Models.Notification;
+using Petopia.Business.Models.Notification;
 
 namespace Petopia.Business.Interfaces
 {
   public interface INotificationService
   {
-    public Task<List<NotificationResponseModel>> GetNotificationsAsync();
-    public Task<bool> CheckNotificationAsync(Guid id);
-    public Task<bool> DeleteNotificationsAsync();
-    public Task<bool> MarkAsSeenAsync();
+    Task<List<NotificationResponseModel>> GetNotificationsAsync();
+    Task<bool> CheckNotificationAsync(Guid id);
+    Task<bool> DeleteNotificationAsync(Guid id);
+    Task<bool> MarkAsSeenAsync();
+    Task CreateAsync(CreateNotificationModel model);
+    Task CreateForAdminsAsync(CreateNotificationModel model);
   }
 }
-

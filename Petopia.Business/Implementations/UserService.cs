@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Models.Notification;
 using Petopia.Business.Models.User;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
@@ -14,11 +15,14 @@ namespace Petopia.Business.Implementations
 {
   public class UserService : BaseService, IUserService
   {
+    private readonly INotificationService _notificationService;
+
     public UserService(
       IServiceProvider provider,
       ILogger<UserService> logger
     ) : base(provider, logger)
     {
+      _notificationService = provider.GetRequiredService<INotificationService>();
     }
 
     public async Task<GetUserDetailsResponseModel> GetCurrentUserAsync()
@@ -250,7 +254,7 @@ namespace Petopia.Business.Implementations
         request.Street
       );
 
-      await UnitOfWork.UpgradeForms.CreateAsync(new UpgradeForm()
+      var upgradeForm = new UpgradeForm()
       {
         Id = Guid.NewGuid(),
         EntityName = request.EntityName,
@@ -268,9 +272,20 @@ namespace Petopia.Business.Implementations
         Description = request.Description,
         IsCreatedAt = DateTimeOffset.Now,
         UserId = UserContext.Id,
+      };
+
+      await UnitOfWork.UpgradeForms.CreateAsync(upgradeForm);
+      await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateForAdminsAsync(new CreateNotificationModel
+      {
+        ReferenceId = upgradeForm.Id,
+        ReferenceType = ReferenceType.UpgradeForm,
+        Title = "Yêu cầu nâng cấp mới",
+        Content = $"Có yêu cầu nâng cấp tài khoản mới từ \"{request.OrganizationName}\".",
+        Type = NotificationType.UpgradeRequestCreated,
       });
 
-      await UnitOfWork.SaveChangesAsync();
       return true;
     }
 

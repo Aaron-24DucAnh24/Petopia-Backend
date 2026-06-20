@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Admin;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Enums;
 using Petopia.Business.Models.Exceptions;
+using Petopia.Business.Models.Notification;
 using Petopia.Business.Utils;
 using Petopia.Data.Entities;
 using Petopia.Data.Enums;
@@ -13,8 +15,11 @@ namespace Petopia.Business.Implementations
 {
   public class AdminService : BaseService, IAdminService
   {
+    private readonly INotificationService _notificationService;
+
     public AdminService(IServiceProvider provider, ILogger<AdminService> logger) : base(provider, logger)
     {
+      _notificationService = provider.GetRequiredService<INotificationService>();
     }
 
     public async Task<AdminStatisticsResponseModel> GetStatisticsAsync()
@@ -139,6 +144,17 @@ namespace Petopia.Business.Implementations
       user.IsDeactivated = true;
       UnitOfWork.Users.Update(user);
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.User,
+        Title = "Tài khoản bị vô hiệu hóa",
+        Content = "Tài khoản của bạn đã bị quản trị viên vô hiệu hóa.",
+        Type = NotificationType.ContentDeactivated,
+        UserId = id,
+      });
+
       return true;
     }
 
@@ -197,6 +213,17 @@ namespace Petopia.Business.Implementations
       pet.IsDeleted = true;
       UnitOfWork.Pets.Update(pet);
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.Pet,
+        Title = "Thú cưng bị vô hiệu hóa",
+        Content = $"Thú cưng \"{pet.Name}\" của bạn đã bị quản trị viên vô hiệu hóa.",
+        Type = NotificationType.ContentDeactivated,
+        UserId = pet.OwnerId,
+      });
+
       return true;
     }
 
@@ -253,6 +280,17 @@ namespace Petopia.Business.Implementations
       post.IsDeleted = true;
       UnitOfWork.Posts.Update(post);
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.Post,
+        Title = "Bài đăng bị vô hiệu hóa",
+        Content = "Bài đăng của bạn đã bị quản trị viên vô hiệu hóa.",
+        Type = NotificationType.ContentDeactivated,
+        UserId = post.UserId,
+      });
+
       return true;
     }
 
@@ -311,6 +349,17 @@ namespace Petopia.Business.Implementations
       blog.IsHidden = true;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.Blog,
+        Title = "Blog bị ẩn",
+        Content = $"Blog \"{blog.Title}\" của bạn đã bị quản trị viên ẩn.",
+        Type = NotificationType.ContentDeactivated,
+        UserId = blog.UserId,
+      });
+
       return true;
     }
 
@@ -454,6 +503,27 @@ namespace Petopia.Business.Implementations
       }
 
       await UnitOfWork.SaveChangesAsync();
+
+      var reporterIds = reports.Select(r => r.ReporterId).Distinct();
+      foreach (var reporterId in reporterIds)
+      {
+        await _notificationService.CreateAsync(new CreateNotificationModel
+        {
+          ReferenceId = request.TargetId,
+          ReferenceType = request.TargetType switch
+          {
+            ReportEntity.Blog => ReferenceType.Blog,
+            ReportEntity.User => ReferenceType.User,
+            ReportEntity.Pet => ReferenceType.Pet,
+            _ => ReferenceType.Report,
+          },
+          Title = "Báo cáo đã được xử lý",
+          Content = "Báo cáo của bạn đã được quản trị viên xem xét và xử lý.",
+          Type = NotificationType.ReportResolved,
+          UserId = reporterId,
+        });
+      }
+
       return true;
     }
 
@@ -556,6 +626,17 @@ namespace Petopia.Business.Implementations
       }
 
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.UpgradeForm,
+        Title = "Yêu cầu nâng cấp được chấp nhận",
+        Content = "Yêu cầu nâng cấp tài khoản của bạn đã được chấp nhận. Tài khoản của bạn đã được nâng cấp thành tổ chức.",
+        Type = NotificationType.UpgradeRequestApproved,
+        UserId = form.UserId,
+      });
+
       return true;
     }
 
@@ -572,6 +653,17 @@ namespace Petopia.Business.Implementations
       form.Status = UpgradeStatus.Rejected;
       UnitOfWork.UpgradeForms.Update(form);
       await UnitOfWork.SaveChangesAsync();
+
+      await _notificationService.CreateAsync(new CreateNotificationModel
+      {
+        ReferenceId = id,
+        ReferenceType = ReferenceType.UpgradeForm,
+        Title = "Yêu cầu nâng cấp bị từ chối",
+        Content = "Yêu cầu nâng cấp tài khoản của bạn đã bị từ chối.",
+        Type = NotificationType.UpgradeRequestRejected,
+        UserId = form.UserId,
+      });
+
       return true;
     }
 

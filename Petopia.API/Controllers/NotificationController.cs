@@ -33,11 +33,11 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _notificationService.CheckNotificationAsync(id));
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize]
-    public async Task<ActionResult<bool>> DeleteNotifications()
+    public async Task<ActionResult<bool>> DeleteNotification(Guid id)
     {
-      return ResponseUtils.OkResult(await _notificationService.DeleteNotificationsAsync());
+      return ResponseUtils.OkResult(await _notificationService.DeleteNotificationAsync(id));
     }
 
     [HttpGet("MarkAsSeen")]

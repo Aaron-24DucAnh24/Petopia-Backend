@@ -1,4 +1,5 @@
 using Petopia.Business.Extensions;
+using Petopia.Business.Hubs;
 using Petopia.BackgroundJobs.Extensions;
 using Petopia.API.Middlewares;
 using Serilog;
@@ -52,5 +53,6 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapHub<RealTimeHub>("/hubs/realtime");
 app.MapControllers();
 app.Run();
