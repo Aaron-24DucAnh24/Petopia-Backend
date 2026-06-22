@@ -78,9 +78,11 @@ namespace Petopia.Business
 
     // Cache key
     public const string CACHE_KEY_PROVINCES = "provinces";
+    public const string CACHE_KEY_ADMIN_STATISTICS = "admin:statistics";
 
     // Cache time
     public const double CACHE_TIME_LOCATION = (double)30 / 60 / 24;
+    public const double CACHE_TIME_ADMIN_STATISTICS = (double)10 / 60 / 24;
 
     // Pagination
     public const int DEFAULT_PAGE_SIZE = 10;

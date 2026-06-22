@@ -30,6 +30,7 @@ namespace Petopia.BackgroundJobs.Implementations
       });
       await ServiceProvider.GetRequiredService<IPetService>().GetKeywordsAsync();
       await ServiceProvider.GetRequiredService<IPetService>().GetVaccinesAsync();
+      await ServiceProvider.GetRequiredService<IAdminService>().GetStatisticsAsync();
       return Task.CompletedTask;
     }
   }

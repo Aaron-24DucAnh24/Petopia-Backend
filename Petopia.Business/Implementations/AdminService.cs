@@ -25,6 +25,12 @@ namespace Petopia.Business.Implementations
 
     public async Task<AdminStatisticsResponseModel> GetStatisticsAsync()
     {
+      var cached = CacheManager.Instance.Get<AdminStatisticsResponseModel>(Constants.CACHE_KEY_ADMIN_STATISTICS);
+      if (cached != null)
+      {
+        return cached;
+      }
+
       var now = DateTimeOffset.UtcNow;
 
       var totalUsers = await UnitOfWork.Users.CountAsync(_ => true);
@@ -55,7 +61,7 @@ namespace Petopia.Business.Implementations
         });
       }
 
-      return new AdminStatisticsResponseModel
+      var result = new AdminStatisticsResponseModel
       {
         TotalUsers = totalUsers,
         ActiveUsers = activeUsers,
@@ -71,6 +77,9 @@ namespace Petopia.Business.Implementations
         ResolvedReports = resolvedReports,
         MonthlyStats = monthlyStats,
       };
+
+      CacheManager.Instance.Set(Constants.CACHE_KEY_ADMIN_STATISTICS, result, Constants.CACHE_TIME_ADMIN_STATISTICS);
+      return result;
     }
 
     public async Task<PaginationResponseModel<ManagementUserResponseModel>> GetUsersAsync(
