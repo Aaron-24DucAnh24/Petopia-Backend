@@ -26,6 +26,7 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Comments)
         .Include(x => x.User)
         .ThenInclude(x => x.UserIndividualAttributes)
+        .AsSplitQuery()
         .Where(x => !x.IsDeleted)
         .OrderByDescending(x => x.LastInteractingDate)
         .AsQueryable();
@@ -57,6 +58,7 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Comments)
         .Include(x => x.User)
         .ThenInclude(x => x.UserIndividualAttributes)
+        .AsSplitQuery()
         .FirstOrDefaultAsync(x => (x.Id == postId) && !x.IsDeleted)
         ?? throw new DomainException("No post found.");
       var result = Mapper.Map<PostResponseModel>(post);

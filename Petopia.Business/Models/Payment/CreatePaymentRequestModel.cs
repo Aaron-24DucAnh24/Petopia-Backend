@@ -4,6 +4,7 @@ namespace Petopia.Business.Models.Payment
   {
     public Guid BlogId { get; set; }
     public Guid AdvertisementId { get; set; }
-    public string Nonce { get; set; } = null!;
+    public string? Nonce { get; set; }
+    public string? PaymentMethodToken { get; set; }
   }
 }

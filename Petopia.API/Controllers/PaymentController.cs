@@ -51,5 +51,27 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _paymentService.GetAdvertisementAsync());
     }
+
+    [HttpGet("SavedCards")]
+    [OrganizationAuthorize]
+    public async Task<ActionResult<List<SavedCardResponseModel>>> GetSavedCards()
+    {
+      return ResponseUtils.OkResult(await _paymentService.GetSavedCardsAsync());
+    }
+
+    [HttpPost("SavedCards")]
+    [OrganizationAuthorize]
+    public async Task<ActionResult<SavedCardResponseModel>> VaultCard(
+      [FromBody] VaultCardRequestModel request)
+    {
+      return ResponseUtils.OkResult(await _paymentService.VaultCardAsync(request));
+    }
+
+    [HttpDelete("SavedCards/{token}")]
+    [OrganizationAuthorize]
+    public async Task<ActionResult<bool>> DeleteSavedCard(string token)
+    {
+      return ResponseUtils.OkResult(await _paymentService.DeleteSavedCardAsync(token));
+    }
   }
 }

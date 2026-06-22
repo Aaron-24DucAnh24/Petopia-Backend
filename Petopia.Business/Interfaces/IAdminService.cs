@@ -38,5 +38,7 @@ namespace Petopia.Business.Interfaces
       PaginationRequestModel<AdminSearchFilterModel> request);
     Task<bool> ApproveUpgradeRequestAsync(Guid id);
     Task<bool> RejectUpgradeRequestAsync(Guid id);
+
+    Task<List<EmailTemplateResponseModel>> GetEmailTemplatesAsync();
   }
 }

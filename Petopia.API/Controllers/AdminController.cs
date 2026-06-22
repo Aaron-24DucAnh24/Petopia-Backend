@@ -139,5 +139,12 @@ namespace Petopia.API.Controllers
     {
       return ResponseUtils.OkResult(await _adminService.RejectUpgradeRequestAsync(id));
     }
+
+    [HttpGet("EmailTemplate")]
+    public async Task<ActionResult<List<EmailTemplateResponseModel>>> GetEmailTemplates()
+    {
+      return ResponseUtils.OkResult(await _adminService.GetEmailTemplatesAsync());
+    }
+
   }
 }

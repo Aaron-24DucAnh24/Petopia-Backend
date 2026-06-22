@@ -116,6 +116,7 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Owner)
         .Include(x => x.PetVaccines)
         .ThenInclude(x => x.Vaccine)
+        .AsSplitQuery()
         .Where(x => x.Id == petId)
         .FirstOrDefaultAsync()
         ?? throw new PetNotFoundException();
@@ -131,6 +132,7 @@ namespace Petopia.Business.Implementations
           && (x.Color == pet.Color)
           && (x.Id != pet.Id)
           && (!x.IsDeleted))
+        .OrderByDescending(x => x.IsCreatedAt)
         .Take(SEE_MORE_LENGTH)
         .ToListAsync();
 
@@ -139,6 +141,7 @@ namespace Petopia.Business.Implementations
         seeMore = await UnitOfWork.Pets
         .Include(x => x.Images)
         .Where(x => x.Id != pet.Id)
+        .OrderByDescending(x => x.IsCreatedAt)
         .Take(SEE_MORE_LENGTH)
         .ToListAsync();
       }

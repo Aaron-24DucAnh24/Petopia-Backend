@@ -647,6 +647,47 @@ namespace Petopia.Business.Implementations
       return true;
     }
 
+    public async Task<List<EmailTemplateResponseModel>> GetEmailTemplatesAsync()
+    {
+      var templates = await UnitOfWork.EmailTemplates.ToListAsync();
+      return templates.Select(t => MapEmailTemplate(t)).ToList();
+    }
+
+    private static EmailTemplateResponseModel MapEmailTemplate(EmailTemplate t)
+    {
+      return new EmailTemplateResponseModel
+      {
+        Id = t.Id,
+        Subject = t.Subject,
+        Body = t.Body,
+        Type = (int)t.Type,
+        TypeName = Enum.GetName(typeof(EmailType), t.Type) ?? "Unknown",
+        Placeholders = GetPlaceholdersForType(t.Type),
+      };
+    }
+
+    private static readonly Dictionary<EmailType, string[]> PlaceholderMap = new()
+    {
+      { EmailType.ValidateRegister, new[] { "{email}", "{foRoute}", "{registerToken}" } },
+      { EmailType.ForgotPassword, new[] { "{email}", "{foRoute}", "{passwordToken}" } },
+      { EmailType.UpgradeAccountSuccess, new[] { "{foRoute}" } },
+      { EmailType.UpgradeAccountFailure, new[] { "{foRoute}" } },
+      { EmailType.UpgradedToAdmin, new[] { "{email}", "{foRoute}", "{password}" } },
+      { EmailType.CreatedToBeAdmin, new[] { "{email}", "{foRoute}", "{password}" } },
+      { EmailType.Invoice, new[] { "{email}", "{paymentId}", "{startDate}", "{endDate}", "{description}", "{price}" } },
+    };
+
+    private static readonly string[] AllPlaceholders = new[]
+    {
+      "{email}", "{foRoute}", "{registerToken}", "{passwordToken}",
+      "{paymentId}", "{startDate}", "{endDate}", "{description}", "{price}", "{password}"
+    };
+
+    private static string[] GetPlaceholdersForType(EmailType type)
+    {
+      return PlaceholderMap.TryGetValue(type, out var placeholders) ? placeholders : AllPlaceholders;
+    }
+
     private static async Task<PaginationResponseModel<TResult>> BuildPagedResponse<TEntity, TResult>(
       IQueryable<TEntity> query,
       PaginationRequestModel request,

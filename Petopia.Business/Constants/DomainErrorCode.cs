@@ -33,5 +33,11 @@ namespace Petopia.Business
     // Payment
     public const int CANNOT_CREATE_TOKEN = 14001;
     public const int CANNOT_CREATE_PAYMENT = 14002;
+    public const int MAX_SAVED_CARDS = 14003;
+    public const int VAULT_CARD_FAILED = 14004;
+    public const int DELETE_CARD_FAILED = 14005;
+
+    // Email template
+    public const int NOT_FOUND_EMAIL_TEMPLATE = 16001;
   }
 }

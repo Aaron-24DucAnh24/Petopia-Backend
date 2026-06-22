@@ -22,6 +22,7 @@ namespace Petopia.Data.Entities
     public bool IsDeactivated { get; set; }
     public string Phone { get; set; }
     public DateTimeOffset BirthDate { get; set; }
+    public string BraintreeCustomerId { get; set; }
 
     public UserConnection UserConnection { get; set; }
     public UserIndividualAttributes UserIndividualAttributes { get; set; }
