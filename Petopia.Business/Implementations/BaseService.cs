@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Petopia.Business.Contexts;
 using Petopia.Business.Data;
+using Petopia.Business.Extensions;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Common;
 using Petopia.Business.Models.Setting;
@@ -50,12 +51,14 @@ namespace Petopia.Business.Implementations
         ?? throw new ConfigurationErrorsException();
     }
 
+    protected ValueTask<User?> FindUserByEmailAsync(string plainEmail)
+      => UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(plainEmail));
+
     protected async Task<UserContextModel> GetUserContextAsync(Guid userId)
     {
       UserContextModel result = new();
       User user = await UnitOfWork.Users
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
+        .WithAttributes()
         .FirstAsync(x => x.Id == userId);
       string userName = user.Role == UserRole.Organization
         ? user.UserOrganizationAttributes.OrganizationName

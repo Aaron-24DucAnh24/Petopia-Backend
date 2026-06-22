@@ -25,7 +25,7 @@ namespace Petopia.Business.Implementations
           .FirstOrDefault(p => p.Id == request.PostId);
         if (post is not null)
         {
-          post.LastInteractingDate = DateTimeOffset.Now;
+          post.LastInteractingDate = DateTimeOffset.UtcNow;
         }
       }
 
@@ -36,7 +36,7 @@ namespace Petopia.Business.Implementations
         UserId = UserContext.Id,
         PostId = request.PostId,
         BlogId = request.BlogId,
-        IsCreatedAt = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
       });
       await UnitOfWork.SaveChangesAsync();
 

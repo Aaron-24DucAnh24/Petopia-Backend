@@ -47,14 +47,14 @@ namespace Petopia.Business.Utils
       CreateMap<Blog, BlogDetailResponseModel>()
         .ForMember(dest => dest.UserImage, opt => opt.MapFrom(src => src.User.Image))
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)))
-        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
+        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0));
       CreateMap<Blog, BlogResponseModel>()
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)))
-        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
+        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0));
       CreateMap<Blog, BlogSearchModel>()
         .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => GetBlogAuthorName(src)));
       CreateMap<BlogSearchModel, BlogResponseModel>()
-        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0));
+        .ForMember(dest => dest.IsAdvertised, opt => opt.MapFrom(src => src.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0));
 
       CreateMap<Post, PostResponseModel>()
         .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(x => x.Url).ToList()))

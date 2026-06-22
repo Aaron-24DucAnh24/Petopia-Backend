@@ -12,13 +12,6 @@ namespace Petopia.Business.Implementations
 {
   public class PetService : BaseService, IPetService
   {
-    private const int SEE_MORE_LENGTH = 4;
-    private const double BREED_CACHING_DAYS = Constants.CACHE_TIME_LOCATION;
-    private const string NAMES_CACHE_KEY = "NAMES_CACHE_KEY";
-    private const string BREEDS_CACHE_KEY = "BREEDS_CACHE_KEY";
-    private const string DOG_KEYWORD = "Chó";
-    private const string CAT_KEYWORD = "Mèo";
-
     private readonly ISearchEngineService _searchEngineService;
 
     public PetService(
@@ -62,7 +55,7 @@ namespace Petopia.Business.Implementations
         IsSterillized = model.IsSterillized,
         IsAvailable = model.IsAvailable,
         OwnerId = UserContext.Id,
-        IsCreatedAt = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
       });
 
       foreach (var image in model.Images)
@@ -133,7 +126,7 @@ namespace Petopia.Business.Implementations
           && (x.Id != pet.Id)
           && (!x.IsDeleted))
         .OrderByDescending(x => x.IsCreatedAt)
-        .Take(SEE_MORE_LENGTH)
+        .Take(Constants.PET_SEE_MORE_LENGTH)
         .ToListAsync();
 
       if (seeMore.Count == 0)
@@ -142,7 +135,7 @@ namespace Petopia.Business.Implementations
         .Include(x => x.Images)
         .Where(x => x.Id != pet.Id)
         .OrderByDescending(x => x.IsCreatedAt)
-        .Take(SEE_MORE_LENGTH)
+        .Take(Constants.PET_SEE_MORE_LENGTH)
         .ToListAsync();
       }
 
@@ -184,7 +177,7 @@ namespace Petopia.Business.Implementations
       pet.IsVaccinated = model.IsVaccinated;
       pet.IsSterillized = model.IsSterillized;
       pet.IsAvailable = model.IsAvailable;
-      pet.IsUpdatedAt = DateTimeOffset.Now;
+      pet.IsUpdatedAt = DateTimeOffset.UtcNow;
 
       var images = await UnitOfWork.Medias
         .AsTracking()
@@ -269,7 +262,7 @@ namespace Petopia.Business.Implementations
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
         GetBreedCacheKey(species),
-        BREED_CACHING_DAYS) ?? new List<string>();
+        Constants.CACHE_TIME_LOCATION) ?? new List<string>();
 
       return result;
     }
@@ -284,7 +277,7 @@ namespace Petopia.Business.Implementations
       var result = await CacheManager.Instance.GetOrSetAsync(
         query,
         GetBreedCacheKey(species, true),
-        BREED_CACHING_DAYS) ?? new List<string>();
+        Constants.CACHE_TIME_LOCATION) ?? new List<string>();
       result = result.Order().ToList();
 
       return result;
@@ -299,8 +292,8 @@ namespace Petopia.Business.Implementations
         .AsQueryable();
       var names = await CacheManager.Instance.GetOrSetAsync(
         nameQuery,
-        NAMES_CACHE_KEY,
-        BREED_CACHING_DAYS);
+        Constants.PET_NAMES_CACHE_KEY,
+        Constants.CACHE_TIME_LOCATION);
       var breedQuery = UnitOfWork.Pets
         .Where(x => !x.IsDeleted)
         .Select(x => x.Breed)
@@ -308,14 +301,14 @@ namespace Petopia.Business.Implementations
         .AsQueryable();
       var breeds = await CacheManager.Instance.GetOrSetAsync(
         breedQuery,
-        BREEDS_CACHE_KEY,
-        BREED_CACHING_DAYS);
+        Constants.PET_BREEDS_CACHE_KEY,
+        Constants.CACHE_TIME_LOCATION);
       var result = new List<string>();
 
       if (names is not null && breeds is not null)
       {
-        names.Add(DOG_KEYWORD);
-        names.Add(CAT_KEYWORD);
+        names.Add(Constants.PET_DOG_KEYWORD);
+        names.Add(Constants.PET_CAT_KEYWORD);
         result.AddRange(names.Concat(breeds));
       }
 

@@ -48,6 +48,18 @@ namespace Petopia.Business
     public const string SORT_KEY_POPULAR = "popular";
     public const string SORT_KEY_NEWEST = "newest";
 
+    // Google API query param keys
+    public const string GOOGLE_PARAM_ACCESS_TOKEN = "access_token";
+    public const string GOOGLE_PARAM_RESPONSE = "response";
+    public const string GOOGLE_PARAM_SECRET = "secret";
+
+    // Pet search
+    public const int PET_SEE_MORE_LENGTH = 4;
+    public const string PET_NAMES_CACHE_KEY = "NAMES_CACHE_KEY";
+    public const string PET_BREEDS_CACHE_KEY = "BREEDS_CACHE_KEY";
+    public const string PET_DOG_KEYWORD = "Chó";
+    public const string PET_CAT_KEYWORD = "Mèo";
+
     // Token setting
     public const double TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS = (double)15 / 60 / 24;
     public const double TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS = 7;

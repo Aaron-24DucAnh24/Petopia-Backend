@@ -26,7 +26,7 @@ namespace Petopia.Business.Implementations
     {
       CacheProviderOptions options = new()
       {
-        AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiration)
+        AbsoluteExpiration = DateTimeOffset.UtcNow.AddDays(expiration)
       };
       _cache.SetString(key, JsonSerializer.Serialize(value), new DistributedCacheEntryOptions()
       {

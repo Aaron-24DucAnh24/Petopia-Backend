@@ -34,8 +34,8 @@ namespace Petopia.Business.Implementations
         Category = request.Category,
         Image = request.Image,
         UserId = UserContext.Id,
-        IsCreatedAt = DateTimeOffset.Now,
-        IsUpdatedAt = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
+        IsUpdatedAt = DateTimeOffset.UtcNow,
       });
       await UnitOfWork.SaveChangesAsync();
 
@@ -68,7 +68,7 @@ namespace Petopia.Business.Implementations
     public async Task<List<BlogResponseModel>> GetAdvertisementAsync()
     {
       var blogs = await UnitOfWork.Blogs
-        .Where(b => b.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
+        .Where(b => b.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0)
         .Where(b => !b.IsHidden)
         .ToListAsync();
       var returnBlogs = blogs
@@ -95,7 +95,7 @@ namespace Petopia.Business.Implementations
       var result = Mapper.Map<BlogDetailResponseModel>(blog);
 
       bool isOwner = UserContext.Id == blog.UserId;
-      bool isActiveAd = blog.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0;
+      bool isActiveAd = blog.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0;
       if (!isOwner || !isActiveAd)
       {
         result.AdvertisingDate = null;
@@ -121,7 +121,7 @@ namespace Petopia.Business.Implementations
       blog.Excerpt = request.Excerpt;
       blog.Category = request.Category;
       blog.Image = request.Image;
-      blog.IsUpdatedAt = DateTimeOffset.Now;
+      blog.IsUpdatedAt = DateTimeOffset.UtcNow;
       UnitOfWork.Blogs.Update(blog);
       await UnitOfWork.SaveChangesAsync();
 

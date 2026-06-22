@@ -18,10 +18,6 @@ namespace Petopia.Business.Implementations
 {
   public class AuthService : BaseService, IAuthService
   {
-    private const string ACCESS_TOKEN = "access_token";
-    private const string RESPONSE = "response";
-    private const string SECRET = "secret";
-
     public AuthService(
       IServiceProvider provider,
       ILogger<AuthService> logger
@@ -31,7 +27,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> LoginAsync(LoginRequestModel request)
     {
-      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.EnryptString(request.Email))
+      User user = await FindUserByEmailAsync(request.Email)
         ?? throw new InvalidCredentialException();
       if (string.IsNullOrEmpty(user.Password))
       {
@@ -56,8 +52,8 @@ namespace Petopia.Business.Implementations
         .FirstOrDefaultAsync(x => x.Id == model.Id);
       string accessToken = TokenUtils.CreateAccessToken(model, Configuration);
       string refreshToken = TokenUtils.CreateRefreshToken(model, Configuration);
-      DateTimeOffset accessTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS);
-      DateTimeOffset refreshTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS);
+      DateTimeOffset accessTokenExpirationDate = DateTimeOffset.UtcNow.AddDays(Constants.TOKEN_SETTING_ACCESS_TOKEN_EXPIRATION_DAYS);
+      DateTimeOffset refreshTokenExpirationDate = DateTimeOffset.UtcNow.AddDays(Constants.TOKEN_SETTING_REFRESH_TOKEN_EXPIRATION_DAYS);
       if (userConnection == null)
       {
         userConnection = await UnitOfWork.UserConnections.CreateAsync(new UserConnection()
@@ -127,7 +123,7 @@ namespace Petopia.Business.Implementations
         ?? throw new SecurityTokenValidationException();
       UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.AccessToken == token)
         ?? throw new SecurityTokenValidationException();
-      if (userConnection.AccessTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
+      if (userConnection.AccessTokenExpirationDate < DateTimeOffset.UtcNow || userConnection.IsDeleted)
       {
         throw new SecurityTokenExpiredException();
       }
@@ -158,7 +154,7 @@ namespace Petopia.Business.Implementations
         ?? throw new SecurityTokenValidationException();
       UserConnection userConnection = UnitOfWork.UserConnections.FirstOrDefault(x => x.Id == userContextInfo.Id && x.RefreshToken == token)
         ?? throw new SecurityTokenValidationException();
-      if (userConnection.RefreshTokenExpirationDate < DateTimeOffset.Now || userConnection.IsDeleted)
+      if (userConnection.RefreshTokenExpirationDate < DateTimeOffset.UtcNow || userConnection.IsDeleted)
       {
         throw new SecurityTokenExpiredException();
       }
@@ -173,7 +169,7 @@ namespace Petopia.Business.Implementations
         ?? throw new ConfigurationErrorsException();
       GoogleUserModel? result = await HttpService.GetAsync<GoogleUserModel>(configs.Endpoint, new Dictionary<string, string?>()
       {
-        [ACCESS_TOKEN] = token,
+        [Constants.GOOGLE_PARAM_ACCESS_TOKEN] = token,
       });
       if ((result == null) || (result.Error.IsNullOrEmpty() == false))
       {
@@ -190,8 +186,8 @@ namespace Petopia.Business.Implementations
         ?? throw new ConfigurationErrorsException();
       GoogleRecaptchaValidationModel? result = await HttpService.GetAsync<GoogleRecaptchaValidationModel>(googleRecaptchaSetting.Endpoint, new Dictionary<string, string?>()
       {
-        [SECRET] = googleRecaptchaSetting.SecretKey,
-        [RESPONSE] = token
+        [Constants.GOOGLE_PARAM_SECRET] = googleRecaptchaSetting.SecretKey,
+        [Constants.GOOGLE_PARAM_RESPONSE] = token
       });
       if (result == null || !result.Success)
       {
@@ -219,7 +215,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<JwtTokensModel> AdminLoginAsync(LoginRequestModel request)
     {
-      User user = await UnitOfWork.Users.FirstOrDefaultAsync(u => u.Email == HashUtils.EnryptString(request.Email))
+      User user = await FindUserByEmailAsync(request.Email)
         ?? throw new InvalidCredentialException();
       if (user.Role != UserRole.SystemAdmin)
       {

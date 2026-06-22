@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Mail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Petopia.Business.Extensions;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Email;
 using Petopia.Business.Models.Exceptions;
@@ -47,7 +48,7 @@ namespace Petopia.Business.Implementations
       }
       ;
       user.ResetPasswordToken = TokenUtils.CreateSecurityToken();
-      user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now.AddDays(Constants.TOKEN_SETTING_PASSWORD_TOKEN_EXPIRATION_DAYS);
+      user.ResetPasswordTokenExpirationDate = DateTimeOffset.UtcNow.AddDays(Constants.TOKEN_SETTING_PASSWORD_TOKEN_EXPIRATION_DAYS);
       await UnitOfWork.SaveChangesAsync();
 
       EmailTemplate emailTemplate = await UnitOfWork.EmailTemplates.FirstAsync(x => x.Type == EmailType.ForgotPassword);
@@ -142,8 +143,7 @@ namespace Petopia.Business.Implementations
     {
       User user = await UnitOfWork.Users
         .AsTracking()
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
+        .WithAttributes()
         .FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(email))
         ?? throw new IncorrectEmailException();
       return user;

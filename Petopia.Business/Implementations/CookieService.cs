@@ -29,7 +29,7 @@ namespace Petopia.Business.Implementations
     {
       HttpContextAccessor?.HttpContext?.Response.Cookies.Append(key, value, new CookieOptions()
       {
-        Expires = DateTimeOffset.Now.AddDays(expirationDays),
+        Expires = DateTimeOffset.UtcNow.AddDays(expirationDays),
         HttpOnly = true,
         Secure = true,
         SameSite = SameSiteMode.None,

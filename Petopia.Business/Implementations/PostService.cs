@@ -96,7 +96,7 @@ namespace Petopia.Business.Implementations
         });
       }
 
-      post.LastInteractingDate = DateTimeOffset.Now;
+      post.LastInteractingDate = DateTimeOffset.UtcNow;
       await UnitOfWork.SaveChangesAsync();
 
       return post.Like;
@@ -109,8 +109,8 @@ namespace Petopia.Business.Implementations
         Id = Guid.NewGuid(),
         UserId = UserContext.Id,
         Content = request.Content,
-        IsCreatedAt = DateTimeOffset.Now,
-        LastInteractingDate = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
+        LastInteractingDate = DateTimeOffset.UtcNow,
       });
 
       foreach (var image in request.Images)

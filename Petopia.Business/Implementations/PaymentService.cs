@@ -71,7 +71,7 @@ namespace Petopia.Business.Implementations
         .Include(x => x.User).ThenInclude(x => x.UserIndividualAttributes)
         .FirstAsync(x => x.Id == request.BlogId);
 
-      if (blog.AdvertisingDate.CompareTo(DateTimeOffset.Now) >= 0)
+      if (blog.AdvertisingDate.CompareTo(DateTimeOffset.UtcNow) >= 0)
       {
         throw new PaymentFailureException();
       }
@@ -115,8 +115,8 @@ namespace Petopia.Business.Implementations
       {
         Id = Guid.NewGuid(),
         BlogId = request.BlogId,
-        AdvertisingDate = DateTimeOffset.Now.AddDays(advertisement.MonthDuration * 30),
-        IsCreatedAt = DateTimeOffset.Now,
+        AdvertisingDate = DateTimeOffset.UtcNow.AddDays(advertisement.MonthDuration * 30),
+        IsCreatedAt = DateTimeOffset.UtcNow,
         Amount = advertisement.Price,
         LinkedPaymentId = result.Target.Id,
       });

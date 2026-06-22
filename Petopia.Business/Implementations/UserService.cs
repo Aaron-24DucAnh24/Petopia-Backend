@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Petopia.Business.Extensions;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Authentication;
 using Petopia.Business.Models.Exceptions;
@@ -42,8 +43,7 @@ namespace Petopia.Business.Implementations
     public async Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync()
     {
       User user = await UnitOfWork.Users
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
+        .WithAttributes()
         .FirstAsync(x => x.Id == UserContext.Id);
       var result = Mapper.Map<CurrentUserCoreResponseModel>(user);
       result.Email = HashUtils.DecryptString(
@@ -67,7 +67,7 @@ namespace Petopia.Business.Implementations
         Id = Guid.NewGuid(),
         Email = HashUtils.EnryptString(cacheData.Email),
         Password = HashUtils.HashPassword(cacheData.Password),
-        IsCreatedAt = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
         BirthDate = DateTimeOffset.Parse(cacheData.BirthDate),
       });
       await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
@@ -89,7 +89,7 @@ namespace Petopia.Business.Implementations
 
     public async Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo)
     {
-      User? user = await UnitOfWork.Users.FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(userInfo.Email));
+      User? user = await FindUserByEmailAsync(userInfo.Email);
       if (user == null)
       {
         user = await UnitOfWork.Users.CreateAsync(new User()
@@ -98,7 +98,7 @@ namespace Petopia.Business.Implementations
           Email = HashUtils.EnryptString(userInfo.Email),
           Password = string.Empty,
           Image = userInfo.Picture,
-          IsCreatedAt = DateTimeOffset.Now,
+          IsCreatedAt = DateTimeOffset.UtcNow,
         });
         UserIndividualAttributes attributes = await UnitOfWork.UserIndividualAttributes.CreateAsync(new UserIndividualAttributes()
         {
@@ -126,13 +126,13 @@ namespace Petopia.Business.Implementations
         .AsTracking()
         .FirstOrDefaultAsync(x => x.Email == HashUtils.EnryptString(request.Email));
       if (user == null
-      || user.ResetPasswordTokenExpirationDate < DateTimeOffset.Now
+      || user.ResetPasswordTokenExpirationDate < DateTimeOffset.UtcNow
       || user.ResetPasswordToken != request.ResetPasswordToken)
       {
         throw new InvalidPasswordTokenException();
       }
       user.Password = HashUtils.HashPassword(request.Password);
-      user.ResetPasswordTokenExpirationDate = DateTimeOffset.Now;
+      user.ResetPasswordTokenExpirationDate = DateTimeOffset.UtcNow;
       await UnitOfWork.SaveChangesAsync();
       return true;
     }
@@ -163,8 +163,7 @@ namespace Petopia.Business.Implementations
     {
       User user = await UnitOfWork.Users
         .AsTracking()
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
+        .WithAttributes()
         .Where(x => x.Id == UserContext.Id)
         .FirstAsync();
 
@@ -270,7 +269,7 @@ namespace Petopia.Business.Implementations
         TaxCode = request.TaxCode,
         Type = request.Type,
         Description = request.Description,
-        IsCreatedAt = DateTimeOffset.Now,
+        IsCreatedAt = DateTimeOffset.UtcNow,
         UserId = UserContext.Id,
       };
 

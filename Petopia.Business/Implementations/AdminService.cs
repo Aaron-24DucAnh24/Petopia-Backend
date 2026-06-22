@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Petopia.Business.Extensions;
 using Petopia.Business.Interfaces;
 using Petopia.Business.Models.Admin;
 using Petopia.Business.Models.Common;
@@ -79,8 +80,7 @@ namespace Petopia.Business.Implementations
       var isActive = request.Filter.IsActive;
 
       var query = UnitOfWork.Users
-        .Include(x => x.UserIndividualAttributes)
-        .Include(x => x.UserOrganizationAttributes)
+        .WithAttributes()
         .AsQueryable()
         .AsSplitQuery();
 
