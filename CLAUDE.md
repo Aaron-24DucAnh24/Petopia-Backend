@@ -10,19 +10,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # 1. Start infrastructure (SQL Server, Redis, MinIO, MeiliSearch)
 docker-compose up
 
-# 2. Create HTTPS dev certificate (once)
-dotnet dev-certs https -ep ./certificate.pfx -p HDJHFNVHYNDKSLFUEJDMF --trust
-
-# 3. Apply EF Core migrations (run from Petopia.Data/)
+# 2. Apply EF Core migrations (run from Petopia.Data/)
 dotnet tool install --global dotnet-ef
 dotnet ef database update
 
-# 4. Run the API (run from Petopia.API/)
+# 3. Run the API (run from Petopia.API/)
 dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 ```
 
 **Service URLs:**
-- Swagger: `https://127.0.0.1:8888/swagger/index.html`
+- Swagger: `http://127.0.0.1:9999/swagger/index.html`
 - MinIO console: `http://127.0.0.1:9001/browser`
 - MeiliSearch: `http://127.0.0.1:7700`
 

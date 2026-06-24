@@ -32,13 +32,7 @@ Starts SQL Server, Redis, MinIO, and MeiliSearch via Docker.
 docker-compose up -d
 ```
 
-### 3. Create a development HTTPS certificate
-
-```bash
-dotnet dev-certs https -ep ./certificate.pfx -p <your-password> --trust
-```
-
-### 4. Apply database migrations
+### 3. Apply database migrations
 
 ```bash
 cd Petopia.Data
@@ -46,7 +40,7 @@ dotnet tool install --global dotnet-ef   # skip if already installed
 dotnet ef database update
 ```
 
-### 5. Run the API
+### 4. Run the API
 
 ```bash
 cd Petopia.API
@@ -55,11 +49,11 @@ dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 
 ## Service URLs
 
-| Service                     | URL                                       |
-| --------------------------- | ----------------------------------------- |
-| Swagger (API docs)          | https://127.0.0.1:8888/swagger/index.html |
-| MinIO (file storage)        | http://127.0.0.1:9001/browser             |
-| MeiliSearch (search engine) | http://127.0.0.1:7700                     |
+| Service                     | URL                                      |
+| --------------------------- | ---------------------------------------- |
+| Swagger (API docs)          | http://127.0.0.1:9999/swagger/index.html |
+| MinIO (file storage)        | http://127.0.0.1:9001/browser            |
+| MeiliSearch (search engine) | http://127.0.0.1:7700                    |
 
 ## Tech Stack
 
@@ -78,3 +72,4 @@ dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 | Project      | Repository                                           |
 | ------------ | ---------------------------------------------------- |
 | Front Office | https://github.com/Aaron-24DucAnh24/Petopia-Frontend |
+| Chat Service | https://github.com/Aaron-24DucAnh24/Petopia-Chat     |
