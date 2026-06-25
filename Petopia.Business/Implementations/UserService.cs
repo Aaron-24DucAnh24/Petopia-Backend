@@ -370,7 +370,7 @@ namespace Petopia.Business.Implementations
     {
       user.UserOrganizationAttributes = await UnitOfWork.UserOrganizationAttributes.FirstAsync(x => x.Id == user.Id);
       var result = Mapper.Map<CurrentOrganizationResponseModel>(user);
-      result.Email = HashUtils.DecryptString(user.UserOrganizationAttributes.Email);
+      result.Email = user.UserOrganizationAttributes.Email;
       return result;
     }
 
