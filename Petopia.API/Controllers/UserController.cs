@@ -42,6 +42,13 @@ namespace Petopia.API.Controllers
       return ResponseUtils.OkResult(await _userService.GetOtherUserAsync(userId));
     }
 
+    [HttpGet("FindByEmail")]
+    [Authorize]
+    public async Task<ActionResult<List<GetUserDetailsResponseModel>>> FindByEmail([FromQuery] string email)
+    {
+      return ResponseUtils.OkResult(await _userService.SearchUsersByEmailAsync(email));
+    }
+
     [HttpGet("CurrentUserCore")]
     [Authorize]
     public async Task<ActionResult<CurrentUserCoreResponseModel>> GetCurrentUserCore()

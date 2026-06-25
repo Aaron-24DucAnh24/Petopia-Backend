@@ -8,6 +8,7 @@ namespace Petopia.Business.Interfaces
   {
     public Task<GetUserDetailsResponseModel> GetCurrentUserAsync();
     public Task<GetUserDetailsResponseModel> GetOtherUserAsync(string userId);
+    public Task<List<GetUserDetailsResponseModel>> SearchUsersByEmailAsync(string email);
     public Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync();
     public Task<UserContextModel> CreateUserSelfRegistrationAsync(ValidateRegisterRequestModel request);
     public Task<UserContextModel> CreateUserGoogleRegistrationAsync(GoogleUserModel userInfo);

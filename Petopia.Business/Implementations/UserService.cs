@@ -40,6 +40,38 @@ namespace Petopia.Business.Implementations
       throw new UserNotFoundException();
     }
 
+    public async Task<List<GetUserDetailsResponseModel>> SearchUsersByEmailAsync(string emailQuery)
+    {
+      if (string.IsNullOrWhiteSpace(emailQuery)) return new List<GetUserDetailsResponseModel>();
+
+      var users = await UnitOfWork.Users.WithAttributes().ToListAsync();
+      var results = new List<GetUserDetailsResponseModel>();
+      foreach (var user in users)
+      {
+        var plainEmail = HashUtils.DecryptString(user.Email);
+        if (!plainEmail.Contains(emailQuery, StringComparison.OrdinalIgnoreCase)) continue;
+
+        GetUserDetailsResponseModel result;
+        if (user.Role == UserRole.Organization)
+        {
+          var r = Mapper.Map<CurrentOrganizationResponseModel>(user);
+          r.Email = plainEmail;
+          result = r;
+        }
+        else
+        {
+          var r = Mapper.Map<CurrentIndividualResponseModel>(user);
+          r.Email = plainEmail;
+          result = r;
+        }
+
+        results.Add(result);
+        if (results.Count >= 20) break;
+      }
+
+      return results;
+    }
+
     public async Task<CurrentUserCoreResponseModel> GetCurrentUserCoreAsync()
     {
       User user = await UnitOfWork.Users
