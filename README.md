@@ -1,66 +1,21 @@
 # Petopia — Pet Adoption Platform Backend
 
-The REST API backend for the Petopia pet adoption platform, built with ASP.NET Core 8.
+The REST API backend for the Petopia pet adoption platform, built with ASP.NET Core.
 
-## Requirements
+## Local development
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Docker](https://www.docker.com/products/docker-desktop)
-- [dotnet-ef CLI](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
+Environment setup (infrastructure via Docker Compose, configuration, migrations, seeding) and run instructions for every Petopia service live in the umbrella repository:
 
-## Getting Started
+**https://github.com/Aaron-24DucAnh24/Petopia#readme**
 
-### 1. Configure environment
-
-Copy the environment template and fill in your values:
-
-```bash
-cp .env.production .env
-```
-
-Copy the appsettings template and fill in your values:
-
-```bash
-cp Petopia.API/appsettings.Production.json Petopia.API/appsettings.Development.json
-```
-
-### 2. Start infrastructure services
-
-Starts SQL Server, Redis, MinIO, and MeiliSearch via Docker.
-
-```bash
-docker-compose up -d
-```
-
-### 3. Apply database migrations
-
-```bash
-cd Petopia.Data
-dotnet tool install --global dotnet-ef   # skip if already installed
-dotnet ef database update
-```
-
-### 4. Run the API
-
-```bash
-cd Petopia.API
-dotnet run -e ASPNETCORE_ENVIRONMENT=Development
-```
-
-## Service URLs
-
-| Service                     | URL                                      |
-| --------------------------- | ---------------------------------------- |
-| Swagger (API docs)          | http://127.0.0.1:9999/swagger/index.html |
-| MinIO (file storage)        | http://127.0.0.1:9001/browser            |
-| MeiliSearch (search engine) | http://127.0.0.1:7700                    |
+This repository doesn't ship its own `docker-compose.yml`; the shared one in the umbrella repo starts SQL Server, Redis, MinIO and MeiliSearch.
 
 ## Tech Stack
 
 | Category        | Technology                  |
 | --------------- | --------------------------- |
-| API framework   | ASP.NET Core 8.0            |
-| ORM             | Entity Framework Core 8.0   |
+| API framework   | ASP.NET Core 7.0            |
+| ORM             | Entity Framework Core 7.0   |
 | Database        | SQL Server (Azure SQL Edge) |
 | Cache           | Redis                       |
 | File storage    | MinIO                       |
@@ -71,5 +26,6 @@ dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 
 | Project      | Repository                                           |
 | ------------ | ---------------------------------------------------- |
+| Umbrella     | https://github.com/Aaron-24DucAnh24/Petopia          |
 | Front Office | https://github.com/Aaron-24DucAnh24/Petopia-Frontend |
 | Chat Service | https://github.com/Aaron-24DucAnh24/Petopia-Chat     |
