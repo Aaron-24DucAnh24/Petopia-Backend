@@ -4,17 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build & Run
 
-**Prerequisites:** Docker must be running first.
+Infrastructure (SQL Server, Redis, MinIO, MeiliSearch) is started from the umbrella repo's `docker-compose.yml`, not from this repo. The full setup, including the `appsettings.Development.json` template, is in the umbrella README: https://github.com/Aaron-24DucAnh24/Petopia#readme
 
 ```bash
-# 1. Start infrastructure (SQL Server, Redis, MinIO, MeiliSearch)
-docker-compose up
+# 1. Apply EF Core migrations (run from Petopia.Data/)
+ASPNETCORE_ENVIRONMENT=Development dotnet ef database update
 
-# 2. Apply EF Core migrations (run from Petopia.Data/)
-dotnet tool install --global dotnet-ef
-dotnet ef database update
-
-# 3. Run the API (run from Petopia.API/)
+# 2. Run the API (run from Petopia.API/)
 dotnet run -e ASPNETCORE_ENVIRONMENT=Development
 ```
 
