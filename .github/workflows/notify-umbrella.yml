@@ -1,0 +1,24 @@
+name: Notify umbrella
+
+# Tells the Petopia umbrella repo that this repo's main moved, so it can bump
+# its submodule pointer. Needs the UMBRELLA_DISPATCH_TOKEN secret: a token with
+# write access to Aaron-24DucAnh24/Petopia (fine-grained PAT: Contents read/write).
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send submodule-updated to the umbrella repo
+        env:
+          GH_TOKEN: ${{ secrets.UMBRELLA_DISPATCH_TOKEN }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          task=$(printf '%s' "$COMMIT_MESSAGE" | grep -oE 'PR-[0-9]+' | head -n 1 || true)
+          gh api repos/Aaron-24DucAnh24/Petopia/dispatches \
+            -f event_type=submodule-updated \
+            -f "client_payload[submodule]=backend" \
+            -f "client_payload[task]=$task"
