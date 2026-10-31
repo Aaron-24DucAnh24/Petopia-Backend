@@ -1,0 +1,35 @@
+name: Docker build
+
+# Builds the production image on every PR and every push to main, so a change
+# that breaks the build is caught before it merges. The image is not pushed
+# anywhere yet.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: petopia-backend:${{ github.sha }}
+          cache-from: type=gha,scope=petopia-backend
+          cache-to: type=gha,mode=max,scope=petopia-backend

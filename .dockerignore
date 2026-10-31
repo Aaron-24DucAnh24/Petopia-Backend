@@ -1,0 +1,23 @@
+# Keep the build context small and free of local secrets.
+.git
+.github
+.vs
+.vscode
+.config
+.claude
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/Logs
+**/Properties/launchSettings.json
+**/appsettings.Development.json
+**/appsettings.Production.json
+**/*.pfx
+**/.env
+**/.env.*
+**/.DS_Store
+Dockerfile
+.dockerignore
+*.md
+notify-umbrella.yml
